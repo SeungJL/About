@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
 import { useAdminDepositMutation } from "../../hooks/admin/mutation";
 import {
   useCompleteToast,
@@ -38,18 +32,19 @@ function CheckAbsentModal({ uid, fee, setIsModal }: ICheckAbsentModal) {
   };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md" height={180}>
-      <ModalHeader text="불참 인정" />
-      <ModalBody>
-        해당 유저의 불참을 인정합니다. 벌금이 면제됩니다. 남용하지는 말아주세요!
-      </ModalBody>
-      <ModalFooterTwo
-        leftText="닫기"
-        rightText="인정"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onClick}
-      />
-    </ModalLayout>
+    // <ModalLayout onClose={() => setIsModal(false)} size="md" height={180}>
+    //   <ModalHeader text="불참 인정" />
+    //   <ModalBody>
+    //     해당 유저의 불참을 인정합니다. 벌금이 면제됩니다. 남용하지는 말아주세요!
+    //   </ModalBody>
+    //   <ModalFooterTwo
+    //     leftText="닫기"
+    //     rightText="인정"
+    //     onClickLeft={() => setIsModal(false)}
+    //     onClickRight={onClick}
+    //   />
+    // </ModalLayout>
+    null
   );
 }
 

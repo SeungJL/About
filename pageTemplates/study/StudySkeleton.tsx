@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import StudyTimeTableSkeleton from "./studySkeleton/studyTimeTableSkeleton";
-
 interface IstudySkeleton {
   coverImageUrl: string;
 }
@@ -9,14 +7,14 @@ interface IstudySkeleton {
 function studySkeleton({ coverImageUrl }: IstudySkeleton) {
   return (
     <Layout>
-      <StudyHeaderSkeleton />
+      {/* <StudyHeaderSkeleton />
       <Wrapper>
         <StudyCoverSkeleton coverImageUrl={coverImageUrl} />
         <StudyOverviewSkeleton />
         <HrDiv />
         <StudyDateBarSkeleton />
         <StudyTimeTableSkeleton />
-      </Wrapper>
+      </Wrapper> */}
     </Layout>
   );
 }

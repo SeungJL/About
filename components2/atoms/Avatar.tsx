@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { COLOR_TABLE_LIGHT } from "../../constants2/colorConstants";
 import { AVATAR_IMAGE_ARR } from "../../storage/avatarStorage";
 import { IAvatar as IAvatarProp } from "../../types2/userTypes/userInfoTypes";
-type Size = "sm" | "md" | "lg";
+type Size = "sm" | "md" | "lg" | "xl";
 
 interface IAvatar {
   image: string;
@@ -17,8 +17,10 @@ interface IAvatar {
 
 export default function Avatar({ image, size, avatar, uid }: IAvatar) {
   const router = useRouter();
+  const hasAvatar =
+    avatar !== undefined && avatar?.type !== null && avatar?.bg !== null;
 
-  const avatarProps: { image: string; bg: string | null } = !avatar
+  const avatarProps: { image: string; bg: string | null } = !hasAvatar
     ? { image, bg: null }
     : {
         image: AVATAR_IMAGE_ARR[avatar.type],
@@ -28,6 +30,10 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
   const [imageUrl, setImageUrl] = useState(
     avatarProps.image || AVATAR_IMAGE_ARR[0]
   );
+
+  useEffect(() => {
+    setImageUrl(avatarProps.image || AVATAR_IMAGE_ARR[0]);
+  }, [avatarProps]);
 
   const onClickAvatar = () => {
     if (size === "sm") return;
@@ -40,12 +46,26 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
 
   return (
     <AvatarContainer onClick={onClickAvatar} size={size}>
-      <ImageContainer bg={avatarProps.bg} hasType={!!avatar?.type}>
+      <ImageContainer
+        bg={hasAvatar && avatarProps.bg}
+        hasType={hasAvatar}
+        size={size}
+      >
         <Box w="100%" h="100%" pos="relative">
           <Image
             src={imageUrl}
             fill={true}
-            sizes={size === "sm" ? "28px" : size === "md" ? "44px" : "80px"}
+            sizes={
+              size === "sm"
+                ? "28px"
+                : size === "md"
+                ? "44px"
+                : size === "lg"
+                ? "64px"
+                : size === "xl"
+                ? "80px"
+                : ""
+            }
             alt="avatar"
             onError={onError}
           />
@@ -76,6 +96,11 @@ const AvatarContainer = styled.div<{
         `;
       case "lg":
         return css`
+          width: 64px;
+          height: 64px;
+        `;
+      case "xl":
+        return css`
           width: 80px; // w-20
           height: 80px; // h-20
         `;
@@ -86,19 +111,23 @@ const AvatarContainer = styled.div<{
 const ImageContainer = styled.div<{
   bg: string | null;
   hasType: boolean;
+  size: Size;
 }>`
   position: relative;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
+  padding: ${(props) =>
+    props.hasType &&
+    (props.size === "sm"
+      ? "2px"
+      : props.size === "md"
+      ? "4px"
+      : props.size === "lg"
+      ? "6px"
+      : "8px")};
 
-  ${(props) =>
-    props.hasType
-      ? css`
-          padding: 2px;
-        `
-      : null}
   background-color: ${(props) =>
     props.bg ? props.bg : "var(--gray-7)"}; // bg-gray-200 as fallback
 `;

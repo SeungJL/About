@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
+
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import { ISpaceControl } from "../../../types/page/admin";
 
@@ -136,7 +137,8 @@ function Adminstudy() {
           >
             <div>
               <ImageContainer>
-                <studyLogo place={place} isBig={false} />
+                {/* <studyLogo place={place} isBig={false} /> */}
+                temp
               </ImageContainer>
               <SpaceInfo>
                 <Status>

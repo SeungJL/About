@@ -3,8 +3,8 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
-import Header from "../../components2/Header";
 import SummaryTable from "../../components2/organisms/tables/SummaryTable";
 import {
   usePointSystemLogQuery,

@@ -2,6 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { faMeteor, faStarShooting } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import EveryTimeLogo from "../../assets/EveryTimeLogo";
 import ArrowTextButton from "../../components2/atoms/buttons/ArrowTextButton";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
 
@@ -10,6 +11,9 @@ export default function EventPoint({}: IEventPoint) {
   return (
     <>
       <SectionBar title="다양한 포인트 획득처" size="md" />
+      <Flex justify="center" mt="32px" bg="var(--gray-7)">
+        <EveryTimeLogo />
+      </Flex>
       <Box fontWeight={600}>
         <Link href="/event/point/activity">
           <Flex

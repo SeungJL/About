@@ -2,8 +2,8 @@ import { faCircleHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
-import Header from "../../components2/Header";
 
 import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";

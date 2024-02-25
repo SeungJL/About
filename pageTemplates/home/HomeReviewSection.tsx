@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
 import ImageTileGridLayout, {
   IImageTileData,
@@ -16,7 +17,9 @@ export default function HomeReviewSection() {
   return (
     <>
       <SectionBar title="ABOUT 모임 후기" />
-      <ImageTileGridLayout imageDataArr={imageData} />
+      <Box p="16px">
+        <ImageTileGridLayout imageDataArr={imageData} />
+      </Box>
     </>
   );
 }

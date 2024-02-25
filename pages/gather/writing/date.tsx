@@ -6,8 +6,8 @@ import { useRecoilState } from "recoil";
 import BottomNav from "../../../components/layout/BottomNav";
 import Slide from "../../../components/layout/PageSlide";
 
+import Header from "../../../components/layout/Header";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
-import Header from "../../../components2/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherWritingDateDate from "../../../pageTemplates/gather/writing/GatherWritingDateDate";
 import GatherWritingDateSubject from "../../../pageTemplates/gather/writing/GatherWritingDateSubject";

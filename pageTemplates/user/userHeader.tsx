@@ -1,6 +1,6 @@
 import { faGear } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Header from "../../components2/Header";
+import Header from "../../components/layout/Header";
 import IconButtonNav, {
   IconButtonNavBtn,
 } from "../../components2/molecules/navs/IconButtonNav";

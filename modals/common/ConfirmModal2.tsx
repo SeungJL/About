@@ -1,9 +1,4 @@
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { IModal } from "../../types/reactTypes";
 import { IConfirmContent } from "./ConfirmModal";
 
@@ -12,16 +7,23 @@ interface IConfirmModal extends IModal {
 }
 
 function ConfirmModal2({ content, setIsModal }: IConfirmModal) {
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "확인",
+      func: content.onClickRight,
+    },
+    sub: {
+      text: "취소",
+    },
+  };
+
   return (
-    <ModalLayout size="md" onClose={() => setIsModal(false)}>
-      <ModalHeader text={content.title} />
-      <ModalBody>{content.text}</ModalBody>
-      <ModalFooterTwo
-        leftText="취소"
-        onClickLeft={() => setIsModal(false)}
-        rightText="확인"
-        onClickRight={content.onClickRight}
-      />
+    <ModalLayout
+      footerOptions={footerOptions}
+      title={content.title}
+      setIsModal={setIsModal}
+    >
+      {content.text}
     </ModalLayout>
   );
 }

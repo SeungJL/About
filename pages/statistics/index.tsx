@@ -3,14 +3,17 @@ import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
-import Header from "../../components2/Header";
-import { sortUserAttends, sortUserScores } from "../../helpers/userHelpers";
+import { sortUserRanking } from "../../helpers/userHelpers";
 import { useTypeToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
+import RankingMembers from "../../pageTemplates/ranking/RankingMembers";
+import RankingOverview from "../../pageTemplates/ranking/RankingOverview";
+import StatisticsMine from "../../pageTemplates/ranking/StatisticsMine";
 import StatisticsTabNav from "../../pageTemplates/ranking/StatisticsTabNav";
-import { IRankingUser, RankingType } from "../../types/page/ranking";
+import { IUserRankings } from "../../types/page/ranking";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
@@ -24,11 +27,10 @@ function Ranking() {
   );
   const isGuest = session?.user.name === "guest";
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [initialUsersData, setInitialUsersData] = useState<IRankingUser[]>();
-
-  const [isLocationFilter, setIsLocationFilter] = useState(true);
-  const [rankInfo, setRankInfo] = useState<RankingType>();
+  const [usersRanking, setUsersRanking] = useState<IUserRankings>();
+  const [tabValue, setTabValue] = useState<"전체 랭킹" | "내 통계">(
+    "전체 랭킹"
+  );
 
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,
@@ -38,6 +40,8 @@ function Ranking() {
     dayjs().subtract(1, "month").date(0),
     dayjs(),
     false,
+    true,
+    "수원",
     {
       onError: () => typeToast("error"),
     }
@@ -45,41 +49,45 @@ function Ranking() {
 
   useEffect(() => {
     if (!attendRecords) return;
-
-    return;
-    const filtered = isLocationFilter
-      ? initialUsersData.filter((who) => who.location === location)
-      : initialUsersData;
-    const A = sortUserAttends(filtered, session?.user?.uid as string);
-    const B = sortUserScores(filtered, session?.user?.uid as string);
-   
+    setUsersRanking(
+      sortUserRanking(attendRecords, session?.user.uid, "attend")
+    );
   }, [attendRecords]);
+  console.log(usersRanking);
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="About 랭킹" />
+      <Header title="About 랭킹" />
+      <Slide>
+        <Layout>
+          <Wrapper>
+            {usersRanking && (
+              <>
+                <RankingOverview
+                  myRankInfo={usersRanking.mine}
+                  totalCnt={usersRanking.users.length}
+                />
+                <StatisticsTabNav setTabValue={setTabValue} />
+                {tabValue === "전체 랭킹" ? (
+                  <RankingMembers rankingUsers={usersRanking.users} />
+                ) : (
+                  <StatisticsMine />
+                )}
+              </>
+            )}
+          </Wrapper>
+        </Layout>
       </Slide>
-      <Layout>
-        <Wrapper>
-          {/* <RankingOverview
-            userInfo={userInfo}
-            rankInfo={rankInfo}
-            isLoading={isLoading}
-          /> */}
-          <StatisticsTabNav />
-        </Wrapper>
-      </Layout>
     </>
   );
 }
 
 const Layout = styled.div`
-  height: 100vh;
-`;
-
-const Wrapper = styled.div`
+  height: calc(100vh - 96px);
+  overflow-y: auto;
   background-color: var(--gray-7);
 `;
+
+const Wrapper = styled.div``;
 
 export default Ranking;

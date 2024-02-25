@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
+import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
 import RuleModal from "../../components/modals/RuleModal";
 import CheckBoxNav from "../../components/templates/CheckBoxNav";
 import Selector from "../../components2/atoms/Selector";
-import Header from "../../components2/Header";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
 import TabNav, {
   ITabNavOptions,

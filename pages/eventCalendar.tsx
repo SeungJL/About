@@ -2,8 +2,9 @@ import dayjs from "dayjs";
 import { Fragment, useState } from "react";
 import styled from "styled-components";
 import MonthNav from "../components/features/atoms/MonthNav";
+import Slide from "../components/layout/PageSlide";
+
 import Header from "../components/layout/Header";
-import Slide from "../components/layout/Slide";
 import Accordion from "../components/templates/Accordion";
 import { ACCORDION_CONTENT_EVENT } from "../constants/contents/accordionContents";
 import { EVENT_CONTENT_2023 } from "../constants/contents/eventContents";
@@ -90,77 +91,79 @@ function EventCalendar() {
   };
 
   return (
-    <Slide>
+    <>
       <Header title="이벤트 캘린더" url="/home" />
-      <Title>
-        <MonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
-      </Title>
-      <Calendar>
-        <WeekTitleHeader>
-          {DAYS_TITLE.map((day, idx) => (
-            <div key={idx}>{day}</div>
-          ))}
-        </WeekTitleHeader>
-        <DayOfWeek>
-          {DAYS_OF_WEEK.map((day) => (
-            <div key={day}>{day}</div>
-          ))}
-        </DayOfWeek>
-        <CalendarDates>
-          {filledDates?.map((item, idx) => {
-            const day = idx % 7 === 0 ? "sun" : idx % 7 === 6 ? "sat" : null;
-            const isToday = navMonth.date(item).isSame(dayjs(), "day");
+      <Slide>
+        <Title>
+          <MonthNav month={navMonth.month()} setNavMonth={setNavMonth} />
+        </Title>
+        <Calendar>
+          <WeekTitleHeader>
+            {DAYS_TITLE.map((day, idx) => (
+              <div key={idx}>{day}</div>
+            ))}
+          </WeekTitleHeader>
+          <DayOfWeek>
+            {DAYS_OF_WEEK.map((day) => (
+              <div key={day}>{day}</div>
+            ))}
+          </DayOfWeek>
+          <CalendarDates>
+            {filledDates?.map((item, idx) => {
+              const day = idx % 7 === 0 ? "sun" : idx % 7 === 6 ? "sat" : null;
+              const isToday = navMonth.date(item).isSame(dayjs(), "day");
 
-            const contentArr = filledContents(item);
-            const dateInfo = Object.values(eventBlocks).map((title) =>
-              contentArr?.find((c) => c.content === title)
-            );
+              const contentArr = filledContents(item);
+              const dateInfo = Object.values(eventBlocks).map((title) =>
+                contentArr?.find((c) => c.content === title)
+              );
 
-            endBlocks.forEach((item) => deleteEventDate(item));
-            endBlocks = [];
+              endBlocks.forEach((item) => deleteEventDate(item));
+              endBlocks = [];
 
-            return (
-              <DateBlock key={idx} isToday={isToday}>
-                <Date day={day} isToday={isToday}>
-                  {!isToday ? item : <TodayCircle>{item}</TodayCircle>}
-                </Date>
-                <DateContent>
-                  {dateInfo.map((item, idx2) => {
-                    return (
-                      <Fragment key={idx2}>
-                        {item?.blockIdx !== undefined && (
+              return (
+                <DateBlock key={idx} isToday={isToday}>
+                  <Date day={day} isToday={isToday}>
+                    {!isToday ? item : <TodayCircle>{item}</TodayCircle>}
+                  </Date>
+                  <DateContent>
+                    {dateInfo.map((item, idx2) => {
+                      return (
+                        <Fragment key={idx2}>
+                          {item?.blockIdx !== undefined && (
+                            <EventBlock
+                              isFirst={item?.isFirst}
+                              isLast={item?.isLast}
+                              color={null}
+                            >
+                              &nbsp;
+                            </EventBlock>
+                          )}
                           <EventBlock
                             isFirst={item?.isFirst}
                             isLast={item?.isLast}
-                            color={null}
+                            color={item?.color}
                           >
-                            &nbsp;
+                            {item?.isFirst ? item?.content : "\u00A0"}
                           </EventBlock>
-                        )}
-                        <EventBlock
-                          isFirst={item?.isFirst}
-                          isLast={item?.isLast}
-                          color={item?.color}
-                        >
-                          {item?.isFirst ? item?.content : "\u00A0"}
-                        </EventBlock>
-                      </Fragment>
-                    );
-                  })}
-                </DateContent>
-              </DateBlock>
-            );
-          })}
-        </CalendarDates>
-      </Calendar>
-      <DetailTitle>이벤트 상세정보</DetailTitle>
+                        </Fragment>
+                      );
+                    })}
+                  </DateContent>
+                </DateBlock>
+              );
+            })}
+          </CalendarDates>
+        </Calendar>
+        <DetailTitle>이벤트 상세정보</DetailTitle>
 
-      <Accordion
-        contentArr={ACCORDION_CONTENT_EVENT(navMonth.month() + 1)}
-        isQ={false}
-        isFull={true}
-      />
-    </Slide>
+        <Accordion
+          contentArr={ACCORDION_CONTENT_EVENT(navMonth.month() + 1)}
+          isQ={false}
+          isFull={true}
+        />
+      </Slide>
+    </>
   );
 }
 

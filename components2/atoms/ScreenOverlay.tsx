@@ -7,7 +7,6 @@ interface IScreenOverlay {
 }
 
 const ScreenOverlay = ({ onClick, zIndex, darken = false }: IScreenOverlay) => {
-  console.log(1234);
   return <StyledOverlay darken={darken} onClick={onClick} zIndex={zIndex} />;
 };
 

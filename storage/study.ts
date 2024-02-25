@@ -188,7 +188,6 @@ export const PLACE_TO_LOCATION = {
   [YANG_신길역]: "양천",
   [YANG_신월동]: "양천",
   [YANG_양천구청역]: "양천",
-  [YANG_화곡역]: "양천",
 
   //안양
   [ANYANG_숨맑은집]: "안양",

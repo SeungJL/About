@@ -8,8 +8,8 @@ import styled from "styled-components";
 import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
 import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
+import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
-import Header from "../../components2/Header";
 import ButtonGroups, {
   IButtonOpions,
 } from "../../components2/molecules/groups/ButtonGroups";

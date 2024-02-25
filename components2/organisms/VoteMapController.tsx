@@ -222,9 +222,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
   </Popover>
 );
 
-const Layout = styled.div`
-  background-color: pink;
-`;
+const Layout = styled.div``;
 
 const TopNav = styled.nav`
   padding: var(--gap-3) var(--gap-4);

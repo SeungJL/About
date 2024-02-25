@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/PageSlide";
-import Header from "../../../components2/Header";
 
 function Avatar() {
   return (

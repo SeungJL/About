@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -7,7 +8,7 @@ import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/qu
 import { isRecordDetailLoadingState } from "../../../recoil/loadingAtoms";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
-const WEEKS_CNT = 5;
+const WEEKS_CNT = 4;
 
 function RecordAnalysisSummary() {
   const [weeksDate, setWeeksDate] = useState<IDayjsStartToEnd[]>([]);
@@ -42,59 +43,44 @@ function RecordAnalysisSummary() {
   }, [data, weeksDate]);
 
   return (
-    <>
-      {!isRecordDetailLoading && (
-        <Layout>
-          <Title>요약</Title>
-          <Summary>
-            {myAttend?.map((item, idx) => {
-              const date = weeksDate[idx];
-              return (
-                <SummaryItem key={idx}>
-                  <WeekText>
-                    <span>
-                      {date.start.format("M월")} {getWeekNumber(date.start)}주
-                    </span>
-                    <span>
-                      ({date.start.format("MM.DD")} - {date.end.format("MM.DD")}
-                      )
-                    </span>
-                  </WeekText>
-                  <WeekAttend>{item || 0}회</WeekAttend>
-                </SummaryItem>
-              );
-            })}
-          </Summary>
-        </Layout>
-      )}
-    </>
+    <Box
+      bgColor="white"
+      m="16px"
+      mb="8px"
+      rounded="lg"
+      p="8px 16px"
+      border="var(--border-mint)"
+    >
+      {myAttend?.map((item, idx) => {
+        const date = weeksDate[idx];
+        return (
+          <SummaryItem key={idx}>
+            <WeekText>
+              <span>
+                {date.start.format("M월")} {getWeekNumber(date.start)}주
+              </span>
+              <span>
+                ({date.start.format("MM.DD")} - {date.end.format("MM.DD")})
+              </span>
+            </WeekText>
+            <WeekAttend>{item || 0}회</WeekAttend>
+          </SummaryItem>
+        );
+      })}
+    </Box>
   );
 }
-
-const Layout = styled.div`
-  margin: 0 var(--gap-4);
-  padding: var(--gap-4) 0;
-`;
-
-const Title = styled.span`
-  font-size: 15px;
-  font-weight: 600;
-`;
-
-const Summary = styled.div`
-  margin-top: var(--gap-3);
-`;
 
 const SummaryItem = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: var(--gap-2) var(--gap-1);
+  padding: 4px;
 `;
 
 const WeekText = styled.span`
   > span:last-child {
     margin-left: var(--gap-1);
-    color: var(--gray-4);
+    color: var(--gray-3);
   }
 `;
 

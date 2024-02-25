@@ -104,14 +104,14 @@ export const useStudyAbsentMutation = (
   );
 
 export const useStudyResultDecideMutation = (
-  date: Dayjs,
+  date: string,
   options?: MutationOptions<void>
 ) =>
   useMutation<any, AxiosError, void>(
     () =>
       requestServer<void>({
         method: "patch",
-        url: `admin/vote/${dayjsToStr(date)}/status/confirm`,
+        url: `admin/vote/${date}/status/confirm`,
       }),
     options
   );

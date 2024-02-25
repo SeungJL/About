@@ -1,12 +1,7 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useStudyAttendCheckMutation } from "../../hooks/study/mutations";
 import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
@@ -43,22 +38,27 @@ function StudyChangeArrivedModal({
     setIsModal(false);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "변경",
+      func: onChangeMemo,
+    },
+    sub: {
+      text: "취소",
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeader text="출석 메모 변경" />
-      <ModalBody>
-        <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
-        <Textarea
-          placeholder="여기에 작성해주세요!"
-          onChange={(e) => setMemo(e.target.value)}
-          value={memo}
-        />
-      </ModalBody>
-      <ModalFooterTwo
-        leftText="취소"
-        rightText="변경"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onChangeMemo}
+    <ModalLayout
+      title="출석 메모 변경"
+      setIsModal={setIsModal}
+      footerOptions={footerOptions}
+    >
+      <ModalSubtitle>내용을 변경하시겠어요?</ModalSubtitle>
+      <Textarea
+        placeholder="여기에 작성해주세요!"
+        onChange={(e) => setMemo(e.target.value)}
+        value={memo}
       />
     </ModalLayout>
   );

@@ -1,74 +1,63 @@
-import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { DEFAULT_BACK_URL } from "../../constants/system";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
-
+import ArrowBackButton from "../../components2/atoms/buttons/ArrowBackButton";
+import Slide from "./PageSlide";
 interface IHeader {
   title: string;
-  url?: string | "back";
-  isPrev?: boolean;
+  url?: string;
+  isSlide?: boolean;
   children?: React.ReactNode;
-  isNoLine?: boolean;
 }
 
-const Header = ({ title, url, children, isNoLine }: IHeader) => {
-  const router = useRouter();
-
-  const [prevPageUrl, setPrevPageUrl] = useRecoilState(prevPageUrlState);
-
-  const handleClick = () => {
-    if (prevPageUrl) router.push(prevPageUrl);
-    setPrevPageUrl(null);
-    if (url) {
-      if (url === "back") router.back();
-      else router.push(`${url}`);
-    } else router.push(DEFAULT_BACK_URL);
-  };
+export default function Header({
+  title,
+  isSlide = true,
+  url,
+  children,
+}: IHeader) {
+  const HeaderLayout = () => (
+    <HeaderContainer>
+      <LeftSection>
+        <ArrowBackButton url={url} />
+        <Title>{title}</Title>
+      </LeftSection>
+      <div>{children}</div>
+    </HeaderContainer>
+  );
 
   return (
-    <Layout isNoLine={isNoLine}>
-      <IconWrapper onClick={handleClick}>
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </IconWrapper>
-      <Title>{title}</Title>
-      <Nav>{children}</Nav>
-    </Layout>
+    <>
+      {isSlide ? (
+        <Slide isFixed={true}>
+          <HeaderLayout />
+        </Slide>
+      ) : (
+        <HeaderLayout />
+      )}
+    </>
   );
-};
+}
 
-const Layout = styled.div<{ isNoLine: boolean }>`
+const HeaderContainer = styled.header`
   background-color: white;
-  height: 52px;
-  padding-right: var(--gap-4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: var(--header-h);
   font-size: 16px;
-  color: var(--gray-1);
-  border-bottom: ${(props) => !props.isNoLine && "1px solid var(--gray-7)"};
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.04);
-`;
-
-const IconWrapper = styled.button`
-  height: 100%;
+  padding-right: 12px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 var(--gap-4);
+  border-bottom: var(--border);
+  max-width: var(--max-width);
+  margin: 0 auto;
 `;
 
-const Title = styled.span`
-  color: var(--gray-1);
-
-  font-weight: 600;
-`;
-
-const Nav = styled.nav`
-  margin-left: auto;
+// Left Section 스타일
+const LeftSection = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export default Header;
+// Title 스타일
+const Title = styled.div`
+  font-weight: 800; /* font-extrabold */
+  color: var(--gray-1); /* text-gray-1 - 색상은 예시입니다 */
+`;

@@ -1,12 +1,7 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import {
   useCompleteToast,
@@ -40,19 +35,22 @@ function StudyLightAbsentModal({ setIsModal }: IModal) {
     onError: errorToast,
   });
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "불참",
+      func: () => absentStudy(null),
+      isRedTheme: true,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="sm">
-      <ModalHeader text="개인 스터디 불참" />
-      <ModalBody>
-        불참하시겠어요? <br />
-        {isPrivate && "-100원의 벌금이 발생합니다."}
-      </ModalBody>
-      <ModalFooterOne
-        onClick={() => absentStudy(null)}
-        text="불참"
-        isFull={true}
-        isRed={true}
-      />
+    <ModalLayout
+      footerOptions={footerOptions}
+      title="개인 스터디 불참"
+      setIsModal={setIsModal}
+    >
+      불참하시겠어요? <br />
+      {isPrivate && "-100원의 벌금이 발생합니다."}
     </ModalLayout>
   );
 }

@@ -1,12 +1,7 @@
-import { Button, ModalFooter } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 import {
@@ -28,6 +23,7 @@ function RegularGatherModal({
   setIsModal,
   setIsRabbitRun,
 }: IRegularGatherModal) {
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
@@ -71,60 +67,59 @@ function RegularGatherModal({
 
     mutate(applyData);
   };
-  return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xl">
-      <ModalHeader text="조모임 참여 신청서" />
-      <ModalBody>
-        <Overview>
-          이번 달에는 개강을 맞아 같은 동네의 또래 친구들을 만날 수 있는
-          조모임으로 진행합니다!
-          <Count>
-            <span>전체 신청 인원:</span>
-            <span>{isLoading ? "..." : requestData?.length}명</span>
-          </Count>
-          <Rule>
-            <li>조 인원은 4~6명 사이로 구성됩니다.</li>
-            <li>나이는 동갑에서 최대 2살 이내로 구성됩니다.</li>
-            <li>요구사항이 있는 경우 적어주시면 맞춰서 조를 짜드려요!</li>
-            <li>활동 날짜나 내용은 조장이 알아서 조율 !</li>
-          </Rule>
-        </Overview>
-        <Form onSubmit={handleSubmit(onValid)} id="declaration">
-          <Item>
-            <span>신청 마감:</span>
-            <div>9월 10일</div>
-          </Item>
-          <Item>
-            <Content>
-              <span>요구 사항:</span>
-              <span>(있는 경우)</span>
-            </Content>
-            <ContentInput {...register("content")} />
-          </Item>
-        </Form>
-      </ModalBody>
+  return null;
+  // <ModalLayout onClose={() => setIsModal(false)} size="xl">
+  //   <ModalHeader text="조모임 참여 신청서" />
+  //   <ModalBody>
+  //     <Overview>
+  //       이번 달에는 개강을 맞아 같은 동네의 또래 친구들을 만날 수 있는
+  //       조모임으로 진행합니다!
+  //       <Count>
+  //         <span>전체 신청 인원:</span>
+  //         <span>{isLoading ? "..." : requestData?.length}명</span>
+  //       </Count>
+  //       <Rule>
+  //         <li>조 인원은 4~6명 사이로 구성됩니다.</li>
+  //         <li>나이는 동갑에서 최대 2살 이내로 구성됩니다.</li>
+  //         <li>요구사항이 있는 경우 적어주시면 맞춰서 조를 짜드려요!</li>
+  //         <li>활동 날짜나 내용은 조장이 알아서 조율 !</li>
+  //       </Rule>
+  //     </Overview>
+  //     <Form onSubmit={handleSubmit(onValid)} id="declaration">
+  //       <Item>
+  //         <span>신청 마감:</span>
+  //         <div>9월 10일</div>
+  //       </Item>
+  //       <Item>
+  //         <Content>
+  //           <span>요구 사항:</span>
+  //           <span>(있는 경우)</span>
+  //         </Content>
+  //         <ContentInput {...register("content")} />
+  //       </Item>
+  //     </Form>
+  //   </ModalBody>
 
-      <ModalFooter p="var(--gap-3) var(--gap-4)">
-        <Button
-          w="100%"
-          size="lg"
-          type="button"
-          onClick={() => setIsModal(false)}
-        >
-          취소
-        </Button>
-        <Button
-          w="100%"
-          colorScheme="mintTheme"
-          form="declaration"
-          type="submit"
-          size="lg"
-        >
-          신청
-        </Button>
-      </ModalFooter>
-    </ModalLayout>
-  );
+  //   <ModalFooter p="var(--gap-3) var(--gap-4)">
+  //     <Button
+  //       w="100%"
+  //       size="lg"
+  //       type="button"
+  //       onClick={() => setIsModal(false)}
+  //     >
+  //       취소
+  //     </Button>
+  //     <Button
+  //       w="100%"
+  //       colorScheme="mintTheme"
+  //       form="declaration"
+  //       type="submit"
+  //       size="lg"
+  //     >
+  //       신청
+  //     </Button>
+  //   </ModalFooter>
+  // </ModalLayout>
 }
 
 const Overview = styled.div`

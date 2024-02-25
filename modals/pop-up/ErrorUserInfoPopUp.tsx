@@ -1,10 +1,5 @@
 import { signOut, useSession } from "next-auth/react";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 
@@ -32,27 +27,32 @@ function ErrorUserInfoPopUp({ setIsModal }: IModal) {
       title: "유저 정보 에러",
       category: "건의",
       writer: session.user.name,
-      content: `에러 id: ${session.id}`,
+      content: `에러 id: ${session.user.id}`,
     });
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "오류 전송",
+      func: sendError,
+    },
+    sub: {
+      text: "로그아웃",
+      func: logout,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text="유저 정보 오류" />
-      <ModalBody>
-        <ModalSubtitle>
-          유저 정보에 오류가 있어 이용이 불가능합니다. 재접속을 한 뒤에도 같은
-          오류가 발생하면 오류 전송을 눌러주세요! 관리자에게 별도로 말씀해주시면
-          더 빠른 처리가 가능합니다.
-        </ModalSubtitle>
-      </ModalBody>
-      <ModalFooterTwo
-        leftText="로그아웃"
-        rightText="오류전송"
-        onClickLeft={logout}
-        onClickRight={sendError}
-        isFull={true}
-      />
+    <ModalLayout
+      setIsModal={setIsModal}
+      title="유저 정보 오류"
+      footerOptions={footerOptions}
+    >
+      <ModalSubtitle>
+        유저 정보에 오류가 있어 이용이 불가능합니다. 재접속을 한 뒤에도 같은
+        오류가 발생하면 오류 전송을 눌러주세요! 관리자에게 별도로 말씀해주시면
+        더 빠른 처리가 가능합니다.
+      </ModalSubtitle>
     </ModalLayout>
   );
 }

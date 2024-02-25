@@ -2,6 +2,7 @@ import { Flex, ListItem, UnorderedList } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { STUDY_VOTE_ICON } from "../assets/icons/MapChoiceIcon";
 import ScreenOverlay from "../components2/atoms/ScreenOverlay";
@@ -20,6 +21,7 @@ import {
   getVoteLocationMaxBound,
 } from "../libs/study/getStudyVoteMap";
 import StudyPresetModal from "../modals/userRequest/StudyPresetModal";
+import { myStudyState } from "../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../storage/study";
 import { IMapOptions, IMarkerOptions } from "../types2/lib/naverMapTypes";
 import { ActiveLocation } from "../types2/serviceTypes/locationTypes";
@@ -50,6 +52,8 @@ export default function StudyVoteMap() {
   const moveToLink = () => {
     router.push(`/home?${newSearchParams.toString()}`);
   };
+
+  const myStudy = useRecoilValue(myStudyState);
 
   const [preferInfo, setPreferInfo] = useState<{
     preset: "first" | "second" | null;
@@ -157,40 +161,44 @@ export default function StudyVoteMap() {
   return (
     <>
       <ScreenOverlay darken={true} onClick={moveToLink} />
-      <Layout>
-        <Flex justify="space-between" p="8px">
-          <UnorderedList color="white">
-            <ListItem>인원이 적을 때 신청하면 추가 포인트!</ListItem>
-            <ListItem>신청 장소 수에 비례해 추가 포인트!</ListItem>
-          </UnorderedList>
-          <Flex
-            direction="column"
-            alignItems="flex-end"
-            color="red.400"
-            fontWeight={600}
-          >
-            <div>현재 획득 포인트</div>
-            <div>+ {voteScore + subPlacePoint} POINT</div>
+      <Flex justify="center" align="center" h="calc(100dvh - 96px)">
+        <Layout isChange={!!myStudy}>
+          <Flex justify="space-between" p="8px">
+            <UnorderedList color="white">
+              <ListItem>인원이 적을 때 신청하면 추가 포인트!</ListItem>
+              <ListItem>신청 장소 수에 비례해 추가 포인트!</ListItem>
+            </UnorderedList>
+            <Flex
+              direction="column"
+              alignItems="flex-end"
+              color="red.400"
+              fontWeight={600}
+            >
+              <div>현재 획득 포인트</div>
+              <div>+ {voteScore + subPlacePoint} POINT</div>
+            </Flex>
           </Flex>
-        </Flex>
-        <MapLayout>
-          <VoteMap
-            mapOptions={mapOptions}
-            markersOptions={markersOptions}
-            handleMarker={handlePlaceVote}
-            centerValue={centerValue}
-          />
-          <VoteMapController
-            preset={preferInfo?.preset}
-            setPreset={(preset) => setPreferInfo((old) => ({ ...old, preset }))}
-            precision={precision}
-            setPrecision={setPrecision}
-            setCenterValue={setCenterValue}
-          />
-        </MapLayout>
-        <MapBottomNav myVote={myVote} voteScore={voteScore + subPlacePoint} />
-      </Layout>
-      {isPreset && <StudyPresetModal/>}
+          <MapLayout>
+            <VoteMap
+              mapOptions={mapOptions}
+              markersOptions={markersOptions}
+              handleMarker={handlePlaceVote}
+              centerValue={centerValue}
+            />
+            <VoteMapController
+              preset={preferInfo?.preset}
+              setPreset={(preset) =>
+                setPreferInfo((old) => ({ ...old, preset }))
+              }
+              precision={precision}
+              setPrecision={setPrecision}
+              setCenterValue={setCenterValue}
+            />
+          </MapLayout>
+          <MapBottomNav myVote={myVote} voteScore={voteScore + subPlacePoint} />
+        </Layout>
+      </Flex>
+      {isPreset && <StudyPresetModal />}
     </>
   );
 }
@@ -363,16 +371,17 @@ export const setVotePlaceInfo = (
     };
 };
 
-const Layout = styled.div`
-  position: fixed;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  left: 50%;
+const Layout = styled.div<{ isChange: boolean }>`
+  height: min-content;
+
+  position: relative;
   z-index: 1000;
   width: 100%;
   display: flex;
-
   flex-direction: column;
+  margin-bottom: ${(props) => (props.isChange ? "0" : "8px")};
+
+  max-width: var(--max-width);
 `;
 
 const MapLayout = styled.div`

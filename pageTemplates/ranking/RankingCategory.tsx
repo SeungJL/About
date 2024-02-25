@@ -1,8 +1,8 @@
 import { Select, Switch } from "@chakra-ui/react";
-import { useRecoilValue } from "recoil";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import { getMonth } from "../../helpers/dateHelpers";
-import { locationState } from "../../recoil/userAtoms";
+
 import { RankingCategory } from "../../types/page/ranking";
 import { DispatchType } from "../../types/reactTypes";
 
@@ -19,7 +19,8 @@ function RankingCategoryBar({
   isLocationFilter,
   setIsLocationFilter,
 }: IRankingCategoryBar) {
-  const location = useRecoilValue(locationState);
+  const { data: session } = useSession();
+  const location = session?.user.location;
 
   const onChange = (e) => {
     setCategory(e.target.value as RankingCategory);

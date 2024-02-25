@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import Avatar from "../../../components2/atoms/Avatar";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import UserOverviewBadge from "./UserOverviewBadge";
@@ -32,7 +32,12 @@ export default function UserOverview() {
             <UserOverviewComment />
           </UserInfo>
           <UserImg>
-            <ProfileIcon user={userInfo || "guest"} size="xl" />
+            <Avatar
+              avatar={userInfo.avatar}
+              image={userInfo.profileImage}
+              uid={userInfo.uid}
+              size="xl"
+            />
             <IconWrapper onClick={() => setIsProfileModal(true)}>
               <CameraIcon />
             </IconWrapper>

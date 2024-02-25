@@ -7,8 +7,8 @@ import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 
+import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/PageSlide";
-import Header from "../../../components2/Header";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contents/friend";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";

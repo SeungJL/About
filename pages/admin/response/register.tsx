@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
 import AdminLocationSelector from "../../../components/features/picker/AdminLocationSelector";
 import Header from "../../../components/layout/Header";
+
 import { useUserRegisterFormsQuery } from "../../../hooks/admin/quries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
 import { IUserRegisterForm } from "../../../types/user/user";

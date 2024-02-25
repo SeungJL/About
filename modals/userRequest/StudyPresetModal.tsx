@@ -78,7 +78,7 @@ function StudyPresetModal() {
   const onClose = () => {
     newSearchParams.delete("preset");
     const params = newSearchParams.toString();
-  
+
     router.replace(pathname + (params ? `?${newSearchParams.toString()}` : ""));
   };
 
@@ -154,40 +154,6 @@ function StudyPresetModal() {
             />
           )}
         </Box>
-
-        {/* {page === 0 ? (
-              <>
-                <PlaceSelectorSub
-                  places={studyPlaces}
-                  votePlaces={presetPlaces}
-                  setPresetPlaces={setPresetPlaces}
-                  isMain={true}
-                />
-              </>
-            ) : (
-              <>
-                {/* <PlaceSelector
-                  places={studyPlaces}
-                  presetPlaces={presetPlaces}
-                  setPresetPlaces={setPresetPlaces}
-                  isMain={false}
-                /> */}
-
-        {/* {page === 0 ? (
-          <ModalFooterTwo
-            leftText="닫기"
-            rightText="다음"
-            onClickLeft={() => setIsModal(false)}
-            onClickRight={selectFirst}
-          />
-        ) : (
-          <ModalFooterTwo
-            leftText="이전"
-            rightText="완료"
-            onClickLeft={() => setPage(0)}
-            onClickRight={() => setIsConfirmModal(true)}
-          />
-        )} */}
       </ModalLayout>
 
       {isConfirmModal && (

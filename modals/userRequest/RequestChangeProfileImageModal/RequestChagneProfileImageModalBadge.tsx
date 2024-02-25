@@ -2,12 +2,7 @@ import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
@@ -48,39 +43,42 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
     setIsModal(false);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "변경 신청 / 해제 신청(미 선택)",
+      func: onApply,
+    },
+  };
+
   return (
-    <ModalLayout size="lg" onClose={() => setIsModal(false)}>
-      <ModalHeader text="내 배지 변경 신청" />
-      <ModalBody>
-        <Message>
-          이벤트 배지는 출석체크의 랜덤 보상에서 <b>1% 확률</b>로 흭득할 수
-          있습니다. 배지를 선택 후 신청을 완료하시면 관리자가{" "}
-          <b>보유 여부를 확인 후</b> 변경해드립니다.
-        </Message>
-        <Container>
-          <Item
-            isSelected={selectBadge === "딸기스무디"}
-            onClick={() => onClick("딸기스무디")}
-          >
-            <Badge fontSize={12} colorScheme="badgePink">
-              딸기스무디
-            </Badge>
-          </Item>
-          <Item
-            isSelected={selectBadge === "라벤더"}
-            onClick={() => onClick("라벤더")}
-          >
-            <Badge fontSize={12} colorScheme="facebook">
-              라벤더
-            </Badge>
-          </Item>
-        </Container>
-      </ModalBody>
-      <ModalFooterOne
-        onClick={onApply}
-        text="  변경 신청 / 해제 신청(미 선택)"
-        isFull={true}
-      />
+    <ModalLayout
+      footerOptions={footerOptions}
+      title="배지 변경 신청"
+      setIsModal={setIsModal}
+    >
+      <Message>
+        이벤트 배지는 출석체크의 랜덤 보상에서 <b>1% 확률</b>로 흭득할 수
+        있습니다. 배지를 선택 후 신청을 완료하시면 관리자가{" "}
+        <b>보유 여부를 확인 후</b> 변경해드립니다.
+      </Message>
+      <Container>
+        <Item
+          isSelected={selectBadge === "딸기스무디"}
+          onClick={() => onClick("딸기스무디")}
+        >
+          <Badge fontSize={12} colorScheme="badgePink">
+            딸기스무디
+          </Badge>
+        </Item>
+        <Item
+          isSelected={selectBadge === "라벤더"}
+          onClick={() => onClick("라벤더")}
+        >
+          <Badge fontSize={12} colorScheme="facebook">
+            라벤더
+          </Badge>
+        </Item>
+      </Container>
     </ModalLayout>
   );
 }

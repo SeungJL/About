@@ -1,4 +1,5 @@
-import { ColorType } from "@/types/assetTypes";
+import { ColorType } from "../types2/assetTypes";
+
 
 type TextType = "text" | "border" | "bg";
 

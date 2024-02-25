@@ -1,4 +1,4 @@
-import { Button, ModalBody, ModalFooter, ModalHeader } from "@chakra-ui/react";
+import { Button, Flex, ModalHeader } from "@chakra-ui/react";
 import {
   faClock,
   faThumbsUp,
@@ -7,7 +7,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { ModalLayout } from "../../components/modals/Modals";
+import {
+  IFooterOptions,
+  IHeaderOptions,
+  IPaddingOptions,
+  ModalLayout,
+} from "../../components/modals/Modals";
 import { PROMOTION_WIN_DATE } from "../../constants/settingValue/dateSettingValue";
 import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import { IPromotionApply } from "../../types/page/promotion";
@@ -29,8 +34,33 @@ function PromotionAllCoolTimeModal({
       item.uid !== "2636066822"
   ).length;
 
-  return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xl">
+  const footerOptions: IFooterOptions = {
+    children: (
+      <Flex w="100%" align="center" justifyContent="space-between">
+        {!isLoading && (
+          <Sum>
+            <span>
+              홍보 인원: <b>{applyCnt}명</b>,
+            </span>
+            <span>
+              현재 당첨률:
+              <b>{applyCnt < 2 ? "100" : Math.round((3 / applyCnt) * 100)}%</b>
+            </span>
+          </Sum>
+        )}
+        <Button
+          variant="ghost"
+          color="var(--color-mint)"
+          onClick={() => setIsModal(false)}
+        >
+          확인
+        </Button>
+      </Flex>
+    ),
+  };
+
+  const headerOptions: IHeaderOptions = {
+    children: (
       <ModalHeader display="flex" justifyContent="space-between">
         <Detail>
           <span>전체 홍보 현황</span>
@@ -49,13 +79,25 @@ function PromotionAllCoolTimeModal({
           <FontAwesomeIcon icon={faXmark} size="lg" color="var(--gray-2)" />
         </div>
       </ModalHeader>
-      <ModalBody
-        p="var(--gap-1) var(--gap-4)"
-        display="flex"
-        flexDir="column"
-        position="relative"
-        overflowY="auto"
-      >
+    ),
+  };
+
+  const paddingOptions: IPaddingOptions = {
+    body: {
+      top: 0,
+      bottom: 0,
+    },
+    footer: 12,
+  };
+
+  return (
+    <ModalLayout
+      footerOptions={footerOptions}
+      headerOptions={headerOptions}
+      setIsModal={setIsModal}
+      paddingOptions={paddingOptions}
+    >
+      <Flex h="300px" direction="column" position="relative" overflowY="auto">
         <Container>
           {promotionData?.map((item) => {
             const cool = dayjs(item.lastDate)
@@ -93,31 +135,7 @@ function PromotionAllCoolTimeModal({
             );
           })}
         </Container>
-      </ModalBody>
-      <ModalFooter
-        p="var(--gap-3) var(--gap-4)"
-        display="flex"
-        justifyContent="space-between"
-      >
-        {!isLoading && (
-          <Sum>
-            <span>
-              홍보 인원: <b>{applyCnt}명</b>,
-            </span>
-            <span>
-              현재 당첨률:
-              <b>{applyCnt < 2 ? "100" : Math.round((3 / applyCnt) * 100)}%</b>
-            </span>
-          </Sum>
-        )}
-        <Button
-          variant="ghost"
-          color="var(--color-mint)"
-          onClick={() => setIsModal(false)}
-        >
-          확인
-        </Button>
-      </ModalFooter>
+      </Flex>
     </ModalLayout>
   );
 }
@@ -190,7 +208,7 @@ const Ok = styled.div`
 `;
 
 const Sum = styled.div`
-  font-size: 12px;
+  font-size: 13px;
   margin-left: var(--gap-1);
   color: var(--gray-2);
 

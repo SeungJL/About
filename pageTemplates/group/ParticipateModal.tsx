@@ -1,13 +1,11 @@
 import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { PopOverIcon } from "../../components/common/Icon/PopOverIcon";
 import {
-  ModalBody,
+  IFooterOptions,
   ModalFooterTwo,
-  ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
@@ -16,9 +14,11 @@ import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import {
   useGroupParticipationMutation,
   useGroupWaitingMutation,
-} from "../../hooks/group/mutations";
+} from "../../hooks/groupStudy/mutations";
+
 import { usePointSystemMutation } from "../../hooks/user/mutations";
-import { userInfoState } from "../../recoil/userAtoms";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 
@@ -41,7 +41,7 @@ function ParticipateModal({
   const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
-  const userInfo = useRecoilValue(userInfoState);
+  const { data: userInfo } = useUserInfoQuery();
   const [selectBtn, setSelectBtn] = useState<"point" | "deposit">("point");
 
   const { mutate: getPoint } = usePointSystemMutation("point");
@@ -101,69 +101,78 @@ function ParticipateModal({
     setIsModal(false);
   };
 
+  <ModalFooterTwo
+    rightText="가입 신청"
+    onClickLeft={() => setIsModal(false)}
+    onClickRight={onSubmit}
+  />;
+
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "가입 신청",
+      func: onSubmit,
+    },
+    sub: {},
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
-      <ModalHeader text="가입 신청" />
-      <ModalBody>
-        <ModalSubtitle>
-          {fee
-            ? `소모임 가입을 위해서는 가입비 ${fee}원이 필요합니다. 사용처는 "${feeText}" 입니다.`
-            : fee === 1000
-            ? "소모임 가입에는 150 포인트 또는 1000원이 소모됩니다. 이는 그룹장에게 전달되어 활동 지원금으로 사용됩니다."
-            : "소모임 가입에는 기본 참여비로 30 포인트 또는 200원이 소모됩니다."}
-        </ModalSubtitle>
-        <PointContainer>
-          <Point>
-            <span>보유 포인트:</span>
-            <span>{userInfo?.point} 포인트</span>{" "}
-            <PopOverIcon
-              title="포인트"
-              text="포인트는 동아리 활동을 통해 여러 곳에서 획득할 수 있습니다. 포인트 가이드를 참고해주세요!"
-            />
-          </Point>
-          <Point>
-            <span>보유 보증금:</span>
-            <span>{userInfo?.deposit}원</span>
-            <PopOverIcon
-              title="보증금"
-              text="0원이 되면 동아리 활동이 불가능하기에 1000원 이상 유지해야 합니다. 마이페이지에서 충전할 수 있습니다."
-            />
-          </Point>
-        </PointContainer>
-        <PointContainer>
-          <Fee>
-            <span>필요 포인트:</span>
-            <span>{feePoint || 30} 포인트</span>{" "}
-          </Fee>
-          <Fee>
-            <span>필요 활동비:</span>
-            <span>{fee || 200}원</span>
-          </Fee>
-        </PointContainer>
-        <SelectContainer>
-          <Text>사용 할 재화를 선택해주세요</Text>
-          <div>
-            <Button
-              onClick={() => setSelectBtn("point")}
-              colorScheme={selectBtn === "point" ? "redTheme" : "gray"}
-            >
-              포인트 사용
-            </Button>
-            <Button
-              onClick={() => setSelectBtn("deposit")}
-              colorScheme={selectBtn === "deposit" ? "redTheme" : "gray"}
-            >
-              보증금 사용
-            </Button>
-          </div>
-        </SelectContainer>
-      </ModalBody>
-      <HrDiv />
-      <ModalFooterTwo
-        rightText="가입 신청"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onSubmit}
-      />
+    <ModalLayout
+      setIsModal={setIsModal}
+      title="가입 신청"
+      footerOptions={footerOptions}
+    >
+      <ModalSubtitle>
+        {fee
+          ? `소모임 가입을 위해서는 가입비 ${fee}원이 필요합니다. 사용처는 "${feeText}" 입니다.`
+          : fee === 1000
+          ? "소모임 가입에는 150 포인트 또는 1000원이 소모됩니다. 이는 그룹장에게 전달되어 활동 지원금으로 사용됩니다."
+          : "소모임 가입에는 기본 참여비로 30 포인트 또는 200원이 소모됩니다."}
+      </ModalSubtitle>
+      <PointContainer>
+        <Point>
+          <span>보유 포인트:</span>
+          <span>{userInfo?.point} 포인트</span>{" "}
+          <PopOverIcon
+            title="포인트"
+            text="포인트는 동아리 활동을 통해 여러 곳에서 획득할 수 있습니다. 포인트 가이드를 참고해주세요!"
+          />
+        </Point>
+        <Point>
+          <span>보유 보증금:</span>
+          <span>{userInfo?.deposit}원</span>
+          <PopOverIcon
+            title="보증금"
+            text="0원이 되면 동아리 활동이 불가능하기에 1000원 이상 유지해야 합니다. 마이페이지에서 충전할 수 있습니다."
+          />
+        </Point>
+      </PointContainer>
+      <PointContainer>
+        <Fee>
+          <span>필요 포인트:</span>
+          <span>{feePoint || 30} 포인트</span>{" "}
+        </Fee>
+        <Fee>
+          <span>필요 활동비:</span>
+          <span>{fee || 200}원</span>
+        </Fee>
+      </PointContainer>
+      <SelectContainer>
+        <Text>사용 할 재화를 선택해주세요</Text>
+        <div>
+          <Button
+            onClick={() => setSelectBtn("point")}
+            colorScheme={selectBtn === "point" ? "redTheme" : "gray"}
+          >
+            포인트 사용
+          </Button>
+          <Button
+            onClick={() => setSelectBtn("deposit")}
+            colorScheme={selectBtn === "deposit" ? "redTheme" : "gray"}
+          >
+            보증금 사용
+          </Button>
+        </div>
+      </SelectContainer>
     </ModalLayout>
   );
 }

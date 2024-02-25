@@ -3,11 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { SQUARE_RANDOM_IMAGE } from "../../constants/image/imageUrl";
 import { WEB_URL } from "../../constants/system";
 import { STUDY_SPACE_INFO } from "../../storage/study";
@@ -76,27 +72,13 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
     }
   }, [isRenderingCheck, location, place?.fullname, random_num, url]);
 
-  return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeader text="친구 초대" />
-      <ModalBody>
-        <ModalSubtitle>
-          친구 초대를 통해 참여하면 초대한 인원과 참여한 인원 모두 2 point를
-          받아요!
-        </ModalSubtitle>
-      </ModalBody>
-      <ModalFooter
-        m="var(--gap-4) var(--gap-5)"
-        p="0"
-        display="flex"
-        justifyContent="space-between"
-        h="46px"
-      >
-        <Layout>
+  const footerOptions: IFooterOptions = {
+    children: (
+      <ModalFooter p="20px" display="flex" justifyContent="space-between">
+        <ButtonLayout>
           <Button
             bg="white"
             h="100%"
-            flex="1"
             border="1.2px solid var(--color-mint)"
             color="var(--color-mint)"
             fontSize="16px"
@@ -105,15 +87,30 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
             닫기
           </Button>
           <Button
-            flex="1"
+            bg="var(--color-mint)"
             h="100%"
-            colorScheme="mintTheme"
+            color="white"
+            fontSize="16px"
+            disabled={false}
             id="kakao-share-button-invite"
           >
             친구초대
           </Button>
-        </Layout>
+        </ButtonLayout>
       </ModalFooter>
+    ),
+  };
+
+  return (
+    <ModalLayout
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+      title="친구 초대"
+    >
+      <ModalSubtitle>
+        친구 초대를 통해 참여하면 초대한 인원과 참여한 인원 모두 2 point를
+        받아요!
+      </ModalSubtitle>
     </ModalLayout>
   );
 }
@@ -127,6 +124,23 @@ const Layout = styled.div`
   }
   > button {
     flex: 1;
+  }
+`;
+
+const ButtonLayout = styled.div`
+  width: 100%;
+  display: flex;
+  height: 46px;
+  > button:first-child {
+    margin-right: var(--gap-3);
+  }
+  > button {
+    flex: 1;
+  }
+  > button:last-child {
+    :hover {
+      background-color: var(--color-mint);
+    }
   }
 `;
 

@@ -5,8 +5,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { SECTION_NAME } from ".";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/PageSlide";
-import Header from "../../../components2/Header";
 
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";

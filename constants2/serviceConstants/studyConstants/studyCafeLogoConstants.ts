@@ -71,4 +71,5 @@ export const STUDY_CAFE_LOGO: { [key in string]: string } = {
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/D%EC%B9%B4%ED%8E%98.jpg",
   카페디졸브:
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%94%94%EC%A1%B8%EB%B8%8C.jpg",
+
 };

@@ -43,7 +43,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
 
   return (
     <>
-      <Header title="" url={prevPageUrl || "/gather"} isPrev={!!prevPageUrl}>
+      <Header title="" url={prevPageUrl || "/gather"}>
         {session?.user.uid === organizer?.uid && (
           <IconWrapper onClick={onClick}>
             <FontAwesomeIcon icon={faPenCircle} size="xl" />

@@ -16,8 +16,18 @@ export default function BetweenTextSwitcher({
 }: IBetweenTextSwitcher) {
   return (
     <Layout>
-      <ArrowTextButton text={left.text} dir="left" onClick={left.func} />
-      <ArrowTextButton text={right.text} dir="right" onClick={right.func} />
+      <ArrowTextButton
+        text={left.text}
+        dir="left"
+        onClick={left.func}
+        size="sm"
+      />
+      <ArrowTextButton
+        text={right.text}
+        dir="right"
+        onClick={right.func}
+        size="sm"
+      />
     </Layout>
   );
 }

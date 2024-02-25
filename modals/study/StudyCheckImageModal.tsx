@@ -4,12 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { POINT_SYSTEM_PLUS } from "../../constants/settingValue/pointSystem";
 import { now } from "../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../helpers/eventHelpers";
@@ -117,41 +112,48 @@ function StudyCheckImageModal({ setIsModal }: IModal) {
     // const file = new File([blob], "image.jpg", { type: blob.type });
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "출석",
+      func: onSubmit,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md" height={320}>
-      <ModalHeader text="출석체크" />
-      <ModalBody>
-        <ModalSubtitle>참여를 인증할 수 있는 사진을 올려주세요!</ModalSubtitle>
-        <Input
-          ref={fileInputRef}
-          id="studyCheckInput"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        <Container onClick={handleBtnClick}>
-          {!imageSrc ? (
-            <>
-              <FontAwesomeIcon
-                icon={faCameraViewfinder}
-                size="4x"
-                color="var(--gray-4)"
-              />
-              <CameraText>사진 올리기</CameraText>
-            </>
-          ) : (
-            <ImageContainer>
-              <Image
-                src={imageSrc}
-                alt="Image Preview"
-                width={140}
-                height={140}
-              />
-            </ImageContainer>
-          )}
-        </Container>
-      </ModalBody>
-      <ModalFooterOne text="출석" onClick={onSubmit} isFull={true} />
+    <ModalLayout
+      title="출석 체크"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <ModalSubtitle>참여를 인증할 수 있는 사진을 올려주세요!</ModalSubtitle>
+      <Input
+        ref={fileInputRef}
+        id="studyCheckInput"
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+      />
+      <Container onClick={handleBtnClick}>
+        {!imageSrc ? (
+          <>
+            <FontAwesomeIcon
+              icon={faCameraViewfinder}
+              size="4x"
+              color="var(--gray-4)"
+            />
+            <CameraText>사진 올리기</CameraText>
+          </>
+        ) : (
+          <ImageContainer>
+            <Image
+              src={imageSrc}
+              alt="Image Preview"
+              width={140}
+              height={140}
+            />
+          </ImageContainer>
+        )}
+      </Container>
     </ModalLayout>
   );
 }

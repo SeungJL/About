@@ -1,12 +1,8 @@
-import { ModalBody } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { faCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import {
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { PROMOTION_WIN } from "../../storage/winRecord";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
@@ -16,16 +12,17 @@ interface IPromotionMyCoolTimeModal extends IModal {
 }
 
 function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
+  const footerOptions: IFooterOptions = {
+    main: {},
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xl">
-      <ModalHeader text="지난 당첨 기록" />
-      <ModalBody
-        p="var(--gap-1) var(--gap-4)"
-        display="flex"
-        flexDir="column"
-        position="relative"
-        overflowY="auto"
-      >
+    <ModalLayout
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+      title="지난 당첨 기록"
+    >
+      <Flex direction="column" position="relative" overflowY="auto">
         <Container>
           {PROMOTION_WIN.map((item, idx) => (
             <Item key={idx}>
@@ -54,8 +51,7 @@ function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
             </Item>
           ))}
         </Container>
-      </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} />
+      </Flex>
     </ModalLayout>
   );
 }

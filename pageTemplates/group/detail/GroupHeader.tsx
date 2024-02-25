@@ -75,11 +75,7 @@ function GroupHeader({ group }: IGroupHeader) {
 
   return (
     <>
-      <Header
-        title="소모임"
-        url={prevPageUrl || "/group"}
-        isPrev={!!prevPageUrl}
-      >
+      <Header title="소모임" url={prevPageUrl || "/group"}>
         {session?.user.uid === organizer?.uid && (
           <IconWrapper onClick={onClick}>
             <FontAwesomeIcon icon={faPenCircle} size="xl" />

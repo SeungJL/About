@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import RecordMonthNav from "../../components/features/atoms/MonthNav";
+
 import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
 import RecordDetail from "../../pageTemplates/record/detail/RecordDetail";

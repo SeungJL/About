@@ -10,7 +10,8 @@ interface IStudyCover {
 }
 
 function StudyCover({ brand, imageUrl }: IStudyCover) {
-  const logo = STUDY_CAFE_LOGO[brand];
+  const brandName = brand === "행궁 81.2" ? "행궁" : brand;
+  const logo = STUDY_CAFE_LOGO[brandName];
 
   return (
     <StudyCoverWrapper>

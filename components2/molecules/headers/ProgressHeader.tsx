@@ -1,6 +1,6 @@
+import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/PageSlide";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
-import Header from "../../Header";
 interface IProgressHeader {
   value: number;
   title: string;

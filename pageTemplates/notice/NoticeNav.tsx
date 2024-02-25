@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NewAlertIcon } from "../../components/common/Icon/AlertIcon";
 import { NOTICE_ACTIVE_CNT } from "../../constants/keys/localStorage";
-import { AlertIcon } from "../../styles/icons";
 import { DispatchBoolean } from "../../types/reactTypes";
 
 interface INoticeNav {
@@ -44,6 +43,8 @@ function NoticeNav({ isNotice, setIsNotice, activeAlertCnt }: INoticeNav) {
 
 const Layout = styled.div`
   display: flex;
+  max-width: var(--max-width);
+  margin: 0 auto;
 `;
 
 const Button = styled.button<{ isSelected: boolean }>`
@@ -64,6 +65,5 @@ const IconWrapper = styled.div`
   right: 40px;
   bottom: 8px;
 `;
-
 
 export default NoticeNav;

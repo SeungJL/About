@@ -26,18 +26,12 @@ import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
-import { ActiveLocation } from "../../types2/serviceTypes/locationTypes";
 
 const LOCATE_GAP = 0.00008;
 
-interface IStudyAttendCheckModal extends IModal {
-  location: ActiveLocation;
-}
+interface IStudyAttendCheckModal extends IModal {}
 
-function StudyAttendCheckModal({
-  setIsModal,
-  location,
-}: IStudyAttendCheckModal) {
+function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
   const { data: session } = useSession();
   const toast = useToast();
   const typeToast = useTypeToast();

@@ -16,26 +16,38 @@ import TwoButtonNav from "../layout/TwoButtonNav";
 
 export interface IHeaderOptions {
   subTitle?: string;
+  children?: React.ReactNode;
 }
 export interface IFooterOptions {
-  main: {
+  main?: {
     text?: string;
     func?: () => void;
+    isRedTheme?: boolean;
   };
   sub?: {
     text?: string;
     func?: () => void;
   };
   isFull?: boolean;
+  children?: React.ReactNode;
 }
 
 interface IModalLayout extends IModal {
-  title: string;
+  title?: string;
   footerOptions?: IFooterOptions;
   children: React.ReactNode;
-
   initialRef?: any;
   headerOptions?: IHeaderOptions;
+  paddingOptions?: IPaddingOptions;
+}
+
+export interface IPaddingOptions {
+  header?: number;
+  body?: {
+    top?: number;
+    bottom?: number;
+  };
+  footer?: number;
 }
 
 export const ModalLayout = ({
@@ -43,9 +55,9 @@ export const ModalLayout = ({
   setIsModal,
   footerOptions,
   headerOptions,
-
   initialRef,
   children,
+  paddingOptions,
 }: IModalLayout) => {
   const onClose = () => setIsModal(false);
 
@@ -74,6 +86,8 @@ export const ModalLayout = ({
             </ChakraModalHeader>
             <ModalCloseButton size="lg" />
           </>
+        ) : headerOptions?.children ? (
+          headerOptions.children
         ) : (
           <>
             <ChakraModalHeader
@@ -91,17 +105,32 @@ export const ModalLayout = ({
             )}
           </>
         )}
-        <ChakraModalBody pt="16px" pb="4px" px="20px">
+        <ChakraModalBody
+          pt={
+            paddingOptions?.body?.top ? `${paddingOptions.body.top}px` : "16px"
+          }
+          pb={
+            paddingOptions?.body?.bottom
+              ? `${paddingOptions.body.bottom}px`
+              : "4px"
+          }
+          px="20px"
+        >
           {children}
         </ChakraModalBody>
 
         {footerOptions && (
-          <ChakraModalFooter p="20px">
-            {!sub ? (
+          <ChakraModalFooter
+            py={paddingOptions?.footer ? `${paddingOptions.footer}px` : "20px"}
+            px="20px"
+          >
+            {footerOptions?.children ? (
+              footerOptions.children
+            ) : !sub ? (
               isFull ? (
                 <Button
                   size="lg"
-                  colorScheme="mintTheme"
+                  colorScheme={main?.isRedTheme ? "redTheme" : "mintTheme"}
                   w="100%"
                   onClick={func}
                 >
@@ -111,7 +140,9 @@ export const ModalLayout = ({
                 <Button
                   onClick={func}
                   variant="ghost"
-                  color="var(--color-mint)"
+                  color={
+                    main?.isRedTheme ? "var(--color-red)" : "var(--color-mint)"
+                  }
                 >
                   {text}
                 </Button>

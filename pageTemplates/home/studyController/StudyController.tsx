@@ -20,7 +20,8 @@ export type VoteType =
   | "attendCheck"
   | "attendCompleted"
   | "absent"
-  | "expired";
+  | "expired"
+  | "attendPrivate";
 
 function StudyController() {
   const router = useRouter();
@@ -94,10 +95,7 @@ function StudyController() {
         <StudyVoteMap setIsModal={() => setModalType(null)} />
       )}
       {modalType === "attendCheck" && (
-        <StudyAttendCheckModal
-          location={location}
-          setIsModal={() => setModalType(null)}
-        />
+        <StudyAttendCheckModal setIsModal={() => setModalType(null)} />
       )}
       {modalType === "attendPrivate" && (
         <StudyCheckImageModal setIsModal={() => setModalType(null)} />

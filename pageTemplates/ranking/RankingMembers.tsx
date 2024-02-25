@@ -1,71 +1,71 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge, Box } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
+import Avatar from "../../components2/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { RANKING_ANONYMOUS_USERS } from "../../constants/storage/anonymous";
 import { getUserBadge } from "../../helpers/userHelpers";
-import {
-  IRankingUser,
-  ISortedUserAttends,
-  ISortedUserScores,
-  RankingCategory,
-  RankingType,
-} from "../../types/page/ranking";
-import { IUser } from "../../types/user/user";
+import { IRankingUser } from "../../types/page/ranking";
+import { IVoteRate } from "../../types/study/study";
 
 interface IRankingMembers {
-  rankInfo: RankingType;
-  category: RankingCategory;
+  rankingUsers: IVoteRate[];
 }
 
-function RankingMembers({ rankInfo, category }: IRankingMembers) {
+function RankingMembers({ rankingUsers }: IRankingMembers) {
   const { data: session } = useSession();
 
   let dupCnt = 0;
   let value;
 
-  const isAttendCategory = category !== "누적";
-  const memberList = isAttendCategory
-    ? (rankInfo as ISortedUserAttends)?.attendArr
-    : ((rankInfo as ISortedUserScores)?.scoreArr as IUser[]);
-
   return (
-    <Layout>
-      {memberList?.map((who, idx) => {
-        const whoValue = !isAttendCategory
-          ? (who as IUser).score
-          : (who as IRankingUser).cnt;
+    <Box
+      m="16px"
+      h="52vh"
+      rounded="lg"
+      border="var(--border-mint)"
+      overflow="scroll"
+      bgColor="white"
+    >
+      {rankingUsers?.map((who, idx) => {
+        const whoValue = (who as IRankingUser).cnt;
         if (value === whoValue) dupCnt++;
         else dupCnt = 0;
         value = whoValue;
-
-        const { badge } = getUserBadge(who?.score, who?.uid);
+        const user = who.userSummary;
+        const { badge } = getUserBadge(who?.userSummary.score, who?.uid);
         return (
           <Item key={idx} id={`ranking${who.uid}`}>
-            <Rank>{idx - dupCnt + 1}위</Rank>
+            <Box mr="12px">
+              <Rank>{idx - dupCnt + 1}위</Rank>
+            </Box>
             <Name>
-              <ProfileIcon size="sm" user={who} isMember={true} />
+              <Avatar
+                image={user.profileImage}
+                avatar={user.avatar}
+                uid={user.uid}
+                size="md"
+              />
+
               <RankingMine isMine={who.uid === session?.user?.uid}>
                 {!RANKING_ANONYMOUS_USERS.includes(who?.uid)
-                  ? who?.name
+                  ? user.name
                   : "비공개"}
               </RankingMine>
               <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
             </Name>
-            <Score>{`${value} ${isAttendCategory ? "회" : "점"}`}</Score>
+            <Score>{`${value}회`}</Score>
           </Item>
         );
       })}
-    </Layout>
+    </Box>
   );
 }
 
-const Layout = styled.div``;
-
 const Item = styled.div`
   display: flex;
-  padding: var(--gap-3);
+  padding: 12px 16px;
+  padding-right: 20px;
   align-items: center;
   border-bottom: var(--border);
 `;

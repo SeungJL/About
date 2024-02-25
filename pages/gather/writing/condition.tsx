@@ -25,8 +25,8 @@ import { faUserPolice } from "@fortawesome/pro-solid-svg-icons";
 import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
 import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
 
+import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/PageSlide";
-import Header from "../../../components2/Header";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";

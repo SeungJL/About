@@ -1,30 +1,29 @@
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { IModal } from "../../types/reactTypes";
 
 function GatherIntroModal({ setIsModal }: IModal) {
+  const footerOptions: IFooterOptions = {
+    main: {},
+  };
+
   return (
-    <ModalLayout size="lg" onClose={() => setIsModal(false)}>
-      <ModalHeader text="11월, 모임 활성화 안내" />
-      <ModalBody>
-        <Ol>
-          <li>매주 금,토,일 중에 주모임이 개설됩니다.</li>
-          <Ul>
-            <li>수요일까지 신청을 받고 인원이 되는 경우 오픈</li>
-            <li>격주에 한번 정도는 20대 초반 모임으로 진행</li>
-          </Ul>
-          <li>두달에 한번 정기모임이 진행됩니다.</li>
-          <Ul>
-            <li>파티룸, 대형술집, 여행 등</li>
-          </Ul>
-        </Ol>
-      </ModalBody>
-      <ModalFooterOne onClick={() => setIsModal(false)} />
+    <ModalLayout
+      footerOptions={footerOptions}
+      title="모임 관련"
+      setIsModal={setIsModal}
+    >
+      <Ol>
+        <li>매주 금,토,일 중에 주모임이 개설됩니다.</li>
+        <Ul>
+          <li>수요일까지 신청을 받고 인원이 되는 경우 오픈</li>
+          <li>격주에 한번 정도는 20대 초반 모임으로 진행</li>
+        </Ul>
+        <li>두달에 한번 정기모임이 진행됩니다.</li>
+        <Ul>
+          <li>파티룸, 대형술집, 여행 등</li>
+        </Ul>
+      </Ol>
     </ModalLayout>
   );
 }

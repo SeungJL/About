@@ -5,10 +5,9 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import {
-  ModalBody,
+  IFooterOptions,
   ModalFooterOne,
   ModalFooterTwo,
-  ModalHeader,
   ModalLayout,
 } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
@@ -61,69 +60,97 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
     sendRequest({ category: "홍보", writer: session.user.name });
     mutate(uniName);
   };
+  <>
+    {!contentType ? (
+      <ModalFooterTwo
+        leftText="다음에"
+        rightText="게시완료"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={onSubmit}
+        isFull={true}
+      />
+    ) : contentType === "cool" ? (
+      <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />
+    ) : (
+      <ModalFooterTwo
+        leftText="다음에"
+        rightText="확인"
+        onClickLeft={() => setIsModal(false)}
+        onClickRight={handleApply}
+        isFull={true}
+      />
+    )}
+  </>;
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: !contentType
+        ? "게시완료"
+        : contentType === "cool"
+        ? "확인"
+        : "다음에",
+      func: !contentType
+        ? onSubmit
+        : contentType === "cool"
+        ? () => setIsModal(false)
+        : handleApply,
+    },
+
+    ...(!contentType
+      ? {
+          sub: {
+            text: "다음에",
+          },
+        }
+      : contentType === "cool"
+      ? undefined
+      : {
+          sub: {
+            text: "다음에",
+          },
+        }),
+  };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeader text="이벤트 보상 신청" />
-      <ModalBody>
-        <ModalSubtitle>
-          {!contentType ? (
-            <>
-              홍보글을 작성해 주셨나요? <b> +100 Point</b>와 추첨을 통해 치킨
-              기프티콘을 드려요!
-            </>
-          ) : contentType === "cool" ? (
-            <>
-              아직 신청 쿨타임이 지나지 않았어요!
-              <br />
-              쿨타임이 끝난 뒤에 다시 신청해주세요!
-            </>
-          ) : (
-            <>
-              처음 홍보를 진행하는 대학교예요! 대학교 목록에 {uniName}를 추가 후
-              진행할게요! 최초 등록시 +300 point가 지급됩니다.
-            </>
-          )}
-        </ModalSubtitle>
-
+    <ModalLayout
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+      title="이벤트 보상 신청"
+    >
+      <ModalSubtitle>
         {!contentType ? (
-          <Uni>
-            <span>학교:</span>
-            <span>{uniName}</span>
-          </Uni>
-        ) : (
-          contentType === "cool" && (
-            <CoolTime>
-              <FontAwesomeIcon icon={faClock} />
-              <span>
-                {coolTime >= 24 ? Math.ceil(coolTime / 24) : coolTime}{" "}
-                {coolTime >= 24 ? "일" : "시간"}
-              </span>
-            </CoolTime>
-          )
-        )}
-      </ModalBody>
-      <>
-        {!contentType ? (
-          <ModalFooterTwo
-            leftText="다음에"
-            rightText="게시완료"
-            onClickLeft={() => setIsModal(false)}
-            onClickRight={onSubmit}
-            isFull={true}
-          />
+          <>
+            홍보글을 작성해 주셨나요? <b> +100 Point</b>와 추첨을 통해 치킨
+            기프티콘을 드려요!
+          </>
         ) : contentType === "cool" ? (
-          <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />
+          <>
+            아직 신청 쿨타임이 지나지 않았어요!
+            <br />
+            쿨타임이 끝난 뒤에 다시 신청해주세요!
+          </>
         ) : (
-          <ModalFooterTwo
-            leftText="다음에"
-            rightText="확인"
-            onClickLeft={() => setIsModal(false)}
-            onClickRight={handleApply}
-            isFull={true}
-          />
+          <>
+            처음 홍보를 진행하는 대학교예요! 대학교 목록에 {uniName}를 추가 후
+            진행할게요! 최초 등록시 +300 point가 지급됩니다.
+          </>
         )}
-      </>
+      </ModalSubtitle>
+      {!contentType ? (
+        <Uni>
+          <span>학교:</span>
+          <span>{uniName}</span>
+        </Uni>
+      ) : (
+        contentType === "cool" && (
+          <CoolTime>
+            <FontAwesomeIcon icon={faClock} />
+            <span>
+              {coolTime >= 24 ? Math.ceil(coolTime / 24) : coolTime}{" "}
+              {coolTime >= 24 ? "일" : "시간"}
+            </span>
+          </CoolTime>
+        )
+      )}
     </ModalLayout>
   );
 }

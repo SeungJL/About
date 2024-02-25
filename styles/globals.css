@@ -39,9 +39,10 @@ a {
 }
 
 #__next {
-  min-width: 360px;
+  min-width: 340px;
   max-width: 390px;
-  min-height: calc(100dvh - 56px);
+
+  min-height: calc(100dvh - 96px);
   margin: 0 auto;
   background-color: var(--gray-8);
 

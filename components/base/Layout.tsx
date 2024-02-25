@@ -80,6 +80,6 @@ function Layout({ children }: ILayout) {
   );
 }
 
-const BASE_BOTTOM_NAV_URL = ["/home", "/ranking", "/gather", "/group"];
+const BASE_BOTTOM_NAV_URL = ["/home", "/statistics", "/gather", "/group"];
 
 export default Layout;

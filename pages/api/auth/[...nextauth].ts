@@ -76,10 +76,9 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ account, user, profile, credentials }) {
       if (account.provider === "guest") return true;
-      console.log("first-signIn", account, user, profile, credentials);
+
       if (!account.access_token) return false;
 
-      console.log("not guest");
       // if (user.role === "newUser") return false;
 
       const profileImage =
@@ -99,7 +98,6 @@ export const authOptions: NextAuthOptions = {
     },
     //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
     async session({ session, token, user, trigger }) {
-      console.log("session", session, token, user);
       if (trigger === "update") {
         return session;
       }
@@ -124,7 +122,6 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, account, user, trigger, session }) {
-      console.log("jwt", account);
       if (trigger === "update" && token?.role) {
         token.role = "waiting";
         return token;

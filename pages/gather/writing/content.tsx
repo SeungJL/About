@@ -6,10 +6,10 @@ import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Slide from "../../../components/layout/PageSlide";
 
+import Header from "../../../components/layout/Header";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
 import Input from "../../../components2/atoms/Input";
 import Textarea from "../../../components2/atoms/Textarea";
-import Header from "../../../components2/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";

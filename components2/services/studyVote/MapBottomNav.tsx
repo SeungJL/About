@@ -139,7 +139,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
 
   return (
     <>
-      <Layout>
+      <Layout >
         <Button colorScheme="mintTheme" size="lg" onClick={onClickTimeSelect}>
           시간 선택
         </Button>
@@ -180,6 +180,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
 
 const Layout = styled.div`
   display: flex;
+
   flex-direction: column;
   align-items: center;
   padding: 16px;

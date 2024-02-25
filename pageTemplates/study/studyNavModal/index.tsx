@@ -33,16 +33,7 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
 
   return (
     <Layout>
-      {/* {["vote", "private"].includes(type) && (
-        <ModalPortal setIsModal={closeModal}>
-          <StudyVoteSubModal
-            setIsModal={closeModal}
-            place={place}
-            isPrivate={type === "private"}
-            attCnt={attCnt}
-          />
-        </ModalPortal>
-      )} */}
+  
 
       {type === "vote" && <StudyVoteDrawer setIsModal={closeModal} />}
       {type === "cancelVote" && (

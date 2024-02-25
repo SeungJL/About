@@ -19,7 +19,7 @@ import { NOTICE_ARR } from "../../../storage/notice";
 import { AlertIcon } from "../../../styles/icons";
 
 interface IHomeHeaderIcons {
-  setIconType: React.Dispatch<HomeHeaderIconType>;
+  setIconType: React.Dispatch<any>;
   isRabbitRun: boolean;
 }
 

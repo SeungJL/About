@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import {
-  ModalBody,
   ModalBodyNavTwo,
-  ModalHeader,
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
@@ -31,16 +29,13 @@ function GatherExpireModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="md">
-        <ModalHeader text="모집 종료" />
-        <ModalBody>
-          <ModalBodyNavTwo
-            topText="모집 마감"
-            bottomText="모임 취소"
-            onClickTop={() => setModal("expire")}
-            onClickBottom={() => setModal("cancel")}
-          />
-        </ModalBody>
+      <ModalLayout title="모집 종료" setIsModal={setIsModal}>
+        <ModalBodyNavTwo
+          topText="모집 마감"
+          bottomText="모임 취소"
+          onClickTop={() => setModal("expire")}
+          onClickBottom={() => setModal("cancel")}
+        />
       </ModalLayout>
       <GatherExpireModalExpireDialog
         setIsComplete={setIsComplete}

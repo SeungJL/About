@@ -89,4 +89,8 @@ export default function VoteMap({
 const Map = styled.div`
   width: 100%;
   height: 100%;
+  max-width: var(--max-width);
+  max-height: var(--max-width);
+  margin: 0 auto;
+  
 `;

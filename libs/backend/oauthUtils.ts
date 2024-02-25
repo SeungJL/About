@@ -19,6 +19,8 @@ export const getRefreshedAccessToken = async (uid: string) => {
   const token: JWT = {
     uid,
     refreshToken: account.refresh_token,
+    accessToken: account.access_token,
+    accessTokenExpires: account.expires_at,
   };
 
   const refreshed = await refreshAccessToken(token);

@@ -1,16 +1,13 @@
 import dayjs from "dayjs";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
 import { Button } from "@chakra-ui/react";
-import { AxiosError } from "axios";
+import axios from "axios";
 import { useState } from "react";
-import { CallBackProps, STATUS, Step } from "react-joyride";
-import { useMutation } from "react-query";
-import { COLOR_SCHEME_BG } from "../constants/styles";
-import { requestServer } from "../helpers/methodHelpers";
+import { Step } from "react-joyride";
+import { SERVER_URI } from "../constants2/apiConstants";
 import { useMonthCalcMutation } from "../hooks/admin/mutation";
-import { MutationOptions } from "../types/reactTypes";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
     dayjs("2024-02-12"),
@@ -83,60 +80,53 @@ function Test() {
       },
     ],
   });
-  const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status, type } = data;
-    const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
-    if (finishedStatuses.includes(status)) {
-      setState({ run: false });
+  const handleForm = (e) => {
+    e.preventDefault();
+    console.log(1234);
+  };
+
+  const [image, setImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setImage(file);
+  };
+  const submitForm = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("path", "hello");
+    console.log(`${SERVER_URI}/image/upload`, formData);
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
     }
-    // logGroup(type, data);
+    await axios
+      .post(`${SERVER_URI}/image/upload`, formData)
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
   };
 
-  const useA = (options?: MutationOptions<void>) =>
-    useMutation<void, AxiosError, void>(
-      () =>
-        requestServer<any>({
-          method: "patch",
-          url: "user/changeInactive",
-        }),
-      options
-    );
-  let b;
-  const { mutate: mutate2, data: data3 } = useA({
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
-
-  const onClick = () => {
-    mutate2();
-  };
   return (
     <>
-      <GlobalStyle />
-
       <Layout>
-        <Button onClick={onClick}>CLICK</Button>
+        <form onSubmit={submitForm} encType="multipart/form-data">
+          <input
+            id="imageInput"
+            accept="image/*"
+            type="file"
+            name="image"
+            onChange={handleImageChange}
+          />
+          <Button type="button" onClick={submitForm}>
+            클릭
+          </Button>
+        </form>
       </Layout>
     </>
   );
 }
-const GlobalStyle = createGlobalStyle`
-  background-color:black !important;
-  .react-joyride__beacon {
-    >span:first-child{
-      background-color:var(--color-mint) !important;
-
-    }
-    >span:last-child{
-    border-color:var(--color-mint) !important;
- background-color:${COLOR_SCHEME_BG["var(--color-mint)"]} !important;
-      
-    }
-    // 기타 스타일 변경사항...
-  }
-`;
 
 const Layout = styled.div`
   margin-top: 200px;

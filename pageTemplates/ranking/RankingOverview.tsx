@@ -1,36 +1,27 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge, Box, Flex } from "@chakra-ui/react";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Skeleton from "../../components/common/masks/skeleton/Skeleton";
 import Avatar from "../../components2/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
-import { schemeToColor } from "../../helpers/converterHelpers";
 import { getUserBadge } from "../../helpers/userHelpers";
-import {
-  ISortedUserAttends,
-  ISortedUserScores,
-  RankingCategory,
-  RankingType,
-} from "../../types/page/ranking";
+import { useUserInfoQuery } from "../../hooks/user/queries";
+import { IMyRank } from "../../types/page/ranking";
 
 import { UserBadge } from "../../types/user/user";
-import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
 
 interface IRankingOverview {
-  userInfo: IUserSummary;
-  rankInfo: RankingType;
-  isLoading: boolean;
-  category: RankingCategory;
+  myRankInfo: IMyRank;
+  totalCnt: number;
 }
 
-function RankingOverview({
-  userInfo,
-  rankInfo,
-  isLoading,
-  category,
-}: IRankingOverview) {
+function RankingOverview({ myRankInfo, totalCnt }: IRankingOverview) {
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const [userBadge, setUserBadge] = useState<UserBadge>();
+
+  const { data: userInfo } = useUserInfoQuery();
 
   useEffect(() => {
     if (isGuest) setUserBadge("아메리카노");
@@ -39,82 +30,71 @@ function RankingOverview({
     setUserBadge(badge);
   }, [isGuest, userInfo]);
 
-  const totalCnt =
-    category !== "누적"
-      ? (rankInfo as ISortedUserAttends)?.attendArr?.length
-      : (rankInfo as ISortedUserScores)?.scoreArr?.length;
-
   return (
     <>
       <Layout>
-        <RankContainer>
-          <MyRank>
-            <Skeleton isLoad={!isLoading}>
-              <MyRankText>랭킹:</MyRankText>
-              {rankInfo?.isRankNum ? (
-                <RankNum>
-                  {rankInfo?.rankValue === 0
-                    ? "NEW"
-                    : `${rankInfo?.rankValue}위`}
-                </RankNum>
-              ) : (
-                <RankPercent>
-                  상위 <span>{rankInfo?.rankValue}%</span>
-                </RankPercent>
-              )}
-            </Skeleton>
-          </MyRank>
-          <TotalCnt>
-            <Skeleton isLoad={!isLoading}>
-              전체: {totalCnt && `${totalCnt}명`}
-            </Skeleton>
-          </TotalCnt>
-        </RankContainer>
+        <Flex flex={1} direction="column" align="center">
+          <Box fontSize="20px" fontWeight={800}>
+            {myRankInfo?.isRank ? (
+              <Box>
+                월간:{" "}
+                {myRankInfo?.value === 0
+                  ? "NEW"
+                  : `${myRankInfo?.rankNum + 1}위`}
+              </Box>
+            ) : (
+              <RankPercent>
+                상위 <span>{myRankInfo?.percent}%</span>
+              </RankPercent>
+            )}
+          </Box>
+          <Box color="var(--gray-2)">
+            {dayjs().month() + 1}월 참여:{" "}
+            {myRankInfo.value ? `${myRankInfo.value}회` : "기록없음"}
+          </Box>
+        </Flex>
         <ProfileContainer isGuest={isGuest}>
-          <Skeleton isLoad={!isLoading}>
-            <ProfileWrapper>
-              <Avatar
-                image={userInfo.profileImage}
-                avatar={userInfo.avatar}
-                uid={userInfo.uid}
-                size="lg"
-              />
-              <ProfileUserName>{userInfo?.name}</ProfileUserName>
-            </ProfileWrapper>
-          </Skeleton>
-        </ProfileContainer>
-        <ScoreContainer>
+          <ProfileWrapper>
+            <Avatar
+              image={userInfo.profileImage}
+              avatar={userInfo.avatar}
+              uid={userInfo.uid}
+              size="lg"
+            />
+            <ProfileUserName>{userInfo?.name}</ProfileUserName>
+          </ProfileWrapper>
+        </ProfileContainer>{" "}
+        <RankContainer>
           <RankBadge>
-            <Skeleton isLoad={!isLoading}>
-              <BadgeWrapper>
-                <ScoreText>배지:</ScoreText>
-                <Badge
-                  colorScheme={BADGE_COLOR[userBadge]}
-                  fontSize="14px"
-                  border="1px solid var(--gray-5)"
-                >
-                  {userBadge}
-                </Badge>
-              </BadgeWrapper>
-            </Skeleton>
+            <BadgeWrapper>
+              <ScoreText>배지:</ScoreText>
+              <Badge
+                colorScheme={BADGE_COLOR[userBadge]}
+                fontSize="14px"
+                border="1px solid var(--gray-5)"
+              >
+                {userBadge}
+              </Badge>
+            </BadgeWrapper>
           </RankBadge>
-          <Score>
-            <Skeleton isLoad={!isLoading}>
-              <ScoreValue color={schemeToColor(BADGE_COLOR[userBadge])}>
-                점수: {userInfo?.score || 0}점
-              </ScoreValue>
-            </Skeleton>
-          </Score>
-        </ScoreContainer>
+          <RankBadge>
+            <BadgeWrapper>
+              <ScoreText>구성:</ScoreText>
+              동아리원
+            </BadgeWrapper>
+          </RankBadge>
+        </RankContainer>
       </Layout>
     </>
   );
 }
 const Layout = styled.div`
-  margin: 0 var(--gap-3);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 12px;
+  padding-top: 12px;
+  padding-bottom: 8px;
 `;
 
 /** RANK CONTAINER */
@@ -122,33 +102,8 @@ const RankContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-`;
-
-const MyRank = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--gap-1);
-`;
-
-const MyRankText = styled.span`
-  color: var(--gray-1);
-  font-size: 13px;
-  font-weight: 600;
-  margin-right: var(--gap-1);
-`;
-
-const TotalCnt = styled.div`
-  height: 20px;
-  color: var(--gray-3);
-  font-size: 13px;
-  width: 67px;
-`;
-
-const RankNum = styled.span`
-  height: 30px;
-  font-size: 20px;
-  font-weight: 700;
+  align-items: flex-start;
+  line-height: 2;
 `;
 
 const RankPercent = styled.span`
@@ -162,7 +117,7 @@ const RankPercent = styled.span`
 /** PROFILE CONTAINER */
 const ProfileContainer = styled.div<{ isGuest: boolean }>`
   text-align: center;
-  margin-top: 16px;
+
   flex: 1;
 `;
 
@@ -175,30 +130,20 @@ const ProfileWrapper = styled.div`
 const ProfileUserName = styled.span`
   display: inline-block;
   margin-top: 8px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 `;
 
-/** SCORE CONTAINER */
-
-const ScoreContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const BadgeWrapper = styled.div`
-  height: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2px;
 `;
 
 const RankBadge = styled.div`
+  margin-left: 12px;
   display: flex;
-  font-size: 13px;
+
   justify-content: center;
 
   align-items: center;
@@ -209,18 +154,6 @@ const ScoreText = styled.span`
   font-weight: 600;
 
   margin-right: var(--gap-1);
-`;
-
-const ScoreValue = styled.span<{ color: string }>`
-  color: ${(props) => props.color};
-  font-size: 13px;
-  display: flex;
-  margin-top: 2px;
-  align-items: center;
-`;
-
-const Score = styled.div`
-  height: 20px;
 `;
 
 export default RankingOverview;

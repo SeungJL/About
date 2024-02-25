@@ -5,12 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../components/common/Icon/CopyIcon";
 
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import {
   PromotionComponent,
   PROMOTION_TEXT,
@@ -48,48 +43,53 @@ function RequestPromotionRewardModal({ setIsModal }: IModal) {
     setIsModal(false);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "게시 완료",
+      func: onSubmit,
+    },
+    sub: {
+      text: "확인",
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xxl">
-      <ModalHeader text="홍보 리워드 신청" />
-      <ModalBody>
-        <Overview>
-          에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 ABOUT 포인트와
-          추첨을 통해 꽤 높은 확률로 상품을 보내드립니다! 도와주시는 모든 분들
-          감사합니다!
-        </Overview>
-        {isFirst ? (
-          <Container>
-            <PromotionComponent />
-            <CopyWrapper>
-              <CopyBtn size="lg" text={PROMOTION_TEXT} />
-            </CopyWrapper>
-          </Container>
-        ) : (
-          <ImageContainer>
-            <Image
-              src="https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png"
-              alt="promotionImage"
-              width={165}
-              height={166}
-            />
-            <ImageText>이미지를 꾹 눌러서 저장해주세요!</ImageText>
-          </ImageContainer>
-        )}
-        <Button mt="var(--gap-1)" onClick={() => setIsFirst((old) => !old)}>
-          {isFirst ? "이미지 다운로드" : "돌아가기"}
-        </Button>
-        <Message>
-          제목은 &quot;카공 및 친목 동아리 ABOUT&quot; 로 적어주시면 되고,
-          이미지는 굳이 안넣어주셔도 돼요! 여러번 지원해도 너무 환영하니 자주
-          신청해주세요 🙂
-        </Message>
-      </ModalBody>
-      <ModalFooterTwo
-        leftText="확인"
-        rightText="게시완료"
-        onClickLeft={() => setIsModal(false)}
-        onClickRight={onSubmit}
-      />
+    <ModalLayout
+      setIsModal={setIsModal}
+      footerOptions={footerOptions}
+      title="홍보 리워드 신청"
+    >
+      <Overview>
+        에브리타임 홍보 게시판에 아래 홍보글을 올려주시면 ABOUT 포인트와 추첨을
+        통해 꽤 높은 확률로 상품을 보내드립니다! 도와주시는 모든 분들
+        감사합니다!
+      </Overview>
+      {isFirst ? (
+        <Container>
+          <PromotionComponent />
+          <CopyWrapper>
+            <CopyBtn size="lg" text={PROMOTION_TEXT} />
+          </CopyWrapper>
+        </Container>
+      ) : (
+        <ImageContainer>
+          <Image
+            src="https://user-images.githubusercontent.com/84257439/235453825-026ca653-d356-485a-a916-19c21352e10a.png"
+            alt="promotionImage"
+            width={165}
+            height={166}
+          />
+          <ImageText>이미지를 꾹 눌러서 저장해주세요!</ImageText>
+        </ImageContainer>
+      )}
+      <Button mt="var(--gap-1)" onClick={() => setIsFirst((old) => !old)}>
+        {isFirst ? "이미지 다운로드" : "돌아가기"}
+      </Button>
+      <Message>
+        제목은 &quot;카공 및 친목 동아리 ABOUT&quot; 로 적어주시면 되고,
+        이미지는 굳이 안넣어주셔도 돼요! 여러번 지원해도 너무 환영하니 자주
+        신청해주세요 🙂
+      </Message>
     </ModalLayout>
   );
 }

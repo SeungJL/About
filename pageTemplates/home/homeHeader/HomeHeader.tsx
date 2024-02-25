@@ -88,11 +88,8 @@ function HomeHeader() {
 }
 
 const Layout = styled.header`
-  position: fixed;
-  top: 0;
-  width: 100%;
   height: var(--header-h);
-  z-index: 10;
+
   font-size: 20px;
   background-color: white;
   padding: 0 var(--gap-4);
@@ -101,6 +98,9 @@ const Layout = styled.header`
   align-items: center;
   color: var(--gray-2);
   border-bottom: var(--border);
+  max-width: var(--max-width);
+  margin: 0 auto;
+
   > div:first-child {
     display: flex;
     align-items: center;

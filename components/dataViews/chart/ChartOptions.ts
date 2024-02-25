@@ -8,8 +8,9 @@ export const ChartStudyOptions = (
     zoom: {
       enabled: false,
     },
+
     toolbar: {
-      show: false,
+      show: true,
     },
   },
   stroke: {

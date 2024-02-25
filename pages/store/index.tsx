@@ -11,9 +11,9 @@ import { IStoreApplicant } from "../../types/page/store";
 
 import { Button } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
 import { StoreGiftImage } from "../../components/utils/CustomImages";
-import Header from "../../components2/Header";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { isPrevBooleanState } from "../../recoil/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoil/transferDataAtoms";

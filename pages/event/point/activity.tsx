@@ -1,7 +1,7 @@
 import { useState } from "react";
+import Header from "../../../components/layout/Header";
 import Slide from "../../../components/layout/PageSlide";
 import AlertNotCompletedModal from "../../../components2/AlertNotCompletedModal";
-import Header from "../../../components2/Header";
 import ButtonCard from "../../../components2/molecules/cards/ButtonCard";
 import { POINT_GET_ACTIBITY_LIST } from "../../../constants2/serviceConstants/pointSystemConstants";
 

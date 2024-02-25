@@ -1,9 +1,10 @@
 import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
 import { ModalLayout } from "../../../components/modals/Modals";
+import { USER_INFO } from "../../../constants/keys/queryKeys";
 import {
   useCompleteToast,
   useErrorToast,
@@ -13,7 +14,6 @@ import {
   useUserInfoFieldMutation,
   useUserUpdateProfileImageMutation,
 } from "../../../hooks/user/mutations";
-import { isRefetchUserInfoState } from "../../../recoil/refetchingAtoms";
 import { IModal } from "../../../types/reactTypes";
 import RequestChagneProfileImageModalBadge from "./RequestChagneProfileImageModalBadge";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";
@@ -25,7 +25,8 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
 
   const isGuest = session?.user.name === "guest";
-  const setIsRefetchUserInfo = useSetRecoilState(isRefetchUserInfoState);
+
+  const queryClient = useQueryClient();
 
   const [pageNum, setPageNum] = useState(0);
 
@@ -34,7 +35,8 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
   const { mutate: setUserAvatar } = useUserInfoFieldMutation("avatar", {
     onSuccess() {
       completeToast("success");
-      setIsRefetchUserInfo(true);
+      queryClient.invalidateQueries([USER_INFO]);
+      setIsModal(false);
     },
     onError: errorToast,
   });
@@ -46,7 +48,6 @@ function RequestChangeProfileImageModal({ setIsModal }: IModal) {
     }
     updateProfile();
     setUserAvatar({ type: null, bg: null });
-    setIsModal(false);
   };
 
   return (

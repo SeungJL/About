@@ -1,4 +1,4 @@
-import { ActiveLocation } from "@/types/serviceTypes/locationTypes";
+import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
   ANYANG_범계학원가,
   ANYANG_숨맑은집,

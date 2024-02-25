@@ -10,8 +10,9 @@ import HomeGatherSection from "../../pageTemplates/home/HomeGatherSection";
 import HomeHeader from "../../pageTemplates/home/homeHeader/HomeHeader";
 import HomeInitialSetting from "../../pageTemplates/home/HomeInitialSetting";
 import HomeLocationBar from "../../pageTemplates/home/HomeLocationBar";
-import HomeStudySection from "../../pageTemplates/home/homeMain/HomeStudySection";
+
 import HomeReviewSection from "../../pageTemplates/home/HomeReviewSection";
+import HomeStudySection from "../../pageTemplates/home/HomeStudySection";
 import HomeWinRecordSection from "../../pageTemplates/home/HomeWinRecordSection";
 import StudyController from "../../pageTemplates/home/studyController/StudyController";
 import { LocationEn } from "../../types/serviceTypes/locationTypes";
@@ -24,7 +25,6 @@ function Home() {
   const dateParam = searchParams.get("date");
 
   useEffect(() => {
- 
     if (session?.user && (!locationParam || !dateParam)) {
       const initialUrl = getUrlWithLocationAndDate(
         locationParam,
@@ -33,14 +33,12 @@ function Home() {
       );
       router.replace(initialUrl);
     }
-  }, [session]);
+  });
 
   return (
     <>
       <HomeInitialSetting />
-     
-        <HomeHeader />
-   
+      <HomeHeader />
       <Slide>
         <HomeCategoryNav />
         <HomeLocationBar />

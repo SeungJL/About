@@ -41,11 +41,11 @@ export default function EventBadge({}: IEventBadge) {
   const eventArr: IIconButtonColBlockProps[] = EVENT_BADGE.map((badge) => {
     const hasBadge =
       badge === "딸기스무디"
-        ? EVENT_BADGE_딸기스무디.includes(userInfo.uid)
+        ? EVENT_BADGE_딸기스무디.includes(userInfo?.uid)
         : badge === "라벤더"
-        ? EVENT_BADGE_라벤더.includes(userInfo.uid)
+        ? EVENT_BADGE_라벤더.includes(userInfo?.uid)
         : badge === "민트초코"
-        ? EVENT_BADGE_민트초코.includes(userInfo.uid)
+        ? EVENT_BADGE_민트초코.includes(userInfo?.uid)
         : false;
 
     return {

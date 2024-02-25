@@ -3,12 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import TimeSelector from "../../components/features/picker/TimeSelector";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
@@ -87,19 +82,26 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
     }, 500);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "오픈",
+      func: onSubmit,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeader text="스터디 FREE 오픈" />
-      <ModalBody>
-        <TimeSelector
-          setTimes={({ start, end }: ITimeStartToEnd) => {
-            if (start) setTime({ end: time.end, start });
-            if (end) setTime({ start: time.start, end });
-          }}
-          times={time}
-        />
-      </ModalBody>
-      <ModalFooterOne text="오픈" onClick={onSubmit} isFull={true} />
+    <ModalLayout
+      title="스터디 FREE 오픈"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <TimeSelector
+        setTimes={({ start, end }: ITimeStartToEnd) => {
+          if (start) setTime({ end: time.end, start });
+          if (end) setTime({ start: time.start, end });
+        }}
+        times={time}
+      />
     </ModalLayout>
   );
 }

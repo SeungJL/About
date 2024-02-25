@@ -19,23 +19,24 @@ import {
 import {
   faChevronLeft,
   faChevronRight,
-  faDeleteLeft,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layout/Header";
+
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { IAttendance, StudyStatus } from "../../../types/study/studyDetail";
 import { IUser } from "../../../types/user/user";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 const LOCATION = ["SUWAN", "YANG"];
 
 function AdminStudyStatus() {
   const [date, setDate] = useState(dayjs());
-  const { data: SUWAN } = useStudyVoteQuery(date, "수원");
-  const { data: YANG } = useStudyVoteQuery(date, "양천");
+  const { data: SUWAN } = useStudyVoteQuery(dayjsToStr(date), "수원");
+  const { data: YANG } = useStudyVoteQuery(dayjsToStr(date), "양천");
 
   const handleStatus = (type: StudyStatus) => {};
 
@@ -131,9 +132,10 @@ function AdminStudyStatus() {
                           {place?.attendences.map((who, idx) => (
                             <Att key={idx}>
                               <span> {(who.user as IUser).name}</span>
-                              <Delete onClick={() => handleDeleteUser(who)}>
+                              {/* <Delete onClick={() => handleDeleteUser(who)}>
                                 <FontAwesomeIcon icon={faDeleteLeft} />
-                              </Delete>
+                              </Delete> */}
+                              temp
                             </Att>
                           ))}
                         </Participant>

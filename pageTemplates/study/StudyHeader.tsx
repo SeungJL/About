@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
 
-import Header from "../../components2/Header";
+import Header from "../../components/layout/Header";
 import { WEB_URL } from "../../constants/system";
 import { IPlace } from "../../types2/studyTypes/studyVoteTypes";
 

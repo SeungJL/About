@@ -1,6 +1,3 @@
-import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
-
 async function getData() {
   const res = await fetch("https://api.example.com/...");
   // The return value is *not* serialized
@@ -38,7 +35,6 @@ export async function middleware() {
   // const C = await authResponse.json();
   // console.log("242141", C);
   // console.log(754754546, C);
-
   // const A = async () => {
   //   try {
   //     const response = await axios.get(
@@ -49,7 +45,6 @@ export async function middleware() {
   //         },
   //       }
   //     );
-
   //     return await response.data;
   //   } catch (error) {
   //     console.error("Fetch error:", error);
@@ -57,39 +52,31 @@ export async function middleware() {
   //   }
   // };
   // A().then((data) => console.log(31123234, data));
-  return;
-  const { pathname } = req.nextUrl;
-
-  // 인증이 필요하지 않은 경로를 정의합니다.
-  const publicPaths = ["/login", "/register", "/public"];
-
-  // 요청 경로가 공개 경로에 해당하는지 확인합니다.
-  const isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
-
-  // 공개 경로의 경우, 미들웨어 로직을 건너뜁니다.
-  if (isPublicPath) {
-    return NextResponse.next();
-  }
-
-  // 그 외의 경우, 토큰을 검증합니다.
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  if (!token) {
-    // 토큰이 없는 경우 로그인 페이지로 리디렉션합니다.
-    return NextResponse.redirect("/login");
-  }
-
+  // const { pathname } = req.nextUrl;
+  // // 인증이 필요하지 않은 경로를 정의합니다.
+  // const publicPaths = ["/login", "/register", "/public"];
+  // // 요청 경로가 공개 경로에 해당하는지 확인합니다.
+  // const isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
+  // // 공개 경로의 경우, 미들웨어 로직을 건너뜁니다.
+  // if (isPublicPath) {
+  //   return NextResponse.next();
+  // }
+  // // 그 외의 경우, 토큰을 검증합니다.
+  // const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  // if (!token) {
+  //   // 토큰이 없는 경우 로그인 페이지로 리디렉션합니다.
+  //   return NextResponse.redirect("/login");
+  // }
   // 인증된 사용자에 대한 요청을 계속 진행합니다.
-  return NextResponse.next();
-
-  // 로그인 페이지나 NextAuth 관련 경로에 대해서는 미들웨어 로직을 건너뜁니다.
-  if (pathname.includes("/api/auth") || token) {
-    return NextResponse.next();
-  }
-
-  // 인증되지 않은 사용자는 로그인 페이지로 리디렉션합니다.
-  if (!token && pathname !== "/login") {
-    return NextResponse.redirect("/login");
-  }
+  // return NextResponse.next();
+  // // 로그인 페이지나 NextAuth 관련 경로에 대해서는 미들웨어 로직을 건너뜁니다.
+  // if (pathname.includes("/api/auth") || token) {
+  //   return NextResponse.next();
+  // }
+  // // 인증되지 않은 사용자는 로그인 페이지로 리디렉션합니다.
+  // if (!token && pathname !== "/login") {
+  //   return NextResponse.redirect("/login");
+  // }
   // if (request.nextUrl.pathname === "/")
   //   console.log(1, request.nextUrl.searchParams.get("location"));
   // if (

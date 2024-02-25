@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import ScoreBadge from "../../components/common/user/ScoreBadge";
@@ -5,6 +6,7 @@ import { USER_ROLE } from "../../constants/settingValue/role";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 function MemberMyProfile() {
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const { data: userInfo } = useUserInfoQuery();
   return (

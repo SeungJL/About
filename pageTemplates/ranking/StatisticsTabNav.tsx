@@ -1,15 +1,23 @@
-import TabNav from "../../components2/molecules/navs/TabNav";
+import TabNav, {
+  ITabNavOptions,
+} from "../../components2/molecules/navs/TabNav";
+import { DispatchType } from "../../types2/reactTypes";
 
-interface IStatisticsTabNav {}
-export default function StatisticsTabNav({}: IStatisticsTabNav) {
-  const tabNavOptions: ITabnav = {
-    left: {
-      text: "랭킹",
+interface IStatisticsTabNav {
+  setTabValue: DispatchType<"전체 랭킹" | "내 통계">;
+}
+export default function StatisticsTabNav({ setTabValue }: IStatisticsTabNav) {
+  const tabNavOptionsArr: ITabNavOptions[] = [
+    {
+      text: "전체 랭킹",
+      func: () => setTabValue("전체 랭킹"),
+      flex: 1,
     },
-    right: {
-      text: "내 스터디",
+    {
+      text: "내 통계",
+      func: () => setTabValue("내 통계"),
+      flex: 1,
     },
-  };
-
-  return <TabNav options={tabNavOptions} />;
+  ];
+  return <TabNav tabOptionsArr={tabNavOptionsArr} />;
 }

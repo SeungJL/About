@@ -32,9 +32,9 @@ function MemberOverviewSkeleton() {
         </li>
         <ActiveLocation location={location as Location}>
           <span>활동 장소</span>
-          <studys location={location as Location}>
+          <Studys location={location as Location}>
             <Skeleton>temp</Skeleton>
-          </studys>
+          </Studys>
         </ActiveLocation>
       </Info>
     </Layout>
@@ -85,7 +85,7 @@ const ActiveLocation = styled.li<{ location: Location }>`
       : "24px"};
 `;
 
-const studys = styled.div<{ location: Location }>`
+const Studys = styled.div<{ location: Location }>`
   flex: 1;
 
   color: var(--gray-2);

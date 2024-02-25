@@ -11,12 +11,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
@@ -29,31 +24,34 @@ import { IUserRequest } from "../../types/user/userRequest";
 function ManagerPopUp({ setIsModal }: IModal) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "지원하기",
+      func: onOpen,
+    },
+    sub: {},
+  };
+
   return (
     <>
-      <ModalLayout size="lg" onClose={() => setIsModal(false)}>
-        <ModalHeader text="운영진 공고" />
-        <ModalBody>
-          <Subtitile>모집 조건</Subtitile>
-          <Ol>
-            <li>22 ~ 24세</li>
-            <li>일주일 2회 스터디 참여 가능하신 분</li>
-            <li>사람 만나는 거 좋아하고 외향적이신 분</li>
-            <li>오프라인 모임도 종종 참여할 수 있는 분</li>
-          </Ol>
-          <Subtitile>혜택</Subtitile>
-          <Ul>
-            <li>매달 커피 값으로 2만원씩 지원</li>
-            <li>원하는 스터디 장소 있으면 장소 개설해드려요</li>
-            <li>기타 특전</li>
-          </Ul>
-        </ModalBody>
-        <ModalFooterTwo
-          leftText="닫기"
-          rightText="지원하기"
-          onClickLeft={() => setIsModal(false)}
-          onClickRight={() => onOpen()}
-        />
+      <ModalLayout
+        title="운영진 모집 공고"
+        footerOptions={footerOptions}
+        setIsModal={setIsModal}
+      >
+        <Subtitile>모집 조건</Subtitile>
+        <Ol>
+          <li>22 ~ 24세</li>
+          <li>일주일 2회 스터디 참여 가능하신 분</li>
+          <li>사람 만나는 거 좋아하고 외향적이신 분</li>
+          <li>오프라인 모임도 종종 참여할 수 있는 분</li>
+        </Ol>
+        <Subtitile>혜택</Subtitile>
+        <Ul>
+          <li>매달 커피 값으로 2만원씩 지원</li>
+          <li>원하는 스터디 장소 있으면 장소 개설해드려요</li>
+          <li>기타 특전</li>
+        </Ul>
       </ModalLayout>
       <Dialog isOpen={isOpen} onClose={onClose} setIsModal={setIsModal} />
     </>

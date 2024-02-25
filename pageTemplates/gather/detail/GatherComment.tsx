@@ -6,6 +6,7 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import Avatar from "../../../components2/atoms/Avatar";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { getDateDiff } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
@@ -80,11 +81,17 @@ function GatherComments({ comment }: IGatherComments) {
               </SubmitBtn>
             </MyCommnet>
           )}
+          ``
           <section>
-            {comment?.map((item) => (
-              <CommentBlock key={item._id}>
+            {comment?.map((item, idx) => (
+              <CommentBlock key={idx}>
                 <div>
-                  <ProfileIcon user={item.user} size="xs" />
+                  <Avatar
+                    size="sm"
+                    avatar={item.user.avatar}
+                    image={item.user.profileImage}
+                    uid={item.user.uid}
+                  />
                 </div>
                 <CommentContent>
                   <Name>

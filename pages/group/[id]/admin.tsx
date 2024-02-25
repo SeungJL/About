@@ -5,10 +5,12 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { UserItem } from "../../../components/common/user/UserItem";
 import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/Slide";
+import Slide from "../../../components/layout/PageSlide";
+
 import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
-import { useGroupWaitingStatusMutation } from "../../../hooks/group/mutations";
+import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
+
 import { isRefetchGroupInfoState } from "../../../recoil/refetchingAtoms";
 import { transferGroupDataState } from "../../../recoil/transferDataAtoms";
 import { IUser } from "../../../types/user/user";
@@ -50,44 +52,46 @@ function Admin() {
   };
 
   return (
-    <Slide>
+    <>
       <Header title="관리자 페이지" url="back" />
-      <Layout>
-        <Title>가입 신청</Title>
-        <Question>가입 질문: {group?.questionText} </Question>
-        <Container>
-          {group?.waiting?.map((who, idx) =>
-            deletedUsers.includes(who.user._id) && !isLoading ? null : (
-              <Item key={idx}>
-                <UserItem user={who.user}>
-                  <Button
-                    onClick={(e) =>
-                      onClick(e, "agree", who.user, who.pointType)
-                    }
-                    size="sm"
-                    colorScheme="mintTheme"
-                    mr="var(--gap-2)"
-                  >
-                    승인
-                  </Button>
-                  <Button
-                    onClick={(e) => onClick(e, "refuse", who.user)}
-                    size="sm"
-                    variant="outline"
-                    color="var(--color-red)"
-                    borderColor="var(--color-red)"
-                  >
-                    거절
-                  </Button>
-                </UserItem>
-                {who?.answer && <Content>{who.answer}</Content>}
-              </Item>
-            )
-          )}
-        </Container>
-        <Title>기타 기능</Title>
-      </Layout>
-    </Slide>
+      <Slide>
+        <Layout>
+          <Title>가입 신청</Title>
+          <Question>가입 질문: {group?.questionText} </Question>
+          <Container>
+            {group?.waiting?.map((who, idx) =>
+              deletedUsers.includes(who.user._id) && !isLoading ? null : (
+                <Item key={idx}>
+                  <UserItem user={who.user}>
+                    <Button
+                      onClick={(e) =>
+                        onClick(e, "agree", who.user, who.pointType)
+                      }
+                      size="sm"
+                      colorScheme="mintTheme"
+                      mr="var(--gap-2)"
+                    >
+                      승인
+                    </Button>
+                    <Button
+                      onClick={(e) => onClick(e, "refuse", who.user)}
+                      size="sm"
+                      variant="outline"
+                      color="var(--color-red)"
+                      borderColor="var(--color-red)"
+                    >
+                      거절
+                    </Button>
+                  </UserItem>
+                  {who?.answer && <Content>{who.answer}</Content>}
+                </Item>
+              )
+            )}
+          </Container>
+          <Title>기타 기능</Title>
+        </Layout>
+      </Slide>
+    </>
   );
 }
 

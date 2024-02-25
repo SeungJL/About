@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import ProfileIconXsOverwrap from "../../components/common/user/Profile/ProfileIconXsOverwrap";
 import { LOCATION_OPEN_DATE } from "../../constants/location";
 import { birthToAge } from "../../helpers/converterHelpers";
 import { MemberGroup } from "../../types/page/member";
@@ -78,10 +77,11 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
                 {item?.map((user, idx2) =>
                   idx2 < 13 ? (
                     <ProfileContainer key={user.uid} zIndex={idx2}>
-                      <ProfileIconXsOverwrap
+                      {/* <ProfileIconXsOverwrap
                         user={user}
                         isOverlap={idx2 > 11}
-                      />
+                      /> */}
+                      temp
                     </ProfileContainer>
                   ) : null
                 )}

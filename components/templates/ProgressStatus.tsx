@@ -18,6 +18,9 @@ function ProgressStatus({ value }: IProgressStatus) {
   );
 }
 
-const Layout = styled.div``;
+const Layout = styled.div`
+  max-width: var(--max-width);
+  margin: 0 auto;
+`;
 
 export default ProgressStatus;

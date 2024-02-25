@@ -1,10 +1,4 @@
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
 
 import { IModal } from "../../types/reactTypes";
 
@@ -20,7 +14,7 @@ interface IContentPopUp extends IModal {
 function ContentPopUp({ content, setIsModal }: IContentPopUp) {
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)}>
+      {/* <ModalLayout onClose={() => setIsModal(false)}>
         <ModalHeader text={content.title} />
         <ModalBody>
           <Wrapper>
@@ -45,7 +39,7 @@ function ContentPopUp({ content, setIsModal }: IContentPopUp) {
           </Wrapper>
         </ModalBody>
         <ModalFooterOne onClick={() => setIsModal(false)} />
-      </ModalLayout>
+      </ModalLayout> */}
     </>
   );
 }

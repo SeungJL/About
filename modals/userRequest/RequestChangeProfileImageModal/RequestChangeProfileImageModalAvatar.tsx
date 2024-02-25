@@ -13,10 +13,10 @@ import styled from "styled-components";
 import ImageSlider from "../../../components/dataViews/imageSlider/ImageSlider";
 import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import {
-  AVATAR_COLOR,
   AVATAR_COST,
   AVATAR_ICON,
 } from "../../../constants/settingValue/avatar";
+import { COLOR_TABLE_LIGHT } from "../../../constants2/colorConstants";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
 
@@ -104,7 +104,7 @@ function RequestChangeProfileImageModalAvatar({
             exit="exit"
             key={iconIdx}
           >
-            <Icon bg={AVATAR_COLOR[BG]}>
+            <Icon bg={COLOR_TABLE_LIGHT[BG]}>
               <Image
                 width={80}
                 height={80}
@@ -124,7 +124,7 @@ function RequestChangeProfileImageModalAvatar({
       <DownPart>
         <ImageSlider
           type="avatarColor"
-          imageContainer={AVATAR_COLOR}
+          imageContainer={COLOR_TABLE_LIGHT}
           onClick={(idx) => setBG(idx)}
         />
       </DownPart>

@@ -1,11 +1,11 @@
+import { Box } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { LOCATION_ALL, RegisterLocation } from "../../../constants/location";
+import { LOCATION_ALL } from "../../../constants/location";
 
 import { Location } from "../../../types/system";
 import { IUserRegisterForm } from "../../../types/user/user";
 import { IUserRequest } from "../../../types/user/userRequest";
-import ButtonCheckNav from "../../templates/ButtonCheckNav";
 
 interface IAdminLocationSelector {
   initialData: IUserRegisterForm[] | IUserRequest[];
@@ -43,11 +43,12 @@ function AdminLocationSelector({
   }, [category, initialData, type]);
 
   return (
-    <ButtonCheckNav
-      buttonList={[...RegisterLocation]}
-      selectedButton={category}
-      setSelectedButton={setCategory}
-    />
+    // <ButtonCheckNav
+    //   buttonList={[...RegisterLocation]}
+    //   selectedButton={category}
+    //   setSelectedButton={setCategory}
+    // />
+    <Box>temp</Box>
   );
 }
 

@@ -1,17 +1,18 @@
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
+
 import { SERVER_URI } from "../../constants/system";
 import { useFailToast } from "../../hooks/custom/CustomToast";
-import { userInfoState } from "../../recoil/userAtoms";
 
 function Admin() {
+  const { data: session } = useSession();
   const router = useRouter();
   const failToast = useFailToast();
-  const userInfo = useRecoilValue(userInfoState);
-  const role = userInfo?.role;
+
+  const role = session?.user.role;
 
   const onClick = (url: string, isAccess?: boolean) => {
     if (isAccess !== false) {

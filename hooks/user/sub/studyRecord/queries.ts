@@ -11,16 +11,26 @@ import { dayjsToStr } from "../../../../helpers/dateHelpers";
 import { QueryOptions } from "../../../../types/reactTypes";
 import { IVoteRate } from "../../../../types/study/study";
 import { IDayjsStartToEnd } from "../../../../types/timeAndDate";
+import { ActiveLocation } from "../../../../types2/serviceTypes/locationTypes";
+
 type UserAttendRateReturn<T> = T extends true ? IVoteRate : IVoteRate[];
 
 export const useUserAttendRateQuery = <T extends boolean>(
   startDay: Dayjs,
   endDay: Dayjs,
   isUserScope: T = true as T,
+  summary: boolean,
+  location: ActiveLocation,
   options?: QueryOptions<UserAttendRateReturn<T>>
 ) =>
   useQuery<UserAttendRateReturn<T>, AxiosError, UserAttendRateReturn<T>>(
-    [USER_ATTEND_RATE, dayjsToStr(startDay), dayjsToStr(endDay)],
+    [
+      USER_ATTEND_RATE,
+      dayjsToStr(startDay),
+      dayjsToStr(endDay),
+      isUserScope,
+      summary,
+    ],
     async () => {
       const scopeQuery = isUserScope ? "" : "all";
       const res = await axios.get<UserAttendRateReturn<T>>(
@@ -29,6 +39,8 @@ export const useUserAttendRateQuery = <T extends boolean>(
           params: {
             startDay: startDay.format("YYYY-MM-DD"),
             endDay: endDay.format("YYYY-MM-DD"),
+            ...(summary ? { summary: true } : {}),
+            ...(location ? { location } : {}),
           },
         }
       );

@@ -7,7 +7,6 @@ import { Navigation, Pagination } from "swiper/modules";
 import ImageSliderAvatarColor from "./imageSliderType/ImageSliderAvatarColor";
 import ImageSliderEventBanner from "./imageSliderType/ImageSliderEventBanner";
 import ImageSliderGatherReviewNav from "./imageSliderType/ImageSliderGatherReviewNav";
-import ImageSliderGroup from "./imageSliderType/ImageSliderGroupStudy";
 
 import ImageSliderMember from "./imageSliderType/ImageSliderMember";
 import ImageSliderPoint from "./imageSliderType/ImageSliderPoint";
@@ -15,12 +14,7 @@ import ImageSliderReview from "./imageSliderType/ImageSliderReview";
 
 SwiperCore.use([Navigation, Pagination]); // apply the Pagination module
 
-export type ImageContainer =
-  | string[]
-  | IImageSliderItem[]
-  | IUser[]
-  | IGather[]
-  | IGroup[];
+export type ImageContainer = any;
 
 export interface IImageSliderItem {
   image: string;
@@ -54,8 +48,6 @@ function ImageSlider({ type, imageContainer, onClick }: IImageSlider) {
             />
           ) : type === "eventBanner" ? (
             <ImageSliderEventBanner imageContainer={imageContainer} />
-          ) : type === "group" ? (
-            <ImageSliderGroup imageContainer={imageContainer} />
           ) : null}
         </Layout>
       )}

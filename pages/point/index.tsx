@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -7,6 +8,7 @@ import PointScore from "../../pageTemplates/point/PointScore";
 import PointSkeleton from "../../pageTemplates/point/skeleton/PointSkeleton";
 
 function Point() {
+  const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,

@@ -8,6 +8,7 @@ import {
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { DispatchNumber } from "../../../types/reactTypes";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
 
 interface IGatherParticipateModalApply {
   setPageNum: DispatchNumber;
@@ -52,11 +53,11 @@ function GatherParticipateModalApply({
     }
 
     if (gatherData.genderCondition) {
-      const organizerGender = gatherData.user.gender;
+      const organizerGender = (gatherData.user as IUser).gender;
 
       const participants = gatherData.participants;
       let manCnt = participants.filter(
-        (who) => who.user.gender === "남성"
+        (who) => (who.user as IUser).gender === "남성"
       ).length;
       let womanCnt = participants.length - manCnt;
       if (organizerGender === "남성") manCnt++;

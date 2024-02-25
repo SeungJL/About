@@ -5,29 +5,30 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { IPostThumbnailCard } from "../../../components2/molecules/cards/PostThumbnailCard";
+import { IPostThumbnailCard } from "../../components2/molecules/cards/PostThumbnailCard";
 import {
   CardColumnLayout,
   CardColumnLayoutSkeleton,
-} from "../../../components2/organisms/CardColumnLayout";
-import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { getMyStudy } from "../../../libs/study/getMyStudy";
-import { getStudyConfimCondition } from "../../../libs/study/getStudyConfimCondition";
-import { sortStudyVoteData } from "../../../libs/study/sortStudyVoteData";
+} from "../../components2/organisms/CardColumnLayout";
+import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
+import { useStudyVoteQuery } from "../../hooks/study/queries";
+import { getMyStudy } from "../../libs/study/getMyStudy";
+import { getStudyConfimCondition } from "../../libs/study/getStudyConfimCondition";
+import { sortStudyVoteData } from "../../libs/study/sortStudyVoteData";
 import {
   myStudyState,
   sortedStudyCardListState,
   studyDateStatusState,
-} from "../../../recoils/studyRecoils";
-import { ITextAndColorSchemes } from "../../../types2/propTypes";
+} from "../../recoils/studyRecoils";
+import { ITextAndColorSchemes } from "../../types2/propTypes";
 
-import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
+import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import {
   IParticipation,
   StudyStatus,
-} from "../../../types2/studyTypes/studyVoteTypes";
-import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
-import { dayjsToStr } from "../../../utils/dateTimeUtils";
+} from "../../types2/studyTypes/studyVoteTypes";
+import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export default function HomeStudySection() {
   const { data: session } = useSession();
@@ -54,6 +55,8 @@ export default function HomeStudySection() {
     }
   );
 
+  const { mutate: decideStudyResult } = useStudyResultDecideMutation(date);
+
   useEffect(() => {
     if (!studyVoteData || !studyVoteData.length || !session?.user) return;
 
@@ -72,7 +75,7 @@ export default function HomeStudySection() {
     setMyStudy(getMyStudy(studyVoteData, session.user.uid));
 
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[0].status)) {
-      //patch
+      decideStudyResult();
     }
   }, [studyDateStatus, studyVoteData]);
 

@@ -13,7 +13,7 @@ interface ITabNav {
 export default function TabNav({ tabOptionsArr }: ITabNav) {
   return (
     <>
-      <Tabs colorScheme="mintTheme">
+      <Tabs colorScheme="mintTheme" bgColor="white">
         <CustomTabList>
           {tabOptionsArr.map((tab) => (
             <CustomTab flex={tab?.flex} key={tab.text} onClick={tab.func}>

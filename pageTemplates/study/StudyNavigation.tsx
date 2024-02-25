@@ -249,8 +249,6 @@ const getMainButtonStatus = (
 };
 
 const Layout = styled.nav`
-  position: fixed;
-  bottom: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -258,6 +256,8 @@ const Layout = styled.nav`
   background-color: white;
   z-index: 50;
   box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
+  max-width: var(--max-width);
+  margin: 0 auto;
 `;
 
 const Wrapper = styled.div`

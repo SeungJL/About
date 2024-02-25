@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  if (isMember(session.role as string)) {
+  if (isMember(session.user.role as string)) {
     return {
       redirect: {
         permanent: false,

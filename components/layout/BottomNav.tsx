@@ -12,7 +12,7 @@ interface IBottomNav {
 function BottomNav({ onClick, text, url }: IBottomNav) {
   const searchParams = useSearchParams();
   const params = searchParams.toString();
-  console.log(url, !!searchParams, searchParams.toString());
+
   const BottomButton = () => (
     <Button
       position="fixed"

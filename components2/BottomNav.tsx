@@ -128,6 +128,8 @@ const Nav = styled.nav`
   z-index: 10;
   box-shadow: var(--shadow);
   border-top: var(--border);
+  max-width: var(--max-width);
+  margin: 0 auto;
 `;
 
 const NavLink = styled<{ active: "true" | "false" }>(Link)`

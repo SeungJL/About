@@ -6,6 +6,7 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import Avatar from "../../../components2/atoms/Avatar";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { getDateDiff } from "../../../helpers/dateHelpers";
 // import { Group_CONTENT } from "../../../constants/keys/queryKeys";
@@ -88,7 +89,12 @@ function GroupComments({ comment }: IGroupComments) {
             {comment?.map((item) => (
               <CommentBlock key={item._id}>
                 <div>
-                  <ProfileIcon user={item.user} size="xs" />
+                  <Avatar
+                    image={item.user.profileImage}
+                    avatar={item.user.avatar}
+                    uid={item.user.uid}
+                    size="sm"
+                  />
                 </div>
                 <CommentContent>
                   <Name>

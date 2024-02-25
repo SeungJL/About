@@ -5,8 +5,8 @@ import styled from "styled-components";
 import BottomNav from "../../../components/layout/BottomNav";
 import Slide from "../../../components/layout/PageSlide";
 
+import Header from "../../../components/layout/Header";
 import ProgressStatus from "../../../components/templates/ProgressStatus";
-import Header from "../../../components2/Header";
 import {
   GatherCategoryIcons,
   GATHER_TYPES,

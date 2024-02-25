@@ -10,9 +10,9 @@ import styled from "styled-components";
 
 import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
+import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
 import Avatar from "../../components2/atoms/Avatar";
-import Header from "../../components2/Header";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { getUserBadge } from "../../helpers/userHelpers";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";

@@ -4,14 +4,10 @@ import {
   EVENT_BADGE_라벤더,
   EVENT_BADGE_민트초코,
 } from "../constants/storage/eventBadgeUser";
-import {
-  IRankingUser,
-  ISortedUserAttends,
-  ISortedUserScores,
-} from "../types/page/ranking";
+import { ISortedUserAttends, IUserRankings } from "../types/page/ranking";
 import { IVoteRate } from "../types/study/study";
 import { IScore } from "../types/user/pointSystem";
-import { IUser, UserBadge } from "../types/user/user";
+import { UserBadge } from "../types/user/user";
 
 type DataArrMap = {
   score: IScore[];
@@ -19,10 +15,10 @@ type DataArrMap = {
 };
 
 type SortUserScore = <T extends keyof DataArrMap>(
-  scoreArr: DataArrMap[T],
+  scoreArr: IVoteRate[],
   uid: string,
   type: T
-) => void;
+) => ISortedUserAttends[];
 
 interface IUserBadge {
   badge: UserBadge;
@@ -77,115 +73,130 @@ const setPercentRankValue = (rankNum: number, total: number) => {
   else return Math.ceil(rate / 10) * 10;
 };
 
-//유저 점수 랭킹 정렬
-export const sortUserScores = (
-  scoreArr: IScore[] | IUser[],
-  uid: string
-): ISortedUserScores => {
-  let myScore = scoreArr.find((who) => who.uid === uid)?.score;
+// //유저 점수 랭킹 정렬
+// export const sortUserScores = (
+//   scoreArr: IScore[] | IUser[],
+//   uid: string
+// ): ISortedUserScores => {
+//   let myScore = scoreArr.find((who) => who.uid === uid)?.score;
 
-  const compare = (a: IScore, b: IScore) => {
-    if (a.score > b.score) return -1;
-    else if (a.score < b.score) return 1;
-    return 0;
-  };
-  scoreArr.sort(compare);
+//   const compare = (a: IScore, b: IScore) => {
+//     if (a.score > b.score) return -1;
+//     else if (a.score < b.score) return 1;
+//     return 0;
+//   };
+//   scoreArr.sort(compare);
 
-  const rankNum = myScore
-    ? scoreArr.findIndex((who) => who.score === myScore) + 1
-    : 0;
+//   const rankNum = myScore
+//     ? scoreArr.findIndex((who) => who.score === myScore) + 1
+//     : 0;
 
-  if (rankNum <= 100)
-    return {
-      scoreArr,
-      rankValue: rankNum,
-      isRankNum: true,
-    };
-  return {
-    scoreArr,
-    rankValue: setPercentRankValue(rankNum, scoreArr.length),
-    isRankNum: false,
-  };
-};
-//유저 월간 랭킹 정렬
-export const sortUserAttends = (
-  attendArr: IRankingUser[],
-  uid: string
-): ISortedUserAttends => {
-  let myAttendCnt = attendArr.find((who) => who.uid === uid)?.cnt;
+//   if (rankNum <= 100)
+//     return {
+//       scoreArr,
+//       rankValue: rankNum,
+//       isRankNum: true,
+//     };
+//   return {
+//     scoreArr,
+//     rankValue: setPercentRankValue(rankNum, scoreArr.length),
+//     isRankNum: false,
+//   };
+// };
+// //유저 월간 랭킹 정렬
+// export const sortUserAttends = (
+//   attendArr: IRankingUser[],
+//   uid: string
+// ): ISortedUserAttends => {
+//   let myAttendCnt = attendArr.find((who) => who.uid === uid)?.cnt;
 
-  const compare = (a: IRankingUser, b: IRankingUser) => {
-    if (a.cnt > b.cnt) return -1;
-    else if (a.cnt < b.cnt) return 1;
-    return 0;
-  };
-  attendArr.sort(compare);
+//   const compare = (a: IRankingUser, b: IRankingUser) => {
+//     if (a.cnt > b.cnt) return -1;
+//     else if (a.cnt < b.cnt) return 1;
+//     return 0;
+//   };
+//   attendArr.sort(compare);
 
-  //정보가 없는 경우 rankNum은 0을 반환
-  const rankNum = myAttendCnt
-    ? attendArr.findIndex((who) => who.cnt === myAttendCnt) + 1
-    : 0;
+//   //정보가 없는 경우 rankNum은 0을 반환
+//   const rankNum = myAttendCnt
+//     ? attendArr.findIndex((who) => who.cnt === myAttendCnt) + 1
+//     : 0;
 
-  if (rankNum <= 100)
-    return {
-      attendArr,
-      rankValue: rankNum,
-      isRankNum: true,
-    };
-  return {
-    attendArr,
-    rankValue: setPercentRankValue(rankNum, attendArr.length),
-    isRankNum: false,
-  };
-};
+//   if (rankNum <= 100)
+//     return {
+//       attendArr,
+//       rankValue: rankNum,
+//       isRankNum: true,
+//     };
+//   return {
+//     attendArr,
+//     rankValue: setPercentRankValue(rankNum, attendArr.length),
+//     isRankNum: false,
+//   };
+// };
 
-export const sortUserScore: SortUserScore = (scoreArr, uid, type) => {
+export const sortUserRanking = (
+  users: IVoteRate[],
+  uid: string,
+  type: "attend" | "score"
+): IUserRankings => {
   let myValue = null;
 
-  const compareScore = (a: IScore, b: IScore) => {
-    if (!myValue && a.uid === uid) myValue = a.score;
-    if (a.score > b.score) return -1;
-    else if (a.score < b.score) return 1;
+  const compareScore = (a: IVoteRate, b: IVoteRate) => {
+    const aScore = a.userSummary.score;
+    const bScore = b.userSummary.score;
+    if (!myValue && a.uid === uid) myValue = aScore;
+    if (aScore > bScore) return -1;
+    else if (aScore < bScore) return 1;
     return 0;
   };
 
-  const compareAttend = (a: IVoteRate, b: IVoteRate) => {
-    if (!myValue && a.uid === uid) myValue = a.cnt;
+  console.log(myValue, uid);
+  const compareRanking = (a: IVoteRate, b: IVoteRate) => {
+    if (!myValue && (a.uid === uid || b.uid === uid)) {
+      myValue = a.cnt;
+    }
     if (a.cnt > b.cnt) return -1;
     else if (a.cnt < b.cnt) return 1;
     return 0;
   };
 
-  const total = scoreArr.length;
+  const total = users.length;
   let myRankNum = 0;
   let percent;
 
   if (type === "score") {
-    (scoreArr as IScore[]).sort(compareScore);
-    scoreArr.forEach((user) => {
-      if (myValue !== null && user.score > myValue) myRankNum++;
+    users.sort(compareScore);
+    users.forEach((user) => {
+      if (myValue !== null && user.userSummary.score > myValue) myRankNum++;
     });
 
     if (myRankNum <= 100)
       return {
-        scoreArr: scoreArr as IScore[],
-        rankNum: myValue === 0 ? -1 : myRankNum,
-        isRank: true,
-        score: myValue,
+        users: users,
+        mine: {
+          rankNum: myValue === 0 ? -1 : myRankNum,
+          isRank: true,
+          value: myValue,
+        },
       };
   }
-
   if (type === "attend") {
-    (scoreArr as IVoteRate[]).sort(compareAttend);
+    users.sort(compareRanking);
+    console.log(52, myValue);
+
     if (myValue !== 0)
-      (scoreArr as IVoteRate[]).forEach((user) => {
+      users.forEach((user) => {
         if (user.cnt > myValue) myRankNum++;
       });
+
     return {
-      scoreArr: scoreArr as IVoteRate[],
-      rankNum: myValue === 0 ? -1 : myRankNum,
-      isRank: true,
-      score: myValue,
+      users: users,
+      mine: {
+        rankNum: myValue === 0 ? -1 : myRankNum,
+        isRank: true,
+        value: myValue,
+      },
     };
   }
 
@@ -195,9 +206,11 @@ export const sortUserScore: SortUserScore = (scoreArr, uid, type) => {
   if (rate < 10) percent = 10;
   else percent = Math.ceil(rate / 10) * 10;
   return {
-    scoreArr,
-    percent: myValue === 0 ? 100 : percent,
-    isRank: false,
-    score: myValue,
+    users,
+    mine: {
+      percent: myValue === 0 ? 100 : percent,
+      isRank: false,
+      value: myValue,
+    },
   };
 };

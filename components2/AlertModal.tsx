@@ -44,7 +44,7 @@ export default function AlertModal({
         isCentered
       >
         <AlertDialogOverlay />
-        <AlertDialogContent mx="16px" zIndex={2000}>
+        <AlertDialogContent maxWidth="var(--max-width)" mx="16px" zIndex={2000}>
           <AlertDialogHeader p="16px" fontSize="18px">
             {title}
           </AlertDialogHeader>

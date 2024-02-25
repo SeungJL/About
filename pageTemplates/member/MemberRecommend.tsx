@@ -41,7 +41,7 @@ function MemberRecommend({ members }: IMemberRecommend) {
 
   return (
     <>
-      <SectionBar title="친구 추천" size="md" hasMoreBtn={false} />
+      <SectionBar title="친구 추천" size="md" />
       <Nav>
         <Button onClick={() => onClickBtn(0)}>
           <FontAwesomeIcon icon={faDragon} color="#FF8896" />
