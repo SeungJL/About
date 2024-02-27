@@ -10,12 +10,14 @@ interface ISelector {
   defaultValue: string;
   options: string[];
   setValue: DispatchType<string> | DispatchType<ActiveLocation>;
+  isBorder?: boolean;
 }
 
 export default function Selector({
   defaultValue,
   options,
   setValue: setParentValue,
+  isBorder = true,
 }: ISelector) {
   const [value, setValue] = useState(defaultValue);
 
@@ -32,7 +34,14 @@ export default function Selector({
 
   return (
     <div className="max-w-md">
-      <Select size="sm" color="primary" value={value} onChange={onChange}>
+      <Select
+        focusBorderColor="#00c2b3"
+        size="sm"
+        color="primary"
+        value={value}
+        onChange={onChange}
+        border={!isBorder ? "none" : undefined}
+      >
         {options.map((option, idx) => (
           <option key={idx}>{option}</option>
         ))}

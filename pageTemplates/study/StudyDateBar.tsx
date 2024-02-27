@@ -7,8 +7,10 @@ import { useState } from "react";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
-interface IStudyDateBar {}
-function StudyDateBar({}: IStudyDateBar) {
+interface IStudyDateBar {
+  isPrivateStudy: boolean;
+}
+function StudyDateBar({ isPrivateStudy }: IStudyDateBar) {
   const { date } = useParams<{ date: string }>();
 
   const [isModal, setIsModal] = useState(false);
@@ -16,18 +18,24 @@ function StudyDateBar({}: IStudyDateBar) {
   return (
     <>
       <StudyDateBarContainer>
-        <DateText>{dayjsToFormat(dayjs(date), "M월 D일 참여 멤버")}</DateText>
-        <Button
-          size="sm"
-          variant="outline"
-          color="var(--gray-3)"
-          rightIcon={<FontAwesomeIcon icon={faPlus} size="xs" />}
-          padding="0 var(--gap-2)"
-          borderColor="var(--gray-5)"
-          onClick={() => setIsModal(true)}
-        >
-          친구초대
-        </Button>
+        <DateText>
+          {isPrivateStudy
+            ? "개인 스터디"
+            : dayjsToFormat(dayjs(date), "M월 D일 참여 멤버")}
+        </DateText>
+        {!isPrivateStudy && (
+          <Button
+            size="sm"
+            variant="outline"
+            color="var(--gray-3)"
+            rightIcon={<FontAwesomeIcon icon={faPlus} size="xs" />}
+            padding="0 var(--gap-2)"
+            borderColor="var(--gray-5)"
+            onClick={() => setIsModal(true)}
+          >
+            친구초대
+          </Button>
+        )}
       </StudyDateBarContainer>
       {/* {isModal && <StudyInviteModal setIsModal={setIsModal} place={place} />} */}
       {/* <Layout isPrivate={isPrivate}>

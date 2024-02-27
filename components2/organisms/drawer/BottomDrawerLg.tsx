@@ -12,6 +12,7 @@ export interface IBottomDrawerLgOptions {
   footer: {
     buttonText: string;
     onClick: () => void;
+    buttonLoading: boolean;
   };
 }
 
@@ -27,7 +28,7 @@ export default function BottomDrawerLg({
   setIsModal,
   options: {
     header: { title, subTitle },
-    footer: { buttonText, onClick },
+    footer: { buttonText, onClick, buttonLoading = false },
   },
   isAnimation = true,
   children,
@@ -61,6 +62,7 @@ export default function BottomDrawerLg({
           mt="auto"
           colorScheme="mintTheme"
           size="lg"
+          isLoading={buttonLoading}
           borderRadius="var(--rounded-lg)"
           onClick={onClick}
         >

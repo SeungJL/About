@@ -13,9 +13,16 @@ interface IAvatar {
   size: Size;
   avatar?: IAvatarProp;
   uid?: string;
+  isPriority?: boolean;
 }
 
-export default function Avatar({ image, size, avatar, uid }: IAvatar) {
+export default function Avatar({
+  image,
+  size,
+  avatar,
+  uid,
+  isPriority,
+}: IAvatar) {
   const router = useRouter();
   const hasAvatar =
     avatar !== undefined && avatar?.type !== null && avatar?.bg !== null;
@@ -59,6 +66,7 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
                 ? "80px"
                 : ""
             }
+            priority={isPriority}
             alt="avatar"
             onError={onError}
           />

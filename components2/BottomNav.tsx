@@ -15,8 +15,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { getStudyStandardDate } from "../libs/study/date/getStudyStandardDate";
+import { slideDirectionState } from "../recoils/navigationRecoils";
 import { convertLocationLangTo } from "../utils/convertUtils/convertDatas";
 
 interface INavButtonProps {
@@ -78,8 +80,19 @@ const NavButton = ({
   defaultIcon,
   active,
 }: INavButton) => {
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
+
+  const handleMove = () => {
+    setSlideDirection(null);
+  };
+
   return (
-    <NavLink href={url} active={active.toString()} replace={!text}>
+    <NavLink
+      onClick={() => handleMove()}
+      href={url}
+      active={active.toString()}
+      replace={!text}
+    >
       {active ? activeIcon || defaultIcon : defaultIcon}
       <NavText>{text}</NavText>
     </NavLink>

@@ -10,23 +10,17 @@ import { IVoteRate } from "../../types/study/study";
 
 interface IRankingMembers {
   rankingUsers: IVoteRate[];
+  isScore: boolean;
 }
 
-function RankingMembers({ rankingUsers }: IRankingMembers) {
+function RankingMembers({ rankingUsers, isScore }: IRankingMembers) {
   const { data: session } = useSession();
 
   let dupCnt = 0;
   let value;
 
   return (
-    <Box
-      m="16px"
-      h="52vh"
-      rounded="lg"
-      border="var(--border-mint)"
-      overflow="scroll"
-      bgColor="white"
-    >
+    <Box h="100%" overflow="scroll">
       {rankingUsers?.map((who, idx) => {
         const whoValue = (who as IRankingUser).cnt;
         if (value === whoValue) dupCnt++;
@@ -45,6 +39,7 @@ function RankingMembers({ rankingUsers }: IRankingMembers) {
                 avatar={user.avatar}
                 uid={user.uid}
                 size="md"
+                isPriority={idx < 6}
               />
 
               <RankingMine isMine={who.uid === session?.user?.uid}>
@@ -54,7 +49,7 @@ function RankingMembers({ rankingUsers }: IRankingMembers) {
               </RankingMine>
               <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
             </Name>
-            <Score>{`${value}회`}</Score>
+            <Score>{`${value}${isScore ? "점" : "회"}`}</Score>
           </Item>
         );
       })}

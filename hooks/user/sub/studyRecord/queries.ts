@@ -20,7 +20,7 @@ export const useUserAttendRateQuery = <T extends boolean>(
   endDay: Dayjs,
   isUserScope: T = true as T,
   summary: boolean,
-  location: ActiveLocation,
+  location?: ActiveLocation,
   options?: QueryOptions<UserAttendRateReturn<T>>
 ) =>
   useQuery<UserAttendRateReturn<T>, AxiosError, UserAttendRateReturn<T>>(
@@ -30,6 +30,7 @@ export const useUserAttendRateQuery = <T extends boolean>(
       dayjsToStr(endDay),
       isUserScope,
       summary,
+      location,
     ],
     async () => {
       const scopeQuery = isUserScope ? "" : "all";

@@ -13,10 +13,10 @@ import { UserBadge } from "../../types/user/user";
 
 interface IRankingOverview {
   myRankInfo: IMyRank;
-  totalCnt: number;
+  isScore: boolean;
 }
 
-function RankingOverview({ myRankInfo, totalCnt }: IRankingOverview) {
+function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const [userBadge, setUserBadge] = useState<UserBadge>();
@@ -37,7 +37,7 @@ function RankingOverview({ myRankInfo, totalCnt }: IRankingOverview) {
           <Box fontSize="20px" fontWeight={800}>
             {myRankInfo?.isRank ? (
               <Box>
-                월간:{" "}
+                {isScore ? "누적" : "월간"}:{" "}
                 {myRankInfo?.value === 0
                   ? "NEW"
                   : `${myRankInfo?.rankNum + 1}위`}
@@ -49,20 +49,25 @@ function RankingOverview({ myRankInfo, totalCnt }: IRankingOverview) {
             )}
           </Box>
           <Box color="var(--gray-2)">
-            {dayjs().month() + 1}월 참여:{" "}
-            {myRankInfo.value ? `${myRankInfo.value}회` : "기록없음"}
+            {isScore ? "내 점수" : `${dayjs().month() + 1}월 참여`}:{" "}
+            {myRankInfo.value
+              ? `${myRankInfo.value}${isScore ? "점" : "회"}`
+              : "기록없음"}
           </Box>
         </Flex>
         <ProfileContainer isGuest={isGuest}>
-          <ProfileWrapper>
-            <Avatar
-              image={userInfo.profileImage}
-              avatar={userInfo.avatar}
-              uid={userInfo.uid}
-              size="lg"
-            />
-            <ProfileUserName>{userInfo?.name}</ProfileUserName>
-          </ProfileWrapper>
+          {userInfo && (
+            <ProfileWrapper>
+              <Avatar
+                image={userInfo.profileImage}
+                avatar={userInfo.avatar}
+                uid={userInfo.uid}
+                size="lg"
+                isPriority={true}
+              />
+              <ProfileUserName>{userInfo?.name}</ProfileUserName>
+            </ProfileWrapper>
+          )}
         </ProfileContainer>{" "}
         <RankContainer>
           <RankBadge>

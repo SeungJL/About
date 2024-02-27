@@ -47,29 +47,40 @@ export default function Page() {
   const study = studyAll?.find((study) => study.place._id === id);
   const place = study?.place;
   const attendances = study?.attendences;
+  const isPrivateStudy = place?.brand === "자유 신청";
   return (
     <Layout>
       {study && (
         <>
           <StudyHeader place={place} />
           <Slide>
-            <StudyCover imageUrl={place.coverImage} brand={place.brand} />
-            <StudyOverview
-              title={place.fullname}
-              locationDetail={place.locationDetail}
-              time={place.time}
-              participantsNum={attendances.length}
-              coordinate={{
-                lat: place.latitude,
-                lng: place.longitude,
-              }}
+            <StudyCover
+              isPrivateStudy={isPrivateStudy}
+              imageUrl={place.coverImage}
+              brand={place.brand}
             />
-            <Divider />
-            <StudyDateBar />
-            <StudyTimeBoard
-              participants={attendances}
-              studyStatus={study.status}
-            />
+            {!isPrivateStudy && (
+              <>
+                <StudyOverview
+                  title={place.fullname}
+                  locationDetail={place.locationDetail}
+                  time={place.time}
+                  participantsNum={attendances.length}
+                  coordinate={{
+                    lat: place.latitude,
+                    lng: place.longitude,
+                  }}
+                />
+                <Divider />
+              </>
+            )}
+            <StudyDateBar isPrivateStudy={isPrivateStudy} />
+            {!isPrivateStudy && (
+              <StudyTimeBoard
+                participants={attendances}
+                studyStatus={study.status}
+              />
+            )}
             <StudyParticipants
               participants={attendances}
               absences={study.absences}

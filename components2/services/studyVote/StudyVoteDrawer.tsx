@@ -9,8 +9,10 @@ import { useToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
+import StudyVoteSubModalPrivate from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalPrivate";
 import { studyDateStatusState } from "../../../recoil/studyAtoms";
 import { myStudyState } from "../../../recoils/studyRecoils";
+import { PLACE_TO_NAME } from "../../../storage/study";
 import { IModal } from "../../../types/reactTypes";
 import {
   IStudyPlaces,
@@ -52,6 +54,8 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
     enabled: !!myStudy,
   });
 
+  const isPrivateStudy = PLACE_TO_NAME[id] === "자유신청";
+
   //오늘 날짜 투표 포인트 받은거 찾기
   const myPrevVotePoint = pointLog?.find(
     (item) =>
@@ -60,7 +64,7 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
   )?.meta.value;
 
   const { mutate: getPoint } = usePointSystemMutation("point");
-  const { mutate: patchAttend } = useStudyParticipationMutation(
+  const { mutate: patchAttend, isLoading } = useStudyParticipationMutation(
     dayjs(date),
     "post",
     {
@@ -104,8 +108,9 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
       subTitle: "스터디 참여시간을 선택해주세요!",
     },
     footer: {
-      buttonText: isFirst ? "다음" : "제출",
+      buttonText: isFirst ? "다음" : "신청 완료",
       onClick: isFirst ? () => setIsFirst(false) : onSubmit,
+      buttonLoading: isLoading,
     },
   };
 
@@ -123,10 +128,14 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
           setIsModal={setIsModal}
           isAnimation={false}
         >
-          <StudyVotePlacesPicker
-            setVotePlaces={setVotePlaces}
-            onClick={onSubmit}
-          />
+          {!isPrivateStudy ? (
+            <StudyVotePlacesPicker
+              setVotePlaces={setVotePlaces}
+              onClick={onSubmit}
+            />
+          ) : (
+            <StudyVoteSubModalPrivate setVoteInfo={setMyVote} />
+          )}
         </BottomDrawerLg>
       )}
     </>

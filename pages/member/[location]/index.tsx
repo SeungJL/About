@@ -53,7 +53,7 @@ function Member() {
       enabled: !!location,
     }
   );
-
+  console.log(3, usersAll);
   //멤버 분류
   useEffect(() => {
     if (!location || isLoading || !usersAll) return;

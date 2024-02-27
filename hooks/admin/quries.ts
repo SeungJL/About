@@ -10,11 +10,12 @@ import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { QueryOptions } from "../../types/reactTypes";
 import { Location } from "../../types/system";
-import { IUser, IUserRegisterForm } from "../../types/user/user";
+import { IUserRegisterForm } from "../../types/user/user";
 import {
   IUserRequest,
   UserRequestCategory,
 } from "../../types/user/userRequest";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
 
 export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>
   useQuery<IUser[], AxiosError, IUser[]>(

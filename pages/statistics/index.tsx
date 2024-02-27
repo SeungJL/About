@@ -1,21 +1,34 @@
+import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
-import { sortUserRanking } from "../../helpers/userHelpers";
+import {
+  sortUserRanking,
+  sortUserScoreRanking,
+} from "../../helpers/userHelpers";
+import { useAdminUsersLocationControlQuery } from "../../hooks/admin/quries";
 import { useTypeToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
 import RankingMembers from "../../pageTemplates/ranking/RankingMembers";
 import RankingOverview from "../../pageTemplates/ranking/RankingOverview";
+import StatisticsFilterBar from "../../pageTemplates/ranking/StatisticsFilterBar";
 import StatisticsMine from "../../pageTemplates/ranking/StatisticsMine";
 import StatisticsTabNav from "../../pageTemplates/ranking/StatisticsTabNav";
 import { IUserRankings } from "../../types/page/ranking";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
+
+const categoryArr = [
+  `${dayjs().month()}월 랭킹`,
+  `${dayjs().add(1, "month").month()}월 랭킹`,
+  "점수 랭킹",
+];
 
 function Ranking() {
   const typeToast = useTypeToast();
@@ -25,35 +38,53 @@ function Ranking() {
     searchParams.get("location") as LocationEn,
     "kr"
   );
-  const isGuest = session?.user.name === "guest";
 
   const [usersRanking, setUsersRanking] = useState<IUserRankings>();
   const [tabValue, setTabValue] = useState<"전체 랭킹" | "내 통계">(
     "전체 랭킹"
   );
-
-  const { data: userInfo } = useUserInfoQuery({
-    enabled: !isGuest,
+  const [filterOptions, setFilterOptions] = useState<{
+    category: string;
+    isSwitchOn: boolean;
+  }>({
+    category: `${dayjs().add(1, "month").month()}월 랭킹`,
+    isSwitchOn: true,
   });
 
-  const { data: attendRecords } = useUserAttendRateQuery(
-    dayjs().subtract(1, "month").date(0),
-    dayjs(),
+  const categoryIdx = categoryArr.findIndex(
+    (item) => item === filterOptions.category
+  );
+
+  const { data: userInfo } = useUserInfoQuery();
+
+  const { data: attendRecords, isLoading } = useUserAttendRateQuery(
+    dayjs()
+      .date(0)
+      .subtract(categoryIdx === 0 ? 1 : 0, "month"),
+    dayjs().subtract(categoryIdx === 0 ? 1 : 0, "month"),
     false,
     true,
-    "수원",
+    filterOptions?.isSwitchOn ? null : session.user.location,
     {
       onError: () => typeToast("error"),
+      enabled: categoryIdx !== 2,
     }
   );
+  console.log(attendRecords);
+
+  const { data: usersAll, isLoading: isLoading2 } =
+    useAdminUsersLocationControlQuery(
+      filterOptions.isSwitchOn ? null : session.user.location
+    );
 
   useEffect(() => {
     if (!attendRecords) return;
-    setUsersRanking(
-      sortUserRanking(attendRecords, session?.user.uid, "attend")
-    );
-  }, [attendRecords]);
-
+    if (categoryIdx !== 2) {
+      setUsersRanking(sortUserRanking(attendRecords, session?.user.uid));
+    } else {
+      setUsersRanking(sortUserScoreRanking(usersAll, userInfo.score));
+    }
+  }, [attendRecords, filterOptions]);
 
   return (
     <>
@@ -64,11 +95,30 @@ function Ranking() {
             <>
               <RankingOverview
                 myRankInfo={usersRanking.mine}
-                totalCnt={usersRanking.users.length}
+                isScore={categoryIdx === 2}
               />
               <StatisticsTabNav setTabValue={setTabValue} />
               {tabValue === "전체 랭킹" ? (
-                <RankingMembers rankingUsers={usersRanking.users} />
+                <>
+                  <StatisticsFilterBar setFilterOptions={setFilterOptions} />
+                  <Box
+                    h="calc(100vh - 338px)"
+                    position="relative"
+                    m="0 16px"
+                    rounded="lg"
+                    border="var(--border-mint)"
+                    bgColor="white"
+                  >
+                    {!isLoading ? (
+                      <RankingMembers
+                        rankingUsers={usersRanking.users}
+                        isScore={categoryIdx === 2}
+                      />
+                    ) : (
+                      <MainLoadingAbsolute />
+                    )}
+                  </Box>
+                </>
               ) : (
                 <StatisticsMine />
               )}

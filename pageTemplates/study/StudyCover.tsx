@@ -7,10 +7,12 @@ import { STUDY_CAFE_LOGO } from "../../constants2/serviceConstants/studyConstant
 interface IStudyCover {
   brand: string;
   imageUrl: string;
+  isPrivateStudy: boolean;
 }
 
-function StudyCover({ brand, imageUrl }: IStudyCover) {
-  const brandName = brand === "행궁 81.2" ? "행궁" : brand;
+function StudyCover({ brand, imageUrl, isPrivateStudy }: IStudyCover) {
+  const brandName =
+    brand === "행궁 81.2" ? "행궁" : isPrivateStudy ? "개인스터디" : brand;
   const logo = STUDY_CAFE_LOGO[brandName];
 
   return (
@@ -20,24 +22,6 @@ function StudyCover({ brand, imageUrl }: IStudyCover) {
         <CircleLogoImage logoName={brand} imageUrl={logo} />
       </LogoWrapper>
     </StudyCoverWrapper>
-    // <Layout>
-    //   <MaskingContainer>
-    //     <OutCircle>
-    //       <SpaceIcon>
-    //         <studyLogo place={place} isBig={true} image={logo} />
-    //       </SpaceIcon>
-    //     </OutCircle>
-    //   </MaskingContainer>
-    //   <ImageWrapper>
-    //     <Image
-    //       src={coverImageUrl || SQUARE_RANDOM_IMAGE[0]}
-    //       fill={true}
-    //       sizes="400px"
-    //       alt="study"
-    //       priority={true}
-    //     />
-    //   </ImageWrapper>
-    // </Layout>
   );
 }
 

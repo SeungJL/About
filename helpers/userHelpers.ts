@@ -8,6 +8,7 @@ import { ISortedUserAttends, IUserRankings } from "../types/page/ranking";
 import { IVoteRate } from "../types/study/study";
 import { IScore } from "../types/user/pointSystem";
 import { UserBadge } from "../types/user/user";
+import { IUser } from "../types2/userTypes/userInfoTypes";
 
 type DataArrMap = {
   score: IScore[];
@@ -137,21 +138,9 @@ const setPercentRankValue = (rankNum: number, total: number) => {
 
 export const sortUserRanking = (
   users: IVoteRate[],
-  uid: string,
-  type: "attend" | "score"
+  uid: string
 ): IUserRankings => {
   let myValue = null;
-
-  const compareScore = (a: IVoteRate, b: IVoteRate) => {
-    const aScore = a.userSummary.score;
-    const bScore = b.userSummary.score;
-    if (!myValue && a.uid === uid) myValue = aScore;
-    if (aScore > bScore) return -1;
-    else if (aScore < bScore) return 1;
-    return 0;
-  };
-
-  console.log(myValue, uid);
   const compareRanking = (a: IVoteRate, b: IVoteRate) => {
     if (!myValue && (a.uid === uid || b.uid === uid)) {
       myValue = a.cnt;
@@ -165,40 +154,21 @@ export const sortUserRanking = (
   let myRankNum = 0;
   let percent;
 
-  if (type === "score") {
-    users.sort(compareScore);
+  users.sort(compareRanking);
+
+  if (myValue !== 0)
     users.forEach((user) => {
-      if (myValue !== null && user.userSummary.score > myValue) myRankNum++;
+      if (user.cnt > myValue) myRankNum++;
     });
 
-    if (myRankNum <= 100)
-      return {
-        users: users,
-        mine: {
-          rankNum: myValue === 0 ? -1 : myRankNum,
-          isRank: true,
-          value: myValue,
-        },
-      };
-  }
-  if (type === "attend") {
-    users.sort(compareRanking);
-    console.log(52, myValue);
-
-    if (myValue !== 0)
-      users.forEach((user) => {
-        if (user.cnt > myValue) myRankNum++;
-      });
-
-    return {
-      users: users,
-      mine: {
-        rankNum: myValue === 0 ? -1 : myRankNum,
-        isRank: true,
-        value: myValue,
-      },
-    };
-  }
+  return {
+    users: users,
+    mine: {
+      rankNum: myValue === 0 ? -1 : myRankNum,
+      isRank: true,
+      value: myValue,
+    },
+  };
 
   const rate = (myRankNum / total) * 100;
   if (rate < 1) percent = 1;
@@ -211,6 +181,41 @@ export const sortUserRanking = (
       percent: myValue === 0 ? 100 : percent,
       isRank: false,
       value: myValue,
+    },
+  };
+};
+
+export const sortUserScoreRanking = (
+  users: IUser[],
+  myScore: number
+): IUserRankings => {
+  const compareRanking = (a: IUser, b: IUser) => {
+    if (a.score > b.score) return -1;
+    else if (a.score < b.score) return 1;
+    return 0;
+  };
+
+  const total = users.length;
+  let myRankNum = 0;
+  let percent;
+
+  users.sort(compareRanking);
+
+  if (myScore !== 0)
+    users.forEach((user) => {
+      if (user.score > myScore) myRankNum++;
+    });
+
+  return {
+    users: users.map((user) => ({
+      uid: user.uid,
+      cnt: user.score,
+      userSummary: user,
+    })),
+    mine: {
+      rankNum: myScore === 0 ? -1 : myRankNum,
+      isRank: true,
+      value: myScore,
     },
   };
 };
