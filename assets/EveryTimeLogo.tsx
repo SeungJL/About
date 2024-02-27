@@ -3,18 +3,19 @@ import EveryTimeIcon from "../components/common/Icon/everyTimeIcon";
 
 export default function EveryTimeLogo() {
   return (
-    <Box fontSize="40px" fontWeight={800} lineHeight={1.3}>
-      <Box position="relative">
+    <Box fontSize="36px" fontWeight={800} lineHeight={1.3}>
+      <Box position="relative" width="max-content">
         <Box
+          position="relative"
           as="span"
           rounded="lg"
-          bg="var(--gray-8)"
-          zIndex={2}
+          bgColor="var(--gray-8)"
+          zIndex={3}
           color="#C62917"
         >
           에브리타임
         </Box>
-        <Box position="absolute" zIndex={-1} top={-7} right={-4}>
+        <Box position="absolute" zIndex={0} top={-7} right={-5}>
           <EveryTimeIcon isSmall={false} />
         </Box>
         <br />

@@ -3,6 +3,7 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
 import SummaryTable from "../../components2/organisms/tables/SummaryTable";
@@ -27,25 +28,32 @@ function PointLog() {
   return (
     <>
       <Header title="포인트 기록" />
-
-      <Slide>
-        <Layout>
-          <MyPoint>
-            <span>내 포인트</span>
-            <FontAwesomeIcon icon={faArrowRight} />
-            <span>{point} 점</span>
-          </MyPoint>
-          <Box border="var(--border)" rounded="md">
-            {pointLog && (
-              <SummaryTable
-                headerInfos={headerInfos}
-                tableInfosArr={tableInfosArr}
-                size="lg"
-              />
-            )}
-          </Box>
-        </Layout>
-      </Slide>
+      {point ? (
+        <Slide>
+          <Layout>
+            <MyPoint>
+              <span>내 포인트</span>
+              <FontAwesomeIcon icon={faArrowRight} />
+              <span>{point} 점</span>
+            </MyPoint>
+            <Box
+              border="var(--border)"
+              rounded="md"
+              minHeight="calc(100vh - 176px)"
+            >
+              {pointLog && (
+                <SummaryTable
+                  headerInfos={headerInfos}
+                  tableInfosArr={tableInfosArr}
+                  size="lg"
+                />
+              )}
+            </Box>
+          </Layout>
+        </Slide>
+      ) : (
+        <MainLoading />
+      )}
     </>
   );
 }
@@ -54,24 +62,6 @@ const Layout = styled.div`
   margin: 0 var(--gap-4);
   margin-top: var(--gap-5);
   font-weight: 600;
-`;
-
-const LogHeader = styled.header`
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: var(--border);
-  font-size: 13px;
-  > span {
-    text-align: center;
-  }
-  > span:first-child {
-    color: var(--gray-1);
-  }
-  > span:last-child {
-    padding-left: var(--gap-1);
-  }
 `;
 
 const MyPoint = styled.div`

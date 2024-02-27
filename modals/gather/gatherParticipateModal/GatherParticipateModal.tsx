@@ -9,6 +9,8 @@ import GatherParticipateModalPassword from "./GatherParticipateModalPassword";
 function GatherParticipateModal({ setIsModal }: IModal) {
   const [pageNum, setPageNum] = useState(0);
 
+
+  
   return (
     <ModalLayout title="참여 신청" setIsModal={setIsModal}>
       <>

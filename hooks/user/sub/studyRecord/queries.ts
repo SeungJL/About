@@ -73,7 +73,7 @@ export const useUserAttendRateQueries = <T extends boolean>(
   };
   const queryFns = monthList.map((month) => queryFn(month));
   return useQuery(
-    [USER_FINDPARTICIPATION, isUserScope],
+    [USER_FINDPARTICIPATION, isUserScope, monthList],
     async () => {
       const results = await Promise.all(queryFns);
       return results;

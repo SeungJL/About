@@ -20,6 +20,7 @@ import { useFailToast } from "../../hooks/custom/CustomToast";
 import { DispatchNumber } from "../../types/reactTypes";
 import { DispatchType } from "../../types2/reactTypes";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 type ReturnDot = "중앙" | "동쪽" | "서쪽" | "남쪽" | "북쪽";
@@ -28,6 +29,7 @@ interface IVoteMapController extends IPrecisionPopOver {
   setPreset: (preset: "first" | "second" | null) => void;
   preset: "first" | "second" | null;
   setCenterValue: DispatchType<{ lat: number; lng: number }>;
+  setMyVote: DispatchType<IStudyVote>;
 }
 
 function VoteMapController({
@@ -35,6 +37,7 @@ function VoteMapController({
   setPreset,
   precision,
   setPrecision,
+  setMyVote,
   setCenterValue,
 }: IVoteMapController) {
   const failToast = useFailToast();
@@ -101,12 +104,17 @@ function VoteMapController({
     failToast("free", "2번 프리셋이 존재하지 않습니다.");
   };
 
+  const onClickRetunBtn = () => {
+    setMyVote(null);
+    onClickRetrun("중앙");
+  };
+
   return (
     <>
       <Layout>
         <TopNav>
           <div>
-            <ReturnBtn onClick={() => onClickRetrun("중앙")}>
+            <ReturnBtn onClick={onClickRetunBtn}>
               <FontAwesomeIcon icon={faRotateRight} size="lg" />
             </ReturnBtn>
             {filterArr.map((item) => (

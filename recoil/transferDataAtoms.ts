@@ -12,10 +12,7 @@ export const transferUserDataState = atom<IUser>({
   key: "transferUserDataState",
   default: null,
 });
-export const transferGatherDataState = atom<IGather>({
-  key: "transferGatherDataState",
-  default: null,
-});
+
 export const transferGroupDataState = atom<IGroup>({
   key: "transferGroupDataState",
   default: null,

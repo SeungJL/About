@@ -106,6 +106,7 @@ export default function StudyVoteMap() {
     if (!studyVoteData) return;
 
     if (preferInfo?.preset === "first") {
+      console.log(34);
       const prefer = preferInfo.prefer;
 
       const place = studyVoteData.some((par) => par.place._id === prefer?.place)
@@ -134,6 +135,7 @@ export default function StudyVoteMap() {
         place,
         precision
       );
+
       setSubSecond(sub2);
       setMyVote((old) => ({
         ...old,
@@ -147,7 +149,7 @@ export default function StudyVoteMap() {
       setMyVote((old) => ({ ...old, subPlace: [] }));
       setVoteScore(2);
     }
-  }, [myVote?.place]);
+  }, [myVote?.place, precision]);
 
   const mapOptions = getMapOptions(location);
 
@@ -193,6 +195,7 @@ export default function StudyVoteMap() {
               precision={precision}
               setPrecision={setPrecision}
               setCenterValue={setCenterValue}
+              setMyVote={setMyVote}
             />
           </MapLayout>
           <MapBottomNav myVote={myVote} voteScore={voteScore + subPlacePoint} />

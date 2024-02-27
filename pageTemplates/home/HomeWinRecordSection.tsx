@@ -1,10 +1,15 @@
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import styled from "styled-components";
+import HighlightedTextButton from "../../components2/atoms/buttons/HighlightedTextButton";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
 import SummaryTable from "../../components2/organisms/tables/SummaryTable";
 import { WIN_RECORD } from "../../storage/winRecord";
 interface IHomeWinRecordSection {}
 export default function HomeWinRecordSection({}: IHomeWinRecordSection) {
+  const router = useRouter();
   const contentArr = WIN_RECORD.slice().reverse().slice(0, 12);
+  const [isModal, setIsModal] = useState();
 
   const tableInfosArr = contentArr.map((content) => [
     content.date,
@@ -14,12 +19,20 @@ export default function HomeWinRecordSection({}: IHomeWinRecordSection) {
   ]);
   return (
     <>
-      <SectionBar title="이벤트 당첨 현황" />
+      <SectionBar
+        title="이벤트 당첨 현황"
+        rightComponent={
+          <HighlightedTextButton
+            text="더보기"
+            onClick={() => router.push(`/winRecord`)}
+          />
+        }
+      />
       <Layout>
         <SummaryTable
           headerInfos={["날짜", "이름", "내용", "상품"]}
           tableInfosArr={tableInfosArr}
-          size="sm"
+          size="lg"
         />
       </Layout>
     </>

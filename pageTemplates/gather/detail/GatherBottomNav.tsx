@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import styled from "styled-components";
+import Slide from "../../../components/layout/PageSlide";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
@@ -86,19 +87,21 @@ function GatherBottomNav({ data }: IGatherBottomNav) {
 
   return (
     <>
-      <Layout>
-        <Button
-          size="lg"
-          h="48px"
-          w="100%"
-          borderRadius="var(--rounded-lg)"
-          disabled={!handleFunction}
-          colorScheme={handleFunction ? "mintTheme" : "blackAlpha"}
-          onClick={handleFunction}
-        >
-          {text}
-        </Button>
-      </Layout>
+      <Slide isFixed={true} posZero="top">
+        <Layout>
+          <Button
+            size="lg"
+            h="48px"
+            w="100%"
+            borderRadius="var(--rounded-lg)"
+            disabled={!handleFunction}
+            colorScheme={handleFunction ? "mintTheme" : "blackAlpha"}
+            onClick={handleFunction}
+          >
+            {text}
+          </Button>
+        </Layout>
+      </Slide>
       {isParticipationModal && (
         <GatherParticipateModal setIsModal={setIsParticipationModal} />
       )}

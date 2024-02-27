@@ -39,7 +39,7 @@ function ImageSliderEventBanner({ imageContainer }: IImageSliderEventBanner) {
       ))}
       <PageView>
         <span>{pageNum + 1}</span>
-        <span>/2</span>
+        <span>/3</span>
       </PageView>
     </Swiper>
   );

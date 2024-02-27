@@ -6,7 +6,8 @@ export default function HighlightedText({
   text,
   hightlightedText,
 }: IHighlightedText) {
-  const parts = text.split(new RegExp(`(${hightlightedText})`, "gi"));
+  const escapedHighlightedText = escapeRegExp(hightlightedText);
+  const parts = text.split(new RegExp(`(${escapedHighlightedText})`, "gi"));
 
   return (
     <span>
@@ -16,3 +17,7 @@ export default function HighlightedText({
     </span>
   );
 }
+
+const escapeRegExp = (string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // 특수 문자 앞에 백슬래시를 추가
+};

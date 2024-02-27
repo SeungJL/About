@@ -53,29 +53,27 @@ function Ranking() {
       sortUserRanking(attendRecords, session?.user.uid, "attend")
     );
   }, [attendRecords]);
-  console.log(usersRanking);
+
 
   return (
     <>
       <Header title="About 랭킹" />
       <Slide>
         <Layout>
-          <Wrapper>
-            {usersRanking && (
-              <>
-                <RankingOverview
-                  myRankInfo={usersRanking.mine}
-                  totalCnt={usersRanking.users.length}
-                />
-                <StatisticsTabNav setTabValue={setTabValue} />
-                {tabValue === "전체 랭킹" ? (
-                  <RankingMembers rankingUsers={usersRanking.users} />
-                ) : (
-                  <StatisticsMine />
-                )}
-              </>
-            )}
-          </Wrapper>
+          {usersRanking && (
+            <>
+              <RankingOverview
+                myRankInfo={usersRanking.mine}
+                totalCnt={usersRanking.users.length}
+              />
+              <StatisticsTabNav setTabValue={setTabValue} />
+              {tabValue === "전체 랭킹" ? (
+                <RankingMembers rankingUsers={usersRanking.users} />
+              ) : (
+                <StatisticsMine />
+              )}
+            </>
+          )}
         </Layout>
       </Slide>
     </>
@@ -86,8 +84,8 @@ const Layout = styled.div`
   height: calc(100vh - 96px);
   overflow-y: auto;
   background-color: var(--gray-7);
+  display: flex;
+  flex-direction: column;
 `;
-
-const Wrapper = styled.div``;
 
 export default Ranking;

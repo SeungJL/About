@@ -11,7 +11,7 @@ export default function HomeReviewSection() {
     .map((review) => ({
       imageUrl: review.images[0],
       text: review.text,
-      url: `/`,
+      url: `/review?scroll=${review.id}`,
     }));
 
   return (

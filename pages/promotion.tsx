@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "../components/layout/Header";
+import Slide from "../components/layout/PageSlide";
 import PromotionApply from "../pageTemplates/promotion/PromotionApply";
 import PromotionContent from "../pageTemplates/promotion/PromotionContent";
 import PromotionDetail from "../pageTemplates/promotion/PromotionDetail";
@@ -9,12 +10,14 @@ function Promotion() {
   return (
     <>
       <Header title="홍보 페이지" />
-      <Layout>
-        <PromotionTitle />
-        <PromotionDetail />
-        <PromotionApply />
-        <PromotionContent />
-      </Layout>
+      <Slide>
+        <Layout>
+          <PromotionTitle />
+          <PromotionDetail />
+          <PromotionApply />
+          <PromotionContent />
+        </Layout>
+      </Slide>
     </>
   );
 }

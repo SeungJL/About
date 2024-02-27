@@ -15,16 +15,16 @@ export default function EventMission({}: IEventMission) {
 
   const accordionOptions: IAccordionOptions[] = [
     {
-      title: "(2/26) 개강 이벤트",
-      text: "test",
+      title: "(3/4) 개강 시즌 이벤트",
+      text: "1학기가 시작되었습니다! 시험기간이 아니더라도 미리미리 같이 카공하고 하자고요~ 4월 1일, 3월 동안 스터디에 2회 이상 참여한 기록이 있는 분들 중 지역별로 추첨을 통해 커피 기프티콘을 드립니다!",
     },
     {
-      title: "(2/18) 최애 햄버거 이벤트",
-      text: "test",
+      title: "(완료) 최애 햄버거 이벤트",
+      text: "여러분의 최애하는 햄버거 브랜드는 어디인가요? 단톡방에서 투표에 참여해 주시면 총 8분께 해당 햄버거 브랜드 깊티를 드려요!",
     },
     {
       title: "(항시) 홍보 이벤트",
-      text: "test",
+      text: "학교 에브리타임에 동아리 게시판에 홍보글을 작성해주시면 매번 100 POINT(최초 등록 학교일시 300 POINT)와 추첨을 통해 치킨 깊티를 드려요!",
     },
   ];
 

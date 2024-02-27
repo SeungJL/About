@@ -1,16 +1,13 @@
 import { Spinner as ChakraSpinner } from "@chakra-ui/react";
 import styled from "styled-components";
-import ScreenOverlay from "./ScreenOverlay";
 
 interface ISpinner {
-  zIndex?: number;
   text?: string;
 }
 
-export default function Spinner({ zIndex, text }: ISpinner) {
+export default function Spinner({ text }: ISpinner) {
   return (
     <>
-      <ScreenOverlay zIndex={zIndex} />
       <Layout>
         <ChakraSpinner
           thickness="4px"

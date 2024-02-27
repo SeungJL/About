@@ -1,17 +1,13 @@
+import { Flex } from "@chakra-ui/react";
 import styled from "styled-components";
-import EveryTimeIcon from "../../components/common/Icon/everyTimeIcon";
+import EveryTimeLogo from "../../assets/EveryTimeLogo";
 
 function PromotionTitle() {
   return (
     <Layout>
-      <Title>
-        <EveryTime as="span">
-          에브리타임
-          <EveryTimeIcon isSmall={false} />
-        </EveryTime>
-        <br />
-        <span>홍보 이벤트</span>
-      </Title>
+      <Flex justify="center">
+        <EveryTimeLogo />
+      </Flex>
       <Detail>
         <div>
           에브리타임에 홍보글을 작성해주시면 <b>+100 Point</b>와 추첨을 통해 매
@@ -25,7 +21,7 @@ function PromotionTitle() {
 
 const Layout = styled.div`
   margin: 0 20px;
-  margin-top: var(--gap-5);
+  margin-top: 32px;
   text-align: center;
 `;
 

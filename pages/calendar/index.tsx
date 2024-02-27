@@ -42,9 +42,7 @@ function Record() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="스터디 기록" />
-      </Slide>
+      <Header title="스터디 기록" />
       <Slide>
         <RecordCalendarSetting
           navMonth={navMonth}
@@ -70,12 +68,7 @@ function Record() {
           <RecordSkeleton isCalendar={isCalendar} />
         )}
       </Slide>
-      <Slide isFixed={true} posZero="top">
-        <RecordNavigation
-          isCalendar={isCalendar}
-          setIsCalendar={setIsCalendar}
-        />
-      </Slide>
+      <RecordNavigation isCalendar={isCalendar} setIsCalendar={setIsCalendar} />
     </>
   );
 }

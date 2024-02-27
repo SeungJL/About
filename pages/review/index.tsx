@@ -3,7 +3,6 @@ import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
 import { MainLoading } from "../../components/common/loaders/MainLoading";
@@ -22,10 +21,6 @@ import ReviewContent from "../../pageTemplates/review/ReviewContent";
 import ReviewGatherSummary from "../../pageTemplates/review/ReviewGatherSummary";
 import ReviewItemHeader from "../../pageTemplates/review/ReviewItemHeader";
 import ReviewStatus from "../../pageTemplates/review/ReviewStatus";
-import {
-  prevPageUrlState,
-  reviewContentIdState,
-} from "../../recoil/previousAtoms";
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
 import { IGatherLocation, IGatherType } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
@@ -60,13 +55,9 @@ function Review() {
   const [reviewData, setReviewData] = useState<IReview[]>();
   const [category, setCategory] = useState<ActiveLocationAll>("전체");
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
-  const [reviewContentId, setReviewContentId] =
-    useRecoilState(reviewContentIdState);
+  const reviewContentId = searchParams.get("scroll");
 
   const [visibleCnt, setVisibleCnt] = useState(8);
-
-  // const url = WEB_URL + router?.asPath;
 
   const writers = {
     이승주: {
@@ -149,6 +140,7 @@ function Review() {
   useEffect(() => {
     if (reviewContentId && reviewData) {
       const element = document.getElementById(`review${reviewContentId}`);
+
       if (element) {
         window.scrollTo({
           top: element.offsetTop,
@@ -156,7 +148,7 @@ function Review() {
         });
       }
     }
-    setReviewContentId(null);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviewContentId, reviewData]);
 
@@ -190,9 +182,9 @@ function Review() {
         />
       </Header>
 
-      <Slide>
-        <Layout>
-          {reviewData ? (
+      {reviewData ? (
+        <Slide>
+          <Layout>
             <>
               <ButtonGroups
                 buttonDataArr={buttonArr}
@@ -234,11 +226,11 @@ function Review() {
                 )}
               </Main>
             </>
-          ) : (
-            <MainLoading />
-          )}
-        </Layout>
-      </Slide>
+          </Layout>
+        </Slide>
+      ) : (
+        <MainLoading />
+      )}
     </>
   );
 }

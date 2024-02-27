@@ -94,7 +94,7 @@ function Event() {
 
   return (
     <>
-      <Header title="포인트 스토어" url="/home">
+      <Header title="포인트 스토어">
         <RuleIcon setIsModal={setIsModal} />
       </Header>
       <Slide>

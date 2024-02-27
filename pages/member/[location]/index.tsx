@@ -56,7 +56,7 @@ function Member() {
 
   //멤버 분류
   useEffect(() => {
-    if (!location || isLoading) return;
+    if (!location || isLoading || !usersAll) return;
 
     const locationMembers = usersAll.sort((a, b) =>
       a.score > b.score ? -1 : 1

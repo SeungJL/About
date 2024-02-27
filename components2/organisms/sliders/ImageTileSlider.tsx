@@ -45,7 +45,7 @@ function ImageTileSlider({
   };
 
   const imageSize = imageSizeObj[size];
-  console.log(imageTileArr);
+
   return (
     <Swiper slidesPerView={slidesPerView} spaceBetween={12}>
       {imageTileArr.map((imageTile, index) => (

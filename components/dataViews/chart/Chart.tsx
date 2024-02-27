@@ -37,16 +37,16 @@ function Chart({ type, user }: IChart) {
 
   const monthArr = [
     {
-      start: dayjs().subtract(2, "month").startOf("month"),
-      end: dayjs().subtract(2, "month").endOf("month"),
+      start: dayjs().subtract(2, "month").startOf("month").startOf("date"),
+      end: dayjs().subtract(2, "month").endOf("month").startOf("date"),
     },
     {
-      start: dayjs().subtract(1, "month").startOf("month"),
-      end: dayjs().subtract(1, "month").endOf("month"),
+      start: dayjs().subtract(1, "month").startOf("month").startOf("date"),
+      end: dayjs().subtract(1, "month").endOf("month").startOf("date"),
     },
     {
-      start: dayjs().startOf("month"),
-      end: dayjs().endOf("month"),
+      start: dayjs().startOf("month").startOf("date"),
+      end: dayjs().endOf("month").startOf("date"),
     },
   ];
 

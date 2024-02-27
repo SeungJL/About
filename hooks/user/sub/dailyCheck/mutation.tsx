@@ -5,5 +5,5 @@ import { MutationOptions } from "../../../../types/reactTypes";
 
 export const useDailyCheckMutation = (options?: MutationOptions) =>
   useMutation<void, AxiosError, void>(async () => {
-    await axios.post(`${SERVER_URI}/dailyCheck`);
+    return await axios.post(`${SERVER_URI}/dailyCheck`);
   }, options);

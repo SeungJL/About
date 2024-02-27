@@ -5,7 +5,6 @@ export type MemberGroup =
   | "human"
   | "resting"
   | "birth"
-  | "enthusiastic"
- 
+  | "enthusiastic";
 
 export interface IGroupedMembers extends Record<MemberGroup, IUser[]> {}

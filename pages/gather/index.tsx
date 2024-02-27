@@ -31,9 +31,7 @@ function Gather() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <GatherHeader />
-      </Slide>
+      <GatherHeader />
       <Slide>
         <GatherReviewSlider />
         <Divider />

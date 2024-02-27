@@ -1,43 +1,43 @@
 import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { getWeekNumber } from "../../../helpers/dateHelpers";
 import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/queries";
-import { isRecordDetailLoadingState } from "../../../recoil/loadingAtoms";
+import { DispatchBoolean } from "../../../types/reactTypes";
 import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 const WEEKS_CNT = 4;
 
-function RecordAnalysisSummary() {
+interface IRecordAnalysisSummary {
+  setIsLoading: DispatchBoolean;
+}
+
+function RecordAnalysisSummary({ setIsLoading }: IRecordAnalysisSummary) {
   const [weeksDate, setWeeksDate] = useState<IDayjsStartToEnd[]>([]);
 
   const [myAttend, setMyAttend] = useState([]);
-
-  const [isRecordDetailLoading, setIsRecordDetailLoading] = useRecoilState(
-    isRecordDetailLoadingState
-  );
 
   useEffect(() => {
     const weeksArr = [];
     for (let i = 0; i < WEEKS_CNT; i++) {
       weeksArr.push({
-        start: dayjs().subtract(i, "week").day(0),
-        end: dayjs().subtract(i, "week").day(6),
+        start: dayjs().subtract(i, "week").day(0).startOf("date"),
+        end: dayjs().subtract(i, "week").day(6).startOf("date"),
       });
     }
     if (weeksArr?.length === WEEKS_CNT) setWeeksDate(weeksArr);
   }, []);
 
-  const { data } = useUserAttendRateQueries(weeksDate, true, {
+  const { data, isLoading } = useUserAttendRateQueries(weeksDate, true, {
     enabled: weeksDate.length !== 0,
   });
+  console.log(23, isLoading, data);
 
   useEffect(() => {
     if (data && weeksDate.length) {
       setMyAttend(data);
-      setIsRecordDetailLoading(false);
+      setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, weeksDate]);

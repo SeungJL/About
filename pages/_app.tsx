@@ -9,7 +9,6 @@ import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
 import Layout from "../components/base/Layout";
-
 import "../styles/globals.css";
 import "../styles/variable.css";
 import theme from "../theme";
@@ -41,7 +40,10 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <ChakraProvider theme={theme}>
               <Layout>
                 <Component {...pageProps} />
-                {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+                {/* <ReactQueryDevtools
+                  initialIsOpen={false}
+                  position="top-right"
+                /> */}
               </Layout>
             </ChakraProvider>
           </RecoilRoot>

@@ -55,7 +55,7 @@ function CollectionAlphabet() {
       onError(err: AxiosError<{ message: string }, any>) {
         const res = err.response.data;
         if (res.message === "not completed") {
-          //다 모으지 못했음
+          failToast("free", "알파벳이 모두 있지 않습니다.");
         }
       },
     });
@@ -114,130 +114,128 @@ function CollectionAlphabet() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="전체 수집 현황" />
-      </Slide>
-      <Slide>
-        {!isLoading ? (
-          <>
-            <Members>
-              {members?.map((who) => {
-                if (!who?.user) return null;
-                const user = who.user;
-                const { badge } = getUserBadge(user.score, user.uid);
-                const alphabets = who.collects;
-                const alphabetsCnt = {
-                  A: 0,
-                  B: 0,
-                  O: 0,
-                  U: 0,
-                  T: 0,
-                };
-                alphabets.forEach((alphabet) => {
-                  alphabetsCnt[alphabet]++;
-                });
-                return (
-                  <Item key={user.uid}>
-                    <ProfileWrapper onClick={() => onClickProfile(user)}>
-                      <Avatar
-                        size="md"
-                        image={user.profileImage}
-                        avatar={user.avatar}
-                        uid={user.uid}
-                      />
-                    </ProfileWrapper>
-                    <Info>
-                      <Name>
-                        <span>{user.name}</span>
-                        <Badge
-                          fontSize={10}
-                          colorScheme={BADGE_COLOR[badge]}
-                          ml="var(--gap-2)"
-                        >
-                          {badge}
-                        </Badge>
-                      </Name>
-                      <UserAlphabets>
-                        <div>
-                          <AlphabetIcon
-                            alphabet="A"
-                            isDuotone={!alphabets?.includes("A")}
-                          />
-                          <FontAwesomeIcon icon={faX} />
-                          <AlphabetCnt hasAlphabet={alphabetsCnt.A !== 0}>
-                            {alphabetsCnt.A}
-                          </AlphabetCnt>
-                        </div>
-                        <div>
-                          <AlphabetIcon
-                            alphabet="B"
-                            isDuotone={!alphabets?.includes("B")}
-                          />{" "}
-                          <FontAwesomeIcon icon={faX} />
-                          <AlphabetCnt hasAlphabet={alphabetsCnt.B !== 0}>
-                            {alphabetsCnt.B}
-                          </AlphabetCnt>
-                        </div>
-                        <div>
-                          <AlphabetIcon
-                            alphabet="O"
-                            isDuotone={!alphabets?.includes("O")}
-                          />{" "}
-                          <FontAwesomeIcon icon={faX} />
-                          <AlphabetCnt hasAlphabet={alphabetsCnt.O !== 0}>
-                            {alphabetsCnt.O}
-                          </AlphabetCnt>
-                        </div>
-                        <div>
-                          <AlphabetIcon
-                            alphabet="U"
-                            isDuotone={!alphabets?.includes("U")}
-                          />{" "}
-                          <FontAwesomeIcon icon={faX} />
-                          <AlphabetCnt hasAlphabet={alphabetsCnt.U !== 0}>
-                            {alphabetsCnt.U}
-                          </AlphabetCnt>
-                        </div>
-                        <div>
-                          <AlphabetIcon
-                            alphabet="T"
-                            isDuotone={!alphabets?.includes("T")}
-                          />{" "}
-                          <FontAwesomeIcon icon={faX} />
-                          <AlphabetCnt hasAlphabet={alphabetsCnt.T !== 0}>
-                            {alphabetsCnt.T}
-                          </AlphabetCnt>
-                        </div>
-                      </UserAlphabets>
-                    </Info>
-                    {who.user.uid === session?.user?.uid ? (
-                      <Button
-                        colorScheme="telegram"
-                        size="xs"
-                        disabled={!hasAlphabetAll}
-                        isLoading={completeLoading}
-                        onClick={() => handleChangePromotion()}
+      <Header title="전체 수집 현황" />
+
+      {!isLoading ? (
+        <Slide>
+          <Members>
+            {members?.map((who) => {
+              if (!who?.user) return null;
+              const user = who.user;
+              const { badge } = getUserBadge(user.score, user.uid);
+              const alphabets = who.collects;
+              const alphabetsCnt = {
+                A: 0,
+                B: 0,
+                O: 0,
+                U: 0,
+                T: 0,
+              };
+              alphabets.forEach((alphabet) => {
+                alphabetsCnt[alphabet]++;
+              });
+              return (
+                <Item key={user.uid}>
+                  <ProfileWrapper onClick={() => onClickProfile(user)}>
+                    <Avatar
+                      size="md"
+                      image={user.profileImage}
+                      avatar={user.avatar}
+                      uid={user.uid}
+                    />
+                  </ProfileWrapper>
+                  <Info>
+                    <Name>
+                      <span>{user.name}</span>
+                      <Badge
+                        fontSize={10}
+                        colorScheme={BADGE_COLOR[badge]}
+                        ml="var(--gap-2)"
                       >
-                        상품 교환
-                      </Button>
-                    ) : (
-                      <Button
-                        size="xs"
-                        colorScheme="mintTheme"
-                        onClick={() => onClickChangeBtn(user, alphabets)}
-                      >
-                        교환 신청
-                      </Button>
-                    )}
-                  </Item>
-                );
-              })}
-            </Members>
-          </>
-        ) : (
-          <MainLoading />
-        )}
-      </Slide>
+                        {badge}
+                      </Badge>
+                    </Name>
+                    <UserAlphabets>
+                      <div>
+                        <AlphabetIcon
+                          alphabet="A"
+                          isDuotone={!alphabets?.includes("A")}
+                        />
+                        <FontAwesomeIcon icon={faX} />
+                        <AlphabetCnt hasAlphabet={alphabetsCnt.A !== 0}>
+                          {alphabetsCnt.A}
+                        </AlphabetCnt>
+                      </div>
+                      <div>
+                        <AlphabetIcon
+                          alphabet="B"
+                          isDuotone={!alphabets?.includes("B")}
+                        />{" "}
+                        <FontAwesomeIcon icon={faX} />
+                        <AlphabetCnt hasAlphabet={alphabetsCnt.B !== 0}>
+                          {alphabetsCnt.B}
+                        </AlphabetCnt>
+                      </div>
+                      <div>
+                        <AlphabetIcon
+                          alphabet="O"
+                          isDuotone={!alphabets?.includes("O")}
+                        />{" "}
+                        <FontAwesomeIcon icon={faX} />
+                        <AlphabetCnt hasAlphabet={alphabetsCnt.O !== 0}>
+                          {alphabetsCnt.O}
+                        </AlphabetCnt>
+                      </div>
+                      <div>
+                        <AlphabetIcon
+                          alphabet="U"
+                          isDuotone={!alphabets?.includes("U")}
+                        />{" "}
+                        <FontAwesomeIcon icon={faX} />
+                        <AlphabetCnt hasAlphabet={alphabetsCnt.U !== 0}>
+                          {alphabetsCnt.U}
+                        </AlphabetCnt>
+                      </div>
+                      <div>
+                        <AlphabetIcon
+                          alphabet="T"
+                          isDuotone={!alphabets?.includes("T")}
+                        />{" "}
+                        <FontAwesomeIcon icon={faX} />
+                        <AlphabetCnt hasAlphabet={alphabetsCnt.T !== 0}>
+                          {alphabetsCnt.T}
+                        </AlphabetCnt>
+                      </div>
+                    </UserAlphabets>
+                  </Info>
+
+                  {who.user.uid === session?.user?.uid ? (
+                    <Button
+                      colorScheme="telegram"
+                      size="xs"
+                      disabled={!hasAlphabetAll}
+                      isLoading={completeLoading}
+                      onClick={() => handleChangePromotion()}
+                    >
+                      상품 교환
+                    </Button>
+                  ) : (
+                    <Button
+                      size="xs"
+                      colorScheme="mintTheme"
+                      onClick={() => onClickChangeBtn(user, alphabets)}
+                    >
+                      교환 신청
+                    </Button>
+                  )}
+                </Item>
+              );
+            })}
+          </Members>
+        </Slide>
+      ) : (
+        <MainLoading />
+      )}
       {isChangeModal && (
         <AlphabetChangeModal
           myAlphabets={alphabets?.collects || []}

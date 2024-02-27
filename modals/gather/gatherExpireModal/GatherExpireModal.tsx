@@ -1,12 +1,12 @@
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import {
   ModalBodyNavTwo,
   ModalLayout,
 } from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
+import { useGatherQuery } from "../../../hooks/gather/queries";
 import { IModal } from "../../../types/reactTypes";
 import GatherExpireModalCancelDialog from "./GatherExpireModalCancelDialog";
 import GatherExpireModalExpireDialog from "./GatherExpireModalExpireDialogs";
@@ -14,7 +14,10 @@ import GatherExpireModalExpireDialog from "./GatherExpireModalExpireDialogs";
 export type GatherExpireModalDialogType = "expire" | "cancel";
 
 function GatherExpireModal({ setIsModal }: IModal) {
-  const gatherData = useRecoilValue(transferGatherDataState);
+  const { id } = useParams<{ id: string }>() || {};
+  const { data: gathers } = useGatherQuery();
+
+  const gatherData = gathers?.find((item) => item.id + "" === id);
 
   const resetQueryData = useResetQueryData();
   const [modal, setModal] = useState<GatherExpireModalDialogType>();

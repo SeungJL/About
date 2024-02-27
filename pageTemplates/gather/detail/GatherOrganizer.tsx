@@ -33,7 +33,7 @@ function GatherOrganizer({
             avatar={organizer.avatar}
             uid={organizer.uid}
             image={organizer.profileImage}
-            size="sm"
+            size="md"
           />
         )}
         <Info>

@@ -24,7 +24,7 @@ function ImageSliderReview({ imageContainer }: IImageSliderReview) {
             src={`${image}`}
             alt={`Slide ${index}`}
             fill={true}
-            sizes="54px"
+            sizes="400px"
             priority={index === 0}
           />
         </SwiperSlide>

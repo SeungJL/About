@@ -18,8 +18,8 @@ import { Badge } from "../../../components/common/customComponents/Badges";
 import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { DAILY_CHECK_WIN_ITEM } from "../../../constants/settingValue/dailyCheck";
-import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { DAILY_CHECK_WIN_LIST } from "../../../constants2/serviceConstants/dailyCheckConstatns";
+import { POINT_SYSTEM_PLUS } from "../../../constants2/serviceConstants/pointSystemConstants";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../../helpers/eventHelpers";
 import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
@@ -32,6 +32,7 @@ import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutation
 import {
   transferAlphabetState,
   transferDailyCheckWinState,
+  transferShowDailyCheckState,
 } from "../../../recoils/transferRecoils";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
@@ -46,12 +47,20 @@ function DailyCheckModal({ setIsModal }: IModal) {
   const isGuest = session?.user.name === "guest";
 
   const setDailyCheckWin = useSetRecoilState(transferDailyCheckWinState);
+  const setShowDailyCheck = useSetRecoilState(transferShowDailyCheckState);
   const setAlphabet = useSetRecoilState(transferAlphabetState);
 
   const { data: dailyCheckAll, isLoading } = useDailyCheckQuery();
 
   const { mutate: getAlphabet } = useAlphabetMutation("get");
-  const { mutate: setDailyCheck } = useDailyCheckMutation();
+  const { mutate: setDailyCheck } = useDailyCheckMutation({
+    onSuccess() {
+      handleDailyCheck();
+    },
+    onError() {
+      toast("error", "이미 오늘의 출석체크를 완료했습니다.");
+    },
+  });
   const { mutate: getPoint } = usePointSystemMutation("point");
   const { mutate: sendRequest } = useUserRequestMutation();
 
@@ -59,30 +68,19 @@ function DailyCheckModal({ setIsModal }: IModal) {
     DAILY_CHECK_WIN_LIST,
     DISTRIBUTION_SIZE
   );
-  const checkRecords = dailyCheckAll?.map((item) => ({
-    ...item,
-    createdAt: dayjs(item?.createdAt),
-  }));
 
-
-  
   const onClickCheck = () => {
+    localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
+    setShowDailyCheck(false);
     if (isGuest) {
       typeToast("guest");
       return;
     }
-    localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
-    if (
-      checkRecords?.find(
-        (item) => dayjsToStr(item.createdAt) === dayjsToStr(dayjs())
-      )
-    ) {
-      toast("error", "오늘 출석체크는 이미 완료됐어요!");
-      setIsModal(false);
-      return;
-    }
     setDailyCheck();
-    getPoint(POINT_SYSTEM_PLUS.DAILY_ATTEND);
+    setIsModal(false);
+  };
+
+  const handleDailyCheck = () => {
     const randomNum = Math.round(Math.random() * 10000);
     const gift = winDistribution[randomNum];
     if (gift !== null) {
@@ -102,7 +100,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
       };
       sendRequest(data);
     }
-    setIsModal(false);
+    getPoint(POINT_SYSTEM_PLUS.DAILY_ATTEND);
     toast("success", "출석체크 완료 !");
   };
 

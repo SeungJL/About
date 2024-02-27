@@ -15,7 +15,9 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
+import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
 import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
+import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 import AlertModal, { IAlertModalOptions } from "../../AlertModal";
 import { IBottomDrawerLgOptions } from "../../organisms/drawer/BottomDrawerLg";
@@ -34,7 +36,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
   const newSearchParams = new URLSearchParams(searchParams);
 
   const date = searchParams.get("date");
-
+  const location = searchParams.get("location") as LocationEn;
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
 
@@ -67,7 +69,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
   )?.meta.value;
 
   const { mutate: getPoint } = usePointSystemMutation("point");
-  const { mutate: patchAttend } = useStudyParticipationMutation(
+  const { mutate: studyVote } = useStudyParticipationMutation(
     dayjs(date),
     "post",
     {
@@ -81,6 +83,11 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
     "delete",
     {
       onSuccess() {
+        queryClient.refetchQueries([
+          STUDY_VOTE,
+          date,
+          convertLocationLangTo(location, "kr"),
+        ]);
         if (myPrevVotePoint) {
           getPoint({
             message: "스터디 투표 취소",
@@ -95,7 +102,17 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
   );
 
   const handleSuccess = () => {
-    queryClient.invalidateQueries([STUDY_VOTE, date, location]);
+    queryClient.refetchQueries([
+      STUDY_VOTE,
+      date,
+      convertLocationLangTo(location, "kr"),
+    ]);
+    setTimeout(
+      () => {},
+
+      0
+    );
+
     if (myPrevVotePoint) {
       getPoint({
         message: "스터디 투표 취소",
@@ -114,7 +131,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
   };
 
   const onSubmit = () => {
-    patchAttend({
+    ({
       ...myVote,
       ...voteTime,
     });
@@ -139,7 +156,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
 
   return (
     <>
-      <Layout >
+      <Layout>
         <Button colorScheme="mintTheme" size="lg" onClick={onClickTimeSelect}>
           시간 선택
         </Button>

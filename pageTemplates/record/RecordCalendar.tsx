@@ -29,11 +29,17 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
           for (let key in LOCATION_OPEN_DATE) {
             if (LOCATION_OPEN_DATE[key] === dayjsDate) openLocation = key;
           }
-          const openStudyLocation = new Set();
+          const openStudyLocation: Set<{
+            location: string;
+            cnt: number;
+          }> = new Set();
           arrivedInfo?.forEach((place) => {
-            openStudyLocation.add(PLACE_TO_LOCATION[place.placeId]);
+            openStudyLocation.add({
+              location: PLACE_TO_LOCATION[place.placeId],
+              cnt: place.arrivedInfo.length,
+            });
           });
-
+          let tempCnt = 0;
           return (
             <DayItem key={idx}>
               {!openLocation ? (
@@ -44,11 +50,11 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
                 <LocationOpen location={openLocation}>{date}</LocationOpen>
               )}
               {Array.from(openStudyLocation).map((location, idx) => {
-                if (idx > 2) return null;
-
+                if (idx > 2 || location.cnt < 2) return null;
+                tempCnt++;
                 return (
-                  <Open key={idx} location={location as Location}>
-                    {idx !== 2 || openStudyLocation.size <= 3 ? (
+                  <Open key={idx} location={location.location as Location}>
+                    {tempCnt < 4 || openStudyLocation.size <= 3 ? (
                       "Open"
                     ) : (
                       <FontAwesomeIcon icon={faEllipsisStroke} size="xl" />

@@ -1,12 +1,12 @@
-import { useRecoilValue } from "recoil";
-import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
+import { useParams } from "next/navigation";
+import { ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { birthToAge } from "../../../helpers/converterHelpers";
 import {
   useFailToast,
   useTypeErrorToast,
 } from "../../../hooks/custom/CustomToast";
+import { useGatherQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
 import { DispatchNumber } from "../../../types/reactTypes";
 import { IUser } from "../../../types2/userTypes/userInfoTypes";
 
@@ -19,7 +19,10 @@ function GatherParticipateModalApply({
 }: IGatherParticipateModalApply) {
   const failToast = useFailToast();
   const userErrorToast = useTypeErrorToast();
-  const gatherData = useRecoilValue(transferGatherDataState);
+  const { id } = useParams<{ id: string }>() || {};
+  const { data: gathers } = useGatherQuery();
+
+  const gatherData = gathers?.find((item) => item.id + "" === id);
 
   const { data: userInfo } = useUserInfoQuery({
     onError: (e) => userErrorToast(e, "user"),
@@ -94,14 +97,12 @@ function GatherParticipateModalApply({
   };
 
   return (
-    <ModalBody>
-      <ModalBodyNavTwo
-        topText="일반 참여 신청"
-        bottomText="사전 확정 인원"
-        onClickTop={onApply}
-        onClickBottom={() => setPageNum(1)}
-      />
-    </ModalBody>
+    <ModalBodyNavTwo
+      topText="일반 참여 신청"
+      bottomText="사전 확정 인원"
+      onClickTop={onApply}
+      onClickBottom={() => setPageNum(1)}
+    />
   );
 }
 

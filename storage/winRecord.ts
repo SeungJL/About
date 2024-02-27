@@ -414,6 +414,18 @@ export const WIN_RECORD: {
     present: "BBQ 황금올리브 세트",
   },
   {
+    name: "서유",
+    date: "10/31",
+    detail: "홍보 이벤트 ",
+    present: "공차 5000원권",
+  },
+  {
+    name: "유회",
+    date: "10/31",
+    detail: "홍보 이벤트 ",
+    present: "공차 5000원권",
+  },
+  {
     name: "김재",
     date: "11/5",
     detail: "출석 당첨 ",
@@ -528,6 +540,18 @@ export const WIN_RECORD: {
     present: "CU 3000원권",
   },
   {
+    name: "김석",
+    date: "12/11",
+    detail: "스토어 당첨 ",
+    present: "올리브영 10000원권",
+  },
+  {
+    name: "오승",
+    date: "12/11",
+    detail: "스토어 당첨 ",
+    present: "올리브영 10000원권",
+  },
+  {
     name: "김아",
     date: "12/26",
     detail: "홍보 이벤트 당첨 ",
@@ -598,6 +622,67 @@ export const WIN_RECORD: {
     date: "1/18",
     detail: "스토어 당첨 ",
     present: "투썸 아메리카노 ",
+  },
+  {
+    name: "이채",
+    date: "2/1",
+    detail: "스토어 당첨 ",
+    present: "초콜릿 3종 세트",
+  },
+  {
+    name: "권수",
+    date: "2/1",
+    detail: "스토어 당첨 ",
+    present: "초콜릿 3종 세트",
+  },
+  {
+    name: "유회",
+    date: "2/26",
+    detail: "스토어 당첨",
+    present: "메가 아메리카노",
+  },
+  {
+    name: "유회",
+    date: "2/26",
+    detail: "스토어 당첨",
+    present: "메가 아메리카노",
+  },
+  {
+    name: "김동",
+    date: "2/26",
+    detail: "스토어 당첨",
+    present: "메가 아메리카노",
+  },
+
+  {
+    name: "이아",
+    date: "2/26",
+    detail: "스토어 당첨 ",
+    present: "페레로 로쉐",
+  },
+  {
+    name: "이아",
+    date: "2/26",
+    detail: "스토어 당첨 ",
+    present: "페레로 로쉐",
+  },
+  {
+    name: "이승",
+    date: "2/26",
+    detail: "스토어 당첨 ",
+    present: "페레로 로쉐",
+  },
+  {
+    name: "이서",
+    date: "2/26",
+    detail: "스토어 당첨 ",
+    present: "바닐라 딜라이트",
+  },
+  {
+    name: "김석",
+    date: "2/26",
+    detail: "스토어 당첨 ",
+    present: "탐앤탐스 바닐라라떼",
   },
 ];
 

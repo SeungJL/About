@@ -12,9 +12,12 @@ export const transferDailyCheckWinState = atom<IDailyCheckWinList>({
   key: "TransferDailyCheckWin",
   default: null,
 });
+export const transferShowDailyCheckState = atom<boolean>({
+  key: "TransferShowDailyCheck",
+  default: true,
+});
 
 export const transferUserSummaryState = atom<IUserSummary>({
   key: "TransferUserSummary",
   default: null,
 });
-

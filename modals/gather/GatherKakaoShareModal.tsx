@@ -1,4 +1,4 @@
-import { Button, ModalFooter } from "@chakra-ui/react";
+import { ModalFooter } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -43,19 +43,7 @@ function GatherKakaoShareModal({
 
   return (
     <ModalLayout title="공유 이미지 선택" setIsModal={setIsModal}>
-      <ModalSubtitle>
-        단톡방에 공유 할 이미지를 선택해 주세요!
-        {session?.user.uid === "2259633694" && (
-          <Button
-            ml="4px"
-            size="xs"
-            colorScheme={adminImageUrl ? "mintTheme" : "gray"}
-            onClick={onClickAdminBtn}
-          >
-            스터디
-          </Button>
-        )}
-      </ModalSubtitle>
+      <ModalSubtitle>단톡방에 공유 할 이미지를 선택해 주세요!</ModalSubtitle>
       <Container>
         {GATHER_SHARE_IMAGES.map((item, idx) => (
           <Item
@@ -110,7 +98,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   border-radius: var(--rounded-lg);
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 2/1;
   display: flex;
   align-items: center;
   justify-content: center;

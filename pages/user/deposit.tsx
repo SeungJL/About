@@ -3,6 +3,7 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
 import SummaryTable from "../../components2/organisms/tables/SummaryTable";
@@ -26,27 +27,29 @@ export default function DepositLog() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="보증금 기록" />
-      </Slide>
-      <Slide>
-        <Layout>
-          <MyPoint>
-            <span>내 보증금</span>
-            <FontAwesomeIcon icon={faArrowRight} />
-            <span>{point} 원</span>
-          </MyPoint>
-          <Box border="var(--border)" rounded="md">
-            {pointLog && (
-              <SummaryTable
-                headerInfos={headerInfos}
-                tableInfosArr={tableInfosArr}
-                size="lg"
-              />
-            )}
-          </Box>
-        </Layout>
-      </Slide>
+      <Header title="보증금 기록" />
+      {pointLog ? (
+        <Slide>
+          <Layout>
+            <MyPoint>
+              <span>내 보증금</span>
+              <FontAwesomeIcon icon={faArrowRight} />
+              <span>{point} 원</span>
+            </MyPoint>
+            <Box border="var(--border)" rounded="md">
+              {pointLog && (
+                <SummaryTable
+                  headerInfos={headerInfos}
+                  tableInfosArr={tableInfosArr}
+                  size="lg"
+                />
+              )}
+            </Box>
+          </Layout>
+        </Slide>
+      ) : (
+        <MainLoading />
+      )}
     </>
   );
 }

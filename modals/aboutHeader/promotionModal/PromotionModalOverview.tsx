@@ -1,17 +1,13 @@
+import { Flex } from "@chakra-ui/react";
 import styled from "styled-components";
-import EveryTimeIcon from "../../../components/common/Icon/everyTimeIcon";
+import EveryTimeLogo from "../../../assets/EveryTimeLogo";
 
 function PromotionModalOverview() {
   return (
     <Layout>
-      <Title>
-        <EveryTime as="span">
-          에브리타임
-          <EveryTimeIcon isSmall={true} />
-        </EveryTime>
-        <br />
-        <span>홍보 이벤트</span>
-      </Title>
+      <Flex justify="center">
+        <EveryTimeLogo />
+      </Flex>
       <Detail>
         에브리타임에 홍보글을 작성해주시면 <b>100 Point</b>와 추첨을 통해{" "}
         <b>BBQ 황금 올리브 치킨</b>를 드려요!
@@ -21,7 +17,6 @@ function PromotionModalOverview() {
 }
 
 const Layout = styled.div`
-  margin-top: var(--gap-4);
   text-align: center;
   display: flex;
   flex-direction: column;

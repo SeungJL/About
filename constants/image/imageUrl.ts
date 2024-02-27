@@ -38,3 +38,6 @@ export const EVENT_BANNER_CALENDAR =
 
 export const EVENT_BANNER_PASSION =
   "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/%EC%97%B4%EA%B3%B5%EB%A9%A4%EB%B2%84+%EB%B0%B0%EB%84%88.jpg";
+
+export const EVENT_BANNER_PROMOTION =
+  "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/KakaoTalk_20240226_170553940.jpg";

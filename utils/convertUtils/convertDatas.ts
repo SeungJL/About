@@ -1,4 +1,9 @@
 import {
+  EVENT_BADGE_딸기스무디,
+  EVENT_BADGE_라벤더,
+  EVENT_BADGE_민트초코,
+} from "../../constants/storage/eventBadgeUser";
+import {
   enToKrMapping,
   krToEnMapping,
 } from "../../constants2/locationConstants";
@@ -21,14 +26,16 @@ export const getUserBadge = (score: number, uid: string): UserBadge => {
   //   }
   // }
 
+  if (EVENT_BADGE_라벤더.includes(uid)) return "라벤더";
+  else if (EVENT_BADGE_딸기스무디.includes(uid)) return "딸기스무디";
+  else if (EVENT_BADGE_민트초코.includes(uid)) return "민트초코";
+
   for (const [badgeName, minScore] of Object.entries(BADGE_SCORE_MAPPINGS)) {
     if (score < minScore) {
       return badge;
     }
     badge = badgeName as UserBadge;
   }
-
-  // if (MANAGER_LIST.includes(uid)) return "바닐라";
 
   return badge;
 

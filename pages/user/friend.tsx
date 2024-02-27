@@ -1,13 +1,11 @@
-import { Badge } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
+import { MainLoading } from "../../components/common/loaders/MainLoading";
 import Header from "../../components/layout/Header";
 import Slide from "../../components/layout/PageSlide";
-import { BADGE_COLOR } from "../../constants/settingValue/badge";
-import { getUserBadge } from "../../helpers/userHelpers";
+import ProfileCommentCard from "../../components2/molecules/cards/ProfileCommentCard";
 import {
   useUidsToUsersInfoQuery,
   useUserInfoQuery,
@@ -36,52 +34,27 @@ function ProfileFriend() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Header title="내 친구 목록" />
-      </Slide>
-      <Slide>
-        <Container>
+      <Header title="내 친구 목록" url="/user" />
+      {friends ? (
+        <Slide>
           {friends?.map((who) => {
-            const { badge } = getUserBadge(who.score, who.uid);
             return (
               <Item key={who.uid} onClick={() => onClickUser(who)}>
-                <ProfileWrapper>
-                  <ProfileIcon user={who} size="sm" />
-                </ProfileWrapper>
-                <Info>
-                  <Name>
-                    <span>{who.name}</span>
-                    <Badge
-                      fontSize={10}
-                      colorScheme={BADGE_COLOR[badge]}
-                      ml="var(--gap-2)"
-                    >
-                      {badge}
-                    </Badge>
-                  </Name>
-                  <div>{who.comment}</div>
-                </Info>
+                <ProfileCommentCard user={who} comment={who.comment} />
               </Item>
             );
           })}
-        </Container>
-      </Slide>
+        </Slide>
+      ) : (
+        <MainLoading />
+      )}
     </>
   );
 }
 
-const Container = styled.div`
-  margin: 0 var(--gap-4);
-`;
+const Container = styled.div``;
 
-const Item = styled.div`
-  display: flex;
-  padding: var(--gap-3) 0;
-  border-top: var(--border);
-  border-bottom: var(--border);
-  justify-content: space-between;
-  align-items: center;
-`;
+const Item = styled.div``;
 
 const ProfileWrapper = styled.div``;
 
@@ -95,7 +68,8 @@ const Info = styled.div`
 
   justify-content: space-between;
   > div:last-child {
-    font-size: 11px;
+    margin-top: 2px;
+    font-size: 12px;
     color: var(--gray-3);
     display: flex;
     flex-direction: column;

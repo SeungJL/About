@@ -6,16 +6,21 @@ import {
   faCircleUser,
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import Slide from "../../../components/layout/PageSlide";
 import IconButtonNav, {
-  IconButtonNavBtn,
+  IIconButtonNavBtn,
 } from "../../../components2/molecules/navs/IconButtonNav";
+import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
+import { dayjsToStr } from "../../../helpers/dateHelpers";
 import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
+import { transferShowDailyCheckState } from "../../../recoils/transferRecoils";
 import { AlertIcon } from "../../../styles/icons";
 // export type HomeHeaderModalType =
 //   | "promotion"
@@ -35,17 +40,12 @@ function HomeHeader() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const [modalType, setModalType] = useState<HomeHeaderModalType>(null);
+  const showDailyCheck = useRecoilValue(transferShowDailyCheckState);
 
-  // useEffect(() => {
+  const todayDailyCheck =
+    localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
 
-  //   if (!localStorage.getItem(RABBIT_POP_UP)) setIsRabbitRun(true);
-  // }, []);
-
-  const iconBtnArr: IconButtonNavBtn[] = [
-    {
-      icon: <FontAwesomeIcon icon={faBadgeCheck} color="var(--color-mint)" />,
-      func: () => setModalType("dailyCheck"),
-    },
+  const iconBtnArrInitial: IIconButtonNavBtn[] = [
     {
       icon: <FontAwesomeIcon icon={faCircleP} />,
       func: () => setModalType("pointGuide"),
@@ -67,6 +67,26 @@ function HomeHeader() {
         : null,
     },
   ];
+
+  const [iconBtnArr, setIconBtnArr] =
+    useState<IIconButtonNavBtn[]>(iconBtnArrInitial);
+
+  useEffect(() => {
+    if (todayDailyCheck === false && showDailyCheck) {
+      setIconBtnArr((old) => [
+        {
+          icon: (
+            <FontAwesomeIcon icon={faBadgeCheck} color="var(--color-mint)" />
+          ),
+          func: () => setModalType("dailyCheck"),
+        },
+        ...old,
+      ]);
+    } else setIconBtnArr(iconBtnArrInitial);
+  }, [showDailyCheck]);
+
+  useEffect(() => {}, []);
+
   return (
     <>
       <Slide isFixed={true}>

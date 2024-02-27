@@ -10,10 +10,10 @@ import { SERVER_URI } from "../constants2/apiConstants";
 import { useMonthCalcMutation } from "../hooks/admin/mutation";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2024-02-12"),
-    dayjs("2024-02-18"),
+    dayjs("2024-02-19"),
+    dayjs("2024-02-25"),
     null,
-    "수원"
+    "동대문"
   );
   console.log(data);
 
@@ -21,7 +21,7 @@ function Test() {
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
     null,
-    "안양"
+    "양천"
   );
 
   const { mutate } = useMonthCalcMutation({

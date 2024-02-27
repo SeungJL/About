@@ -3,34 +3,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Header from "../components/layout/Header";
+import Slide from "../components/layout/PageSlide";
 import { WIN_RECORD } from "../storage/winRecord";
 
 function WinRecord() {
   return (
     <>
-      <Header title="당첨자 로그" url={"/home"} />
-      <Layout>
-        <Container>
-          <LogHeader>
-            <Date>날짜</Date>
-            <Content>당첨 선물</Content>
-            <Point>당첨자</Point>
-          </LogHeader>
-          <>
-            {WIN_RECORD.slice()
-              .reverse()
-              .map((item, idx) => (
-                <Item key={idx}>
-                  <Date>{dayjs(item.date).format("M.DD")}</Date>
-                  <Content>{item.present}</Content>
-                  <Point>
-                    {item.name} <FontAwesomeIcon icon={faCircle} size="sm" />
-                  </Point>
-                </Item>
-              ))}
-          </>
-        </Container>
-      </Layout>
+      <Header title="당첨자 로그" />
+      <Slide>
+        <Layout>
+          <Container>
+            <LogHeader>
+              <Date>날짜</Date>
+              <Content>당첨 선물</Content>
+              <Point>당첨자</Point>
+            </LogHeader>
+            <>
+              {WIN_RECORD.slice()
+                .reverse()
+                .map((item, idx) => (
+                  <Item key={idx}>
+                    <Date>{dayjs(item.date).format("M.DD")}</Date>
+                    <Content>{item.present}</Content>
+                    <Point>
+                      {item.name} <FontAwesomeIcon icon={faCircle} size="sm" />
+                    </Point>
+                  </Item>
+                ))}
+            </>
+          </Container>
+        </Layout>
+      </Slide>
     </>
   );
 }
@@ -76,7 +79,6 @@ const Item = styled.div`
 `;
 
 const Date = styled.span`
-  color: var(--gray-3);
   margin-right: var(--gap-4);
   width: 54px;
   text-align: center;

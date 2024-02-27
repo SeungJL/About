@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Skeleton from "../../components/common/masks/skeleton/Skeleton";
@@ -28,7 +27,7 @@ function RecordSkeleton({ isCalendar }: IRecordSkeleton) {
     (_, i) => i + 1
   );
   return (
-    <Layout>
+    <Layout>a
       <RecordOverview>
         <MyRecord>
           <MyRecordItem>
@@ -60,9 +59,6 @@ function RecordSkeleton({ isCalendar }: IRecordSkeleton) {
             </div>
           </MyRecordItem>
         </MyRecord>
-        <Button w="60px" h="40px" color="var(--gray-2)">
-          분석
-        </Button>
       </RecordOverview>
       <Category>
         <SpaceBadge>

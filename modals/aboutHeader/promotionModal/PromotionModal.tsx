@@ -3,7 +3,11 @@ import { faCoins, faGift } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+import {
+  IFooterOptions,
+  IHeaderOptions,
+  ModalLayout,
+} from "../../../components/modals/Modals";
 import { IModal } from "../../../types/reactTypes";
 import PromotionModalOverview from "./PromotionModalOverview";
 
@@ -24,9 +28,11 @@ function PromotionModal({ setIsModal }: IModal) {
     },
   };
 
+  const headerOptions: IHeaderOptions = {};
+
   return (
     <ModalLayout
-      title={null}
+      headerOptions={headerOptions}
       footerOptions={footerOptions}
       setIsModal={setIsModal}
     >
@@ -67,13 +73,12 @@ const ImageContainer = styled.div`
   margin-top: var(--gap-3);
   height: 100%;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const IconWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -83,15 +88,12 @@ const IconWrapper = styled.div`
 `;
 
 const Info = styled.div`
-  position: absolute;
-  bottom: 24px;
-  right: 4px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  color: var(--gray-2);
   font-weight: 600;
   font-size: 12px;
+  margin-left: 8px;
 `;
 
 export default PromotionModal;

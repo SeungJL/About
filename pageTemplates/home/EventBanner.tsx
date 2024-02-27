@@ -4,12 +4,17 @@ import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
 import {
   EVENT_BANNER_CALENDAR,
   EVENT_BANNER_PASSION,
+  EVENT_BANNER_PROMOTION,
 } from "../../constants/image/imageUrl";
 
 function EventBanner() {
   const router = useRouter();
 
-  const imageArr = [EVENT_BANNER_CALENDAR, EVENT_BANNER_PASSION];
+  const imageArr = [
+    EVENT_BANNER_CALENDAR,
+    EVENT_BANNER_PASSION,
+    EVENT_BANNER_PROMOTION,
+  ];
 
   return (
     <Layout onClick={() => router.push(`/eventCalendar`)}>

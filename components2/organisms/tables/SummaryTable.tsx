@@ -29,8 +29,13 @@ export default function SummaryTable({
       >
         <Thead>
           <Tr>
-          {headerInfos.map((info, idx) => (
-              <Th key={idx} textAlign="center" p="4px 12px">
+            {headerInfos.map((info, idx) => (
+              <Th
+                color="var(--gray-1)"
+                key={idx}
+                textAlign="center"
+                p="4px 12px"
+              >
                 {info}
               </Th>
             ))}

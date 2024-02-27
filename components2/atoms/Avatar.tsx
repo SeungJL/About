@@ -20,20 +20,13 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
   const hasAvatar =
     avatar !== undefined && avatar?.type !== null && avatar?.bg !== null;
 
-  const avatarProps: { image: string; bg: string | null } = !hasAvatar
-    ? { image, bg: null }
-    : {
-        image: AVATAR_IMAGE_ARR[avatar.type],
-        bg: COLOR_TABLE_LIGHT[avatar.bg],
-      };
-
   const [imageUrl, setImageUrl] = useState(
-    avatarProps.image || AVATAR_IMAGE_ARR[0]
+    !hasAvatar ? image : AVATAR_IMAGE_ARR[avatar.type]
   );
 
   useEffect(() => {
-    setImageUrl(avatarProps.image || AVATAR_IMAGE_ARR[0]);
-  }, [avatarProps]);
+    setImageUrl(!hasAvatar ? image : AVATAR_IMAGE_ARR[avatar.type]);
+  }, [image, avatar]);
 
   const onClickAvatar = () => {
     if (size === "sm") return;
@@ -47,7 +40,7 @@ export default function Avatar({ image, size, avatar, uid }: IAvatar) {
   return (
     <AvatarContainer onClick={onClickAvatar} size={size}>
       <ImageContainer
-        bg={hasAvatar && avatarProps.bg}
+        bg={hasAvatar && avatar.bg !== null && COLOR_TABLE_LIGHT[avatar.bg]}
         hasType={hasAvatar}
         size={size}
       >

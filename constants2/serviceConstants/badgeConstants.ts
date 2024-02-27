@@ -6,17 +6,21 @@ export const USER_SCORE_BADGE_ARR = [
   "라즈베리",
   "페퍼민트",
   "홍차",
-  "라벤더",
+  "에스프레소",
 ] as const;
 
 export const MANAGER_BADGE = "바닐라";
 
-export const USER_EVENT_BADGE_ARR = [] as const;
+export const USER_EVENT_BADGE_ARR = [
+  "라벤더",
+  "딸기스무디",
+  "민트초코",
+] as const;
 
 export const USER_BADGE_ARR = [
   ...USER_SCORE_BADGE_ARR,
   ...USER_EVENT_BADGE_ARR,
-MANAGER_BADGE,
+  MANAGER_BADGE,
 ] as const;
 
 export const BADGE_SCORE_MAPPINGS: {
@@ -29,7 +33,7 @@ export const BADGE_SCORE_MAPPINGS: {
   라즈베리: 80,
   페퍼민트: 100,
   홍차: 120,
-  라벤더: 140,
+  에스프레소: 140,
 };
 export const BADGE_COLOR_MAPPINGS: {
   [key in typeof USER_BADGE_ARR[number]]: string;
@@ -41,6 +45,9 @@ export const BADGE_COLOR_MAPPINGS: {
   라즈베리: "red",
   페퍼민트: "teal",
   홍차: "pink",
-  라벤더: "purple",
+  에스프레소: "purple",
   바닐라: "yellow",
+  라벤더: "facebook",
+  딸기스무디: "badgePink",
+  민트초코: "badgeMint",
 };

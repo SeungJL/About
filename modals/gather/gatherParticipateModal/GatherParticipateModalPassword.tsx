@@ -1,11 +1,12 @@
+import { Box } from "@chakra-ui/react";
 import { faUnlock } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "next/navigation";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ModalBody, ModalFooterTwo } from "../../../components/modals/Modals";
+import TwoButtonNav from "../../../components/layout/TwoButtonNav";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
-import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
+import { useGatherQuery } from "../../../hooks/gather/queries";
 import { DispatchNumber } from "../../../types/reactTypes";
 
 interface IGatherParticipateModalPassword {
@@ -16,10 +17,13 @@ function GatherParticipateModalPassword({
   setPageNum,
 }: IGatherParticipateModalPassword) {
   const failToast = useFailToast();
+  const { id } = useParams<{ id: string }>() || {};
 
-  const gatherData = useRecoilValue(transferGatherDataState);
   const [password, setPassword] = useState("");
 
+  const { data: gathers } = useGatherQuery();
+
+  const gatherData = gathers?.find((item) => item.id + "" === id);
   const onApply = () => {
     if (password === gatherData?.password) setPageNum(2);
     else failToast("free", "암호가 일치하지 않습니다.");
@@ -27,25 +31,24 @@ function GatherParticipateModalPassword({
 
   return (
     <>
-      <ModalBody>
-        <CodeText>전달 받은 암호 네자리를 입력해 주세요.</CodeText>
-        <Container>
-          <FontAwesomeIcon icon={faUnlock} color="var(--gray-4)" />
-          <Input
-            placeholder="암호 입력"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Container>
-      </ModalBody>
-      <ModalFooterTwo
-        isFull={true}
-        leftText="뒤로"
-        rightText="입력"
-        onClickLeft={() => setPageNum(0)}
-        onClickRight={onApply}
-        isSmall={true}
-      />
+      <CodeText>전달 받은 암호 네자리를 입력해 주세요.</CodeText>
+      <Container>
+        <FontAwesomeIcon icon={faUnlock} color="var(--gray-4)" />
+        <Input
+          placeholder="암호 입력"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Container>
+
+      <Box p="16px 0 ">
+        <TwoButtonNav
+          leftText="뒤로"
+          rightText="입력"
+          onClickLeft={() => setPageNum(0)}
+          onClickRight={onApply}
+        />
+      </Box>
     </>
   );
 }
@@ -57,8 +60,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const CodeText = styled.span`
-  font-size: 12px;
+const CodeText = styled.div`
+  margin-bottom: 16px;
 `;
 
 const Input = styled.input`

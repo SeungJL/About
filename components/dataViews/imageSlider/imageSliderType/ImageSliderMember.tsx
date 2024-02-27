@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Avatar from "../../../../components2/atoms/Avatar";
 import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 import { prevPageUrlState } from "../../../../recoil/previousAtoms";
 import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
 import { IUser } from "../../../../types/user/user";
 import HeartLikeIcon from "../../../common/Icon/HeartLikeIcon";
-import ProfileIcon from "../../../common/user/Profile/ProfileIcon";
 import { ImageContainer } from "../ImageSlider";
 
 interface IImageSliderMember {
@@ -38,14 +38,19 @@ function ImageSliderMember({ imageContainer }: IImageSliderMember) {
         width: "100%",
         height: "auto",
       }}
-      slidesPerView={7.6}
+      slidesPerView={9.5}
     >
       {(imageContainer as IUser[]).map((user, index) => {
         return (
           <SwiperSlide key={index}>
             <MemberItem>
               <ProfileWrapper onClick={() => onClickUser(user)}>
-                <ProfileIcon user={user} size="xs" />
+                <Avatar
+                  image={user.profileImage}
+                  avatar={user.avatar}
+                  uid={user.uid}
+                  size="sm"
+                />
               </ProfileWrapper>
               <span>{user?.name}</span>
               {isBirth && (

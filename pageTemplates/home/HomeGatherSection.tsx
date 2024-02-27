@@ -56,7 +56,7 @@ export default function HomeGatherSection() {
 export const setGatherDataToCardCol = (
   gathers: IGather[]
 ): IPostThumbnailCard[] => {
-  const cardCol: IPostThumbnailCard[] = gathers.map((gather) => ({
+  const cardCol: IPostThumbnailCard[] = gathers.map((gather, idx) => ({
     title: gather.title,
     subtitle:
       gather.place +
@@ -64,11 +64,11 @@ export const setGatherDataToCardCol = (
       gather.type.title +
       " · " +
       dayjs(gather.date).format("M월 D일(ddd)"),
-    participants: [...gather.participants.map((par) => par.user), gather.user],
+    participants: [gather.user, ...gather.participants.map((par) => par.user)],
     url: `/gather/${gather.id}`,
     image: {
       url: gather.image || getRandomImage("gather"),
-      priority: true,
+      priority: idx < 4,
     },
     badge: getGatherBadge(gather.status),
     maxCnt: gather.memberCnt.max,

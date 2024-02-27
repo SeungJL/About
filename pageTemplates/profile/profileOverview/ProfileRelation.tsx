@@ -162,10 +162,10 @@ const RelationItem = styled.div`
   flex-direction: column;
   line-height: 2;
   > span:first-child {
-    font-size: 11px;
+    font-size: 12px;
   }
   > span:last-child {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
   }
 `;

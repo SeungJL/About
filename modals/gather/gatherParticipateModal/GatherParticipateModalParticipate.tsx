@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
+import { ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
@@ -36,14 +36,12 @@ function GatherParticipateModalParticipate({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalBody>
-      <ModalBodyNavTwo
-        topText="1차 참여 신청"
-        bottomText="2차 참여 신청"
-        onClickTop={() => selectGatherTime("first")}
-        onClickBottom={() => selectGatherTime("second")}
-      />
-    </ModalBody>
+    <ModalBodyNavTwo
+      topText="1차 참여 신청"
+      bottomText="2차 참여 신청"
+      onClickTop={() => selectGatherTime("first")}
+      onClickBottom={() => selectGatherTime("second")}
+    />
   );
 }
 

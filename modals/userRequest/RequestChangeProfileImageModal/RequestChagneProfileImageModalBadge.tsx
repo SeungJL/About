@@ -83,7 +83,9 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
   );
 }
 
-const Message = styled.span`
+const Message = styled.div`
+  margin-bottom: 16px;
+
   font-size: 12px;
   color: var(--gray-3);
   > b,
@@ -105,9 +107,9 @@ const Item = styled.div<{ isSelected: boolean }>`
   align-items: center;
   flex: 0.45;
   padding: var(--gap-5) 0;
-  border: var(--border);
-  border-color: ${(props) =>
-    props.isSelected ? "var(--color-mint)" : "var(--gray-6)"};
+
+  border: ${(props) =>
+    props.isSelected ? "var(--border-mint)" : "var(--border)"};
   border-radius: var(--rounded-lg);
 `;
 

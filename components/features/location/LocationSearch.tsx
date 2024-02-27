@@ -81,7 +81,6 @@ function LocationSearch({ location, setLocation }: ISearchLocation) {
             {results.map((result) => (
               <Item key={result.id} onClick={() => onClickItem(result)}>
                 <span>{result.place_name}</span>
-                <span>{result.place_name}</span>
               </Item>
             ))}
           </>

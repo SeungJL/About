@@ -1,6 +1,7 @@
 import { Button, Flex } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import Slide from "../../components/layout/PageSlide";
 
 interface IRecordNavigation {
   isCalendar: boolean;
@@ -9,22 +10,24 @@ interface IRecordNavigation {
 
 function RecordNavigation({ isCalendar, setIsCalendar }: IRecordNavigation) {
   return (
-    <Flex w="90vw" m="auto" mb="16px">
-      <Button
-        flex="1"
-        colorScheme={isCalendar ? "mintTheme" : "gray"}
-        onClick={() => setIsCalendar(true)}
-      >
-        달력
-      </Button>
-      <Button
-        flex="1"
-        colorScheme={!isCalendar ? "mintTheme" : "gray"}
-        onClick={() => setIsCalendar(false)}
-      >
-        상세
-      </Button>
-    </Flex>
+    <Slide isFixed={true} posZero="top">
+      <Flex p="16px" maxW="var(--max-width)" m="0 auto">
+        <Button
+          flex="1"
+          colorScheme={isCalendar ? "mintTheme" : "gray"}
+          onClick={() => setIsCalendar(true)}
+        >
+          달력
+        </Button>
+        <Button
+          flex="1"
+          colorScheme={!isCalendar ? "mintTheme" : "gray"}
+          onClick={() => setIsCalendar(false)}
+        >
+          상세
+        </Button>
+      </Flex>
+    </Slide>
   );
 }
 

@@ -31,37 +31,38 @@ function GatherDetail() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <GatherHeader gatherData={gatherData} />
-      </Slide>
-      <Slide>
+      <GatherHeader gatherData={gatherData} />
+
+      <>
         {gatherData ? (
           <>
-            <Layout>
-              <GatherOrganizer
-                createdAt={gatherData.createdAt}
-                organizer={gatherData.user}
-                isAdminOpen={gatherData.isAdminOpen}
-                category={gatherData.type.title}
-              />
-              <GatherDetailInfo data={gatherData} />
-              <GatherTitle
-                title={gatherData.title}
-                status={gatherData.status}
-              />
-              <GatherContent
-                content={gatherData.content}
-                gatherList={gatherData.gatherList}
-              />
-              <GatherParticipation data={gatherData} />
-              <GatherComments comment={gatherData.comment} />
-            </Layout>
+            <Slide>
+              <Layout>
+                <GatherOrganizer
+                  createdAt={gatherData.createdAt}
+                  organizer={gatherData.user}
+                  isAdminOpen={gatherData.isAdminOpen}
+                  category={gatherData.type.title}
+                />
+                <GatherDetailInfo data={gatherData} />
+                <GatherTitle
+                  title={gatherData.title}
+                  status={gatherData.status}
+                />
+                <GatherContent
+                  content={gatherData.content}
+                  gatherList={gatherData.gatherList}
+                />
+                <GatherParticipation data={gatherData} />
+                <GatherComments comment={gatherData.comment} />
+              </Layout>
+            </Slide>
             {!isGuest && <GatherBottomNav data={gatherData} />}
           </>
         ) : (
           <MainLoading />
         )}
-      </Slide>
+      </>
     </>
   );
 }

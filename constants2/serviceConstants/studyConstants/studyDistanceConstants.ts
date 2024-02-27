@@ -1,3 +1,4 @@
+import { YANG_목동점 } from "../../../storage/study";
 import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
   ANYANG_범계학원가,
@@ -162,6 +163,15 @@ export const STUDY_DISTANCE: {
       [YANG_신길역, YANG_카페꼼마],
       [YANG_할리스, YANG_몽글],
       [YANG_위카페, YANG_할리스],
+      [YANG_목동점, YANG_할리스],
+      [YANG_목동점, YANG_카페베네],
+      [YANG_목동점, YANG_이디야],
+      [YANG_목동점, YANG_스타벅스],
+      [YANG_목동점, YANG_위카페],
+      [YANG_할리스, YANG_카페꼼마],
+      [YANG_신풍역, YANG_카페꼼마],
+      [YANG_카페베네, YANG_카페꼼마],
+      [YANG_신풍역, YANG_카페꼼마],
     ],
     2: [
       [YANG_화곡역, YANG_양천구청역],
@@ -182,8 +192,6 @@ export const STUDY_DISTANCE: {
       [YANG_스타벅스, YANG_카페베네],
       [YANG_위카페, YANG_이디야],
       [YANG_이디야, YANG_신길역],
-      [YANG_신풍역, YANG_카페꼼마],
-      [YANG_카페베네, YANG_카페꼼마],
     ],
   },
   강남: {

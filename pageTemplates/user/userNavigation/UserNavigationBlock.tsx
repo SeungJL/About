@@ -131,7 +131,7 @@ const Layout = styled.div`
 const BlockName = styled.div`
   padding: var(--gap-2) var(--gap-4);
   font-size: 14px;
-  background-color: var(--gray-8);
+  background-color: var(--gray-7);
   font-weight: 600;
   display: flex;
   color: var(--gray-3);

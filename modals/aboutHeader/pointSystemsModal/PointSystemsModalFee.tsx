@@ -46,10 +46,9 @@ function PointSystemsModalFee() {
           <Point>OUT</Point>
         </Item>
       </Layout>
-      <UnorderedList mt="8px">
-        <ListItem>지각은 1시간 기준</ListItem>
-        <ListItem>당일 불참 기준은 스터디 시작 이전과 이후로 분류</ListItem>
-        <ListItem>한 달에 1회 이상 스터디 참여 필수</ListItem>
+      <UnorderedList mt="12px">
+        <ListItem>스터디 지각은 1시간 기준입니다.</ListItem>
+        <ListItem>한 달에 1회 이상 스터디 참여 필수입니다.</ListItem>
       </UnorderedList>
     </>
   );
@@ -58,6 +57,7 @@ function PointSystemsModalFee() {
 const Layout = styled.div`
   margin-top: var(--gap-1);
   display: grid;
+  color: var(--gray-2);
   grid-template-columns: repeat(3, 1fr);
   > div:nth-child(-n + 3) {
     border-bottom: var(--border);
@@ -77,7 +77,7 @@ const Item = styled.div`
 `;
 
 const Name = styled.span`
-  margin-bottom: var(--gap-2);
+  margin-bottom: var(--gap-3);
 `;
 
 const Point = styled.span`

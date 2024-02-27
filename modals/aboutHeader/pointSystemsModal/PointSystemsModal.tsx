@@ -47,7 +47,7 @@ function PointSystemsModal({ setIsModal }: IModal) {
 
 const Wrapper = styled.div`
   height: 100%;
-  margin-top: var(--gap-3);
+  margin-top: var(--gap-2);
 `;
 
 export default PointSystemsModal;

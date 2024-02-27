@@ -36,6 +36,8 @@ export default function GatherMain() {
     );
   }, [gathers, location]);
 
+
+
   return (
     <Box m="0 16px">
       {cardDataArr && (
