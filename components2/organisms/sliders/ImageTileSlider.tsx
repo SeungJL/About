@@ -82,7 +82,7 @@ function ImageTileSlider({
 const CustomLink = styled(Link)<{ size: Size }>`
   display: flex;
   flex-direction: column;
-
+  background-color: white;
   border-radius: var(--rounded-lg);
 
   ${(props) => {
