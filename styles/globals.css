@@ -17,8 +17,6 @@
 }
 
 body {
-  padding-top: 56px !important;
-  padding-bottom: 40px;
   font-family: apple;
   font-size: 14px;
   background-color: var(--gray-8);
@@ -41,7 +39,8 @@ a {
 #__next {
   min-width: 340px;
   max-width: 390px;
-
+  padding-top: 56px !important;
+  padding-bottom: 40px;
   min-height: calc(100dvh - 96px);
   margin: 0 auto;
   background-color: var(--gray-8);
