@@ -21,12 +21,7 @@ export default function SummaryTable({
 }: ISummaryTable) {
   return (
     <TableContainer overflow="hidden">
-      <Table
-        variant="striped"
-        size={size}
-        colorScheme="gray"
-        whiteSpace="nowrap"
-      >
+      <Table variant="striped" size={size} colorScheme="gray">
         <Thead>
           <Tr>
             {headerInfos.map((info, idx) => (
@@ -46,7 +41,11 @@ export default function SummaryTable({
             <Tr key={idx}>
               {info.map((content, idx) => (
                 <Td key={idx} fontWeight={400} textAlign="center" p="4px 12px">
-                  {content}
+                  {idx === 1 && headerInfos.length === 4
+                    ? `${content}○`
+                    : idx === 3 && content.length > 5
+                    ? `${content.slice(0, 5)}...`
+                    : content}
                 </Td>
               ))}
             </Tr>
