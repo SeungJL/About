@@ -83,7 +83,7 @@ const CustomLink = styled(Link)<{ size: Size }>`
   background-color: white;
   border-radius: var(--rounded-lg);
   border: var(--border);
-
+  padding: 4px;
   box-shadow: var(--shadow);
 
   ${(props) => {

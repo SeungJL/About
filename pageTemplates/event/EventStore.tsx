@@ -37,7 +37,7 @@ export default function EventStore() {
         <ImageTileSlider
           imageTileArr={imageArr}
           size="sm"
-          slidesPerView={3.5}
+          slidesPerView={3.4}
         />
       </Box>
     </>
