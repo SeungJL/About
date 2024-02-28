@@ -51,7 +51,7 @@ function ImageTileSlider({
       {imageTileArr.map((imageTile, index) => (
         <SwiperSlide key={index}>
           <CustomLink size={size} href={imageTile.url}>
-            <Box p={size === "sm" && "4px"}>
+            <Box p={size === "sm" && "4px"} bgColor="white">
               <AspectRatio
                 ratio={aspect / 1}
                 pos="relative"
@@ -69,9 +69,7 @@ function ImageTileSlider({
                 />
               </AspectRatio>
             </Box>
-            <Text lineNum={size === "sm" ? 2 : 1} size={size}>
-              {imageTile.text}
-            </Text>
+            <Text size={size}>{imageTile.text}</Text>
           </CustomLink>
         </SwiperSlide>
       ))}
@@ -84,6 +82,9 @@ const CustomLink = styled(Link)<{ size: Size }>`
   flex-direction: column;
   background-color: white;
   border-radius: var(--rounded-lg);
+  border: var(--border);
+
+  box-shadow: var(--shadow);
 
   ${(props) => {
     switch (props.size as Size) {
