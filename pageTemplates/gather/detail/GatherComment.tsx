@@ -81,7 +81,7 @@ function GatherComments({ comment }: IGatherComments) {
               </SubmitBtn>
             </MyCommnet>
           )}
-          ``
+
           <section>
             {comment?.map((item, idx) => (
               <CommentBlock key={idx}>
