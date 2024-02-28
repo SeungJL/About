@@ -7,7 +7,6 @@ import Slide from "../../../components/layout/PageSlide";
 import BetweenTextSwitcher from "../../../components2/molecules/navs/BetweenTextSwitcher";
 import StudyVoteMap from "../../../components2/services/studyVote/StudyVoteMap";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
-import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
 import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToFormat, dayjsToStr } from "../../../utils/dateTimeUtils";
@@ -99,9 +98,6 @@ function StudyController() {
       )}
       {modalType === "attendCheck" && (
         <StudyAttendCheckModal setIsModal={() => setModalType(null)} />
-      )}
-      {modalType === "attendPrivate" && (
-        <StudyCheckImageModal setIsModal={() => setModalType(null)} />
       )}
     </>
   );

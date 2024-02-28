@@ -636,6 +636,42 @@ export const WIN_RECORD: {
     present: "초콜릿 3종 세트",
   },
   {
+    name: "안효",
+    date: "2/18",
+    detail: "햄버거 이벤트 당첨 ",
+    present: "버거킹",
+  },
+  {
+    name: "조미",
+    date: "2/18",
+    detail: "햄버거 이벤트 당첨 ",
+    present: "맘스터치 세트",
+  },
+  {
+    name: "최연",
+    date: "2/18",
+    detail: "햄버거 이벤트 당첨 ",
+    present: "맘스터치 세트",
+  },
+  {
+    name: "박주",
+    date: "2/18",
+    detail: "햄버거 이벤트 당첨 ",
+    present: "맘스터치 세트",
+  },
+  {
+    name: "오태",
+    date: "2/18",
+    detail: "햄버거 이벤트 당첨 ",
+    present: "롯데리아 세트",
+  },
+  {
+    name: "김단",
+    date: "2/18",
+    detail: "햄버거 이벤트 당첨 ",
+    present: "맘스터치 세트",
+  },
+  {
     name: "유회",
     date: "2/26",
     detail: "스토어 당첨",

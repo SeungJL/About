@@ -71,7 +71,7 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
   const { data: studyPreference } = useStudyPreferenceQuery({
     enabled: !preferenceStorage,
   });
-  
+
   //스터디 프리셋 적용
   useEffect(() => {
     if (data?.user?.location !== location) return;
@@ -160,6 +160,7 @@ export default function StudyVoteMap({ setIsModal }: IStudyVoteMap) {
             centerValue={centerValue}
           />
           <VoteMapController
+            setMyVote={setMyVote}
             preset={preferInfo?.preset}
             setPreset={(preset) => setPreferInfo((old) => ({ ...old, preset }))}
             precision={precision}
