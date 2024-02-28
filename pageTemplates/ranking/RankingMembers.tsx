@@ -24,9 +24,9 @@ function RankingMembers({ rankingUsers, isScore }: IRankingMembers) {
   useEffect(() => {
     if (uid && !isGuest) {
       setTimeout(() => {
-        console.log(42);
+     
         const element = document.getElementById(`ranking${uid}`);
-        console.log(2, element);
+     
         element?.scrollIntoView({ behavior: "smooth" });
       }, 500);
     }

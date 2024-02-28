@@ -12,7 +12,7 @@ export interface IBottomDrawerLgOptions {
   footer: {
     buttonText: string;
     onClick: () => void;
-    buttonLoading: boolean;
+    buttonLoading?: boolean;
   };
 }
 

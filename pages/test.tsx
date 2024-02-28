@@ -13,7 +13,6 @@ function Test() {
     null,
     "강남"
   );
-  console.log(data);
 
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
@@ -24,8 +23,7 @@ function Test() {
 
   const { mutate } = useMonthCalcMutation({
     onSuccess(data) {
-      console.log(2, data);
-      console.log("SUC");
+    
     },
     onError(err) {
       console.error(err);
@@ -34,12 +32,12 @@ function Test() {
 
   const handleForm = (e) => {
     e.preventDefault();
-    console.log(1234);
+   
   };
 
   const { mutate: A } = useImageUploadMutation({
     onSuccess(data) {
-      console.log("222");
+   
     },
   });
 

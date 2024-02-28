@@ -1,5 +1,3 @@
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -47,7 +45,7 @@ function HomeCategoryNav() {
         <Item className="about_navigation2">
           <CustomLink href="event">
             <StoreIcon />
-            {isPointAlert && (
+            {/* {isPointAlert && (
               <IconWrapper>
                 <FontAwesomeIcon
                   icon={faStar}
@@ -55,7 +53,10 @@ function HomeCategoryNav() {
                   size="sm"
                 />
               </IconWrapper>
-            )}
+            )} */}
+            <IconWrapper>
+              <NewAlertIcon size="lg" />
+            </IconWrapper>
           </CustomLink>
           <span>이벤트</span>
         </Item>
@@ -67,18 +68,18 @@ function HomeCategoryNav() {
             )}`}
           >
             <MemberIcon />{" "}
-            <IconWrapper>
+            {/* <IconWrapper>
               <NewAlertIcon size="lg" />
-            </IconWrapper>
+            </IconWrapper> */}
           </CustomLink>
           <span>동아리원</span>
         </Item>
         <Item className="about_navigation4">
           <CustomLink href="review">
             <GroupIcon />{" "}
-            <IconWrapper>
+            {/* <IconWrapper>
               <NewAlertIcon size="lg" />
-            </IconWrapper>
+            </IconWrapper> */}
           </CustomLink>
           <span>리뷰</span>
         </Item>

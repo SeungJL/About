@@ -70,9 +70,15 @@ function Index() {
               (item.category.main === category.main && !category.sub) ||
               item.category.sub === category.sub
           );
+    const filtered2 =
+      status === "모집중"
+        ? filtered.filter((item) => item.status === "open")
+        : status === "종료"
+        ? filtered.filter((item) => item.status === "end")
+        : filtered;
 
-    setGroupStudies(shuffleArray(filtered));
-  }, [category, groups, isGuest]);
+    setGroupStudies(shuffleArray(filtered2));
+  }, [category, groups, isGuest, status]);
 
   const mainTabOptionsArr: ITabNavOptions[] = GROUP_STUDY_CATEGORY_ARR.map(
     (category, idx) => ({
@@ -158,6 +164,7 @@ const Title = styled.div`
 const Layout = styled.div`
   min-height: 100vh;
   background-color: var(--gray-8);
+  padding-bottom: 20px;
 `;
 
 const NavWrapper = styled.div`

@@ -684,6 +684,12 @@ export const WIN_RECORD: {
     detail: "스토어 당첨 ",
     present: "탐앤탐스 바닐라라떼",
   },
+  {
+    name: "이수",
+    date: "2/26",
+    detail: "출석체크 당첨 ",
+    present: "베스킨라빈스 싱글",
+  },
 ];
 
 export const PROMOTION_WIN = [

@@ -69,7 +69,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
   )?.meta.value;
 
   const { mutate: getPoint } = usePointSystemMutation("point");
-  const { mutate: studyVote } = useStudyParticipationMutation(
+  const { mutate: studyVote, isLoading } = useStudyParticipationMutation(
     dayjs(date),
     "post",
     {
@@ -107,11 +107,6 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
       date,
       convertLocationLangTo(location, "kr"),
     ]);
-    setTimeout(
-      () => {},
-
-      0
-    );
 
     if (myPrevVotePoint) {
       getPoint({
@@ -125,16 +120,23 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
         message: "스터디 투표",
         sub: date,
       });
-      toast("success", `투표 완료! ${!myStudy && "포인트가 적립되었습니다."}`);
+      toast(
+        "success",
+        `투표 완료! ${!myStudy ? "포인트가 적립되었습니다." : ""}`
+      );
     } else toast("success", "투표 완료!");
+
     moveToLink();
   };
 
   const onSubmit = () => {
-    ({
+    studyVote({
       ...myVote,
       ...voteTime,
     });
+    setTimeout(() => {
+      moveToLink();
+    }, 1000);
   };
 
   const drawerOptions: IBottomDrawerLgOptions = {
@@ -145,6 +147,7 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
     footer: {
       buttonText: "선택 완료",
       onClick: onSubmit,
+      buttonLoading: isLoading,
     },
   };
 

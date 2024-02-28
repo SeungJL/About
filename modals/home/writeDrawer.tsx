@@ -19,10 +19,12 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useToast } from "../../hooks/custom/CustomToast";
+import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 
 export default function WriteDrawer() {
+  const { data: session } = useSession();
   const router = useRouter();
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
@@ -93,9 +95,14 @@ interface ISocialButton {
 
 const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
   const toast = useToast();
+  const typeToast = useTypeToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const onClick = (e: any) => {
+    if (isGuest) {
+      typeToast("guest");
+      e.preventDefault();
+    }
     if (url === "*") {
       e.preventDefault();
       toast("error", "준비중인 기능입니다.");

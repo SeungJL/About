@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Avatar from "../../components2/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
+import { USER_ROLE } from "../../constants/settingValue/role";
 import { getUserBadge } from "../../helpers/userHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { IMyRank } from "../../types/page/ranking";
-
 import { UserBadge } from "../../types/user/user";
 
 interface IRankingOverview {
@@ -54,7 +54,7 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
           </Box>
         </Flex>
         <ProfileContainer isGuest={isGuest}>
-          {userInfo && (
+          {userInfo ? (
             <ProfileWrapper>
               <Avatar
                 image={userInfo.profileImage}
@@ -65,7 +65,18 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
               />
               <ProfileUserName>{userInfo?.name}</ProfileUserName>
             </ProfileWrapper>
-          )}
+          ) : isGuest ? (
+            <ProfileWrapper>
+              <Avatar
+                image=""
+                avatar={{ type: 0, bg: 1 }}
+                uid=""
+                size="lg"
+                isPriority={true}
+              />
+              <ProfileUserName>게스트</ProfileUserName>
+            </ProfileWrapper>
+          ) : null}
         </ProfileContainer>{" "}
         <RankContainer>
           <RankBadge>
@@ -83,7 +94,7 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
           <RankBadge>
             <BadgeWrapper>
               <ScoreText>구성:</ScoreText>
-              동아리원
+              {USER_ROLE[session?.user.role]}
             </BadgeWrapper>
           </RankBadge>
         </RankContainer>
@@ -138,6 +149,7 @@ const ProfileUserName = styled.span`
 `;
 
 const BadgeWrapper = styled.div`
+  white-space: nowrap;
   display: flex;
   justify-content: space-between;
   align-items: center;

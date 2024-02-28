@@ -118,6 +118,10 @@ function Event() {
               {giftArr.map((item, idx) => (
                 <Item key={idx} onClick={() => onClickGift(item)}>
                   <Status>
+                    <ApplyCnt>
+                      <span>{isShowActive ? item.totalCnt : item.max}</span>
+                      <span>/{item.max}</span>
+                    </ApplyCnt>
                     <Trophy>
                       {new Array(item.winner).fill(0).map((_, idx) => (
                         <div key={idx}>
@@ -128,10 +132,6 @@ function Event() {
                         </div>
                       ))}
                     </Trophy>
-                    <ApplyCnt>
-                      <span>{isShowActive ? item.totalCnt : item.max}</span>
-                      <span>/{item.max}</span>
-                    </ApplyCnt>
                   </Status>
                   <ImageWrapper>
                     <StoreGiftImage
@@ -180,9 +180,11 @@ const Container = styled.div`
 
 const Item = styled.button`
   position: relative;
-  height: 196px;
+
   padding: var(--gap-2);
-  background-color: var(--gray-7);
+  background-color: white;
+  border: var(--border);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -190,38 +192,38 @@ const Item = styled.button`
 `;
 
 const Status = styled.div`
-  align-self: flex-end;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
-  font-size: 13px;
+  width: 100%;
+  font-size: 14px;
 `;
 
 const Trophy = styled.div`
   display: flex;
-  align-items: center;
-  margin-left: auto;
+  margin-left: 4px;
   > div {
-    margin-left: var(--gap-1);
+    margin-left: 4px;
   }
 `;
 
 const ApplyCnt = styled.div`
-  align-self: flex-end;
-  color: var(--gray-3);
+  color: var(--gray-2);
+  font-size: 16px;
 `;
 
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
-
-  margin-top: -16px;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--rounded-lg);
+  overflow: hidden;
 `;
 
 const Info = styled.div`
-  margin-top: -12px;
+  margin-top: 12px;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -232,7 +234,6 @@ const Name = styled.span`
 `;
 
 const Point = styled.span`
-  margin-top: var(--gap-1);
   color: var(--color-mint);
   font-size: 16px;
 `;

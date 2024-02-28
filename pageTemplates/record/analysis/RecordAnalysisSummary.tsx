@@ -32,7 +32,6 @@ function RecordAnalysisSummary({ setIsLoading }: IRecordAnalysisSummary) {
   const { data, isLoading } = useUserAttendRateQueries(weeksDate, true, {
     enabled: weeksDate.length !== 0,
   });
-  console.log(23, isLoading, data);
 
   useEffect(() => {
     if (data && weeksDate.length) {

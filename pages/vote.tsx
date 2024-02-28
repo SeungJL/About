@@ -84,9 +84,10 @@ export default function StudyVoteMap() {
   useEffect(() => {
     if (data?.user?.location !== location) return;
     if (!preferenceStorage && isLoading) return;
-    if (preferenceStorage) {
+    if (preferenceStorage && preferenceStorage !== "undefined") {
+   
       setPreferInfo({ preset: "first", prefer: JSON.parse(preferenceStorage) });
-    } else if (!studyPreference) {
+    } else if (studyPreference === null) {
       toast(
         "info",
         "최초 1회 프리셋 등록이 필요합니다. 앞으로는 더 빠르게 투표할 수 있고, 이후 마이페이지에서도 변경이 가능합니다."
@@ -106,7 +107,6 @@ export default function StudyVoteMap() {
     if (!studyVoteData) return;
 
     if (preferInfo?.preset === "first") {
-      console.log(34);
       const prefer = preferInfo.prefer;
 
       const place = studyVoteData.some((par) => par.place._id === prefer?.place)
@@ -117,7 +117,7 @@ export default function StudyVoteMap() {
       );
       setMyVote((old) => (place ? { ...old, place, subPlace } : { ...old }));
     } else if (preferInfo?.preset === null) setMyVote(null);
-  }, [preferInfo?.preset, studyVoteData]);
+  }, [preferInfo, studyVoteData]);
 
   useEffect(() => {
     if (!studyVoteData) return;

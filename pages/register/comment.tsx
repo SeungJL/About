@@ -24,7 +24,7 @@ function Comment() {
   const typeToast = useTypeToast();
   const completeToast = useCompleteToast();
   const router = useRouter();
-  console.log(searchParams);
+
   const info = getLocalStorageObj(REGISTER_INFO);
 
   const isProfileEdit = !!searchParams.get("edit");

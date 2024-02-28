@@ -120,7 +120,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
 
   const { mutate: imageUpload } = useImageUploadMutation({
     onSuccess() {
-      console.log(124);
+    
     },
     onError(err) {
       console.error(err);
