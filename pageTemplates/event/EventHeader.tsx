@@ -20,7 +20,7 @@ export default function EventHeader({}: IEventHeader) {
               size="lg"
             />
           </Box>
-          {userInfo?.point} P
+          {userInfo?.point || 0} P
         </Flex>
       </Link>
     </Header>

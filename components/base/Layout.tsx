@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BottomNav from "../../components2/BottomNav";
 import { useToken } from "../../hooks/custom/CustomHooks";
+import { useToast } from "../../hooks/custom/CustomToast";
 import GuestBottomNav from "../layout/atoms/GuestBottomNav";
 import BaseModal from "./BaseModal";
 import BaseScript from "./BaseScript";
@@ -19,6 +20,7 @@ interface ILayout {
 }
 
 function Layout({ children }: ILayout) {
+  const toast = useToast();
   const router = useRouter();
   const pathname = usePathname();
   const token = useToken();
@@ -33,12 +35,15 @@ function Layout({ children }: ILayout) {
 
   useEffect(() => {
     if (PUBLIC_SEGMENT.includes(segment)) return;
-    if (session === null) router.push("/login");
+    if (session !== undefined && !session?.user?.location) {
+      toast("warning", "업데이트가 필요합니다. 다시 로그인 해주세요!");
+      router.push("/login");
+    }
     const role = session?.user.role;
     if (role === "newUser") router.push("/register/location");
     if (role === "waiting") router.push("/login?status=waiting");
   }, [session]);
-  console.log(2, session);
+
   return (
     <>
       <Seo title="ABOUT" />

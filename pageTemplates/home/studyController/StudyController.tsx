@@ -54,7 +54,7 @@ function StudyController() {
   return (
     <>
       <Slide>
-        <OuterContainer>
+        <OuterContainer className="about_calendar">
           <InnerContainer>
             {selectedDate && (
               <>

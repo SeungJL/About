@@ -27,7 +27,7 @@ function RecordSkeleton({ isCalendar }: IRecordSkeleton) {
     (_, i) => i + 1
   );
   return (
-    <Layout>a
+    <Layout>
       <RecordOverview>
         <MyRecord>
           <MyRecordItem>

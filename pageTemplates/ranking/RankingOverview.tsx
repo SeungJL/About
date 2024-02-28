@@ -38,9 +38,7 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
             {myRankInfo?.isRank ? (
               <Box>
                 {isScore ? "누적" : "월간"}:{" "}
-                {myRankInfo?.value === 0
-                  ? "NEW"
-                  : `${myRankInfo?.rankNum + 1}위`}
+                {!myRankInfo?.value ? "NEW" : `${myRankInfo?.rankNum + 1}위`}
               </Box>
             ) : (
               <RankPercent>

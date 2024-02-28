@@ -1,5 +1,6 @@
 import { Badge, Box } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import Avatar from "../../components2/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
@@ -15,9 +16,21 @@ interface IRankingMembers {
 
 function RankingMembers({ rankingUsers, isScore }: IRankingMembers) {
   const { data: session } = useSession();
-
+  const isGuest = session?.user.name === "guest";
   let dupCnt = 0;
   let value;
+
+  const uid = session?.user.uid;
+  useEffect(() => {
+    if (uid && !isGuest) {
+      setTimeout(() => {
+        console.log(42);
+        const element = document.getElementById(`ranking${uid}`);
+        console.log(2, element);
+        element?.scrollIntoView({ behavior: "smooth" });
+      }, 500);
+    }
+  }, [isGuest, uid, rankingUsers]);
 
   return (
     <Box h="100%" overflow="scroll">

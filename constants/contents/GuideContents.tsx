@@ -40,113 +40,7 @@ export const STEPS_CONTENTS: Step[] = [
     placement: "center",
     target: "body",
   },
-  {
-    content: (
-      <Content>
-        원하는 장소와 시간에 스터디 신청을 할 수 있습니다. 매일 오후 11시에 결과
-        발표!
-      </Content>
-    ),
-    styles: {
-      options: {
-        width: 320,
-      },
-    },
-    placement: "top",
-    locale: {
-      back: (
-        <Button
-          as={"div"}
-          color="var(--color-mint)"
-          borderColor="var(--color-mint)"
-          variant="outline"
-        >
-          뒤로
-        </Button>
-      ),
 
-      close: "닫기",
-      skip: null,
-      next: (
-        <Button as={"div"} colorScheme="mintTheme">
-          다음
-        </Button>
-      ),
-    },
-    spotlightPadding: 8,
-    target: ".main_vote_btn",
-  },
-  {
-    content: (
-      <Content>
-        원하는 날짜로 이동할 수 있습니다. 스터디 투표를 미리 해놔도 포인트 획득!
-      </Content>
-    ),
-    placement: "top",
-    styles: {
-      options: {
-        width: 320,
-      },
-    },
-    locale: {
-      back: (
-        <Button
-          as={"div"}
-          color="var(--color-mint)"
-          borderColor="var(--color-mint)"
-          variant="outline"
-        >
-          뒤로
-        </Button>
-      ),
-
-      close: "닫기",
-      skip: null,
-      next: (
-        <Button as={"div"} colorScheme="mintTheme">
-          다음
-        </Button>
-      ),
-    },
-    spotlightPadding: 8,
-    target: ".about_calendar",
-  },
-  {
-    content: (
-      <Content>
-        스터디 상세 정보와 참여자를 알 수 있습니다. 좌우 스와이프로 날짜 이동도
-        가능!
-      </Content>
-    ),
-    placement: "top",
-    styles: {
-      options: {
-        width: 320,
-      },
-    },
-    locale: {
-      back: (
-        <Button
-          as={"div"}
-          color="var(--color-mint)"
-          borderColor="var(--color-mint)"
-          variant="outline"
-        >
-          뒤로
-        </Button>
-      ),
-
-      close: "닫기",
-      skip: null,
-      next: (
-        <Button as={"div"} colorScheme="mintTheme">
-          다음
-        </Button>
-      ),
-    },
-    spotlightPadding: 8,
-    target: ".study_space",
-  },
   {
     content: (
       <Content>
@@ -307,7 +201,44 @@ export const STEPS_CONTENTS: Step[] = [
   {
     content: (
       <Content>
-        여러 분야의 스터디 및 소모임이 있습니다. 관심있는 모임에 가입해보세요!
+        원하는 장소와 시간에 스터디 신청을 할 수 있습니다. 매일 오후 11시에 결과
+        발표!
+      </Content>
+    ),
+    styles: {
+      options: {
+        width: 320,
+      },
+    },
+    placement: "top",
+    locale: {
+      back: (
+        <Button
+          as={"div"}
+          color="var(--color-mint)"
+          borderColor="var(--color-mint)"
+          variant="outline"
+        >
+          뒤로
+        </Button>
+      ),
+
+      close: "닫기",
+      skip: null,
+      next: (
+        <Button as={"div"} colorScheme="mintTheme">
+          다음
+        </Button>
+      ),
+    },
+    spotlightPadding: 8,
+    target: ".main_vote_btn",
+  },
+  {
+    content: (
+      <Content>
+        원하는 날짜로 이동할 수 있습니다. 스터디 투표를 미리 해놓으면 더 많은
+        포인트 획득!
       </Content>
     ),
 
@@ -337,7 +268,43 @@ export const STEPS_CONTENTS: Step[] = [
       ),
     },
     spotlightPadding: 8,
-    target: ".about_navigation5",
+    target: ".about_calendar",
+  },
+  {
+    content: (
+      <Content>
+        스터디 상세 정보와 참여자를 알 수 있습니다. 좌우 스와이프로 날짜 이동도
+        가능!
+      </Content>
+    ),
+    placement: "top",
+    styles: {
+      options: {
+        width: 320,
+      },
+    },
+    locale: {
+      back: (
+        <Button
+          as={"div"}
+          color="var(--color-mint)"
+          borderColor="var(--color-mint)"
+          variant="outline"
+        >
+          뒤로
+        </Button>
+      ),
+
+      close: "닫기",
+      skip: null,
+      next: (
+        <Button as={"div"} colorScheme="mintTheme">
+          다음
+        </Button>
+      ),
+    },
+    spotlightPadding: 8,
+    target: ".study_space",
   },
   {
     content: <Content>현재 페이지로 이동합니다.</Content>,

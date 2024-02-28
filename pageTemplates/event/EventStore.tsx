@@ -12,7 +12,7 @@ export default function EventStore() {
   const imageArr: IImageTile[] = STORE_GIFT.map((gift) => ({
     imageUrl: gift.image,
     text: gift.name,
-    url: "" + gift.giftId,
+    url: "/store/" + gift.giftId,
   }));
 
   return (

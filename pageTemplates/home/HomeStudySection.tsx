@@ -82,7 +82,8 @@ export default function HomeStudySection() {
   const onDragEnd = (panInfo: PanInfo) => {
     const newDate = getNewDateBySwipe(panInfo, date as string);
     newSearchParams.set("date", newDate);
-    router.replace(`/?${newSearchParams.toString()}`);
+
+    router.replace(`/home?${newSearchParams.toString()}`);
     return;
   };
 
@@ -93,6 +94,7 @@ export default function HomeStudySection() {
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={1}
         onDragEnd={(_, panInfo) => onDragEnd(panInfo)}
+        className="study_space"
       >
         {!isLoading && studyCardColData ? (
           <CardColumnLayout
