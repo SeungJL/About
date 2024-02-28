@@ -24,6 +24,7 @@ export const STEPS_CONTENTS: Step[] = [
         width: 320,
       },
     },
+
     locale: {
       skip: "나중에",
       back: "뒤로",
@@ -185,25 +186,15 @@ export const STEPS_CONTENTS: Step[] = [
     content: (
       <Content>동아리 및 나의 스터디 기록을 확인할 수 있습니다.</Content>
     ),
-
     styles: {
       options: {
         width: 320,
       },
     },
-    locale: {
-      back: (
-        <Button
-          as={"div"}
-          color="var(--color-mint)"
-          borderColor="var(--color-mint)"
-          variant="outline"
-        >
-          뒤로
-        </Button>
-      ),
 
-      close: "닫기",
+    locale: {
+      back: null,
+
       skip: null,
       next: (
         <Button as={"div"} colorScheme="mintTheme">
@@ -259,6 +250,7 @@ export const STEPS_CONTENTS: Step[] = [
         width: 320,
       },
     },
+
     locale: {
       back: (
         <Button
@@ -273,6 +265,7 @@ export const STEPS_CONTENTS: Step[] = [
 
       close: "닫기",
       skip: null,
+
       next: (
         <Button as={"div"} colorScheme="mintTheme">
           다음

@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Slide from "../../../components/layout/PageSlide";
 import BetweenTextSwitcher from "../../../components2/molecules/navs/BetweenTextSwitcher";
 import StudyVoteMap from "../../../components2/services/studyVote/StudyVoteMap";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
@@ -52,45 +53,47 @@ function StudyController() {
 
   return (
     <>
-      <OuterContainer>
-        <InnerContainer>
-          {selectedDate && (
-            <>
-              <BetweenTextSwitcher
-                left={textSwitcherProps.left}
-                right={textSwitcherProps.right}
-              />
-              <ContentContainer>
-                <StudyControllerDays selectedDate={selectedDate} />
-                <StudyControllerDate selectedDate={selectedDate} />
-              </ContentContainer>
-              <Box
-                borderRadius="50%"
-                pos="absolute"
-                zIndex="5"
-                bottom="0"
-                left="50%"
-                transform="translate(-50%,50%)"
-                _after={{
-                  content: `""`,
-                  position: "absolute",
-                  zIndex: "3",
-                  backgroundColor: "white",
-                  border: "var(--border)",
-                  borderBottom: "none",
-                  top: "0px",
-                  left: "0",
-                  width: "100%",
-                  height: "50%",
-                  borderRadius: "100px 100px 0 0",
-                }}
-              >
-                <StudyControllerVoteButton setModalType={setModalType} />
-              </Box>
-            </>
-          )}
-        </InnerContainer>
-      </OuterContainer>
+      <Slide>
+        <OuterContainer>
+          <InnerContainer>
+            {selectedDate && (
+              <>
+                <BetweenTextSwitcher
+                  left={textSwitcherProps.left}
+                  right={textSwitcherProps.right}
+                />
+                <ContentContainer>
+                  <StudyControllerDays selectedDate={selectedDate} />
+                  <StudyControllerDate selectedDate={selectedDate} />
+                </ContentContainer>
+                <Box
+                  borderRadius="50%"
+                  pos="absolute"
+                  zIndex="5"
+                  bottom="0"
+                  left="50%"
+                  transform="translate(-50%,50%)"
+                  _after={{
+                    content: `""`,
+                    position: "absolute",
+                    zIndex: "3",
+                    backgroundColor: "white",
+                    border: "var(--border)",
+                    borderBottom: "none",
+                    top: "0px",
+                    left: "0",
+                    width: "100%",
+                    height: "50%",
+                    borderRadius: "100px 100px 0 0",
+                  }}
+                >
+                  <StudyControllerVoteButton setModalType={setModalType} />
+                </Box>
+              </>
+            )}
+          </InnerContainer>
+        </OuterContainer>
+      </Slide>
       {(modalType === "vote" || modalType === "voteChange") && (
         <StudyVoteMap setIsModal={() => setModalType(null)} />
       )}

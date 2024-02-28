@@ -1,13 +1,14 @@
 import { Textarea } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 // import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import Spinner from "../../components2/atoms/Spinner";
+import ImageUploadInput from "../../components2/molecules/ImageUploadInput";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import { POINT_SYSTEM_PLUS } from "../../constants2/serviceConstants/pointSystemConstants";
@@ -24,8 +25,11 @@ import { getRandomAlphabet } from "../../libs/userEventLibs/collection";
 
 import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";
+import { PLACE_TO_LOCATION } from "../../storage/study";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 const LOCATE_GAP = 0.00008;
 
@@ -36,14 +40,26 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
   const toast = useToast();
   const typeToast = useTypeToast();
   const searchParams = useSearchParams();
-  const date = searchParams.get("date");
+
+  const { date: dateParam2, id } =
+    useParams<{ date: string; id: string }>() || {};
+  const dateParam1 = searchParams.get("date");
+  const locationParam1 = searchParams.get("location");
+
+  const location = locationParam1
+    ? convertLocationLangTo(searchParams.get("location") as LocationEn, "kr")
+    : PLACE_TO_LOCATION[id];
+
+  const date = dateParam1 || dateParam2;
 
   const myStudy = useRecoilValue(myStudyState);
   const isFree = myStudy.status === "free";
+  const isPrivate = myStudy.place.brand === "자유 신청";
 
   const initialRef = useRef(null);
   const [value, setValue] = useState("");
   const [isChecking, setIsChecking] = useState(false);
+  const [formData, setFormData] = useState<FormData>();
 
   const setTransferAlphabet = useSetRecoilState(transferAlphabetState);
 
@@ -108,6 +124,8 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
     isFull: true,
   };
 
+  const handlePrivateSubmit = () => {};
+
   return (
     <>
       <ModalLayout
@@ -120,14 +138,18 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
           도착하셨나요? <br />
           자리나 인상착의를 간단하게 적어주세요!
         </ModalSubtitle>
-        <Textarea
-          placeholder="ex. 입구 오른쪽 계단 아래 초록색 후드티"
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-          ref={initialRef}
-        />
+        {!isPrivate ? (
+          <Textarea
+            placeholder="ex. 입구 오른쪽 계단 아래 초록색 후드티"
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+            ref={initialRef}
+          />
+        ) : (
+          <ImageUploadInput />
+        )}
       </ModalLayout>
-      {isChecking && <Spinner zIndex={2000} text="위치를 확인중입니다..." />}
+      {isChecking && <Spinner text="위치를 확인중입니다..." zIndex={2000} />}
     </>
   );
 }

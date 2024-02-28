@@ -42,7 +42,9 @@ function Home() {
       <Slide>
         <HomeCategoryNav />
         <HomeLocationBar />
-        <StudyController />
+      </Slide>
+      <StudyController />
+      <Slide>
         <HomeStudySection />
         <EventBanner />
         <HomeGatherSection />

@@ -13,7 +13,7 @@ function Test() {
     dayjs("2024-02-19"),
     dayjs("2024-02-25"),
     null,
-    "동대문"
+    "강남"
   );
   console.log(data);
 
@@ -98,12 +98,9 @@ function Test() {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("path", "hello");
-    console.log(`${SERVER_URI}/image/upload`, formData);
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+
     await axios
-      .post(`${SERVER_URI}/image/upload`, formData)
+      .post(`${SERVER_URI}/image/upload/vote`, formData)
       .then((data) => console.log(data))
       .catch((err) => console.error(err));
   };
@@ -111,18 +108,16 @@ function Test() {
   return (
     <>
       <Layout>
-        <form onSubmit={submitForm} encType="multipart/form-data">
-          <input
-            id="imageInput"
-            accept="image/*"
-            type="file"
-            name="image"
-            onChange={handleImageChange}
-          />
-          <Button type="button" onClick={submitForm}>
-            클릭
-          </Button>
-        </form>
+        <input
+          id="imageInput"
+          accept="image/*"
+          type="file"
+          name="image"
+          onChange={handleImageChange}
+        />
+        <Button type="button" onClick={submitForm}>
+          클릭
+        </Button>
       </Layout>
     </>
   );

@@ -10,6 +10,7 @@ import { useToast } from "../../../hooks/custom/CustomToast";
 import StudyAbsentModal from "../../../modals/study/StudyAbsentModal";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
 import StudyChangeTimeModal from "../../../modals/study/StudyChangeTimeModal";
+import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
 import StudyFreeOpenModal from "../../../modals/study/StudyFreeOpenModal";
 import { DispatchType } from "../../../types/reactTypes";
 import { studyModalType } from "../StudyNavigation";
@@ -33,8 +34,6 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
 
   return (
     <Layout>
-  
-
       {type === "vote" && <StudyVoteDrawer setIsModal={closeModal} />}
       {type === "cancelVote" && (
         <AlertModal setIsModal={closeModal} options={modalOptions} />
@@ -43,12 +42,12 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
         <StudyChangeTimeModal setIsModal={closeModal} />
       )}
       {type === "freeOpen" && <StudyFreeOpenModal setIsModal={closeModal} />}
-      {type === "attendCheck" && (
+      {type !== "attendCheck" && (
         <StudyAttendCheckModal setIsModal={closeModal} />
       )}
-      {/* {type === "attendCheckImage" && (
+      {type === "attendCheckImage" && (
         <StudyCheckImageModal setIsModal={closeModal} />
-      )} */}
+      )}
       {type === "absent" && <StudyAbsentModal setIsModal={closeModal} />}
       {/* {type === "lightAbsent" && (
         <StudyLightAbsentModal setIsModal={closeModal} />

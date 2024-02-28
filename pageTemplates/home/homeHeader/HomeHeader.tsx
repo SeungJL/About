@@ -20,6 +20,7 @@ import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
+import { renderHomeHeaderState } from "../../../recoils/renderRecoils";
 import { transferShowDailyCheckState } from "../../../recoils/transferRecoils";
 import { AlertIcon } from "../../../styles/icons";
 // export type HomeHeaderModalType =
@@ -41,6 +42,7 @@ function HomeHeader() {
   const isGuest = session?.user.name === "guest";
   const [modalType, setModalType] = useState<HomeHeaderModalType>(null);
   const showDailyCheck = useRecoilValue(transferShowDailyCheckState);
+  const renderHomeHeader = useRecoilValue(renderHomeHeaderState);
 
   const todayDailyCheck =
     localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
@@ -89,14 +91,16 @@ function HomeHeader() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <Layout>
-          <Title>ABOUT</Title>
-          <Box className="about_header" fontSize="20px">
-            <IconButtonNav iconList={iconBtnArr} />
-          </Box>
-        </Layout>
-      </Slide>
+      {renderHomeHeader && (
+        <Slide isFixed={true}>
+          <Layout>
+            <Title>ABOUT</Title>
+            <Box className="about_header" fontSize="20px">
+              <IconButtonNav iconList={iconBtnArr} />
+            </Box>
+          </Layout>
+        </Slide>
+      )}
       {modalType === "pointGuide" && (
         <PointSystemsModal setIsModal={() => setModalType(null)} />
       )}

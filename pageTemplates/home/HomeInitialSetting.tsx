@@ -13,6 +13,7 @@ import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries
 import { getStudyDateStatus } from "../../libs/study/date/getStudyDateStatus";
 import FAQPopUp from "../../modals/pop-up/FAQPopUp";
 import UserSettingPopUp from "../../pageTemplates/setting/userSetting/userSettingPopUp";
+import { renderHomeHeaderState } from "../../recoils/renderRecoils";
 import { studyDateStatusState } from "../../recoils/studyRecoils";
 import { checkAndSetLocalStorage } from "../../utils/storageUtils";
 function HomeInitialSetting() {
@@ -27,6 +28,7 @@ function HomeInitialSetting() {
   const { data: userInfo } = useUserInfoQuery({ enabled: !isGuest });
 
   const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
+  const setRenderHomeHeaderState = useSetRecoilState(renderHomeHeaderState);
 
   useEffect(() => {
     setStudyDateStatus(getStudyDateStatus(dateParam));
@@ -43,7 +45,7 @@ function HomeInitialSetting() {
         if (!checkAndSetLocalStorage(USER_GUIDE, 3)) setIsGuide(true);
       } else if (!checkAndSetLocalStorage(USER_GUIDE, 14)) setIsGuide(true);
     }
-  }, []);
+  }, [isGuest, userInfo]);
 
   useEffect(() => {
     const inappdeny_exec_vanillajs = (callback) => {
@@ -67,8 +69,16 @@ function HomeInitialSetting() {
     run: false,
     steps: STEPS_CONTENTS,
   });
+  let a = 4;
 
   const handleJoyrideCallback = (data: CallBackProps) => {
+    if (data.step.target === ".about_navigation1") {
+      setRenderHomeHeaderState(false);
+    }
+    if (data.step.target === "body") {
+      setRenderHomeHeaderState(true);
+    }
+
     const { status, type } = data;
     const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
@@ -144,7 +154,7 @@ const GlobalStyle = createGlobalStyle`
  background-color:var(--color-mint-light) !important;
       
     }
-    // 기타 스타일 변경사항...
+   
   }
 `;
 
