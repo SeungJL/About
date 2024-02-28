@@ -70,7 +70,6 @@ function Ranking() {
       enabled: categoryIdx !== 2,
     }
   );
-  console.log(attendRecords);
 
   const { data: usersAll, isLoading: isLoading2 } =
     useAdminUsersLocationControlQuery(

@@ -36,7 +36,7 @@ function GroupWritingHashTag() {
     <>
       <Slide isFixed={true}>
         <ProgressStatus value={86} />
-        <Header title="" url="/group/writing/period" />
+        <Header isSlide={false} title="" url="/group/writing/period" />
       </Slide>
       <Slide>
         <RegisterLayout>

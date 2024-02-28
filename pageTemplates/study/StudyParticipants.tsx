@@ -1,5 +1,8 @@
 import { Box, Flex } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import Image from "next/image";
+import { useState } from "react";
+import AlertNotCompletedModal from "../../components2/AlertNotCompletedModal";
 import AttendanceBadge from "../../components2/molecules/badge/AttendanceBadge";
 import { IProfileCommentCard } from "../../components2/molecules/cards/ProfileCommentCard";
 import ProfileCardColumn from "../../components2/organisms/ProfileCardColumn";
@@ -14,16 +17,33 @@ export default function StudyParticipants({
   participants,
   absences,
 }: IStudyParticipants) {
+  const [isModal, setIsModal] = useState(false);
+
   const userCardArr: IProfileCommentCard[] = participants.map((par) => {
     const obj = composeUserCardArr(par, absences);
     const rightComponentProps = obj.rightComponentProps;
     return {
       ...obj,
       rightComponent: rightComponentProps ? (
-        <AttendanceBadge
-          type={rightComponentProps.type}
-          time={rightComponentProps.time}
-        />
+        <>
+          <Flex align="center">
+            {par?.imageUrl && (
+              <Box
+                mr="12px"
+                bg="pink"
+                rounded="md"
+                overflow="hidden"
+                onClick={() => setIsModal(true)}
+              >
+                <Image src={par.imageUrl} width={46} height={46} alt="" />
+              </Box>
+            )}
+            <AttendanceBadge
+              type={rightComponentProps.type}
+              time={rightComponentProps.time}
+            />
+          </Flex>
+        </>
       ) : null,
     };
   });
@@ -52,6 +72,7 @@ export default function StudyParticipants({
           </Box>
         </Flex>
       )}
+      {isModal && <AlertNotCompletedModal setIsModal={setIsModal} />}
     </>
   );
 }

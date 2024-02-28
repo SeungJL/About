@@ -83,6 +83,10 @@ function HomeInitialSetting() {
     const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
     if (finishedStatuses.includes(status)) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       setState({ run: false });
     }
   };

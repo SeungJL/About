@@ -3,6 +3,9 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+import AlertModal, {
+  IAlertModalOptions,
+} from "../../../components2/AlertModal";
 import {
   useCompleteToast,
   useFailToast,
@@ -12,7 +15,7 @@ import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 
 import { ModalSubtitle } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
-import ConfirmModal, { IConfirmContent } from "../../common/ConfirmModal";
+import { IConfirmContent } from "../../common/ConfirmModal";
 
 interface IEnthusiasticModal extends IModal {}
 
@@ -68,6 +71,20 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
     isFull: true,
   };
 
+  const alertOptions: IAlertModalOptions = {
+    title: " 열공멤버에 지원하시겠어요?",
+    subTitle: "자동으로 등록됩니다.",
+    func: () => {
+      if (isExpired) {
+        failToast("free", "이미 마감되었습니다.");
+        setIsConfirmModal(false);
+        return;
+      }
+      mutate({ role: "enthusiastic" });
+    },
+    text: "신청",
+  };
+
   return (
     <>
       <ModalLayout
@@ -109,7 +126,7 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
         </Container>
       </ModalLayout>
       {isConfirmModal && (
-        <ConfirmModal content={confirmContent} setIsModal={setIsConfirmModal} />
+        <AlertModal options={alertOptions} setIsModal={setIsConfirmModal} />
       )}
     </>
   );

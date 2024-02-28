@@ -7,6 +7,7 @@ import { useQueryClient } from "react-query";
 // import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import ScreenOverlay from "../../components2/atoms/ScreenOverlay";
 import Spinner from "../../components2/atoms/Spinner";
 import ImageUploadInput from "../../components2/molecules/ImageUploadInput";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
@@ -164,7 +165,12 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
           <ImageUploadInput setImageUrl={setImageUrl} />
         )}
       </ModalLayout>
-      {isChecking && <Spinner text="위치를 확인중입니다..." zIndex={2000} />}
+      {isChecking && (
+        <>
+          <Spinner text="위치를 확인중입니다..." />
+          <ScreenOverlay zIndex={2000} />
+        </>
+      )}
     </>
   );
 }

@@ -183,9 +183,7 @@ export const STEPS_CONTENTS: Step[] = [
     target: ".about_header",
   },
   {
-    content: (
-      <Content>동아리 및 나의 스터디 기록을 확인할 수 있습니다.</Content>
-    ),
+    content: <Content>스터디 기록을 확인할 수 있습니다.</Content>,
     styles: {
       options: {
         width: 320,
@@ -208,7 +206,7 @@ export const STEPS_CONTENTS: Step[] = [
   {
     content: (
       <Content>
-        랭킹 게시판과 상점이 있습니다. 포인트를 모아 상품을 구매해봐요!
+        이벤트와 스토어가 있습니다. 포인트를 모아 상품을 구매해봐요!
       </Content>
     ),
     styles: {
@@ -276,12 +274,7 @@ export const STEPS_CONTENTS: Step[] = [
     target: ".about_navigation3",
   },
   {
-    content: (
-      <Content>
-        다양한 오프라인 모임에 참여하거나 직접 개설할 수 있습니다. 모임 리뷰도
-        있어요!
-      </Content>
-    ),
+    content: <Content>진행되었던 모임들의 리뷰를 확인할 수 있습니다.</Content>,
 
     styles: {
       options: {
@@ -345,6 +338,175 @@ export const STEPS_CONTENTS: Step[] = [
     },
     spotlightPadding: 8,
     target: ".about_navigation5",
+  },
+  {
+    content: <Content>현재 페이지로 이동합니다.</Content>,
+
+    styles: {
+      options: {
+        width: 320,
+      },
+    },
+    locale: {
+      back: (
+        <Button
+          as={"div"}
+          color="var(--color-mint)"
+          borderColor="var(--color-mint)"
+          variant="outline"
+        >
+          뒤로
+        </Button>
+      ),
+
+      close: "닫기",
+      skip: null,
+      next: (
+        <Button as={"div"} colorScheme="mintTheme">
+          다음
+        </Button>
+      ),
+    },
+    spotlightPadding: 8,
+    target: ".bottom_nav0",
+  },
+  {
+    content: (
+      <Content>스터디 랭킹과 내 참여 기록을 확인할 수 있습니다.</Content>
+    ),
+
+    styles: {
+      options: {
+        width: 320,
+      },
+    },
+    locale: {
+      back: (
+        <Button
+          as={"div"}
+          color="var(--color-mint)"
+          borderColor="var(--color-mint)"
+          variant="outline"
+        >
+          뒤로
+        </Button>
+      ),
+
+      close: "닫기",
+      skip: null,
+      next: (
+        <Button as={"div"} colorScheme="mintTheme">
+          다음
+        </Button>
+      ),
+    },
+    spotlightPadding: 8,
+    target: ".bottom_nav1",
+  },
+  {
+    content: (
+      <Content>
+        모임, 소그룹, 스터디 등 여러 활동을 직접 열 수 있습니다.
+      </Content>
+    ),
+
+    styles: {
+      options: {
+        width: 320,
+      },
+    },
+    locale: {
+      back: (
+        <Button
+          as={"div"}
+          color="var(--color-mint)"
+          borderColor="var(--color-mint)"
+          variant="outline"
+        >
+          뒤로
+        </Button>
+      ),
+
+      close: "닫기",
+      skip: null,
+      next: (
+        <Button as={"div"} colorScheme="mintTheme">
+          다음
+        </Button>
+      ),
+    },
+    spotlightPadding: 8,
+    target: ".bottom_nav2",
+  },
+  {
+    content: (
+      <Content>
+        번개, 정기모임 등 동아리 내 오프라인 모임에 참여할 수 있습니다.
+      </Content>
+    ),
+
+    styles: {
+      options: {
+        width: 320,
+      },
+    },
+    locale: {
+      back: (
+        <Button
+          as={"div"}
+          color="var(--color-mint)"
+          borderColor="var(--color-mint)"
+          variant="outline"
+        >
+          뒤로
+        </Button>
+      ),
+
+      close: "닫기",
+      skip: null,
+      next: (
+        <Button as={"div"} colorScheme="mintTheme">
+          다음
+        </Button>
+      ),
+    },
+    spotlightPadding: 8,
+    target: ".bottom_nav3",
+  },
+  {
+    content: (
+      <Content>
+        여러 분야의 스터디 및 소모임이 있습니다. 관심있는 모임에 가입해보세요!
+      </Content>
+    ),
+
+    styles: {
+      options: {
+        width: 320,
+      },
+    },
+    locale: {
+      back: (
+        <Button
+          as={"div"}
+          color="var(--color-mint)"
+          borderColor="var(--color-mint)"
+          variant="outline"
+        >
+          뒤로
+        </Button>
+      ),
+
+      close: "닫기",
+      skip: null,
+      next: (
+        <Button as={"div"} colorScheme="mintTheme">
+          다음
+        </Button>
+      ),
+    },
+    spotlightPadding: 8,
+    target: ".bottom_nav4",
   },
   {
     content: (

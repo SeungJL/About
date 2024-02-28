@@ -30,6 +30,7 @@ interface INavButtonProps {
 
 interface INavButton extends INavButtonProps {
   active: boolean;
+  idx: number;
 }
 
 type Category = "홈" | "통계" | "모임" | "소그룹";
@@ -60,6 +61,7 @@ export default function BottomNav() {
 
         return (
           <NavButton
+            idx={idx}
             text={item.text}
             key={idx}
             url={item.url + `${getParams(item.text)}`}
@@ -79,6 +81,7 @@ const NavButton = ({
   activeIcon,
   defaultIcon,
   active,
+  idx,
 }: INavButton) => {
   const setSlideDirection = useSetRecoilState(slideDirectionState);
 
@@ -92,6 +95,7 @@ const NavButton = ({
       href={url}
       active={active.toString()}
       replace={!text}
+      className={`bottom_nav${idx}`}
     >
       {active ? activeIcon || defaultIcon : defaultIcon}
       <NavText>{text}</NavText>

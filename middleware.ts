@@ -12,6 +12,8 @@ async function getData() {
 }
 const secret = process.env.NEXTAUTH_SECRET;
 export async function middleware() {
+  // const session = await getSession();
+  // console.log(2, session?.user);
   // const session=await getServerSession(context.req,context.res,auth)
   // const token2 = await getToken({ req });
   // const token3 = await encode({

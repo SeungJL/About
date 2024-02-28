@@ -13,7 +13,7 @@ function AlphabetPopUp({ setIsModal }: IModal) {
   const footerOptions: IFooterOptions = {
     main: {
       text: "보러가기",
-      func: () => router.push("/user/collection"),
+      func: () => router.push("/user/alphabet"),
     },
     sub: {},
     isFull: true,

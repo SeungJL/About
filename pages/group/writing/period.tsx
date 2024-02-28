@@ -47,7 +47,7 @@ function GroupWritingContent() {
     <>
       <Slide isFixed={true}>
         <ProgressStatus value={72} />
-        <Header title="" url="/group/writing/content" />
+        <Header isSlide={false} title="" url="/group/writing/content" />
       </Slide>
       <Slide>
         <RegisterLayout>

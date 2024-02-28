@@ -21,30 +21,16 @@ interface ILayout {
 function Layout({ children }: ILayout) {
   const router = useRouter();
   const pathname = usePathname();
+  const token = useToken();
 
   const segment = pathname?.split("/")?.[1];
-
   const PUBLIC_SEGMENT = ["register", "login"];
-
-  const isPublicUrl = pathname;
-
-  // const segments = pathname?.split("/").filter(Boolean);
-  // const firstSegment = segments?.length ? segments[0] : null;
-
-  const token = useToken();
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const { data: session } = useSession();
-
   const isGuest = session?.user.name === "guest";
+
   const [isErrorModal, setIsErrorModal] = useState(false);
 
-  // const isPublicRoute = PUBLIC_ROUTES.some((route) =>
-  //   router.asPath.startsWith(route)
-  // );
-  // const isCondition = !isPublicRoute && isGuest === false && Boolean(token);
-
-  // const status = router.query?.status;
-  console.log("app", session);
   useEffect(() => {
     if (PUBLIC_SEGMENT.includes(segment)) return;
     if (session === null) router.push("/login");
@@ -52,11 +38,7 @@ function Layout({ children }: ILayout) {
     if (role === "newUser") router.push("/register/location");
     if (role === "waiting") router.push("/login?status=waiting");
   }, [session]);
-
-  const navigateTo = (path: string) => {
-    router.push(path);
-  };
-
+  console.log(2, session);
   return (
     <>
       <Seo title="ABOUT" />
