@@ -2,6 +2,7 @@ import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,
   EVENT_BADGE_민트초코,
+  MANAGER_BADGE,
 } from "../../constants/storage/eventBadgeUser";
 import {
   enToKrMapping,
@@ -26,6 +27,7 @@ export const getUserBadge = (score: number, uid: string): UserBadge => {
   //   }
   // }
 
+  if (MANAGER_BADGE.includes(uid)) return "바닐라";
   if (EVENT_BADGE_라벤더.includes(uid)) return "라벤더";
   else if (EVENT_BADGE_딸기스무디.includes(uid)) return "딸기스무디";
   else if (EVENT_BADGE_민트초코.includes(uid)) return "민트초코";
