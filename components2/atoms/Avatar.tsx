@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
@@ -35,17 +36,12 @@ export default function Avatar({
     setImageUrl(!hasAvatar ? image : AVATAR_IMAGE_ARR[avatar.type]);
   }, [image, avatar]);
 
-  const onClickAvatar = () => {
-    if (size === "sm") return;
-    router.push(`/profile/${uid}`);
-  };
-
   const onError = () => {
     setImageUrl(AVATAR_IMAGE_ARR[0]);
   };
 
-  return (
-    <AvatarContainer onClick={onClickAvatar} size={size}>
+  const AvatarComponent = () => (
+    <AvatarContainer size={size}>
       <ImageContainer
         bg={hasAvatar && avatar.bg !== null && COLOR_TABLE_LIGHT[avatar.bg]}
         hasType={hasAvatar}
@@ -73,6 +69,18 @@ export default function Avatar({
         </Box>
       </ImageContainer>
     </AvatarContainer>
+  );
+
+  return (
+    <>
+      {size === "sm" ? (
+        <AvatarComponent />
+      ) : (
+        <Link href={`/profile/${uid}`}>
+          <AvatarComponent />
+        </Link>
+      )}
+    </>
   );
 }
 const AvatarContainer = styled.div<{
