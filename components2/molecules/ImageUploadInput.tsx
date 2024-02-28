@@ -4,20 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styled from "styled-components";
+import { DispatchType } from "../../types2/reactTypes";
 
-interface IImageUploadInput {}
+interface IImageUploadInput {
+  setImageUrl: DispatchType<any>;
+}
 
-export default function ImageUploadInput({}: IImageUploadInput) {
+export default function ImageUploadInput({
+  setImageUrl: changeImage,
+}: IImageUploadInput) {
   const [imageUrl, setImageUrl] = useState(null);
-  
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImageUrl(reader.result);
-    };
-    reader.readAsDataURL(file);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      changeImage(file);
+      const image = URL.createObjectURL(file);
+      setImageUrl(image);
+    }
   };
 
   const fileInputRef = useRef(null);
@@ -25,6 +29,10 @@ export default function ImageUploadInput({}: IImageUploadInput) {
   const handleBtnClick = () => {
     fileInputRef.current.click();
   };
+
+  // useEffect(() => {
+  //   changeImage(imageUrl);
+  // }, [imageUrl]);
 
   return (
     <>

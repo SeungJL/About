@@ -14,6 +14,7 @@ import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import { POINT_SYSTEM_PLUS } from "../../constants2/serviceConstants/pointSystemConstants";
 import { now } from "../../helpers/dateHelpers";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
+import { useImageUploadMutation } from "../../hooks/image/mutations";
 import { useStudyAttendCheckMutation } from "../../hooks/study/mutations";
 import {
   useAboutPointMutation,
@@ -59,7 +60,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
   const initialRef = useRef(null);
   const [value, setValue] = useState("");
   const [isChecking, setIsChecking] = useState(false);
-  const [formData, setFormData] = useState<FormData>();
+  const [imageUrl, setImageUrl] = useState();
 
   const setTransferAlphabet = useSetRecoilState(transferAlphabetState);
 
@@ -116,15 +117,29 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
     }
   };
 
+  const { mutate: imageUpload } = useImageUploadMutation({
+    onSuccess() {
+      console.log(124);
+    },
+    onError(err) {
+      console.error(err);
+    },
+  });
+
+  const handlePrivateSubmit = () => {
+    const formData = new FormData();
+    formData.append("image", imageUrl);
+    formData.append("path", "studyAttend");
+    imageUpload(formData);
+  };
+
   const footerOptions: IFooterOptions = {
     main: {
       text: "출석",
-      func: handleAttendCheck,
+      func: !isPrivate ? handleAttendCheck : handlePrivateSubmit,
     },
     isFull: true,
   };
-
-  const handlePrivateSubmit = () => {};
 
   return (
     <>
@@ -146,7 +161,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
             ref={initialRef}
           />
         ) : (
-          <ImageUploadInput />
+          <ImageUploadInput setImageUrl={setImageUrl} />
         )}
       </ModalLayout>
       {isChecking && <Spinner text="위치를 확인중입니다..." zIndex={2000} />}

@@ -10,7 +10,6 @@ import { useToast } from "../../../hooks/custom/CustomToast";
 import StudyAbsentModal from "../../../modals/study/StudyAbsentModal";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
 import StudyChangeTimeModal from "../../../modals/study/StudyChangeTimeModal";
-import StudyCheckImageModal from "../../../modals/study/StudyCheckImageModal";
 import StudyFreeOpenModal from "../../../modals/study/StudyFreeOpenModal";
 import { DispatchType } from "../../../types/reactTypes";
 import { studyModalType } from "../StudyNavigation";
@@ -45,9 +44,7 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
       {type !== "attendCheck" && (
         <StudyAttendCheckModal setIsModal={closeModal} />
       )}
-      {type === "attendCheckImage" && (
-        <StudyCheckImageModal setIsModal={closeModal} />
-      )}
+
       {type === "absent" && <StudyAbsentModal setIsModal={closeModal} />}
       {/* {type === "lightAbsent" && (
         <StudyLightAbsentModal setIsModal={closeModal} />

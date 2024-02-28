@@ -3,11 +3,9 @@ import styled from "styled-components";
 import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
 import { Button } from "@chakra-ui/react";
-import axios from "axios";
 import { useState } from "react";
-import { Step } from "react-joyride";
-import { SERVER_URI } from "../constants2/apiConstants";
 import { useMonthCalcMutation } from "../hooks/admin/mutation";
+import { useImageUploadMutation } from "../hooks/image/mutations";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
     dayjs("2024-02-19"),
@@ -34,57 +32,16 @@ function Test() {
     },
   });
 
-  const [{ run, steps }, setState] = useState<{
-    run: boolean;
-    steps?: Step[];
-  }>({
-    run: false,
-    steps: [
-      {
-        content: <h2>Let begin our journey!</h2>,
-        title: <>제목</>,
-        locale: { skip: "Skip" },
-        placement: "center",
-        target: "body",
-      },
-      {
-        content: <h2>Sticky elements</h2>,
-        floaterProps: {
-          disableAnimation: true,
-        },
-        spotlightPadding: 20,
-        target: ".main_vote_btn",
-      },
-      {
-        content: "These are our super awesome projects!",
-        placement: "bottom",
-        styles: {
-          options: {
-            width: 300,
-          },
-        },
-        target: ".demo__projects h2",
-        title: "Our projects",
-      },
-      {
-        content: (
-          <div>
-            You can render anything!
-            <br />
-            <h3>Like this H3 title</h3>
-          </div>
-        ),
-        placement: "top",
-        target: ".demo__how-it-works h2",
-        title: "Our Mission",
-      },
-    ],
-  });
-
   const handleForm = (e) => {
     e.preventDefault();
     console.log(1234);
   };
+
+  const { mutate: A } = useImageUploadMutation({
+    onSuccess(data) {
+      console.log("222");
+    },
+  });
 
   const [image, setImage] = useState(null);
 
@@ -93,16 +50,12 @@ function Test() {
 
     setImage(file);
   };
-  const submitForm = async (e) => {
-    e.preventDefault();
+  const submitForm = () => {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("path", "hello");
 
-    await axios
-      .post(`${SERVER_URI}/image/upload/vote`, formData)
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
+    A(formData);
   };
 
   return (
