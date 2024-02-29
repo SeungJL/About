@@ -34,7 +34,7 @@ function UserCollectionAlphabetModal({ setIsModal }: IModal) {
         </Item>
         <Button
           w="100px"
-          mt="auto"
+          mt="20px"
           mb="var(--gap-4)"
           colorScheme="mintTheme"
           onClick={() => setIsModal(false)}

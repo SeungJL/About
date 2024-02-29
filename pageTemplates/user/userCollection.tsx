@@ -1,3 +1,4 @@
+import { faStars } from "@fortawesome/pro-duotone-svg-icons";
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
@@ -38,19 +39,15 @@ export default function UserCollection() {
         <AlphabetIcon alphabet="U" isDuotone={!alphabetArr?.includes("U")} />
         <AlphabetIcon alphabet="T" isDuotone={!alphabetArr?.includes("T")} />
       </AlphabetContainer>
-      {/* <AlphabetQNABtn onClick={() => setIsAlphabetModal(true)}>
-          <IconWrapper>
-            <FontAwesomeIcon
-              icon={faStars}
-              size="2x"
-              color="var(--color-mint)"
-            />
-          </IconWrapper>
-          <AlphabetQNABtnContents>
-            <span>여러번 수집하면 보상이 더 올라가요!</span>
-            <span>컬렉션 수집 보상</span>
-          </AlphabetQNABtnContents>
-        </AlphabetQNABtn> */}
+      <AlphabetQNABtn onClick={() => setIsAlphabetModal(true)}>
+        <IconWrapper>
+          <FontAwesomeIcon icon={faStars} size="2x" color="var(--color-mint)" />
+        </IconWrapper>
+        <AlphabetQNABtnContents>
+          <span>여러번 수집하면 보상이 더 올라가요!</span>
+          <span>컬렉션 수집 보상</span>
+        </AlphabetQNABtnContents>
+      </AlphabetQNABtn>
       {isAlphabetModal && (
         <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />
       )}
@@ -113,12 +110,11 @@ const AlphabetContainer = styled.div`
   > * {
     margin-right: 8px;
   }
-  border-bottom: var(--border);
 `;
 
 const AlphabetQNABtn = styled.button`
   margin: 0 16px;
-  width: 100%;
+
   display: flex;
   align-items: center;
   background-color: var(--gray-7);
