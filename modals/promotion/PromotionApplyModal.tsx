@@ -81,13 +81,16 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
       />
     )}
   </>;
+
+
   const footerOptions: IFooterOptions = {
     main: {
-      text: !contentType
-        ? "게시완료"
-        : contentType === "cool"
-        ? "확인"
-        : "다음에",
+      text:
+        contentType === "none"
+          ? "게시완료"
+          : contentType === "cool"
+          ? "확인"
+          : "다음에",
       func: !contentType
         ? onSubmit
         : contentType === "cool"
