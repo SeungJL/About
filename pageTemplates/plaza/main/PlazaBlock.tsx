@@ -153,7 +153,6 @@ const VoteInput = styled.input.attrs({ type: "radio" })`
   margin-right: 6px;
   width: 18px;
   height: 18px;
-  color: pink;
 
   accent-color: #fb5d5d;
 `;
@@ -171,7 +170,7 @@ const VoteFooter = styled.footer`
   }
   > button {
     width: 60px;
-    background-color: pink;
+
     border-radius: 10px;
   }
 `;

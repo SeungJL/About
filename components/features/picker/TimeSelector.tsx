@@ -47,7 +47,6 @@ const Layout = styled.div`
   position: fixed;
   bottom: 0;
 
-  background-color: pink;
   flex: 1;
   display: flex;
   flex-direction: column;

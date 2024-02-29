@@ -133,7 +133,7 @@ const InfoIconText = styled.div`
 `;
 
 const MapWrapper = styled.div`
-  background-color: pink;
+
   aspect-ratio: 1/1;
 `;
 

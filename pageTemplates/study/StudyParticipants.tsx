@@ -32,7 +32,7 @@ export default function StudyParticipants({
             {par?.imageUrl && (
               <Box
                 mr="12px"
-                bg="pink"
+             
                 rounded="md"
                 overflow="hidden"
                 onClick={() => setIsModal(true)}
