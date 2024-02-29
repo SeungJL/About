@@ -120,13 +120,16 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
   };
 
   const { mutate: imageUpload } = useImageUploadMutation({
-    onSuccess() {},
+    onSuccess() {
+      console.log(244);
+    },
     onError(err) {
       console.error(err);
     },
   });
 
   const handlePrivateSubmit = () => {
+    handleAttendCheck();
     const formData = new FormData();
     formData.append("image", imageUrl);
     formData.append("path", "studyAttend");
