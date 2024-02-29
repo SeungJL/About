@@ -45,14 +45,13 @@ function ContentInfo({ group }: IContentInfo) {
           <span>오픈채팅방 주소(참여 인원 전용)</span>
           <div>
             <BlurredPart isBlur={!isMember} isCenter={false}>
-              <Link href={group.link}>
-                <a
-                  onClick={(e) => {
-                    if (!isMember) e.preventDefault();
-                  }}
-                >
-                  {group?.link}
-                </a>
+              <Link
+                href={group.link}
+                onClick={(e) => {
+                  if (!isMember) e.preventDefault();
+                }}
+              >
+                {group?.link}
               </Link>
             </BlurredPart>
           </div>

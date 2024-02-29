@@ -23,7 +23,7 @@ function Participate() {
   return (
     <>
       <>
-        <Header title="" url="back" />
+        <Header title="" />
         <Slide>
           <RegisterLayout>
             <RegisterOverview>
