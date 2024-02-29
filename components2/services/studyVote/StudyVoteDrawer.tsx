@@ -77,7 +77,7 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
 
   const handleSuccess = async () => {
     queryClient.invalidateQueries([STUDY_VOTE, date, location]);
-    console.log(date, location);
+   
     if (myPrevVotePoint) {
       await getPoint({
         message: "스터디 투표 취소",

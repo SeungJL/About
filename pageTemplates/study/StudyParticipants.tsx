@@ -23,7 +23,7 @@ export default function StudyParticipants({
     const obj = composeUserCardArr(par, absences);
 
     const rightComponentProps = obj.rightComponentProps;
-    console.log(244, par?.imageUrl, rightComponentProps);
+
     return {
       ...obj,
       rightComponent: rightComponentProps ? (

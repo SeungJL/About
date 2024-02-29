@@ -131,7 +131,7 @@ export const handleChangeDate = (
   let year = selectedDateDayjs.year();
   let month = selectedDateDayjs.month() + 1;
   let date = selectedDateDayjs.date();
-  console.log(selectedDateDayjs);
+ 
   if (type === "month") {
     if (month === num) date = dayjs().date();
     year += handleYearMoveByMonth(num);
