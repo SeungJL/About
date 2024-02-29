@@ -129,7 +129,7 @@ export const PLACE_TO_NAME = {
   [GANGNAM_양재]: "미오커피",
   [GANGNAM_선릉]: "커피빈",
   [GANGNAM_도곡]: "카페올로",
-  [GANGNAM_자유신청]: "강남",
+  [GANGNAM_자유신청]: "자유신청",
 
   [DONG_장안동]: "투썸플레이스",
   [DONG_석계역]: "카페디졸브",

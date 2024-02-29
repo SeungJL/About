@@ -33,7 +33,7 @@ export default function Page() {
     enabled: !!location && !!date,
   });
   console.log(studyAll);
-
+  console.log(2, location);
   const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
 
   useEffect(() => {
@@ -49,6 +49,7 @@ export default function Page() {
   const place = study?.place;
   const attendances = study?.attendences;
   const isPrivateStudy = place?.brand === "자유 신청";
+  console.log(isPrivateStudy, place);
   return (
     <Layout>
       {study && (
