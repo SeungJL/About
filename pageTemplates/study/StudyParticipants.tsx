@@ -18,7 +18,7 @@ export default function StudyParticipants({
   absences,
 }: IStudyParticipants) {
   const [isModal, setIsModal] = useState(false);
-  console.log(2, participants);
+
   const userCardArr: IProfileCommentCard[] = participants.map((par) => {
     const obj = composeUserCardArr(par, absences);
 

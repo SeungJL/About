@@ -110,7 +110,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
       //   coords.longitude < myPlace?.longitude + LOCATE_GAP)
       true
     ) {
-      handleArrived(value || "출석");
+      handleArrived(isPrivate ? null : value || "출석");
       setTimeout(() => {
         setIsChecking(false);
         setIsModal(false);
