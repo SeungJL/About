@@ -32,6 +32,7 @@ export default function Page() {
   const { data: studyAll } = useStudyVoteQuery(date, location, {
     enabled: !!location && !!date,
   });
+  console.log(studyAll);
 
   const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
 

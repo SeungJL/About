@@ -12,7 +12,7 @@ import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 import StudyVoteSubModalPrivate from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalPrivate";
 import { studyDateStatusState } from "../../../recoil/studyAtoms";
 import { myStudyState } from "../../../recoils/studyRecoils";
-import { PLACE_TO_NAME } from "../../../storage/study";
+import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
 import { IModal } from "../../../types/reactTypes";
 import {
   IStudyPlaces,
@@ -31,6 +31,7 @@ interface IStudyVoteDrawer extends IModal {}
 
 export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
   const { date, id } = useParams<{ date: string; id: string }>();
+  const location = PLACE_TO_LOCATION[id];
 
   const toast = useToast();
   const studyDateStatus = useRecoilValue(studyDateStatusState);
@@ -76,6 +77,7 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
 
   const handleSuccess = async () => {
     queryClient.invalidateQueries([STUDY_VOTE, date, location]);
+    console.log(date, location);
     if (myPrevVotePoint) {
       await getPoint({
         message: "스터디 투표 취소",
