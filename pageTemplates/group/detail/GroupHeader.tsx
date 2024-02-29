@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import { faGear, faPenCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
@@ -76,29 +77,31 @@ function GroupHeader({ group }: IGroupHeader) {
   return (
     <>
       <Header title="소모임" url={prevPageUrl || "/group"}>
-        {session?.user.uid === organizer?.uid && (
-          <IconWrapper onClick={onClick}>
-            <FontAwesomeIcon icon={faPenCircle} size="xl" />
-          </IconWrapper>
-        )}
-        <Wrapper>
-          {group && (
-            <KakaoShareBtn
-              title={group.title}
-              subtitle={group.guide}
-              url={WEB_URL + `/group/${group.id}`}
-              img={group?.image}
-              type="gather"
-            />
+        <Flex>
+          {session?.user.uid === organizer?.uid && (
+            <IconWrapper onClick={onClick}>
+              <FontAwesomeIcon icon={faPenCircle} size="xl" />
+            </IconWrapper>
           )}
-        </Wrapper>
-        <IconWrapper onClick={() => setIsSettingModal(true)}>
-          <FontAwesomeIcon
-            icon={faGear}
-            size="lg"
-            onClick={() => setIsModal(true)}
-          />
-        </IconWrapper>
+          <Wrapper>
+            {group && (
+              <KakaoShareBtn
+                title={group.title}
+                subtitle={group.guide}
+                url={WEB_URL + `/group/${group.id}`}
+                img={group?.image}
+                type="gather"
+              />
+            )}
+          </Wrapper>
+          <IconWrapper onClick={() => setIsSettingModal(true)}>
+            <FontAwesomeIcon
+              icon={faGear}
+              size="lg"
+              onClick={() => setIsModal(true)}
+            />
+          </IconWrapper>
+        </Flex>
       </Header>
 
       <BottomDrawer

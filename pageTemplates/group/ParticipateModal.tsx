@@ -96,6 +96,7 @@ function ParticipateModal({
         return;
       }
     }
+  
     if (isFree) participate();
     else sendRegisterForm({ answer, pointType: selectBtn });
     setIsModal(false);

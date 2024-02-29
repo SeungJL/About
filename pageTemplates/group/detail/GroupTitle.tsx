@@ -27,14 +27,14 @@ function GroupTitle({
 }: IGroupTitle) {
   const router = useRouter();
   const color =
-    status === "pending"
+    status === "open"
       ? maxCnt === 0 || maxCnt > memberCnt
         ? "mintTheme"
         : "redTheme"
       : "redTheme";
 
   const statusText =
-    status === "pending"
+    status === "open"
       ? maxCnt === 0 || maxCnt > memberCnt
         ? "모집중"
         : "마감"

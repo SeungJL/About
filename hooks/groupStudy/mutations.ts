@@ -20,7 +20,7 @@ export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
     (param) =>
       requestServer<GroupWritingParam<T>>({
         method,
-        url: "group",
+        url: "groupStudy",
         body: param,
       }),
     options
@@ -41,7 +41,7 @@ export const useGroupParticipationMutation = <T extends "post" | "delete">(
     () =>
       requestServer<IGroupParticipationRequest<T>>({
         method,
-        url: "group/participate",
+        url: "groupStudy/participate",
         body: { id },
       }),
     options
@@ -65,7 +65,7 @@ export const useGroupAttendMutation = (
     ({ weekRecord, type, weekRecordSub }) =>
       requestServer<IUserGroupAttendRequest>({
         method: "patch",
-        url: "group/attendance",
+        url: "groupStudy/attendance",
         body: { id, weekRecord, type, weekRecordSub },
       }),
     options
@@ -100,7 +100,7 @@ export const useGroupCommentMutation = <T extends "post" | "patch" | "delete">(
     (param) =>
       requestServer<IGroupCommentRequest<T>>({
         method,
-        url: "group/comment",
+        url: "groupStudy/comment",
         body: {
           id: GroupId,
           comment: param?.comment,
@@ -125,7 +125,7 @@ export const useGroupStatusMutation = (
     (status) =>
       requestServer<IGroupStatusRequest>({
         method: "patch",
-        url: "group/status",
+        url: "groupStudy/status",
         body: {
           GroupId,
           status,
@@ -151,7 +151,7 @@ export const useGroupWaitingMutation = (
         pointType: "point" | "deposit";
       }>({
         method: "post",
-        url: "group/waiting",
+        url: "groupStudy/waiting",
         body: {
           id,
           answer,
@@ -178,7 +178,7 @@ export const useGroupWaitingStatusMutation = (
     ({ status, userId }) =>
       requestServer<IWaitingStatusRequest>({
         method: "post",
-        url: "group/waiting/status",
+        url: "groupStudy/waiting/status",
         body: {
           id,
           status,
@@ -196,7 +196,7 @@ export const useGroupAttendancePatchMutation = (
     () =>
       requestServer<{ id: number }>({
         method: "patch",
-        url: "group/attendance/confirm",
+        url: "groupStudy/attendance/confirm",
         body: {
           id,
         },

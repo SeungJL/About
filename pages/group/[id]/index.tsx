@@ -53,9 +53,8 @@ function GroupDetail() {
 
   return (
     <>
-      <Slide isFixed={true}>
-        <GroupHeader group={group} />
-      </Slide>
+      <GroupHeader group={group} />
+
       {group ? (
         <Slide>
           <Layout>
@@ -72,17 +71,16 @@ function GroupDetail() {
             <GroupContent group={group} />
             <GroupParticipation data={group} />
             <GroupComments comment={group.comment} />
-            {![
-              group.organizer,
-              ...group.participants.map((who) => who.user),
-            ].some((who) => who.uid === session?.user.uid) ? (
-              <GroupBottomNav data={group} />
-            ) : null}
           </Layout>
         </Slide>
       ) : (
         <MainLoading />
       )}
+      {![group.organizer, ...group.participants.map((who) => who.user)].some(
+        (who) => who.uid === session?.user.uid
+      ) ? (
+        <GroupBottomNav data={group} />
+      ) : null}
     </>
   );
 }
