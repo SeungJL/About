@@ -21,6 +21,7 @@ export default function StudyParticipants({
 
   const userCardArr: IProfileCommentCard[] = participants.map((par) => {
     const obj = composeUserCardArr(par, absences);
+    console.log(obj);
     const rightComponentProps = obj.rightComponentProps;
     return {
       ...obj,
@@ -89,11 +90,12 @@ const composeUserCardArr = (
   absences: IAbsence[]
 ): IReturnProps => {
   const arrived = participant?.arrived
-    ? dayjsToFormat(dayjs(participant.arrived), "HH:mm")
+    ? dayjsToFormat(dayjs(participant.arrived).subtract(9, "hour"), "HH:mm")
     : null;
   const absent = absences.find(
     (absence) => absence.user.uid === participant.user.uid
   );
+
   return {
     user: participant.user,
     comment: participant.memo || "",
