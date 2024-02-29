@@ -76,7 +76,8 @@ function GroupDetail() {
       ) : (
         <MainLoading />
       )}
-      {![group.organizer, ...group.participants.map((who) => who.user)].some(
+      {group &&
+      ![group.organizer, ...group.participants.map((who) => who.user)].some(
         (who) => who.uid === session?.user.uid
       ) ? (
         <GroupBottomNav data={group} />
