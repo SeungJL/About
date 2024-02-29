@@ -84,8 +84,9 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
         const pointObj = POINT_SYSTEM_PLUS.STUDY_ATTEND_CHECK;
         getAboutPoint(pointObj);
         const studyVoteInfo = getMyStudyVoteInfo(myStudy, session?.user.uid);
+
         const isLate =
-          !isFree && dayjs().isAfter(studyVoteInfo.start.add(1, "hour"));
+          !isFree && dayjs().isAfter(dayjs(studyVoteInfo.start).add(1, "hour"));
         if (isLate) getDeposit(POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE);
         toast(
           "success",
@@ -119,9 +120,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
   };
 
   const { mutate: imageUpload } = useImageUploadMutation({
-    onSuccess() {
-    
-    },
+    onSuccess() {},
     onError(err) {
       console.error(err);
     },
