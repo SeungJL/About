@@ -16,6 +16,7 @@ import {
   DONG_안암역,
   DONG_왕십리역,
   DONG_월곡역,
+  DONG_자유신청,
   DONG_장안동,
   DONG_혜화역,
   DONG_혜화역2,
@@ -127,6 +128,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     DONG_동대문역,
     DONG_혜화역,
     DONG_혜화역2,
+    DONG_자유신청,
   ],
 };
 

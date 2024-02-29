@@ -72,3 +72,4 @@ export const DONG_성신여대 = "6597bf26a11634850ed506d6";
 export const DONG_동대문역 = "6597bed1a11634850ed506d5";
 export const DONG_혜화역 = "6597be44a11634850ed506d3";
 export const DONG_혜화역2 = "6597be67a11634850ed506d4";
+export const DONG_자유신청 = "6597c957a11634850ed506e3";
