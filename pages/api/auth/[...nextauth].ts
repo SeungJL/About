@@ -75,7 +75,6 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ account, user, profile, credentials }) {
-      console.log(1, account, user, profile);
       if (account.provider === "guest") return true;
 
       if (!account.access_token) return false;
@@ -83,7 +82,6 @@ export const authOptions: NextAuthOptions = {
       // if (user.role === "newUser") return false;
 
       if (user) {
-        console.log(2);
         account.role = user.role;
       }
 
@@ -104,7 +102,6 @@ export const authOptions: NextAuthOptions = {
     },
     //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
     async session({ session, token, user, trigger }) {
-      console.log(session, token, user);
       if (trigger === "update") {
         return session;
       }
@@ -129,7 +126,6 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, account, user, trigger, session }) {
-      console.log("jWT", token, account, user);
       if (trigger === "update" && token?.role) {
         token.role = "waiting";
         return token;
