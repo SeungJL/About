@@ -32,12 +32,18 @@ export default function StudyParticipants({
             {par?.imageUrl && (
               <Box
                 mr="12px"
-             
                 rounded="md"
                 overflow="hidden"
                 onClick={() => setIsModal(true)}
+                w="50px"
+                h="50px"
               >
-                <Image src={par.imageUrl} width={46} height={46} alt="" />
+                <Image
+                  src={par.imageUrl}
+                  width={50}
+                  height={50}
+                  alt="studyAttend"
+                />
               </Box>
             )}
             <AttendanceBadge
