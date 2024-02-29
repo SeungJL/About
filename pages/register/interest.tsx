@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
+import { useSearchParams } from "next/navigation";
 import Input from "../../components2/atoms/Input";
 import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
 import { INTEREST_DATA } from "../../constants/contents/ProfileData";
@@ -14,11 +14,10 @@ import {
   getLocalStorageObj,
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 
 function Interest() {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const info = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,7 +25,7 @@ function Interest() {
   const [firstValue, setFirstValue] = useState(info?.interests?.first || "");
   const [secondValue, setSecondValue] = useState(info?.interests?.second || "");
 
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const isProfileEdit = !!searchParams.get("edit");
 
   const onChange = (event: ChangeEvent<HTMLInputElement>, isFirst) => {
     const value = event?.target.value;

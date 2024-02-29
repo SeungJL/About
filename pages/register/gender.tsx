@@ -1,6 +1,6 @@
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 
@@ -9,18 +9,17 @@ import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import { setLocalStorageObj } from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import { Gender, IUserRegisterFormWriting } from "../../types/user/user";
 
 function Gender() {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const info: IUserRegisterFormWriting = JSON.parse(
     localStorage.getItem(REGISTER_INFO)
   );
 
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const isProfileEdit = !!searchParams.get("edit");
 
   const [errorMessage, setErrorMessage] = useState("");
   const [gender, setGender] = useState<Gender>(info?.gender);

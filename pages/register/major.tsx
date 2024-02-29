@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 
@@ -14,15 +14,14 @@ import {
 } from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import { IMajor } from "../../types/user/user";
 
 function Major() {
   const router = useRouter();
   const toast = useToast();
-
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const searchParams = useSearchParams();
+  const isProfileEdit = !!searchParams.get("edit");
 
   const info = getLocalStorageObj(REGISTER_INFO);
 
@@ -68,7 +67,6 @@ function Major() {
     <>
       <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-     
         value={60}
       />
 

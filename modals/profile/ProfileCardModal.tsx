@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
@@ -8,7 +7,6 @@ import {
   useUidsToUsersInfoQuery,
   useUserInfoQuery,
 } from "../../hooks/user/queries";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 
 import { IModal } from "../../types/reactTypes";
 
@@ -20,11 +18,8 @@ function ProfileCardModal({ setIsModal }: IModal) {
     enabled: !!userInfo?.friend,
   });
 
-  const setIsProfileEdit = useSetRecoilState(isProfileEditState);
-
   const onClickModify = () => {
-    setIsProfileEdit(true);
-    router.push(`/register/location`);
+    router.push(`/register/location?edit=on`);
   };
 
   const footerOptions: IFooterOptions = {

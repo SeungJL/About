@@ -1,11 +1,11 @@
 import { Button } from "@chakra-ui/react";
 import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 
@@ -18,13 +18,12 @@ import {
 } from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 import { IUserRegisterFormWriting } from "../../types/user/user";
 
 dayjs.locale("ko");
 function Birthday() {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -47,7 +46,7 @@ function Birthday() {
       +defaultBirth?.slice(4, 6) - 1,
       +defaultBirth?.slice(6)
     );
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const isProfileEdit = !!searchParams.get("edit");
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
   const onClickNext = (e) => {

@@ -1,6 +1,6 @@
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../components/layout/BottomNav";
 
@@ -13,18 +13,17 @@ import {
 } from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
 import { IUserRegisterFormWriting } from "../../types/user/user";
 
 function Mbti() {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
 
   const [mbti, setMbti] = useState(info?.mbti);
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const isProfileEdit = !!searchParams.get("edit");
 
   const onClickNext = (e) => {
     if (!mbti) {

@@ -5,11 +5,6 @@ export const prevPageUrlState = atom({
   default: "",
 });
 
-export const isProfileEditState = atom({
-  key: "isProfileEdit",
-  default: false,
-});
-
 export const reviewContentIdState = atom<number>({
   key: "reviewContentId",
   default: null,
