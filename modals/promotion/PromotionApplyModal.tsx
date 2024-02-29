@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
 import {
   IFooterOptions,
@@ -31,8 +32,11 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
 
   const { data } = usePromotionQuery();
 
+  const queryClient = useQueryClient();
+
   const { mutate } = usePromotionMutation({
     onSuccess() {
+      queryClient.invalidateQueries("promotion");
       completeToast("free", "포인트 지급 완료! 감사합니다!");
       setIsModal(false);
     },
@@ -82,7 +86,6 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
     )}
   </>;
 
-  console.log(contentType);
   const footerOptions: IFooterOptions = {
     main: {
       text:
