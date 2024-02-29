@@ -87,20 +87,20 @@ const RelationItem = styled.div`
   line-height: 2;
   align-items: center;
   > span:first-child {
-    font-size: 11px;
+    font-size: 12px;
   }
   > span:last-child {
     display: inline-block;
 
     text-align: center;
     width: 20px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
   }
 `;
 const ProfileIcon = styled.div`
-  width: 75px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow: hidden;
 `;

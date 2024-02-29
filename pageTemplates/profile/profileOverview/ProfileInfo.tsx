@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import Avatar from "../../../components2/atoms/Avatar";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { NOTICE_HEART_LOG } from "../../../constants/keys/queryKeys";
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
@@ -137,7 +137,12 @@ function ProfileInfo({ user }: IProfileInfo) {
     <>
       <Layout>
         <Profile>
-          <ProfileIcon user={user || "guest"} size="xl" />
+          <Avatar
+            uid={user.uid}
+            image={user.profileImage}
+            avatar={user.avatar}
+            size="xl"
+          />
           <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>

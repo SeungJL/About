@@ -41,7 +41,6 @@ function ProfilePage() {
           />
         </Button>
       </Header>
-
       <Slide>
         <Container>
           <Layout>
