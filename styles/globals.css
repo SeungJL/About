@@ -16,6 +16,9 @@
   font-display: swap;
 }
 
+html {
+  background-color: var(--gray-8);
+}
 body {
   font-family: apple;
   font-size: 14px;
