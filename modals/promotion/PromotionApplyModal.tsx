@@ -82,11 +82,11 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
     )}
   </>;
 
-
+  console.log(contentType);
   const footerOptions: IFooterOptions = {
     main: {
       text:
-        contentType === "none"
+        contentType === "none" || !contentType
           ? "게시완료"
           : contentType === "cool"
           ? "확인"
