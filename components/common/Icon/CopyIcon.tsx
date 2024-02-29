@@ -1,10 +1,9 @@
-import { Button, useClipboard } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { faCopy } from "@fortawesome/pro-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
 import styled from "styled-components";
-import { useCompleteToast } from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useToast } from "../../../hooks/custom/CustomToast";
 
 interface ICopyBtn {
   size?: string;
@@ -13,19 +12,21 @@ interface ICopyBtn {
 
 export const CopyBtn = ({ size, text }: ICopyBtn) => {
   const completeToast = useCompleteToast();
-
-  const { onCopy, hasCopied } = useClipboard(text);
-
+  const toast = useToast();
   if (!size) size = "sm";
 
-  useEffect(() => {
-    if (hasCopied) completeToast("free", "복사 완료");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasCopied]);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      completeToast("free", "복사 완료");
+    } catch {
+      toast("error", "복사에 실패했습니다. 관리자에게 문의해주세요.");
+    }
+  };
 
   if (size === "lg")
     return (
-      <LayoutLg onClick={onCopy}>
+      <LayoutLg onClick={handleCopy}>
         <Button width="100%">본문 내용 복사하기</Button>
       </LayoutLg>
     );
@@ -36,14 +37,14 @@ export const CopyBtn = ({ size, text }: ICopyBtn) => {
         leftIcon={<FontAwesomeIcon icon={faCopy} />}
         size="xs"
         colorScheme="twitter"
-        onClick={onCopy}
+        onClick={handleCopy}
       >
         <span>복사하기</span>
       </Button>
     );
 
   return (
-    <button onClick={onCopy}>
+    <button onClick={handleCopy}>
       <FontAwesomeIcon icon={faCopy} color="var(--gray-1)" />
     </button>
   );
