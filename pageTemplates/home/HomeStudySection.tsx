@@ -74,7 +74,7 @@ export default function HomeStudySection() {
     setSortedStudyCardList(cardList);
     setMyStudy(getMyStudy(studyVoteData, session.user.uid));
 
-    if (getStudyConfimCondition(studyDateStatus, studyVoteData[0].status)) {
+    if (getStudyConfimCondition(studyDateStatus, studyVoteData[1].status)) {
       decideStudyResult();
     }
   }, [studyDateStatus, studyVoteData]);
