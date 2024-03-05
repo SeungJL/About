@@ -94,6 +94,7 @@ interface ISocialButton {
 }
 
 const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
+  const router = useRouter();
   const toast = useToast();
   const typeToast = useTypeToast();
   const { data: session } = useSession();
@@ -107,6 +108,7 @@ const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
       e.preventDefault();
       toast("error", "준비중인 기능입니다.");
     }
+    router.push(url);
   };
   return (
     <Link href={url} onClick={onClick}>
