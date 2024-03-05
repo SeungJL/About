@@ -108,15 +108,14 @@ const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
       e.preventDefault();
       toast("error", "준비중인 기능입니다.");
     }
-    router.push(url);
+    router.push;
   };
   return (
-    <Link href={url} onClick={onClick}>
+    <Link href={url} onClick={onClick} style={{ marginBottom: "8px" }}>
       <Button
         bgColor="white"
         w="90vw"
         border="2px solid var(--gray-3)"
-        mb="8px"
         p="16px"
         h="min-content"
         rounded="lg"
