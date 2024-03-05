@@ -47,6 +47,7 @@ export default function RulletPicker({
 
   const handleDragEnd = () => {
     const targetY = -ITEM_HEIGHT * (index - 2);
+
     y.set(targetY);
   };
 
@@ -54,7 +55,7 @@ export default function RulletPicker({
     const Y = y.get();
     const activeItem = Math.round(-Y / ITEM_HEIGHT) + 2;
 
-    setIndex(activeItem);
+    setIndex(activeItem < 0 ? 0 : activeItem > 20 ? 20 : activeItem);
   };
 
   const onClick = (idx: number) => {

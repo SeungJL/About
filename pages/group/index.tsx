@@ -58,7 +58,12 @@ function Index() {
     if (!isGuest) {
       setMyGroups(
         groups.filter((item) =>
-          item.participants.some((who) => who.user.uid === session?.user.uid)
+          item.participants.some((who, idx) => {
+            if (!who?.user?.uid) {
+              return;
+            }
+            return who.user.uid === session?.user.uid;
+          })
         )
       );
     }

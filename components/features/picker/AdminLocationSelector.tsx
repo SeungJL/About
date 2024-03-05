@@ -1,11 +1,10 @@
-import { Box } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
-import { LOCATION_ALL } from "../../../constants/location";
+import { LOCATION_ALL, RegisterLocation } from "../../../constants/location";
 
-import { Location } from "../../../types/system";
 import { IUserRegisterForm } from "../../../types/user/user";
 import { IUserRequest } from "../../../types/user/userRequest";
+import ButtonCheckNav from "../../templates/ButtonCheckNav";
 
 interface IAdminLocationSelector {
   initialData: IUserRegisterForm[] | IUserRequest[];
@@ -20,7 +19,7 @@ function AdminLocationSelector({
   setRequestData,
   type,
 }: IAdminLocationSelector) {
-  const [category, setCategory] = useState<Location | "기타">("수원");
+  const [category, setCategory] = useState<string>("수원");
 
   useEffect(() => {
     if (!initialData) return;
@@ -43,12 +42,11 @@ function AdminLocationSelector({
   }, [category, initialData, type]);
 
   return (
-    // <ButtonCheckNav
-    //   buttonList={[...RegisterLocation]}
-    //   selectedButton={category}
-    //   setSelectedButton={setCategory}
-    // />
-    <Box>temp</Box>
+    <ButtonCheckNav
+      buttonList={[...RegisterLocation]}
+      selectedButton={category}
+      setSelectedButton={(value: string) => setCategory(value)}
+    />
   );
 }
 

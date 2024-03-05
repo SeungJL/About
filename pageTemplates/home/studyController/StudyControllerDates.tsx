@@ -30,7 +30,7 @@ function StudyControllerDates({ selectedDate }: IStudyControllerDates) {
 
   const onClick = (date: number) => {
     const newDate = handleChangeDate(selectedDateDayjs, "date", date);
-   
+
     newSearchParams.set("date", newDate);
     router.replace(`/home?${newSearchParams.toString()}`, { scroll: false });
   };
@@ -89,9 +89,9 @@ const MotionDiv = styled(motion.div)`
   /* idx 값을 기반으로 조건부 스타일 적용 */
   flex: ${({ idx }) => (idx !== 3 ? "1" : "initial")};
   width: ${({ idx }) =>
-    idx === 3 ? "6rem" : "auto"}; /* w-24에 해당하는 너비 */
+    idx === 3 ? "96px" : "auto"}; /* w-24에 해당하는 너비 */
   margin: ${({ idx }) =>
-    idx === 3 ? "0 0.125rem" : "0"}; /* mx-0.5에 해당하는 마진 */
+    idx === 3 ? "8px 2px" : "0"}; /* mx-0.5에 해당하는 마진 */
 `;
 const AbsoluteDiv = styled.div`
   position: absolute;
@@ -103,6 +103,6 @@ const AbsoluteDiv = styled.div`
 `;
 
 const Button = styled.button`
-  /* Add button specific styling here */
+  padding: 4px 8px;
 `;
 export default StudyControllerDates;

@@ -131,7 +131,7 @@ export const handleChangeDate = (
   let year = selectedDateDayjs.year();
   let month = selectedDateDayjs.month() + 1;
   let date = selectedDateDayjs.date();
- 
+
   if (type === "month") {
     if (month === num) date = dayjs().date();
     year += handleYearMoveByMonth(num);
@@ -195,6 +195,6 @@ const InnerContainer = styled.div`
 
 // You might need to adjust the margin-top value or make it dynamic/adjustable via props
 const ContentContainer = styled.div`
-  margin-top: 36px; /* mt-9 */
+  margin-top: 32px; /* mt-9 */
 `;
 export default StudyController;
