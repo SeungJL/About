@@ -65,7 +65,7 @@ export default function WriteDrawer() {
               color="red.400"
             />
             <SocialButton
-              url="test"
+              url="/group/writing/category/main"
               title="소그룹"
               subTitle="비슷한 관심사의 인원들을 모아봐요"
               icon={<FontAwesomeIcon icon={faCampfire} color="white" />}
@@ -100,6 +100,7 @@ const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const onClick = (e: any) => {
+    e.stopPropagation();
     if (isGuest) {
       typeToast("guest");
       e.preventDefault();
