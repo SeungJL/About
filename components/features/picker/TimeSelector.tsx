@@ -13,7 +13,7 @@ const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
   const onChangeTimeEnd = (endTime) => {
     setTimes({ start: null, end: endTime });
   };
-  
+
   return (
     <>
       <Layout>
@@ -44,9 +44,7 @@ const Container = styled.div`
 `;
 
 const Layout = styled.div`
-  position: fixed;
-  bottom: 0;
-
+  height: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;

@@ -295,9 +295,8 @@ function WritingCondition() {
         </RegisterLayout>
       </Slide>
 
-      <Slide isFixed={true} posZero="top">
-        <BottomNav onClick={() => onClickNext()} text="완료" />
-      </Slide>
+      <BottomNav onClick={() => onClickNext()} text="완료" />
+
       <QuestionBottomDrawer
         isModal={isQuestionModal}
         setIsModal={setIsQuestionModal}

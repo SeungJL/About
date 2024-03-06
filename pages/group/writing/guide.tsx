@@ -42,29 +42,27 @@ function GroupWritingGuide() {
         <ProgressStatus value={42} />
         <Header isSlide={false} title="" url="/group/writing/category/sub" />
       </Slide>
-      <Slide>
-        <RegisterLayout>
-          <RegisterOverview>
-            <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>
-            <span>스터디 소개에 가장 먼저 노출됩니다.</span>
-          </RegisterOverview>
-          <Container>
-            <TitleInput
-              placeholder="제목"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <Guide
-              placeholder="간단하게 작성해주세요."
-              value={guide}
-              onChange={(e) => setGuide(e.target.value)}
-            />
-          </Container>
-        </RegisterLayout>
-      </Slide>
-      <Slide isFixed={true} posZero="top">
-        <BottomNav onClick={() => onClickNext()} />
-      </Slide>
+
+      <RegisterLayout>
+        <RegisterOverview>
+          <span>짧은 소개글을 작성해주세요! (내용, 진행 방식)</span>
+          <span>스터디 소개에 가장 먼저 노출됩니다.</span>
+        </RegisterOverview>
+        <Container>
+          <TitleInput
+            placeholder="제목"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <Guide
+            placeholder="간단하게 작성해주세요."
+            value={guide}
+            onChange={(e) => setGuide(e.target.value)}
+          />
+        </Container>
+      </RegisterLayout>
+
+      <BottomNav onClick={() => onClickNext()} />
     </>
   );
 }

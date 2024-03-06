@@ -38,24 +38,22 @@ function GroupWritingHashTag() {
         <ProgressStatus value={86} />
         <Header isSlide={false} title="" url="/group/writing/period" />
       </Slide>
-      <Slide>
-        <RegisterLayout>
-          <RegisterOverview>
-            <span>모임을 소개할 수 있는 해쉬태그를 달아봐요!</span>
-            <span>#을 포함해서 작성해주세요!</span>
-          </RegisterOverview>
-          <Container>
-            <Input
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="ex) #코딩 #블로그"
-            />
-          </Container>
-        </RegisterLayout>
-      </Slide>
-      <Slide isFixed={true} posZero="top">
-        <BottomNav onClick={() => onClickNext()} />
-      </Slide>
+
+      <RegisterLayout>
+        <RegisterOverview>
+          <span>모임을 소개할 수 있는 해쉬태그를 달아봐요!</span>
+          <span>#을 포함해서 작성해주세요!</span>
+        </RegisterOverview>
+        <Container>
+          <Input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="ex) #코딩 #블로그"
+          />
+        </Container>
+      </RegisterLayout>
+
+      <BottomNav onClick={() => onClickNext()} />
     </>
   );
 }

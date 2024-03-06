@@ -67,45 +67,41 @@ function GroupWritingContent() {
         <ProgressStatus value={56} />
         <Header isSlide={false} title="" url="/group/writing/guide" />
       </Slide>
-      <Slide>
-        <RegisterLayout>
-          <RegisterOverview>
-            <span>어떤 모임인지 작성해주세요!</span>
-            <span>
-              가입 이전에 어떤 활동과 방식의 모임인지 알 수 있어야 해요
-            </span>
-          </RegisterOverview>
-          <Container>
-            <Content
-              placeholder="내용을 작성해주세요."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-            <RuleTitle>규칙이 있나요?</RuleTitle>
-            <RuleContainer>
-              {rules.map((item, idx) => (
-                <RuleItem key={idx}>
-                  <input value={item} onChange={(e) => onChange(e, idx)} />
-                  <MinusWrapper
-                    onClick={() =>
-                      setRules((old) => old.filter((rule) => rule !== item))
-                    }
-                  >
-                    <FontAwesomeIcon icon={faMinusCircle} />
-                  </MinusWrapper>
-                </RuleItem>
-              ))}
 
-              <PlusWrapper onClick={() => handleAdd()}>
-                <FontAwesomeIcon icon={faPlusCircle} />
-              </PlusWrapper>
-            </RuleContainer>
-          </Container>
-        </RegisterLayout>
-      </Slide>
-      <Slide isFixed={true} posZero="top">
-        <BottomNav onClick={() => onClickNext()} />
-      </Slide>
+      <RegisterLayout>
+        <RegisterOverview>
+          <span>어떤 모임인지 작성해주세요!</span>
+          <span>가입 이전에 어떤 활동과 방식의 모임인지 알 수 있어야 해요</span>
+        </RegisterOverview>
+        <Container>
+          <Content
+            placeholder="내용을 작성해주세요."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <RuleTitle>규칙이 있나요?</RuleTitle>
+          <RuleContainer>
+            {rules.map((item, idx) => (
+              <RuleItem key={idx}>
+                <input value={item} onChange={(e) => onChange(e, idx)} />
+                <MinusWrapper
+                  onClick={() =>
+                    setRules((old) => old.filter((rule) => rule !== item))
+                  }
+                >
+                  <FontAwesomeIcon icon={faMinusCircle} />
+                </MinusWrapper>
+              </RuleItem>
+            ))}
+
+            <PlusWrapper onClick={() => handleAdd()}>
+              <FontAwesomeIcon icon={faPlusCircle} />
+            </PlusWrapper>
+          </RuleContainer>
+        </Container>
+      </RegisterLayout>
+
+      <BottomNav onClick={() => onClickNext()} />
     </>
   );
 }

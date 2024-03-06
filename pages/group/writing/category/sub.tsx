@@ -53,30 +53,28 @@ function WritingStudyCategorySub() {
         <ProgressStatus value={28} />
         <Header isSlide={false} title="" url={"/group/writing/category/main"} />
       </Slide>
-      <Slide>
-        <RegisterLayout>
-          <RegisterOverview>
-            <span>주제를 선택해 주세요.</span>
-          </RegisterOverview>
-          <ItemContainer>
-            {GROUP_STUDY_SUB_CATEGORY[mainCategory].map((type, idx) => (
-              <Item
-                key={idx}
-                isSelected={type === category}
-                onClick={() => setCategory(type)}
-              >
-                <IconWrapper>
-                  {GROUP_STUDY_CATEGORY_ARR_ICONS[mainCategory]}
-                </IconWrapper>
-                <Info>{type}</Info>
-              </Item>
-            ))}
-          </ItemContainer>
-        </RegisterLayout>
-      </Slide>
-      <Slide isFixed={true} posZero="top">
-        <BottomNav onClick={onClickNext} />
-      </Slide>
+
+      <RegisterLayout>
+        <RegisterOverview>
+          <span>주제를 선택해 주세요.</span>
+        </RegisterOverview>
+        <ItemContainer>
+          {GROUP_STUDY_SUB_CATEGORY[mainCategory].map((type, idx) => (
+            <Item
+              key={idx}
+              isSelected={type === category}
+              onClick={() => setCategory(type)}
+            >
+              <IconWrapper>
+                {GROUP_STUDY_CATEGORY_ARR_ICONS[mainCategory]}
+              </IconWrapper>
+              <Info>{type}</Info>
+            </Item>
+          ))}
+        </ItemContainer>
+      </RegisterLayout>
+
+      <BottomNav onClick={onClickNext} />
     </>
   );
 }

@@ -49,25 +49,23 @@ function GroupWritingContent() {
         <ProgressStatus value={72} />
         <Header isSlide={false} title="" url="/group/writing/content" />
       </Slide>
-      <Slide>
-        <RegisterLayout>
-          <RegisterOverview>
-            <span>진행 주기를 체크해주세요!</span>
-            <span>나중에 변경할 수 있습니다.</span>
-          </RegisterOverview>
-          <Container>
-            <ButtonCheckNav
-              buttonList={periodArr}
-              setSelectedButton={setPeriod}
-              selectedButton={period}
-              isWrap={true}
-            />
-          </Container>
-        </RegisterLayout>
-      </Slide>
-      <Slide isFixed={true} posZero="top">
-        <BottomNav onClick={() => onClickNext()} />
-      </Slide>
+
+      <RegisterLayout>
+        <RegisterOverview>
+          <span>진행 주기를 체크해주세요!</span>
+          <span>나중에 변경할 수 있습니다.</span>
+        </RegisterOverview>
+        <Container>
+          <ButtonCheckNav
+            buttonList={periodArr}
+            setSelectedButton={setPeriod}
+            selectedButton={period}
+            isWrap={true}
+          />
+        </Container>
+      </RegisterLayout>
+
+      <BottomNav onClick={() => onClickNext()} />
     </>
   );
 }
