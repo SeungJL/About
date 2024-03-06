@@ -91,7 +91,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
         toast(
           "success",
           `출석 완료! ${pointObj.value} 포인트가 적립되었습니다. ${
-            isLate && "하지만 지각..."
+            isLate ? "하지만 지각..." : ""
           }`
         );
       },
@@ -121,7 +121,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
 
   const { mutate: imageUpload } = useImageUploadMutation({
     onSuccess() {
-    
+      queryClient.invalidateQueries([STUDY_VOTE, date, location]);
     },
     onError(err) {
       console.error(err);

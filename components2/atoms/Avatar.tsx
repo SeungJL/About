@@ -7,7 +7,7 @@ import styled, { css } from "styled-components";
 import { COLOR_TABLE_LIGHT } from "../../constants2/colorConstants";
 import { AVATAR_IMAGE_ARR } from "../../storage/avatarStorage";
 import { IAvatar as IAvatarProp } from "../../types2/userTypes/userInfoTypes";
-type Size = "sm" | "md" | "lg" | "xl";
+type Size = "sm" | "smd" | "md" | "lg" | "xl";
 
 interface IAvatar {
   image: string;
@@ -54,6 +54,8 @@ export default function Avatar({
             sizes={
               size === "sm"
                 ? "28px"
+                : size === "smd"
+                ? "32px"
                 : size === "md"
                 ? "44px"
                 : size === "lg"
@@ -97,6 +99,11 @@ const AvatarContainer = styled.div<{
           width: 28px; // w-7
           height: 28px; // h-7
           padding: 2px;
+        `;
+      case "smd":
+        return css`
+          width: 32px; // w-7
+          height: 32px; // h-7
         `;
       case "md":
         return css`

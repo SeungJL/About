@@ -93,7 +93,7 @@ function GroupComments({ comment }: IGroupComments) {
                     image={item.user.profileImage}
                     avatar={item.user.avatar}
                     uid={item.user.uid}
-                    size="sm"
+                    size="smd"
                   />
                 </div>
                 <CommentContent>
@@ -171,7 +171,7 @@ const MyCommnet = styled.div`
 const CommentBlock = styled.div`
   display: flex;
   align-items: center;
-  height: 60px;
+  padding: 8px 0;
 `;
 
 const CommentContent = styled.div`

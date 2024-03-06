@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import Avatar from "../../../components2/atoms/Avatar";
 import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
@@ -54,7 +54,12 @@ function GroupParticipation({ data }: IGroupParticipation) {
                 onClick={() => onClickProfile(who?.user)}
               >
                 <ProfileWrapper>
-                  <ProfileIcon user={who?.user} size="sm" />
+                  <Avatar
+                    image={who.user.profileImage}
+                    avatar={who.user?.avatar}
+                    size="md"
+                    uid={who.user.uid}
+                  />
                   {who?.role === "admin" && (
                     <Crown>
                       <FontAwesomeIcon

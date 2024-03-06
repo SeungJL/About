@@ -5,6 +5,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import SuccessScreen from "../../components/layout/SuccessScreen";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import ImageUploadInput from "../../components2/molecules/ImageUploadInput";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
@@ -26,6 +27,8 @@ function GatherWritingConfirmModal({
   const router = useRouter();
   const errorToast = useErrorToast();
 
+  const [isFirst, setIsFirst] = useState(true);
+  const [imageUrl, setImageUrl] = useState();
   const [isSuccessScreen, setIsSuccessScreen] = useState(false);
   const [isGatherEdit, setIsGatherEdit] = useRecoilState(isGatherEditState);
   const resetQueryData = useResetQueryData();
@@ -62,8 +65,8 @@ function GatherWritingConfirmModal({
 
   const footerOptions: IFooterOptions = {
     main: {
-      text: isGatherEdit ? "모임 수정" : "모임 개설",
-      func: onSubmit,
+      text: isGatherEdit ? "모임 수정" : isFirst ? "모임 개설" : "모임 개설",
+      func: isFirst ? onSubmit : onSubmit,
     },
   };
 
@@ -75,21 +78,35 @@ function GatherWritingConfirmModal({
           setIsModal={setIsModal}
           footerOptions={footerOptions}
         >
-          <ModalSubtitle>개설 내용을 확인해 주세요!</ModalSubtitle>
-          <Container>
-            <Item>
-              <span>제목:</span>
-              <span>{gatherData?.title}</span>
-            </Item>
-            <Item>
-              <span>날짜:</span>
-              <span>{dayjs(gatherData.date).format("M월 D일, H시 m분")}</span>
-            </Item>
-            <Item>
-              <span>주제:</span>
-              <span>{gatherData.type.subtitle || "기타"}</span>
-            </Item>
-          </Container>
+          <>
+            <ModalSubtitle>
+              {isFirst
+                ? "개설 내용을 확인해 주세요!"
+                : "선택사항. 기본 랜덤 이미지로 설정됩니다."}
+            </ModalSubtitle>
+            {isFirst ? (
+              <Container>
+                <Item>
+                  <span>제목:</span>
+                  <span>{gatherData?.title}</span>
+                </Item>
+                <Item>
+                  <span>날짜:</span>
+                  <span>
+                    {dayjs(gatherData.date).format("M월 D일, H시 m분")}
+                  </span>
+                </Item>
+                <Item>
+                  <span>주제:</span>
+                  <span>{gatherData.type.subtitle || "기타"}</span>
+                </Item>
+              </Container>
+            ) : (
+              <>
+                <ImageUploadInput setImageUrl={setImageUrl} />
+              </>
+            )}
+          </>
         </ModalLayout>
       )}
       {isSuccessScreen && (

@@ -28,15 +28,20 @@ function SuccessScreen({ children, url }: ISuccessScreen) {
       </Icon>
       <Content>{children}</Content>
       <Button
-        mt="auto"
+        position="fixed"
+        left="50%"
+        bottom="0"
+        maxW="var(--view-max-width)"
+        transform="translate(-50%,0)"
         width={`calc(100% - 2*var(--gap-4))`}
-        height="44px"
+        size="lg"
         mb="var(--gap-4)"
         borderRadius="var(--rounded)"
         backgroundColor="var(--color-mint)"
         color="white"
         fontSize="15px"
         onClick={onClicked}
+        _focus={{ backgroundColor: "var(--color-mint)", color: "white" }}
       >
         확인
       </Button>
