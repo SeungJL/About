@@ -18,14 +18,14 @@ import { IGroup, IGroupWriting } from "../../types/page/group";
 import { DispatchType, IModal } from "../../types/reactTypes";
 
 interface IGroupConfirmModal extends IModal {
-  GroupWriting: IGroupWriting;
+  groupWriting: IGroupWriting;
   setGroupWriting: DispatchType<IGroupWriting>;
 }
 
 function GroupConfirmModal({
   setIsModal,
   setGroupWriting,
-  GroupWriting,
+  groupWriting,
 }: IGroupConfirmModal) {
   const router = useRouter();
   const errorToast = useErrorToast();
@@ -50,30 +50,30 @@ function GroupConfirmModal({
       setGroup(null);
       completeToast("free", "수정되었습니다.");
       resetQueryData([GROUP_STUDY_ALL], () => {
-        router.push(`/group/${GroupWriting.id}`);
+        router.push(`/group/${groupWriting.id}`);
       });
     },
     onError: errorToast,
   });
 
   const onSubmit = () => {
-    if (GroupWriting?.id) {
-      updateGroup({ group: GroupWriting as IGroup });
-    } else mutate({ group: GroupWriting });
+    if (groupWriting?.id) {
+      updateGroup({ groupStudy: groupWriting as IGroup });
+    } else mutate({ groupStudy: groupWriting });
   };
 
   const footerOptions: IFooterOptions = {
     main: {
-      text: GroupWriting.id ? "내용 수정" : "소모임 개설",
+      text: groupWriting.id ? "내용 수정" : "소모임 개설",
       func: onSubmit,
     },
   };
 
   return (
     <>
-      {GroupWriting && (
+      {groupWriting && (
         <ModalLayout
-          title={GroupWriting.id ? "내용 수정" : "소모임 개설"}
+          title={groupWriting.id ? "내용 수정" : "소모임 개설"}
           setIsModal={setIsModal}
           footerOptions={footerOptions}
         >
@@ -81,15 +81,15 @@ function GroupConfirmModal({
           <Container>
             <Item>
               <span>제목:</span>
-              <span>{GroupWriting?.title}</span>
+              <span>{groupWriting?.title}</span>
             </Item>
             <Item>
               <span>날짜:</span>
-              <span>{GroupWriting?.category?.sub}</span>
+              <span>{groupWriting?.category?.sub}</span>
             </Item>
             <Item>
               <span>주제:</span>
-              <span>{GroupWriting.guide}</span>
+              <span>{groupWriting.guide}</span>
             </Item>
           </Container>
         </ModalLayout>

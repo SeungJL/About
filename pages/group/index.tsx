@@ -39,9 +39,7 @@ function Index() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
 
-  const [status, setStatus] = useState<"모집중" | "종료" | "모집 마감">(
-    "모집중"
-  );
+  const [status, setStatus] = useState<"모집중" | "종료" | "소그룹">("모집중");
   const [category, setCategory] = useState<ICategory>({
     main: categoryIdx !== null ? GROUP_STUDY_CATEGORY_ARR[categoryIdx] : "전체",
     sub: null,
@@ -80,6 +78,8 @@ function Index() {
         ? filtered.filter((item) => item.status === "open")
         : status === "종료"
         ? filtered.filter((item) => item.status === "end")
+        : status === "소그룹"
+        ? filtered.filter((item) => item.status === "gathering")
         : filtered;
 
     setGroupStudies(shuffleArray(filtered2));
@@ -102,7 +102,7 @@ function Index() {
     <Selector
       defaultValue={status}
       setValue={setStatus}
-      options={["모집중", "모집 마감", "종료"]}
+      options={["모집중", "소그룹", "종료"]}
     />
   );
 

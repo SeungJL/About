@@ -6,10 +6,10 @@ import { IGroup, IGroupWriting } from "../../types/page/group";
 import { MutationOptions } from "../../types/reactTypes";
 
 type GroupWritingParam<T> = T extends "post"
-  ? { group: IGroupWriting }
+  ? { groupStudy: IGroupWriting }
   : T extends "patch"
-  ? { group: IGroup }
-  : { GroupId: number };
+  ? { groupStudy: IGroup }
+  : { id: number };
 
 /** group info */
 export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(

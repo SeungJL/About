@@ -22,12 +22,12 @@ function WritingStudyCategoryMain() {
   const failToast = useFailToast();
 
   const prevPageUrl = useRecoilValue(prevPageUrlState);
-  const [GroupWriting, setGroupWriting] = useRecoilState(
+  const [groupWriting, setgroupWriting] = useRecoilState(
     sharedGroupWritingState
   );
 
   const [category, setCategory] = useState<string>(
-    GroupWriting?.category?.main
+    groupWriting?.category?.main
   );
 
   const onClickNext = () => {
@@ -35,7 +35,7 @@ function WritingStudyCategoryMain() {
       failToast("free", "주제를 선택해 주세요!", true);
       return;
     }
-    setGroupWriting((old) => ({
+    setgroupWriting((old) => ({
       ...old,
       category: { ...old?.category, main: category },
     }));

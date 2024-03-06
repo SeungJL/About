@@ -16,7 +16,6 @@ interface IGroupBlock {
 }
 
 function GroupBlock({ group }: IGroupBlock) {
-
   const router = useRouter();
   const { data: session } = useSession();
   const failToast = useFailToast();
@@ -55,7 +54,7 @@ function GroupBlock({ group }: IGroupBlock) {
     const min = group.memberCnt.min;
     const max = group.memberCnt.max;
     const participantCnt = group.participants.length;
-    if (status === "open") {
+    if (status === "open" || status === "gathering") {
       if (participantCnt < min) {
         return {
           text: `개설까지 ${min - participantCnt}명 남음`,

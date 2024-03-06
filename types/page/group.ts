@@ -6,8 +6,6 @@ import { GatherStatus, IGatherComment } from "./gather";
 
 export type GroupCategory = typeof GROUP_STUDY_CATEGORY_ARR[number];
 
-
-
 export interface IGroup extends IGroupWriting {
   createdAt: string;
   participants: { user: IUser; role: "member" | "manager" | "admin" }[];
@@ -21,7 +19,7 @@ export interface IGroupWriting extends ITimeStamps {
   title: string;
   content: string;
   rules: string[];
-  status: GatherStatus;
+  status: GatherStatus | "gathering";
   guide: string;
   feeText: string;
   image?: string;

@@ -9,6 +9,7 @@ interface IGroupMine {
 }
 
 function GroupMine({ myGroups }: IGroupMine) {
+  console.log(myGroups);
   const imageTileArr: IImageTile[] = myGroups?.map((group) => ({
     imageUrl: group.image,
     text: group.title,
