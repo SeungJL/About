@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import { faPenCircle, faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
@@ -44,18 +45,20 @@ function GatherHeader({ gatherData }: IGatherHeader) {
   return (
     <>
       <Header title="" url={prevPageUrl || "/gather"}>
-        {session?.user.uid === organizer?.uid && (
-          <IconWrapper onClick={onClick}>
-            <FontAwesomeIcon icon={faPenCircle} size="xl" />
+        <Flex>
+          {session?.user.uid === organizer?.uid && (
+            <IconWrapper onClick={onClick}>
+              <FontAwesomeIcon icon={faPenCircle} size="xl" />
+            </IconWrapper>
+          )}
+          <IconWrapper>
+            <FontAwesomeIcon
+              icon={faShareNodes}
+              size="lg"
+              onClick={() => setIsModal(true)}
+            />
           </IconWrapper>
-        )}
-        <IconWrapper>
-          <FontAwesomeIcon
-            icon={faShareNodes}
-            size="lg"
-            onClick={() => setIsModal(true)}
-          />
-        </IconWrapper>
+        </Flex>
       </Header>
       {isModal && (
         <GatherKakaoShareModal
