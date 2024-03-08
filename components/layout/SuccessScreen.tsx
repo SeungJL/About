@@ -52,7 +52,7 @@ function SuccessScreen({ children, url }: ISuccessScreen) {
 const Layout = styled.div`
   width: 100vw;
   max-width: 390px;
-  height: 100vh;
+  height: 100%;
   left: 50%;
   top: 0;
   transform: translate(-50%, 0);
