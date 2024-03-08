@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ interface IAvatar {
   avatar?: IAvatarProp;
   uid?: string;
   isPriority?: boolean;
+  shadowAvatar?: number;
 }
 
 export default function Avatar({
@@ -23,6 +24,7 @@ export default function Avatar({
   avatar,
   uid,
   isPriority,
+  shadowAvatar,
 }: IAvatar) {
   const router = useRouter();
   const hasAvatar =
@@ -43,31 +45,47 @@ export default function Avatar({
   const AvatarComponent = () => (
     <AvatarContainer size={size}>
       <ImageContainer
-        bg={hasAvatar && avatar.bg !== null && COLOR_TABLE_LIGHT[avatar.bg]}
+        bg={
+          shadowAvatar
+            ? "var(--gray-3)"
+            : hasAvatar && avatar.bg !== null && COLOR_TABLE_LIGHT[avatar.bg]
+        }
         hasType={hasAvatar}
         size={size}
       >
         <Box w="100%" h="100%" pos="relative">
-          <Image
-            src={imageUrl}
-            fill={true}
-            sizes={
-              size === "sm"
-                ? "28px"
-                : size === "smd"
-                ? "32px"
-                : size === "md"
-                ? "44px"
-                : size === "lg"
-                ? "64px"
-                : size === "xl"
-                ? "80px"
-                : ""
-            }
-            priority={isPriority}
-            alt="avatar"
-            onError={onError}
-          />
+          {!shadowAvatar ? (
+            <Image
+              src={imageUrl}
+              fill={true}
+              sizes={
+                size === "sm"
+                  ? "28px"
+                  : size === "smd"
+                  ? "32px"
+                  : size === "md"
+                  ? "44px"
+                  : size === "lg"
+                  ? "64px"
+                  : size === "xl"
+                  ? "80px"
+                  : ""
+              }
+              priority={isPriority}
+              alt="avatar"
+              onError={onError}
+            />
+          ) : (
+            <Flex
+              fontSize="12px"
+              h="100%"
+              justify="center"
+              alignItems="center"
+              color="white"
+            >
+              +{shadowAvatar}
+            </Flex>
+          )}
         </Box>
       </ImageContainer>
     </AvatarContainer>
@@ -92,6 +110,7 @@ const AvatarContainer = styled.div<{
   position: relative;
   border-radius: 50%; // rounded-full
   background-color: var(--gray-8);
+
   ${(props) => {
     switch (props.size) {
       case "sm":
@@ -145,5 +164,5 @@ const ImageContainer = styled.div<{
       : "8px")};
 
   background-color: ${(props) =>
-    props.bg ? props.bg : "var(--gray-7)"}; // bg-gray-200 as fallback
+    props.bg ? props.bg : "var(--gray-3)"}; // bg-gray-200 as fallback
 `;

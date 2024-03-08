@@ -27,7 +27,15 @@ export default function AvatarGroupsOverwrap({
       {userAvatarArr.map((att, idx) => {
         return (
           idx < VOTER_SHOW_MAX && (
-            <Avatar key={idx} image={att.image} avatar={att.avatar} size="sm" />
+            <Avatar
+              key={idx}
+              image={att.image}
+              avatar={att.avatar}
+              size="sm"
+              shadowAvatar={
+                idx === VOTER_SHOW_MAX - 1 && userAvatarArr.length - idx
+              }
+            />
           )
         );
       })}
