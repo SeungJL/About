@@ -726,6 +726,24 @@ export const WIN_RECORD: {
     detail: "출석체크 당첨 ",
     present: "베스킨라빈스 싱글",
   },
+  {
+    name: "이소",
+    date: "3/8",
+    detail: "알파벳 교환 1회",
+    present: "스타벅스 아메리카노",
+  },
+  {
+    name: "이아",
+    date: "3/8",
+    detail: "스토어 당첨",
+    present: "다이소 5000원",
+  },
+  {
+    name: "권수",
+    date: "3/8",
+    detail: "스토어 당첨",
+    present: "굽네치킨 세트",
+  },
 ];
 
 export const PROMOTION_WIN = [

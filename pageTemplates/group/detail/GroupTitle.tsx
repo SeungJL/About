@@ -8,7 +8,7 @@ import { GatherStatus } from "../../../types/page/gather";
 
 interface IGroupTitle {
   title: string;
-  status: GatherStatus;
+  status: GatherStatus | "gathering";
   memberCnt: number;
   isAdmin: boolean;
   category: string;

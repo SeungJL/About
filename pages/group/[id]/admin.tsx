@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { UserItem } from "../../../components/common/user/UserItem";
 import Header from "../../../components/layout/Header";
@@ -10,22 +10,28 @@ import Slide from "../../../components/layout/PageSlide";
 import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
+import { useGroupQuery } from "../../../hooks/groupStudy/queries";
+import GroupAdminInvitation from "../../../pageTemplates/group/admin/GroupAdminInvitation";
+import { IGroup } from "../../../types/page/group";
 
-import { isRefetchGroupInfoState } from "../../../recoil/refetchingAtoms";
-import { transferGroupDataState } from "../../../recoil/transferDataAtoms";
 import { IUser } from "../../../types/user/user";
 
 function Admin() {
   const completeToast = useCompleteToast();
-  const group = useRecoilValue(transferGroupDataState);
+  const { id } = useParams<{ id: string }>() || {};
 
   const [deletedUsers, setDeletedUser] = useState([]);
+  const [group, setGroup] = useState<IGroup>();
 
-  const setIsRefetch = useSetRecoilState(isRefetchGroupInfoState);
-  const { mutate, isLoading } = useGroupWaitingStatusMutation(group.id, {
+  const { data: groups } = useGroupQuery();
+
+  useEffect(() => {
+    if (groups) setGroup(groups.find((item) => item.id + "" === id));
+  }, [groups]);
+
+  const { mutate, isLoading } = useGroupWaitingStatusMutation(+id, {
     onSuccess() {
       completeToast("free", "처리되었습니다.");
-      setIsRefetch(true);
     },
   });
 
@@ -88,7 +94,8 @@ function Admin() {
               )
             )}
           </Container>
-          <Title>기타 기능</Title>
+          <Title>유저 초대</Title>
+          <GroupAdminInvitation />
         </Layout>
       </Slide>
     </>
