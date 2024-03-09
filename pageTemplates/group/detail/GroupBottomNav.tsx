@@ -72,7 +72,9 @@ function GroupBottomNav({ data }: IGroupBottomNav) {
     handleFunction?: () => void;
   }
 
-  const getButtonSettings = (status: GatherStatus): IButtonSetting => {
+  const getButtonSettings = (
+    status: GatherStatus | "gathering"
+  ): IButtonSetting => {
     switch (status) {
     }
     if (isPending)

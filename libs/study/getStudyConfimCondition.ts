@@ -11,7 +11,6 @@ export const getStudyConfimCondition = (
     studyStatus === "pending" &&
     getHour() === 9
   ) {
-    console.log(24);
     return true;
   }
   return false;

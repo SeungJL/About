@@ -54,7 +54,7 @@ export default function HomeStudySection() {
       enabled: !!date && !!location,
     }
   );
-
+  console.log(date);
   const { mutate: decideStudyResult } = useStudyResultDecideMutation(date);
 
   useEffect(() => {
@@ -73,8 +73,9 @@ export default function HomeStudySection() {
     setStudyCardColData(cardList.slice(0, 3));
     setSortedStudyCardList(cardList);
     setMyStudy(getMyStudy(studyVoteData, session.user.uid));
-    console.log(studyDateStatus, studyVoteData[1]);
+
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[1].status)) {
+      console.log(42);
       decideStudyResult();
     }
   }, [studyDateStatus, studyVoteData]);
