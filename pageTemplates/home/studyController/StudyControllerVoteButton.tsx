@@ -143,6 +143,12 @@ export const getStudyVoteButtonProps = (
         color: "var(--gray-5)",
         shadow: "var(--gray-7)",
       };
+    default:
+      return {
+        text: "참여 신청",
+        color: "var(--color-mint)",
+        shadow: "var(--color-mint-light)",
+      };
   }
 };
 

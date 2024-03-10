@@ -75,7 +75,6 @@ export default function HomeStudySection() {
     setMyStudy(getMyStudy(studyVoteData, session.user.uid));
 
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[1].status)) {
-      console.log(42);
       decideStudyResult();
     }
   }, [studyDateStatus, studyVoteData]);

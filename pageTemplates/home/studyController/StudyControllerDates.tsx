@@ -3,8 +3,10 @@ import "dayjs/locale/ko";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import TextCircle from "../../../components2/atoms/TextCircle";
+import { studyDateStatusState } from "../../../recoils/studyRecoils";
 import { getDateArr, handleChangeDate } from "./StudyController";
 
 dayjs.locale("ko");
@@ -20,6 +22,8 @@ function StudyControllerDates({ selectedDate }: IStudyControllerDates) {
 
   const selectedDateDayjs = dayjs(selectedDate);
 
+  const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
+
   const [variants, setVariants] = useState({});
 
   const dateArr = getDateArr(selectedDateDayjs);
@@ -29,6 +33,7 @@ function StudyControllerDates({ selectedDate }: IStudyControllerDates) {
   }, []);
 
   const onClick = (date: number) => {
+    setStudyDateStatus(undefined);
     const newDate = handleChangeDate(selectedDateDayjs, "date", date);
 
     newSearchParams.set("date", newDate);
