@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import { config } from "@fortawesome/fontawesome-svg-core";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BottomNav from "../../components2/BottomNav";
@@ -35,12 +35,13 @@ function Layout({ children }: ILayout) {
 
   useEffect(() => {
     if (PUBLIC_SEGMENT.includes(segment)) return;
+
     if (session !== undefined && !session?.user?.location) {
       toast(
         "warning",
         "업데이트가 필요합니다. 다시 로그인 해주세요! 반복되는 경우 관리자에게 문의 부탁드립니다!!"
       );
-      router.push("/login");
+      signOut({ callbackUrl: `/login/?status=logout` });
     }
     const role = session?.user.role;
     if (role === "newUser") router.push("/register/location");
