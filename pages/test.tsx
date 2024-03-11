@@ -8,11 +8,12 @@ import { useMonthCalcMutation } from "../hooks/admin/mutation";
 import { useImageUploadMutation } from "../hooks/image/mutations";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2024-02-19"),
-    dayjs("2024-02-25"),
+    dayjs("2024-03-01"),
+    dayjs("2024-03-11"),
     null,
-    "강남"
+    "동대문"
   );
+  console.log(data);
 
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
@@ -22,9 +23,7 @@ function Test() {
   );
 
   const { mutate } = useMonthCalcMutation({
-    onSuccess(data) {
-    
-    },
+    onSuccess(data) {},
     onError(err) {
       console.error(err);
     },
@@ -32,13 +31,10 @@ function Test() {
 
   const handleForm = (e) => {
     e.preventDefault();
-   
   };
 
   const { mutate: A } = useImageUploadMutation({
-    onSuccess(data) {
-   
-    },
+    onSuccess(data) {},
   });
 
   const [image, setImage] = useState(null);
