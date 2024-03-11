@@ -5,7 +5,7 @@
 
 - About 프로젝트는 데스크탑이 아닌 모바일을 메인으로 하는 서비스이다.
 - 게스트 로그인을 통해 해당 서비스를 직접 확인할 수 있다.
-- [https://studyabout.club](https://studyabout.club)
+- [https://studyabout.club](studyabout.club)
 
 
 ## 개발 배경
