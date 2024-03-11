@@ -37,8 +37,14 @@ function Layout({ children }: ILayout) {
     if (PUBLIC_SEGMENT.includes(segment)) return;
     if (session === undefined) return;
     const role = session?.user.role;
-    if (role === "newUser") router.push("/register/location");
-    if (role === "waiting") router.push("/login?status=waiting");
+    if (role === "newUser") {
+      router.push("/register/location");
+      return;
+    }
+    if (role === "waiting") {
+      router.push("/login?status=waiting");
+      return;
+    }
     if (!session?.user?.location) {
       toast(
         "warning",
