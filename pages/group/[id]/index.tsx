@@ -51,6 +51,8 @@ function GroupDetail() {
       patchAttendance();
   }, [group?.attendance?.firstDate]);
 
+ 
+
   return (
     <>
       <GroupHeader group={group} />

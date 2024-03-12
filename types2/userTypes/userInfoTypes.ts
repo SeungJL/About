@@ -26,6 +26,7 @@ export interface IUserSummary {
   profileImage: string;
   score: number;
   uid: string;
+  _id?: string;
 }
 
 export interface IUserRegisterForm extends IUserRegisterFormWriting {

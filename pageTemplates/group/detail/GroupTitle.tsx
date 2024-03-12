@@ -58,7 +58,7 @@ function GroupTitle({
         </span>
         {isAdmin && (
           <SettingBtnNav>
-            <button>
+            <button onClick={() => router.push(`${router.asPath}/member`)}>
               <FontAwesomeIcon icon={faUserGroup} size="sm" />
             </button>
             <button onClick={onClick}>

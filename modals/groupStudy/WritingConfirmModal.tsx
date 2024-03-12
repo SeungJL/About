@@ -64,7 +64,7 @@ function GroupConfirmModal({
 
   const footerOptions: IFooterOptions = {
     main: {
-      text: groupWriting.id ? "내용 수정" : "소모임 개설",
+      text: groupWriting?.id ? "내용 수정" : "소모임 개설",
       func: onSubmit,
     },
   };

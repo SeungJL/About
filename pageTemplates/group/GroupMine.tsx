@@ -3,6 +3,7 @@ import ImageTileSlider, {
   IImageTile,
 } from "../../components2/organisms/sliders/ImageTileSlider";
 import { IGroup } from "../../types/page/group";
+import { getRandomImage } from "../../utils/imageUtils";
 
 interface IGroupMine {
   myGroups: IGroup[];
@@ -10,8 +11,9 @@ interface IGroupMine {
 
 function GroupMine({ myGroups }: IGroupMine) {
   console.log(myGroups);
+
   const imageTileArr: IImageTile[] = myGroups?.map((group) => ({
-    imageUrl: group.image,
+    imageUrl: group.image || getRandomImage("gather"),
     text: group.title,
     url: `/group/${group.id}`,
   }));

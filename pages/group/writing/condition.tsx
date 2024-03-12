@@ -106,7 +106,7 @@ function WritingCondition() {
       fee: condition.fee ? +fee : 0,
       feeText,
       isFree: condition.isFree,
-      location,
+      location: location || userInfo?.location,
       age,
       memberCnt,
       gender: condition.gender,

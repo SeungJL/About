@@ -56,10 +56,12 @@ type UserInfoFieldParam<T> = T extends "avatar"
   ? { role: Role }
   : T extends "rest"
   ? { info: IApplyRest }
+  : T extends "belong"
+  ? { uid: string; belong: string }
   : { comment: string };
 
 export const useUserInfoFieldMutation = <
-  T extends "avatar" | "comment" | "role" | "rest"
+  T extends "avatar" | "comment" | "role" | "rest" | "belong"
 >(
   field: T,
   options?: MutationOptions<UserInfoFieldParam<T>>

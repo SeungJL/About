@@ -1,4 +1,5 @@
 import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contents/GroupStudyContents";
+import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
 import { LocationFilterType } from "../system";
 import { ITimeStamps } from "../timeAndDate";
 import { IUser } from "../user/user";
@@ -8,7 +9,11 @@ export type GroupCategory = typeof GROUP_STUDY_CATEGORY_ARR[number];
 
 export interface IGroup extends IGroupWriting {
   createdAt: string;
-  participants: { user: IUser; role: "member" | "manager" | "admin" }[];
+  participants: {
+    user: IUserSummary;
+    role: "member" | "manager" | "admin";
+    attendCnt?: number;
+  }[];
   comment: IGatherComment[];
   link?: string;
 }

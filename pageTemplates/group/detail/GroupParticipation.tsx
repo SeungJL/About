@@ -7,9 +7,8 @@ import Avatar from "../../../components2/atoms/Avatar";
 import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../recoil/transferDataAtoms";
 import { IGroup } from "../../../types/page/group";
-import { IUser } from "../../../types/user/user";
+import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
 interface IGroupParticipation {
   data: IGroup;
@@ -17,15 +16,14 @@ interface IGroupParticipation {
 
 function GroupParticipation({ data }: IGroupParticipation) {
   const router = useRouter();
-  const setUserData = useSetRecoilState(transferUserDataState);
+
   const setBeforePage = useSetRecoilState(prevPageUrlState);
 
   const organizer = data.organizer;
   const status = data.status;
   const participantsCnt = data.participants.length;
 
-  const onClickProfile = (user: IUser) => {
-    setUserData(user);
+  const onClickProfile = (user: IUserSummary) => {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };

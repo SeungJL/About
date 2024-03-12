@@ -31,11 +31,18 @@ function Admin() {
 
   const { mutate, isLoading } = useGroupWaitingStatusMutation(+id, {
     onSuccess() {
-      completeToast("free", "처리되었습니다.");
+      completeToast("free", "가입되었습니다.");
     },
   });
 
   const { mutate: getPoint } = useAdminPointSystemMutation();
+
+  let belong;
+  group?.hashTag?.split("#").map((hash) => {
+    if (hash.match(/\/[A-Z]/)) {
+      belong = hash;
+    }
+  });
 
   const onClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -59,7 +66,7 @@ function Admin() {
 
   return (
     <>
-      <Header title="관리자 페이지" url="back" />
+      <Header title="관리자 페이지" />
       <Slide>
         <Layout>
           <Title>가입 신청</Title>
@@ -95,7 +102,7 @@ function Admin() {
             )}
           </Container>
           <Title>유저 초대</Title>
-          <GroupAdminInvitation />
+          <GroupAdminInvitation belong={belong} />
         </Layout>
       </Slide>
     </>
