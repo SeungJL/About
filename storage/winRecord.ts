@@ -752,15 +752,15 @@ export const WIN_RECORD: {
   },
   {
     name: "권수",
-    date: "3/10",
-    detail: "출석체크 랜덤 선물",
-    present: "CU 3000원권",
-  },
-  {
-    name: "권수",
     date: "3/8",
     detail: "스토어 당첨",
     present: "굽네치킨 세트",
+  },
+  {
+    name: "권수",
+    date: "3/10",
+    detail: "출석체크 랜덤 선물",
+    present: "CU 3000원권",
   },
 ];
 
