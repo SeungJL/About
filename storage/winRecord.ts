@@ -727,6 +727,18 @@ export const WIN_RECORD: {
     present: "베스킨라빈스 싱글",
   },
   {
+    name: "김동",
+    date: "3/1",
+    detail: "출석체크 당첨 ",
+    present: "비타 500",
+  },
+  {
+    name: "이승",
+    date: "3/1",
+    detail: "출석체크 당첨 ",
+    present: "비타 500",
+  },
+  {
     name: "이소",
     date: "3/8",
     detail: "알파벳 교환 1회",
@@ -737,6 +749,12 @@ export const WIN_RECORD: {
     date: "3/8",
     detail: "스토어 당첨",
     present: "다이소 5000원",
+  },
+  {
+    name: "권수",
+    date: "3/10",
+    detail: "출석체크 랜덤 선물",
+    present: "CU 3000원권",
   },
   {
     name: "권수",

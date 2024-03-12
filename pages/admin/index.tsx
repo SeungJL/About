@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Header from "../../components/layout/Header";
+import Slide from "../../components/layout/PageSlide";
 
 import { SERVER_URI } from "../../constants/system";
 import { useFailToast } from "../../hooks/custom/CustomToast";
@@ -37,74 +38,84 @@ function Admin() {
   return (
     <>
       <Layout>
-        <Header title="관리자 페이지" />
-        <UserLayout>
-          <Navigation>
-            <div>
-              <BlockName>유저 응답</BlockName>
-              <NavBlock>
-                <button onClick={() => onClick(`register`)}>
-                  가입신청 확인
-                </button>
-                <button onClick={() => onClick(`attend`)}>
-                  출석 당첨자 확인
-                </button>
-                <button onClick={() => onClick(`groupGather`)}>
-                  조모임 신청 확인
-                </button>
-                <button onClick={() => onClick(`suggest`)}>
-                  건의사항 확인
-                </button>
-                <button onClick={() => onClick(`rest`)}>휴식신청 확인</button>
-                <button onClick={() => onClick(`badge`)}>배지신청 확인</button>
-                <button onClick={() => onClick(`promotion`)}>
-                  홍보인원 확인
-                </button>
-                <button onClick={() => onClick(`secede`)}>탈퇴신청 확인</button>
-                <button onClick={() => onClick(`absent`)}>당일불참 확인</button>
-              </NavBlock>
-            </div>
-            <div>
-              <BlockName>유저 정보</BlockName>
-              <NavBlock>
-                <button onClick={() => onClick(`userInfo`, false)}>
-                  유저 정보 관리
-                </button>
-                <button>유저 상태 확인</button>
-                <button onClick={() => onClick(`pointLog`, false)}>
-                  포인트시스템 로그
-                </button>
-              </NavBlock>
-            </div>
-            <div>
-              <BlockName>스터디 관리</BlockName>
-              <NavBlock>
-                <button onClick={() => onClick(`study`, false)}>
-                  스터디 장소 정보
-                </button>
-                <button onClick={() => onClick(`studyStatus`, false)}>
-                  스터디 상태 변경
-                </button>
-                <button onClick={() => onClick(`resetstudy`, false)}>
-                  스터디 초기화 및 업데이트
-                </button>
-                <button onClick={() => onClick(`resetStudyStatus`, false)}>
-                  스터디 상태 초기화
-                </button>
-              </NavBlock>
-            </div>
-            <div>
-              <BlockName>로그 관리</BlockName>
-              <NavBlock>
-                <button onClick={() => onRemoveLog()}>오래된 로그 삭제</button>
-              </NavBlock>
-            </div>
+        <Header title="관리자 페이지" url="/user/setting" />
+        <Slide>
+          <UserLayout>
+            <Navigation>
+              <div>
+                <BlockName>유저 응답</BlockName>
+                <NavBlock>
+                  <button onClick={() => onClick(`register`)}>
+                    가입신청 확인
+                  </button>
+                  <button onClick={() => onClick(`attend`)}>
+                    출석 당첨자 확인
+                  </button>
+                  <button onClick={() => onClick(`groupGather`)}>
+                    조모임 신청 확인
+                  </button>
+                  <button onClick={() => onClick(`suggest`)}>
+                    건의사항 확인
+                  </button>
+                  <button onClick={() => onClick(`rest`)}>휴식신청 확인</button>
+                  <button onClick={() => onClick(`badge`)}>
+                    배지신청 확인
+                  </button>
+                  <button onClick={() => onClick(`promotion`)}>
+                    홍보인원 확인
+                  </button>
+                  <button onClick={() => onClick(`secede`)}>
+                    탈퇴신청 확인
+                  </button>
+                  <button onClick={() => onClick(`absent`)}>
+                    당일불참 확인
+                  </button>
+                </NavBlock>
+              </div>
+              <div>
+                <BlockName>유저 정보</BlockName>
+                <NavBlock>
+                  <button onClick={() => onClick(`userInfo`, false)}>
+                    유저 정보 관리
+                  </button>
+                  <button>유저 상태 확인</button>
+                  <button onClick={() => onClick(`pointLog`, false)}>
+                    포인트시스템 로그
+                  </button>
+                </NavBlock>
+              </div>
+              <div>
+                <BlockName>스터디 관리</BlockName>
+                <NavBlock>
+                  <button onClick={() => onClick(`study`, false)}>
+                    스터디 장소 정보
+                  </button>
+                  <button onClick={() => onClick(`studyStatus`, false)}>
+                    스터디 상태 변경
+                  </button>
+                  <button onClick={() => onClick(`resetstudy`, false)}>
+                    스터디 초기화 및 업데이트
+                  </button>
+                  <button onClick={() => onClick(`resetStudyStatus`, false)}>
+                    스터디 상태 초기화
+                  </button>
+                </NavBlock>
+              </div>
+              <div>
+                <BlockName>로그 관리</BlockName>
+                <NavBlock>
+                  <button onClick={() => onRemoveLog()}>
+                    오래된 로그 삭제
+                  </button>
+                </NavBlock>
+              </div>
 
-            <div>
-              <BlockName />
-            </div>
-          </Navigation>
-        </UserLayout>
+              <div>
+                <BlockName />
+              </div>
+            </Navigation>
+          </UserLayout>
+        </Slide>
       </Layout>
     </>
   );
