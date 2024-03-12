@@ -11,6 +11,7 @@ import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
+import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
 import GroupAdminInvitation from "../../../pageTemplates/group/admin/GroupAdminInvitation";
 import { IGroup } from "../../../types/page/group";
 
@@ -37,12 +38,7 @@ function Admin() {
 
   const { mutate: getPoint } = useAdminPointSystemMutation();
 
-  let belong;
-  group?.hashTag?.split("#").map((hash) => {
-    if (hash.match(/\/[A-Z]/)) {
-      belong = hash;
-    }
-  });
+  const belong = group && checkGroupGathering(group.hashTag);
 
   const onClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

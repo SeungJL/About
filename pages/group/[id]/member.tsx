@@ -15,6 +15,7 @@ import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupExileUserMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
+import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
 import { IGroup } from "../../../types/page/group";
 import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
@@ -41,12 +42,8 @@ export default function Member() {
       console.log("SUC");
     },
   });
-  let belong;
-  group?.hashTag?.split("#").map((hash) => {
-    if (hash.match(/\/[A-Z]/)) {
-      belong = hash;
-    }
-  });
+  const belong = group && checkGroupGathering(group.hashTag);
+
   useEffect(() => {
     if (groups) setGroup(groups.find((item) => item.id + "" === id));
   }, [groups]);

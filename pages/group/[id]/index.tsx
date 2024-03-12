@@ -5,12 +5,14 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
+import { GROUP_GATHERING_IMAGE } from "../../../assets/images/randomImages";
 import { MainLoading } from "../../../components/common/loaders/MainLoading";
 import Slide from "../../../components/layout/PageSlide";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useGroupAttendancePatchMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
+import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
 import GroupBottomNav from "../../../pageTemplates/group/detail/GroupBottomNav";
 import GroupComments from "../../../pageTemplates/group/detail/GroupComment";
 import GroupContent from "../../../pageTemplates/group/detail/GroupContent/GroupStudyContent";
@@ -51,7 +53,7 @@ function GroupDetail() {
       patchAttendance();
   }, [group?.attendance?.firstDate]);
 
- 
+  const belong = group && checkGroupGathering(group.hashTag);
 
   return (
     <>
@@ -60,7 +62,7 @@ function GroupDetail() {
       {group ? (
         <Slide>
           <Layout>
-            <GroupCover image={group?.image} />
+            <GroupCover image={belong ? GROUP_GATHERING_IMAGE : group?.image} />
             <GroupTitle
               isAdmin={group.organizer.uid === session?.user.uid}
               memberCnt={group.participants.length}
