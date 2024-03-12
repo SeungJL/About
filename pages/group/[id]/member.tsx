@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import Header from "../../../components/layout/Header";
+import Slide from "../../../components/layout/PageSlide";
 import AlertModal, {
   IAlertModalOptions,
 } from "../../../components2/AlertModal";
@@ -13,6 +14,7 @@ import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupExileUserMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
+import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { IGroup } from "../../../types/page/group";
 import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
@@ -34,6 +36,17 @@ export default function Member() {
     },
   });
 
+  const { mutate: handleBelong } = useUserInfoFieldMutation("belong", {
+    onSuccess() {
+      console.log("SUC");
+    },
+  });
+  let belong;
+  group?.hashTag?.split("#").map((hash) => {
+    if (hash.match(/\/[A-Z]/)) {
+      belong = hash;
+    }
+  });
   useEffect(() => {
     if (groups) setGroup(groups.find((item) => item.id + "" === id));
   }, [groups]);
@@ -43,41 +56,47 @@ export default function Member() {
     subTitle: `${deleteUser?.name}님을 해당 모임에서 추방합니다.`,
     func: () => {
       mutate(deleteUser._id);
+      if (belong) {
+        handleBelong({ uid: deleteUser.uid, belong: null });
+      }
     },
     text: "추방",
   };
-  console.log(group);
+
+  console.log(belong);
   return (
     <>
       <Header title="멤버 관리" />
-      <Box>
-        <Box p="12px 16px" fontSize="16px" fontWeight={800}>
-          참여중인 멤버
+      <Slide>
+        <Box>
+          <Box p="12px 16px" fontSize="16px" fontWeight={800}>
+            참여중인 멤버
+          </Box>
+          <Flex direction="column">
+            {group?.participants.map((who) => (
+              <Box key={who.user.uid}>
+                <ProfileCommentCard
+                  user={who.user}
+                  comment={`구성:${GROUP_STUDY_ROLE[who.role]} / 출석 횟수:${
+                    who.attendCnt
+                  }회`}
+                  rightComponent={
+                    who.user.uid !== session?.user.uid ? (
+                      <Button
+                        onClick={() => setDeleteUser(who.user)}
+                        colorScheme="redTheme"
+                        size="sm"
+                      >
+                        추방
+                      </Button>
+                    ) : null
+                  }
+                />
+              </Box>
+            ))}
+          </Flex>
         </Box>
-        <Flex direction="column">
-          {group?.participants.map((who) => (
-            <Box key={who.user.uid}>
-              <ProfileCommentCard
-                user={who.user}
-                comment={`구성:${GROUP_STUDY_ROLE[who.role]} / 출석 횟수:${
-                  who.attendCnt
-                }회`}
-                rightComponent={
-                  who.user.uid !== session?.user.uid ? (
-                    <Button
-                      onClick={() => setDeleteUser(who.user)}
-                      colorScheme="redTheme"
-                      size="sm"
-                    >
-                      추방
-                    </Button>
-                  ) : null
-                }
-              />
-            </Box>
-          ))}
-        </Flex>
-      </Box>
+      </Slide>
       {deleteUser && (
         <AlertModal
           options={alertOptions}

@@ -37,6 +37,7 @@ export default function GroupAdminInvitation({
     { enabled: !!location }
   );
   console.log(5, belong);
+  
   const { mutate } = useUserInfoFieldMutation("belong", {
     onSuccess() {
       console.log("SUC");
