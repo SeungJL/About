@@ -105,7 +105,7 @@ export const authOptions: NextAuthOptions = {
       if (trigger === "update") {
         return session;
       }
-
+      
       if (session.user.name === "guest") {
         session.user.id = "0";
         session.user.uid = "0";
@@ -126,6 +126,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, account, user, trigger, session }) {
+      console.log(account, user);
       if (trigger === "update" && token?.role) {
         token.role = "waiting";
         return token;

@@ -4,7 +4,10 @@ import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { useMonthCalcMutation } from "../hooks/admin/mutation";
+import {
+  useGroupBelongMatchMutation,
+  useMonthCalcMutation,
+} from "../hooks/admin/mutation";
 import { useImageUploadMutation } from "../hooks/image/mutations";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
@@ -15,12 +18,21 @@ function Test() {
   );
   console.log(data);
 
+  let AA = "te";
+  let BB = "te ";
+  if (AA === BB) console.log(444);
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
     null,
     "양천"
   );
+
+  const { mutate: match } = useGroupBelongMatchMutation({
+    onSuccess(data) {
+      console.log("SUCSC", data);
+    },
+  });
 
   const { mutate } = useMonthCalcMutation({
     onSuccess(data) {},
@@ -62,7 +74,7 @@ function Test() {
           name="image"
           onChange={handleImageChange}
         />
-        <Button type="button" onClick={submitForm}>
+        <Button type="button" onClick={() => match()}>
           클릭
         </Button>
       </Layout>

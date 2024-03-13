@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import RuleIcon from "../../components/common/Icon/RuleIcon";
 import WritingIcon from "../../components/common/Icon/WritingIcon";
@@ -35,6 +35,7 @@ function Index() {
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
   const categoryIdx = searchParams.get("category");
+  const filterType = searchParams.get("filter");
   const router = useRouter();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
@@ -45,11 +46,49 @@ function Index() {
     sub: null,
   });
 
+  const isFirstRender = useRef(true);
+
   const [groupStudies, setGroupStudies] = useState<IGroup[]>();
   const [myGroups, setMyGroups] = useState<IGroup[]>([]);
   const [isRuleModal, setIsRuleModal] = useState(false);
 
   const { data: groups, isLoading } = useGroupQuery();
+
+  useEffect(() => {
+    setCategory({
+      main:
+        categoryIdx !== null ? GROUP_STUDY_CATEGORY_ARR[categoryIdx] : "전체",
+      sub: null,
+    });
+
+    const filterToStatus = {
+      open: "모집중",
+      gathering: "소그룹",
+      end: "종료",
+    };
+
+    setStatus(filterType ? filterToStatus[filterType] : "모집중");
+    if (!searchParams.get("filter")) {
+      newSearchParams.append("filter", "open");
+      newSearchParams.append("category", "0");
+      router.replace(`/group?${newSearchParams.toString()}`);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false; // 첫 렌더링 후에 false로 설정
+      return; // 첫 렌더링 시에는 여기서 종료
+    }
+    const statusToEn = {
+      모집중: "open",
+      소그룹: "gathering",
+      종료: "end",
+    };
+
+    newSearchParams.set("filter", statusToEn[status]);
+    router.replace(`/group?${newSearchParams.toString()}`);
+  }, [status]);
 
   useEffect(() => {
     if (!groups) return;
@@ -65,6 +104,7 @@ function Index() {
         )
       );
     }
+
     const filtered =
       category.main === "전체"
         ? groups
@@ -73,6 +113,7 @@ function Index() {
               (item.category.main === category.main && !category.sub) ||
               item.category.sub === category.sub
           );
+
     const filtered2 =
       status === "모집중"
         ? filtered.filter((item) => item.status === "open")
@@ -89,7 +130,10 @@ function Index() {
     (category, idx) => ({
       text: category,
       func: () => {
-        router.replace(`/group?category=${idx}`, { scroll: false });
+        newSearchParams.set("category", idx + "");
+        router.replace(`/group?${newSearchParams.toString()}`, {
+          scroll: false,
+        });
         setCategory({
           main: GROUP_STUDY_CATEGORY_ARR[idx],
           sub: null,
@@ -122,7 +166,10 @@ function Index() {
           )}
           <SectionBar title="전체 소모임" rightComponent={<StatusSelector />} />
           <NavWrapper>
-            <TabNav tabOptionsArr={mainTabOptionsArr} />
+            <TabNav
+              selected={category.main}
+              tabOptionsArr={mainTabOptionsArr}
+            />
           </NavWrapper>
           <SubNavWrapper>
             <CheckBoxNav

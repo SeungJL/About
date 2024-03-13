@@ -54,7 +54,13 @@ function GroupBlock({ group }: IGroupBlock) {
     const min = group.memberCnt.min;
     const max = group.memberCnt.max;
     const participantCnt = group.participants.length;
-    if (status === "open" || status === "gathering") {
+    if (status === "gathering") {
+      return {
+        text: "모집중",
+        color: "mintTheme",
+      };
+    }
+    if (status === "open") {
       if (participantCnt < min) {
         return {
           text: `개설까지 ${min - participantCnt}명 남음`,

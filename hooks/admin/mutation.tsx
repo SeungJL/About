@@ -1,6 +1,6 @@
-import { useMutation } from "react-query";
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
+import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../helpers/dateHelpers";
 import { requestServer } from "../../helpers/methodHelpers";
@@ -86,6 +86,15 @@ export const useMonthCalcMutation = (options?: MutationOptions) =>
       requestServer<Dayjs>({
         method: "patch",
         url: "admin/manage/monthCalc",
+      }),
+    options
+  );
+export const useGroupBelongMatchMutation = (options?: MutationOptions) =>
+  useMutation<void, AxiosError, void>(
+    () =>
+      requestServer({
+        method: "patch",
+        url: "groupStudy/belong/match",
       }),
     options
   );

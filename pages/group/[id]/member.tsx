@@ -31,9 +31,13 @@ export default function Member() {
 
   const queryClient = useQueryClient();
   const { mutate } = useGroupExileUserMutation(+id, {
-    onSuccess() {
+    onSuccess(data) {
+      console.log(3, data);
       queryClient.invalidateQueries([GROUP_STUDY_ALL]);
       completeToast("free", "추방되었습니다.");
+    },
+    onError(err) {
+      console.error(err);
     },
   });
 
@@ -51,10 +55,10 @@ export default function Member() {
   const alertOptions: IAlertModalOptions = {
     title: "유저 추방",
     subTitle: `${deleteUser?.name}님을 해당 모임에서 추방합니다.`,
-    func: () => {
-      mutate(deleteUser._id);
+    func: async () => {
+      await mutate(deleteUser._id);
       if (belong) {
-        handleBelong({ uid: deleteUser.uid, belong: null });
+        await handleBelong({ uid: deleteUser.uid, belong: null });
       }
     },
     text: "추방",

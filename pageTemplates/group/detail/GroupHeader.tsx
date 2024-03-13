@@ -76,7 +76,7 @@ function GroupHeader({ group }: IGroupHeader) {
 
   return (
     <>
-      <Header title="소모임" url={"/group"}>
+      <Header title="소모임" url={true ? null : "/group"}>
         <Flex>
           {session?.user.uid === organizer?.uid && (
             <IconWrapper onClick={onClick}>
