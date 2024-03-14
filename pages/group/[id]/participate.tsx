@@ -51,9 +51,9 @@ function Participate() {
                 </Item>
               )}
             </Container>
-            <BottomNav text="가입 신청" onClick={onClick} />
           </RegisterLayout>
         </Slide>
+        <BottomNav text="가입 신청" onClick={onClick} />
       </>
       {isModal && (
         <ParticipateModal
