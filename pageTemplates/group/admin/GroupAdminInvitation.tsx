@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
+import { MainLoadingAbsolute } from "../../../components/common/loaders/MainLoading";
 import AlertModal, {
   IAlertModalOptions,
 } from "../../../components2/AlertModal";
@@ -43,7 +44,6 @@ export default function GroupAdminInvitation({
     refetch,
     isLoading,
   } = useAdminUsersLocationControlQuery(value, { enabled: !!location });
-  console.log(5, belong);
 
   const queryClient = useQueryClient();
 
@@ -62,9 +62,14 @@ export default function GroupAdminInvitation({
   });
 
   useEffect(() => {
-    if (!usersAll) return;
-    setFilterUsers(usersAll.filter((user) => user.isActive && !user?.belong));
-  }, [usersAll]);
+    setFilterUsers(null);
+    if (isLoading || !usersAll) return;
+    setFilterUsers(
+      usersAll.filter((user) =>
+        user.isActive && userFilterValue === "전체" ? true : !user?.belong
+      )
+    );
+  }, [usersAll, filterUsers]);
 
   const USER_TYPE_ARR: UserType[] = ["신규 가입자", "전체"];
 
@@ -93,28 +98,36 @@ export default function GroupAdminInvitation({
             setValue={setValue}
           />
         </Flex>
-        <Grid mt="20px" templateColumns="repeat(3,1fr)" gap="12px">
-          {filterUsers?.map((who, idx) => (
-            <Flex key={idx} justify="center" align="center">
-              <Avatar
-                image={who.profileImage}
-                avatar={who.avatar}
-                uid={who.uid}
-                size="md"
-              />
-              <Flex direction="column" ml="8px">
-                <Box>{who.name}</Box>
-                <Button
-                  colorScheme="mintTheme"
-                  size="xs"
-                  onClick={() => setInviteUser(who)}
-                >
-                  초대
-                </Button>
-              </Flex>
-            </Flex>
-          ))}
-        </Grid>
+        <Box position="relative">
+          {isLoading ? (
+            <Box h="200px">
+              <MainLoadingAbsolute />
+            </Box>
+          ) : (
+            <Grid mt="20px" templateColumns="repeat(3,1fr)" gap="12px">
+              {filterUsers?.map((who, idx) => (
+                <Flex key={idx} justify="center" align="center">
+                  <Avatar
+                    image={who.profileImage}
+                    avatar={who.avatar}
+                    uid={who.uid}
+                    size="md"
+                  />
+                  <Flex direction="column" ml="8px">
+                    <Box>{who.name}</Box>
+                    <Button
+                      colorScheme="mintTheme"
+                      size="xs"
+                      onClick={() => setInviteUser(who)}
+                    >
+                      초대
+                    </Button>
+                  </Flex>
+                </Flex>
+              ))}
+            </Grid>
+          )}
+        </Box>
       </Box>
       {inviteUser && (
         <AlertModal
