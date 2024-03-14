@@ -28,7 +28,7 @@ function GroupContent({ group }: IGroupContent) {
 
   return (
     <Layout>
-      <TabNav tabOptionsArr={tabArr} />
+      <TabNav tabOptionsArr={tabArr} selected={ category} />
       {/* <ContentNav>
         {categoryArr.map((item) => (
           <ContentBtn

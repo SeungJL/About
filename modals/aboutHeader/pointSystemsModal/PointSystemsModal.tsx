@@ -37,7 +37,10 @@ function PointSystemsModal({ setIsModal }: IModal) {
       }}
       setIsModal={setIsModal}
     >
-      <TabNav tabOptionsArr={tabNavOptions} />
+      <TabNav
+        tabOptionsArr={tabNavOptions}
+        selected={isFirst ? "ABOUT 포인트" : "스터디 벌금"}
+      />
       <Wrapper>
         {isFirst ? <PointSystemsModalPoint /> : <PointSystemsModalFee />}
       </Wrapper>
