@@ -31,8 +31,7 @@ export default function Member() {
 
   const queryClient = useQueryClient();
   const { mutate } = useGroupExileUserMutation(+id, {
-    onSuccess(data) {
-      console.log(3, data);
+    onSuccess() {
       queryClient.invalidateQueries([GROUP_STUDY_ALL]);
       completeToast("free", "추방되었습니다.");
     },

@@ -25,7 +25,12 @@ function GroupBlock({ group }: IGroupBlock) {
   const setGroup = useSetRecoilState(transferGroupDataState);
 
   const groupInfo = {
-    그룹장: group.organizer.name === "이승주" ? "어바웃" : group.organizer.name,
+    그룹장:
+      group.organizer.name === "이승주"
+        ? group.id === 72
+          ? "이승주"
+          : "어바웃"
+        : group.organizer.name,
     인원: `${group.participants.length}/${
       group.memberCnt.max === 0 ? "자유" : group.memberCnt.max + "명"
     }`,

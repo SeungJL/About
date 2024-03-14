@@ -1,13 +1,18 @@
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import AlertModal, {
   IAlertModalOptions,
 } from "../../../components2/AlertModal";
 import Avatar from "../../../components2/atoms/Avatar";
 import Selector from "../../../components2/atoms/Selector";
+import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { LOCATION_USE_ALL } from "../../../constants/location";
 import { useAdminUsersLocationControlQuery } from "../../../hooks/admin/quries";
+import { useCompleteToast } from "../../../hooks/custom/CustomToast";
+import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
@@ -19,9 +24,10 @@ interface IGroupAdminInvitation {
 export default function GroupAdminInvitation({
   belong,
 }: IGroupAdminInvitation) {
+  const completeToast = useCompleteToast();
   const { data: session } = useSession();
   const location = session?.user.location;
-
+  const { id } = useParams<{ id: string }>() || {};
   const [value, setValue] = useState(location);
   const [userFilterValue, setUserFilterValue] =
     useState<UserType>("신규 가입자");
@@ -32,15 +38,26 @@ export default function GroupAdminInvitation({
     setValue(location);
   }, []);
 
-  const { data: usersAll, isLoading } = useAdminUsersLocationControlQuery(
-    value,
-    { enabled: !!location }
-  );
+  const {
+    data: usersAll,
+    refetch,
+    isLoading,
+  } = useAdminUsersLocationControlQuery(value, { enabled: !!location });
   console.log(5, belong);
-  
+
+  const queryClient = useQueryClient();
+
   const { mutate } = useUserInfoFieldMutation("belong", {
     onSuccess() {
       console.log("SUC");
+    },
+  });
+
+  const { mutate: mutate2 } = useGroupWaitingStatusMutation(+id, {
+    onSuccess() {
+      completeToast("free", "가입되었습니다.");
+      queryClient.invalidateQueries([GROUP_STUDY_ALL]);
+      refetch();
     },
   });
 
@@ -50,12 +67,13 @@ export default function GroupAdminInvitation({
   }, [usersAll]);
 
   const USER_TYPE_ARR: UserType[] = ["신규 가입자", "전체"];
-  console.log(2, belong);
+
   const alertOptions: IAlertModalOptions = {
     title: "유저 초대",
     subTitle: `${inviteUser?.name}님을 초대합니다. 즉시 가입이 되기 때문에 해당 멤버와 사전 이야기가 된 경우에 이용해주세요!`,
     func: () => {
       mutate({ uid: inviteUser.uid, belong });
+      mutate2({ status: "agree", userId: inviteUser._id });
     },
     text: "초대",
   };

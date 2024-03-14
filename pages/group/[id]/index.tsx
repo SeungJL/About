@@ -59,7 +59,7 @@ function GroupDetail() {
     <>
       <GroupHeader group={group} />
       <Slide>
-        {group ? (
+        {group && (
           <Layout>
             <GroupCover image={belong ? GROUP_GATHERING_IMAGE : group?.image} />
             <GroupTitle
@@ -75,10 +75,9 @@ function GroupDetail() {
             <GroupParticipation data={group} />
             <GroupComments comment={group.comment} />
           </Layout>
-        ) : (
-          <MainLoading />
         )}
       </Slide>
+      {!group && <MainLoading />}
       {group &&
       ![group.organizer, ...group.participants.map((who) => who.user)].some(
         (who) => who.uid === session?.user.uid
