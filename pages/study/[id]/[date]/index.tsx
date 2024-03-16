@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Slide from "../../../../components/layout/PageSlide";
 import Divider from "../../../../components2/atoms/Divider";
@@ -33,7 +33,8 @@ export default function Page() {
     enabled: !!location && !!date,
   });
 
-  const setStudyDateStatus = useSetRecoilState(studyDateStatusState);
+  const [studyDateStatus, setStudyDateStatus] =
+    useRecoilState(studyDateStatusState);
 
   useEffect(() => {
     setStudyDateStatus(getStudyDateStatus(date));
@@ -46,9 +47,13 @@ export default function Page() {
 
   const study = studyAll?.find((study) => study.place._id === id);
   const place = study?.place;
-  const attendances = study?.attendences;
+
+  const attendances =
+    studyDateStatus !== "not passed"
+      ? study?.attendences.filter((att) => att.firstChoice)
+      : study?.attendences;
   const isPrivateStudy = place?.brand === "자유 신청";
-  
+
   return (
     <Layout>
       {study && (

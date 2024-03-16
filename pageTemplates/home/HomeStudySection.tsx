@@ -54,7 +54,7 @@ export default function HomeStudySection() {
       enabled: !!date && !!location,
     }
   );
-  console.log(date);
+
   const { mutate: decideStudyResult } = useStudyResultDecideMutation(date);
 
   useEffect(() => {
