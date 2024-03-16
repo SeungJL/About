@@ -99,7 +99,7 @@ export default function HomeStudySection() {
       >
         <>
           <BlurredPart
-            isBlur={true}
+            isBlur={location === "안양"}
             text="안양 지역은 톡방에서 별도 운영중입니다!"
           >
             {!isLoading && studyCardColData ? (
