@@ -63,7 +63,7 @@ export default function Member() {
     text: "추방",
   };
 
-  console.log(belong);
+
   return (
     <>
       <Header title="멤버 관리" />
