@@ -1,4 +1,3 @@
-import { Badge } from "@chakra-ui/react";
 import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faHeart as faSolidHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +6,9 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import Avatar from "../../../components2/atoms/Avatar";
+import UserBadge from "../../../components2/atoms/badges/UserBadge";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { NOTICE_HEART_LOG } from "../../../constants/keys/queryKeys";
-import { BADGE_COLOR } from "../../../constants/settingValue/badge";
 import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { USER_ROLE } from "../../../constants/settingValue/role";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
@@ -146,9 +145,7 @@ function ProfileInfo({ user }: IProfileInfo) {
           <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>
-              <Badge fontSize={12} colorScheme={BADGE_COLOR[badge]}>
-                {badge}
-              </Badge>
+              <UserBadge score={user?.score} uid={user?.uid} />
             </div>
             <span>{!isGuest ? status : "게스트"}</span>
           </ProfileName>
