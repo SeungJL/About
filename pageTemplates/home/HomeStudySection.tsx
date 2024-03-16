@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import BlurredPart from "../../components/common/masks/BlurredPart";
 import { IPostThumbnailCard } from "../../components2/molecules/cards/PostThumbnailCard";
 import {
   CardColumnLayout,
@@ -96,14 +97,21 @@ export default function HomeStudySection() {
         onDragEnd={(_, panInfo) => onDragEnd(panInfo)}
         className="study_space"
       >
-        {!isLoading && studyCardColData ? (
-          <CardColumnLayout
-            cardDataArr={studyCardColData}
-            url={`/studyList/?${newSearchParams.toString()}`}
-          />
-        ) : (
-          <CardColumnLayoutSkeleton type="study" />
-        )}
+        <>
+          <BlurredPart
+            isBlur={true}
+            text="안양 지역은 톡방에서 별도 운영중입니다!"
+          >
+            {!isLoading && studyCardColData ? (
+              <CardColumnLayout
+                cardDataArr={studyCardColData}
+                url={`/studyList/?${newSearchParams.toString()}`}
+              />
+            ) : (
+              <CardColumnLayoutSkeleton type="study" />
+            )}
+          </BlurredPart>
+        </>
       </MotionDiv>
     </AnimatePresence>
   );
