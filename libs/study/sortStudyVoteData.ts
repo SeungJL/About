@@ -7,6 +7,7 @@ export const sortStudyVoteData = (
   participations: IParticipation[],
   isConfirmed?: boolean
 ) => {
+  
   const getCount = (participation: IParticipation) => {
     if (!isConfirmed) return participation.attendences.length;
     return participation.attendences.filter((who) => who.firstChoice).length;
@@ -22,14 +23,21 @@ export const sortStudyVoteData = (
     }
   };
 
-  const sortedData = participations.sort((a, b) => {
-    const aStatusPriority = getStatusPriority(a.status);
-    const bStatusPriority = getStatusPriority(b.status);
-    if (aStatusPriority !== bStatusPriority)
-      return aStatusPriority - bStatusPriority;
+  const sortedData = participations
+    .map((par) => ({
+      ...par,
+      attendences: par.attendences.filter((who) =>
+        isConfirmed ? who.firstChoice : true
+      ),
+    }))
+    .sort((a, b) => {
+      const aStatusPriority = getStatusPriority(a.status);
+      const bStatusPriority = getStatusPriority(b.status);
+      if (aStatusPriority !== bStatusPriority)
+        return aStatusPriority - bStatusPriority;
 
-    return getCount(b) - getCount(a);
-  });
+      return getCount(b) - getCount(a);
+    });
 
   return isConfirmed
     ? sortedData
