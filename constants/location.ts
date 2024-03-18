@@ -7,8 +7,9 @@ export const LOCATION_OPEN: Location[] = [
   "안양",
   "강남",
   "동대문",
+  "인천",
 ];
-export const LOCATION_RECRUITING: Location[] = ["마포", "인천"];
+export const LOCATION_RECRUITING: Location[] = ["마포"];
 export const LOCATION_NOT_OPEN: Location[] = [];
 
 //모집중을 포함한 지역
@@ -37,6 +38,8 @@ export const LOCATION_OPEN_DATE = {
   양천: "2023-04-19",
   안양: "2023-09-01",
   강남: "2023-09-04",
+  동대문: "2024-01-03",
+  인천: "2024-03-18",
 };
 
 export const RegisterLocation = [...LOCATION_ALL, "기타"];
@@ -49,8 +52,8 @@ export const LOCATION_MEMBER_CNT: {
   안양: { member: 23, new: 3 },
   강남: { member: 53, new: 2 },
   동대문: { member: 43, new: 2 },
-  마포: { member: 23, new: 2 },
-  인천: { member: 21, new: 3 },
+  마포: { member: 31, new: 2 },
+  인천: { member: 37, new: 3 },
 };
 
 export const LOCATION_TABLE_COLOR = {
@@ -58,4 +61,5 @@ export const LOCATION_TABLE_COLOR = {
   양천: TABLE_COLORS[3],
   안양: TABLE_COLORS[2],
   강남: TABLE_COLORS[1],
+  인천: TABLE_COLORS[4],
 };
