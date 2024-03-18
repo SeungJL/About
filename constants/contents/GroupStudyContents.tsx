@@ -16,6 +16,7 @@ import { TABLE_COLORS } from "../styles";
 
 export const GROUP_STUDY_CATEGORY_ARR = [
   "전체",
+  "소그룹",
   "자기계발",
   "운동",
   "프로그래밍",
@@ -29,6 +30,7 @@ export const GROUP_STUDY_CATEGORY_ARR = [
 
 export const GROUP_STUDY_SUB_CATEGORY: { [key in GroupCategory]: string[] } = {
   전체: [],
+  소그룹: [],
   어학: ["토익", "오픽", "토플", "회화", "일본어"],
   자격증: ["컴활", "한국사", "정보처리기사"],
   프로그래밍: ["코딩테스트", "프로젝트", "언어 공부"],

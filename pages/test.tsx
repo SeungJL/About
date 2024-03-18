@@ -11,8 +11,8 @@ import {
 import { useImageUploadMutation } from "../hooks/image/mutations";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2024-03-01"),
     dayjs("2024-03-11"),
+    dayjs("2024-03-18"),
     null,
     "동대문"
   );
