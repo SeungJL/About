@@ -8,6 +8,7 @@ export const VOTE_LOCATION_CENTER_DOT: {
   양천: new naver.maps.LatLng(37.527588, 126.896441),
   강남: new naver.maps.LatLng(37.503744, 127.048898),
   동대문: new naver.maps.LatLng(37.58452, 127.041047),
+  인천: new naver.maps.LatLng(37.58452, 127.041047),
 };
 export const VOTE_LOCATION_MAX_BOUND: {
   [key in ActiveLocation]: any;
@@ -29,6 +30,10 @@ export const VOTE_LOCATION_MAX_BOUND: {
     new naver.maps.LatLng(37.468873, 127.107285)
   ),
   동대문: new naver.maps.LatLngBounds(
+    new naver.maps.LatLng(37.557579, 126.989614),
+    new naver.maps.LatLng(37.638954, 127.106856)
+  ),
+  인천: new naver.maps.LatLngBounds(
     new naver.maps.LatLng(37.557579, 126.989614),
     new naver.maps.LatLng(37.638954, 127.106856)
   ),

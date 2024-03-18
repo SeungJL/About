@@ -41,6 +41,7 @@ export const convertLocationLangTo = <T extends "kr" | "en">(
     동대문: "don",
     안양: "any",
     양천: "yan",
+    인천: "inc",
   };
 
   const enToKrMapping: Record<LocationEn, ActiveLocation> = {
@@ -49,6 +50,7 @@ export const convertLocationLangTo = <T extends "kr" | "en">(
     don: "동대문",
     any: "안양",
     yan: "양천",
+    inc: "인천",
   };
 
   if (to === "kr") {

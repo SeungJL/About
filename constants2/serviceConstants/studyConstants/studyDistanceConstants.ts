@@ -292,4 +292,5 @@ export const STUDY_DISTANCE: {
       [DONG_경희대, DONG_딥십리역],
     ],
   },
+  인천: [],
 };

@@ -130,6 +130,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     DONG_혜화역2,
     DONG_자유신청,
   ],
+  인천: [],
 };
 
 export const PLACE_TO_LOCATION = createPlaceToLocationMap(LOCATION_TO_PLACE);
