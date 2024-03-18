@@ -762,6 +762,24 @@ export const WIN_RECORD: {
     detail: "출석체크 랜덤 선물",
     present: "CU 3000원권",
   },
+  {
+    name: "이준",
+    date: "3/18",
+    detail: "스토어 당첨 선물",
+    present: "맘스터치 5000원",
+  },
+  {
+    name: "정진",
+    date: "3/18",
+    detail: "스토어 당첨 선물",
+    present: "올리브영 10000원",
+  },
+  {
+    name: "김민",
+    date: "3/18",
+    detail: "스토어 당첨 선물",
+    present: "올리브영 10000원",
+  },
 ];
 
 export const PROMOTION_WIN = [
