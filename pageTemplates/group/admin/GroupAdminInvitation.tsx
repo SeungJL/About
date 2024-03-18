@@ -69,7 +69,7 @@ export default function GroupAdminInvitation({
         user.isActive && userFilterValue === "전체" ? true : !user?.belong
       )
     );
-  }, [usersAll, filterUsers]);
+  }, [usersAll]);
 
   const USER_TYPE_ARR: UserType[] = ["신규 가입자", "전체"];
 
