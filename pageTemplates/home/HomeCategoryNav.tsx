@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
   CalendarIcon,
@@ -14,6 +14,7 @@ import { NewAlertIcon } from "../../components/common/Icon/AlertIcon";
 
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { isGatherAlertState } from "../../recoil/alertAtoms";
+import { slideDirectionState } from "../../recoils/navigationRecoils";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 type HomeCategory =
@@ -33,17 +34,24 @@ function HomeCategoryNav() {
   const isGatherAlert = useRecoilValue(isGatherAlertState);
   const [isPointAlert, setIsPointAlert] = useState(false);
   const [isNotCompletedModal, setIsNotCompletedModal] = useState(false);
+
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
+
+  const onClick = () => {
+    setSlideDirection("right");
+  };
+
   return (
     <>
       <Layout>
         <Item className="about_navigation1">
-          <CustomLink href="/calendar">
+          <CustomLink href="/calendar" onClick={onClick}>
             <CalendarIcon />
           </CustomLink>
           <span>캘린더</span>
         </Item>
         <Item className="about_navigation2">
-          <CustomLink href="event">
+          <CustomLink href="event" onClick={onClick}>
             <StoreIcon />
             {/* {isPointAlert && (
               <IconWrapper>
@@ -62,6 +70,7 @@ function HomeCategoryNav() {
         </Item>
         <Item className="about_navigation3">
           <CustomLink
+            onClick={onClick}
             href={`/member/${convertLocationLangTo(
               location as LocationEn,
               "kr"
@@ -75,7 +84,7 @@ function HomeCategoryNav() {
           <span>동아리원</span>
         </Item>
         <Item className="about_navigation4">
-          <CustomLink href="review">
+          <CustomLink href="review" onClick={onClick}>
             <GroupIcon />{" "}
             {/* <IconWrapper>
               <NewAlertIcon size="lg" />

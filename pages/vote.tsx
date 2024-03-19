@@ -44,6 +44,7 @@ export default function StudyVoteMap() {
   const newSearchParams = new URLSearchParams(searchParams);
   const date = searchParams.get("date");
   const isPreset = !!searchParams.get("preset");
+
   const location = convertLocationLangTo(
     searchParams.get("location") as ActiveLocation,
     "kr"
@@ -85,7 +86,6 @@ export default function StudyVoteMap() {
     if (data?.user?.location !== location) return;
     if (!preferenceStorage && isLoading) return;
     if (preferenceStorage && preferenceStorage !== "undefined") {
-   
       setPreferInfo({ preset: "first", prefer: JSON.parse(preferenceStorage) });
     } else if (studyPreference === null) {
       toast(

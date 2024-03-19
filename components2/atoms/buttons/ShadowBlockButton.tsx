@@ -3,12 +3,17 @@ import styled from "styled-components";
 interface IShadowBlockButton {
   text: string;
   url?: string;
+  func?: () => void;
 }
-export default function ShadowBlockButton({ text, url }: IShadowBlockButton) {
+export default function ShadowBlockButton({
+  text,
+  url,
+  func,
+}: IShadowBlockButton) {
   return (
     <>
       {url ? (
-        <Link href={url}>
+        <Link href={url} onClick={func}>
           <ButtonComponent text={text} />
         </Link>
       ) : (

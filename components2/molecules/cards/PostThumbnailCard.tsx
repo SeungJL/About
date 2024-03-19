@@ -20,6 +20,7 @@ export interface IPostThumbnailCard {
   badge: ITextAndColorSchemes;
   statusText?: string;
   maxCnt?: number;
+  func?: () => void;
 }
 
 interface IPostThumbnailCardObj {
@@ -35,6 +36,7 @@ export function PostThumbnailCard({
     badge,
     statusText = undefined,
     maxCnt = undefined,
+    func = undefined,
   },
 }: IPostThumbnailCardObj) {
   const userAvatarArr = participants.map((par, idx) => {
@@ -45,7 +47,7 @@ export function PostThumbnailCard({
   });
 
   return (
-    <CardLink href={url}>
+    <CardLink href={url} onClick={func}>
       <Image
         src={image.url}
         alt="thumbnailImage"

@@ -29,6 +29,7 @@ export default function IconButtonNav({ iconList }: IIconButtonNav) {
             <Link
               style={{ position: "relative", padding: "16px" }}
               href={icon.link}
+              onClick={icon?.func}
             >
               {icon.icon}
             </Link>

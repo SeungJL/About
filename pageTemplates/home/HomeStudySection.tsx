@@ -16,6 +16,7 @@ import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { getMyStudy } from "../../libs/study/getMyStudy";
 import { getStudyConfimCondition } from "../../libs/study/getStudyConfimCondition";
 import { sortStudyVoteData } from "../../libs/study/sortStudyVoteData";
+import { slideDirectionState } from "../../recoils/navigationRecoils";
 import {
   myStudyState,
   sortedStudyCardListState,
@@ -47,6 +48,7 @@ export default function HomeStudySection() {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const [studyCardColData, setStudyCardColData] =
     useState<IPostThumbnailCard[]>();
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
 
   const { data: studyVoteData, isLoading } = useStudyVoteQuery(
     date as string,
@@ -69,7 +71,8 @@ export default function HomeStudySection() {
     const cardList = setStudyDataToCardCol(
       sortedData,
       date as string,
-      session?.user.uid
+      session?.user.uid,
+      () => setSlideDirection("right")
     );
     setStudyCardColData(cardList.slice(0, 3));
     setSortedStudyCardList(cardList);
@@ -112,6 +115,7 @@ export default function HomeStudySection() {
               <CardColumnLayout
                 cardDataArr={studyCardColData}
                 url={`/studyList/?${newSearchParams.toString()}`}
+                func={() => setSlideDirection("right")}
               />
             ) : (
               <CardColumnLayoutSkeleton type="study" />
@@ -126,7 +130,8 @@ export default function HomeStudySection() {
 export const setStudyDataToCardCol = (
   studyData: IParticipation[],
   urlDateParam: string,
-  uid: string
+  uid: string,
+  func: () => void
 ): IPostThumbnailCard[] => {
   const privateStudy = studyData.find((par) => par.place.brand === "자유 신청");
   const filteredData = studyData.filter(
@@ -140,6 +145,7 @@ export const setStudyDataToCardCol = (
     subtitle: data.place.brand,
     participants: data.attendences.map((att) => att.user),
     url: `/study/${data.place._id}/${urlDateParam}`,
+    func,
     image: {
       url: data.place.image,
       priority: true,

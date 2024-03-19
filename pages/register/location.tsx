@@ -90,7 +90,7 @@ function RegisterLocation() {
 
   return (
     <>
-      {isLoading ? (
+      {false ? (
         <MainLoading />
       ) : (
         <>

@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import HighlightedTextButton from "../../components2/atoms/buttons/HighlightedTextButton";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
@@ -10,6 +11,10 @@ import {
   CardColumnLayoutSkeleton,
 } from "../../components2/organisms/CardColumnLayout";
 import { useGatherQuery } from "../../hooks/gather/queries";
+import {
+  prevPageUrlState,
+  slideDirectionState,
+} from "../../recoils/navigationRecoils";
 import { GatherStatus, IGather } from "../../types2/gatherTypes/gatherTypes";
 import { ITextAndColorSchemes } from "../../types2/propTypes";
 import { getRandomImage } from "../../utils/imageUtils";
@@ -21,11 +26,20 @@ export default function HomeGatherSection() {
 
   const [cardDataArr, setCardDataArr] = useState<IPostThumbnailCard[]>([]);
 
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
+  const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
+
   const { data: gathers } = useGatherQuery();
 
   useEffect(() => {
     if (!gathers) return;
-    setCardDataArr(setGatherDataToCardCol(gathers).slice(0, 3));
+
+    const handleNavigate = () => {
+      setSlideDirection("right");
+      setPrevPageUrl("/home");
+    };
+
+    setCardDataArr(setGatherDataToCardCol(gathers, handleNavigate).slice(0, 3));
   }, [gathers]);
 
   return (
@@ -44,6 +58,7 @@ export default function HomeGatherSection() {
           <CardColumnLayout
             cardDataArr={cardDataArr}
             url={`/gather?location=${location}`}
+            func={() => setSlideDirection("right")}
           />
         ) : (
           <CardColumnLayoutSkeleton type="gather" />
@@ -54,7 +69,8 @@ export default function HomeGatherSection() {
 }
 
 export const setGatherDataToCardCol = (
-  gathers: IGather[]
+  gathers: IGather[],
+  func?: () => void
 ): IPostThumbnailCard[] => {
   const cardCol: IPostThumbnailCard[] = gathers.map((gather, idx) => ({
     title: gather.title,
@@ -66,6 +82,7 @@ export const setGatherDataToCardCol = (
       dayjs(gather.date).format("M월 D일(ddd)"),
     participants: [gather.user, ...gather.participants.map((par) => par.user)],
     url: `/gather/${gather.id}`,
+    func,
     image: {
       url: gather.image || getRandomImage("gather"),
       priority: idx < 4,

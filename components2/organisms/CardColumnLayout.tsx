@@ -9,8 +9,13 @@ import {
 interface ICardColumnLayout {
   cardDataArr: IPostThumbnailCard[];
   url: string;
+  func?: () => void;
 }
-export function CardColumnLayout({ cardDataArr, url }: ICardColumnLayout) {
+export function CardColumnLayout({
+  cardDataArr,
+  url,
+  func,
+}: ICardColumnLayout) {
   return (
     <Layout>
       {cardDataArr.map((cardData, idx) => (
@@ -18,7 +23,7 @@ export function CardColumnLayout({ cardDataArr, url }: ICardColumnLayout) {
           <PostThumbnailCard postThumbnailCardProps={cardData} />
         </Item>
       ))}
-      <ShadowBlockButton text="더보기" url={url} />
+      <ShadowBlockButton text="더보기" url={url} func={func} />
     </Layout>
   );
 }

@@ -4,13 +4,14 @@ import { AnimatePresence } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
+import { slideDirectionState } from "../../../recoils/navigationRecoils";
 import {
   myStudyState,
   studyDateStatusState,
@@ -40,10 +41,13 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
 
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
+
   const [voteTime, setVoteTime] = useState<{ start: Dayjs; end: Dayjs }>();
   const [modalType, setModalType] = useState<"timePick" | "voteCancel">(null);
 
   const moveToLink = () => {
+    setSlideDirection(null);
     router.push(`/home?${newSearchParams.toString()}`);
   };
 

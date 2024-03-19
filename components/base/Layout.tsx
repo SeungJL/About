@@ -4,9 +4,11 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import BottomNav from "../../components2/BottomNav";
 import { useToken } from "../../hooks/custom/CustomHooks";
 import { useToast } from "../../hooks/custom/CustomToast";
+import { slideDirectionState } from "../../recoils/navigationRecoils";
 import GuestBottomNav from "../layout/atoms/GuestBottomNav";
 import BaseModal from "./BaseModal";
 import BaseScript from "./BaseScript";
@@ -32,6 +34,13 @@ function Layout({ children }: ILayout) {
   const isGuest = session?.user.name === "guest";
 
   const [isErrorModal, setIsErrorModal] = useState(false);
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSlideDirection(null);
+    }, 600);
+  }, []);
 
   useEffect(() => {
     if (PUBLIC_SEGMENT.includes(segment)) return;

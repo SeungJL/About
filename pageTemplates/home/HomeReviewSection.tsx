@@ -1,17 +1,22 @@
 import { Box } from "@chakra-ui/react";
+import { useSetRecoilState } from "recoil";
 import SectionBar from "../../components2/molecules/bars/SectionBar";
 import ImageTileGridLayout, {
   IImageTileData,
 } from "../../components2/molecules/layouts/ImageTitleGridLayout";
+import { slideDirectionState } from "../../recoils/navigationRecoils";
 import { REVIEW_DATA } from "../../storage/Review";
 
 export default function HomeReviewSection() {
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
+
   const imageData: IImageTileData[] = REVIEW_DATA.slice(-4)
     .reverse()
     .map((review) => ({
       imageUrl: review.images[0],
       text: review.text,
       url: `/review?scroll=${review.id}`,
+      func: () => setSlideDirection("right"),
     }));
 
   return (

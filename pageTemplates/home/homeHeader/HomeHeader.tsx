@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Slide from "../../../components/layout/PageSlide";
 import IconButtonNav, {
@@ -20,6 +20,7 @@ import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
+import { slideDirectionState } from "../../../recoils/navigationRecoils";
 import { renderHomeHeaderState } from "../../../recoils/renderRecoils";
 import { transferShowDailyCheckState } from "../../../recoils/transferRecoils";
 import { AlertIcon } from "../../../styles/icons";
@@ -43,6 +44,7 @@ function HomeHeader() {
   const [modalType, setModalType] = useState<HomeHeaderModalType>(null);
   const showDailyCheck = useRecoilValue(transferShowDailyCheckState);
   const renderHomeHeader = useRecoilValue(renderHomeHeaderState);
+  const setSlideDirection = useSetRecoilState(slideDirectionState);
 
   const todayDailyCheck =
     localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
@@ -60,13 +62,14 @@ function HomeHeader() {
         </>
       ),
       link: "/notice",
+      func: () => setSlideDirection("right"),
     },
     {
       icon: <FontAwesomeIcon icon={faCircleUser} />,
       link: !isGuest ? "/user" : null,
       func: isGuest
         ? () => router.replace(`/home?${newSearchparams.toString()}&logout=on`)
-        : null,
+        : () => setSlideDirection("right"),
     },
   ];
 

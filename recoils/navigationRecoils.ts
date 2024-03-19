@@ -9,5 +9,5 @@ export const prevPageUrlState = atom({
 
 export const slideDirectionState = atom<"right" | "left">({
   key: "SlideDirection",
-  default: "right",
+  default: null,
 });
