@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { REVIEW_DATA } from "../../../storage/Review";
 
-const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
+const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 
 interface IKakaoShareBtn {
   type?: string;
