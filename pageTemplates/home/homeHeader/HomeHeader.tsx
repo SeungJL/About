@@ -16,13 +16,19 @@ import Slide from "../../../components/layout/PageSlide";
 import IconButtonNav, {
   IIconButtonNavBtn,
 } from "../../../components2/molecules/navs/IconButtonNav";
-import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
+import {
+  DAILY_CHECK_POP_UP,
+  NOTICE_ACTIVE_CNT,
+  NOTICE_ALERT,
+} from "../../../constants/keys/localStorage";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
+import { useNoticeActiveLogQuery } from "../../../hooks/user/sub/interaction/queries";
 import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import { slideDirectionState } from "../../../recoils/navigationRecoils";
 import { renderHomeHeaderState } from "../../../recoils/renderRecoils";
 import { transferShowDailyCheckState } from "../../../recoils/transferRecoils";
+import { NOTICE_ARR } from "../../../storage/notice";
 import { AlertIcon } from "../../../styles/icons";
 // export type HomeHeaderModalType =
 //   | "promotion"
@@ -49,48 +55,61 @@ function HomeHeader() {
   const todayDailyCheck =
     localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
 
-  const iconBtnArrInitial: IIconButtonNavBtn[] = [
-    {
-      icon: <FontAwesomeIcon icon={faCircleP} />,
-      func: () => setModalType("pointGuide"),
-    },
-    {
-      icon: (
-        <>
-          <FontAwesomeIcon icon={faBell} />
-          <Alert />
-        </>
-      ),
-      link: "/notice",
-      func: () => setSlideDirection("right"),
-    },
-    {
-      icon: <FontAwesomeIcon icon={faCircleUser} />,
-      link: !isGuest ? "/user" : null,
-      func: isGuest
-        ? () => router.replace(`/home?${newSearchparams.toString()}&logout=on`)
-        : () => setSlideDirection("right"),
-    },
-  ];
+  const [isNoticeAlert, setIsNoticeAlert] = useState(false);
 
-  const [iconBtnArr, setIconBtnArr] =
-    useState<IIconButtonNavBtn[]>(iconBtnArrInitial);
+  const { data } = useNoticeActiveLogQuery();
 
   useEffect(() => {
-    if (todayDailyCheck === false && showDailyCheck) {
-      setIconBtnArr((old) => [
-        {
-          icon: (
-            <FontAwesomeIcon icon={faBadgeCheck} color="var(--color-mint)" />
-          ),
-          func: () => setModalType("dailyCheck"),
-        },
-        ...old,
-      ]);
-    } else setIconBtnArr(iconBtnArrInitial);
-  }, [showDailyCheck]);
+    if (!data) return;
+    const activeCnt = localStorage.getItem(NOTICE_ACTIVE_CNT);
+    const noticeCnt = localStorage.getItem(NOTICE_ALERT);
+    if (+activeCnt !== data?.length || NOTICE_ARR.length !== +noticeCnt) {
+      setIsNoticeAlert(true);
+    }
+  }, [data]);
 
-  useEffect(() => {}, []);
+  const generateIconBtnArr = () => {
+    let arr = [
+      {
+        icon: <FontAwesomeIcon icon={faCircleP} />,
+        func: () => setModalType("pointGuide"),
+      },
+      {
+        icon: (
+          <>
+            <FontAwesomeIcon icon={faBell} />
+            {isNoticeAlert && <Alert />}
+          </>
+        ),
+        link: "/notice",
+        func: () => setSlideDirection("right"),
+      },
+      {
+        icon: <FontAwesomeIcon icon={faCircleUser} />,
+        link: !isGuest ? "/user" : null,
+        func: isGuest
+          ? () =>
+              router.replace(`/home?${newSearchparams.toString()}&logout=on`)
+          : () => setSlideDirection("right"),
+      },
+    ];
+
+    if (todayDailyCheck === false && showDailyCheck) {
+      arr.unshift({
+        icon: <FontAwesomeIcon icon={faBadgeCheck} color="var(--color-mint)" />,
+        func: () => setModalType("dailyCheck"),
+      });
+    }
+
+    return arr;
+  };
+
+  const [iconBtnArr, setIconBtnArr] =
+    useState<IIconButtonNavBtn[]>(generateIconBtnArr);
+
+  useEffect(() => {
+    setIconBtnArr(generateIconBtnArr());
+  }, [showDailyCheck, isNoticeAlert]);
 
   return (
     <>

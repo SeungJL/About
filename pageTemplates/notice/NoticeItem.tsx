@@ -8,11 +8,17 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { NoticeIcon } from "../../components/common/Icon/NoticeIcons";
+import { NOTICE_ALERT } from "../../constants/keys/localStorage";
 
 import { NOTICE_ARR } from "../../storage/notice";
 
 function NoticeItem() {
+  useEffect(() => {
+    localStorage.setItem(NOTICE_ALERT, NOTICE_ARR.length + "");
+  }, []);
+
   return (
     <>
       <Accordion allowToggle>
