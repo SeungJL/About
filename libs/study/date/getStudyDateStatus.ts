@@ -11,7 +11,9 @@ export const getStudyDateStatus = (date: string) => {
   const currentHours = getHour();
 
   const isTodayCondition =
-    currentDate.isSame(selectedDate) && currentHours >= STUDY_RESULT_HOUR;
+    (currentDate.add(1, "day").isSame(selectedDate) &&
+      currentHours >= STUDY_RESULT_HOUR) ||
+    (currentDate.isSame(selectedDate) && currentHours < STUDY_RESULT_HOUR);
 
   if (isTodayCondition) return "today";
   if (selectedDate.isBefore(currentDate)) return "passed";

@@ -9,7 +9,7 @@ export const getStudyConfimCondition = (
   if (
     studyDateStatus === "today" &&
     studyStatus === "pending" &&
-    getHour() === 9
+    getHour() === 23
   ) {
     return true;
   }
