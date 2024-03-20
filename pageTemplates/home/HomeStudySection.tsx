@@ -82,9 +82,11 @@ export default function HomeStudySection() {
 
   const onDragEnd = (panInfo: PanInfo) => {
     const newDate = getNewDateBySwipe(panInfo, date as string);
-    newSearchParams.set("date", newDate);
 
-    router.replace(`/home?${newSearchParams.toString()}`);
+    if (newDate !== date) {
+      newSearchParams.set("date", newDate);
+      router.replace(`/home?${newSearchParams.toString()}`);
+    }
     return;
   };
 
@@ -175,6 +177,8 @@ const getBadgeText = (
 export const getNewDateBySwipe = (panInfo: PanInfo, date: string) => {
   const { offset, velocity } = panInfo;
   const swipe = swipePower(offset.x, velocity.x);
+  console.log(2, swipe, offset, velocity);
+
   let dateDayjs = dayjs(date);
   if (swipe < -swipeConfidenceThreshold) {
     dateDayjs = dateDayjs.add(1, "day");
