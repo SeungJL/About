@@ -27,6 +27,11 @@ function Test() {
     null,
     "양천"
   );
+  // const decodeByAES256 = (encodedTel: string) => {
+  //   const bytes = CryptoJS.AES.decrypt(encodedTel, key);
+  //   const originalText = bytes.toString(CryptoJS.enc.Utf8);
+  //   return originalText;
+  // };
 
   const { mutate: match } = useGroupBelongMatchMutation({
     onSuccess(data) {
