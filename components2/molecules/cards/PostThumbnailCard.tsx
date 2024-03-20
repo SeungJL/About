@@ -1,4 +1,6 @@
 import { Box } from "@chakra-ui/react";
+import { faInfinity } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -75,7 +77,8 @@ export function PostThumbnailCard({
             <div className="userIconContainer">
               <UserIcon />
               <span>
-                {participants.length}/{maxCnt || 8}
+                {participants.length}/
+                {maxCnt || <FontAwesomeIcon icon={faInfinity} />}
               </span>
             </div>
           </div>
