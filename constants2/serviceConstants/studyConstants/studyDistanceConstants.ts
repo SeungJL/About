@@ -1,4 +1,11 @@
-import { SUWAN_광교, YANG_목동점 } from "../../../storage/study";
+import {
+  INC_구월동,
+  INC_송도,
+  INC_송도DT,
+  INC_인하대,
+  SUWAN_광교,
+  YANG_목동점,
+} from "../../../storage/study";
 import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
   ANYANG_범계학원가,
@@ -291,5 +298,5 @@ export const STUDY_DISTANCE: {
       [DONG_경희대, DONG_딥십리역],
     ],
   },
-  인천: [],
+  인천: { 1: [[INC_송도, INC_송도DT]], 2: [[INC_인하대, INC_구월동]] },
 };

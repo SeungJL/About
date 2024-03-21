@@ -92,5 +92,4 @@ const Map = styled.div`
   max-width: var(--max-width);
   max-height: var(--max-width);
   margin: 0 auto;
-  
 `;

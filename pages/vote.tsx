@@ -272,7 +272,7 @@ export const getMapOptions = (
   if (typeof naver === "undefined") return undefined;
   return {
     center: getVoteLocationCenterDot()[location],
-    zoom: 13,
+    zoom: location === "인천" ? 12 : 13,
     minZoom: 12,
     maxBounds: getVoteLocationMaxBound()[location],
     mapTypeControl: false,

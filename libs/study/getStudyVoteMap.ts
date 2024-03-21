@@ -4,6 +4,7 @@ export const getVoteLocationCenterDot = () => ({
   양천: new naver.maps.LatLng(37.527588, 126.896441),
   강남: new naver.maps.LatLng(37.503744, 127.048898),
   동대문: new naver.maps.LatLng(37.58452, 127.041047),
+  인천: new naver.maps.LatLng(37.419334, 126.684935),
 });
 
 export const getVoteLocationMaxBound = () => ({
@@ -26,5 +27,9 @@ export const getVoteLocationMaxBound = () => ({
   동대문: new naver.maps.LatLngBounds(
     new naver.maps.LatLng(37.557579, 126.989614),
     new naver.maps.LatLng(37.638954, 127.106856)
+  ),
+  인천: new naver.maps.LatLngBounds(
+    new naver.maps.LatLng(37.584965, 126.580845),
+    new naver.maps.LatLng(37.341746, 126.803871)
   ),
 });
