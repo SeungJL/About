@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
+import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import TimeSelector from "../../components/features/picker/TimeSelector";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
-import { dayjsToStr } from "../../helpers/dateHelpers";
-import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
@@ -18,7 +18,6 @@ import {
 } from "../../hooks/study/mutations";
 
 import { IModal } from "../../types/reactTypes";
-import { IStudyParticipate } from "../../types/study/study";
 import { IPlace } from "../../types/study/studyDetail";
 import { ITimeStartToEnd } from "../../types/timeAndDate";
 
@@ -28,15 +27,16 @@ interface IStudyFreeOpenModal extends IModal {
 
 function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
   const { data: session } = useSession();
+  const { id, date } = useParams<{ id: string; date: string }>() || {};
   const router = useRouter();
 
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
   const errorToast = useErrorToast();
-  const resetQueryData = useResetQueryData();
 
-  const voteDate = dayjs(router.query.date as string);
-  const placeId = router.query.placeId;
+  const queryClient = useQueryClient();
+
+  const placeId = id;
 
   const location = session?.user.location;
 
@@ -45,18 +45,18 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
     end: { hours: 18, minutes: 0 },
   });
 
-  const { mutateAsync: openFree } = useStudyOpenFreeMutation(voteDate, {
+  const { mutateAsync: openFree } = useStudyOpenFreeMutation(date, {
     onSuccess() {
       completeToast("free", "스터디가 Free로 오픈되었습니다.");
     },
     onError: errorToast,
   });
   const { mutate: patchAttend } = useStudyParticipationMutation(
-    voteDate,
+    dayjs(date),
     "post",
     {
       onSuccess: () => {
-        resetQueryData([STUDY_VOTE, dayjsToStr(voteDate), location]);
+        queryClient.invalidateQueries([STUDY_VOTE, date, location]);
         setIsModal(false);
       },
       onError: errorToast,
@@ -64,21 +64,21 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
   );
 
   const onSubmit = async () => {
-    const start = voteDate.hour(time.start.hours).minute(time.start.minutes);
-    const end = voteDate.hour(time.end.hours).minute(time.end.minutes);
+    const start = dayjs(date).hour(time.start.hours).minute(time.start.minutes);
+    const end = dayjs(date).hour(time.end.hours).minute(time.end.minutes);
     if (start > end) {
       failToast("time");
       return;
     }
-    const data: IStudyParticipate = {
-      place,
+    const data = {
+      place: placeId,
       start,
       end,
     };
 
     await openFree(placeId as string);
     setTimeout(() => {
-      // patchAttend(data);
+      patchAttend(data);
     }, 500);
   };
 

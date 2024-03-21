@@ -62,14 +62,14 @@ export const useStudyQuickVoteMutation = (
   );
 
 export const useStudyOpenFreeMutation = (
-  date: Dayjs,
+  date: string,
   options?: MutationOptions<string>
 ) =>
   useMutation<void, AxiosError, string>(
     (placeId) =>
       requestServer<{ placeId: string }>({
         method: "patch",
-        url: `vote/${dayjsToStr(date)}/free`,
+        url: `vote/${date}/free`,
         body: { placeId },
       }),
     options
