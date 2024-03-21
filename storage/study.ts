@@ -19,6 +19,7 @@ export const SUWAN_고색역 = "654ca7770f651095a2e41845";
 export const SUWAN_성균관대역 = "654ca7b50f651095a2e41846";
 export const SUWAN_워터쿨러 = "65bfc9347d1dd938049ed1a2";
 export const SUWAN_광교엘리웨이 = "654ca92f0f651095a2e41848";
+export const SUWAN_광교 = "65fbdd5eba2597c46415a02c";
 
 //양천
 export const YANG_위카페 = "6437e9d7ab537b843c6143ac";
@@ -75,6 +76,13 @@ export const DONG_혜화역 = "6597be44a11634850ed506d3";
 export const DONG_혜화역2 = "6597be67a11634850ed506d4";
 export const DONG_화랑대역 = "65bfac8f7d1dd938049ed19f";
 
+//인천
+export const INC_인하대 = "65fbc711ba2597c46415a027";
+export const INC_송도DT = "65fbc8eeba2597c46415a028";
+export const INC_송도 = "65fbcba6ba2597c46415a029";
+export const INC_구월동 = "65fbd787ba2597c46415a02a";
+export const INC_부평 = "65fbd888ba2597c46415a02b";
+
 export const PLACE_TO_NAME = {
   //전체
   [ALL_스터디인증]: "스터디인증",
@@ -96,6 +104,7 @@ export const PLACE_TO_NAME = {
   [SUWAN_망포역]: "스타벅스",
   [SUWAN_행궁동]: "행궁동",
   [SUWAN_광교중앙역]: "아티제",
+  [SUWAN_광교]: "디어커피",
   //양천
   [YANG_위카페]: "위카페",
   [YANG_할리스]: "할리스",
@@ -146,6 +155,12 @@ export const PLACE_TO_NAME = {
   [DONG_혜화역]: "캐치카페",
   [DONG_혜화역2]: "커피빈",
   [DONG_화랑대역]: "마르티",
+
+  [INC_구월동]: "파스쿠찌",
+  [INC_부평]: "하이테이블",
+  [INC_송도]: "카페꼼마",
+  [INC_송도DT]: "스타벅스",
+  [INC_인하대]: "더스토리",
 };
 
 export const PLACE_TO_LOCATION = {
@@ -164,6 +179,7 @@ export const PLACE_TO_LOCATION = {
   [SUWAN_자유신청]: "수원",
   [SUWAN_고색역]: "수원",
   [SUWAN_워터쿨러]: "수원",
+  [SUWAN_광교]: "수원",
 
   [SUWAN_성균관대역]: "수원",
   [SUWAN_광교엘리웨이]: "수원",
@@ -221,6 +237,12 @@ export const PLACE_TO_LOCATION = {
   [DONG_혜화역]: "동대문",
   [DONG_화랑대역]: "동대문",
   [DONG_혜화역2]: "동대문",
+
+  [INC_구월동]: "인천",
+  [INC_부평]: "인천",
+  [INC_송도]: "인천",
+  [INC_송도DT]: "인천",
+  [INC_인하대]: "인천",
 };
 
 export interface IstudyInfo {
@@ -230,328 +252,3 @@ export interface IstudyInfo {
   image?: string;
   logo?: string;
 }
-
-export const STUDY_SPACE_INFO: IstudyInfo[] = [
-  //수원
-  {
-    id: SUWAN_아주대,
-    location: "경기 수원시 팔달구 아주로 47번길 13",
-    time: "12:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EC%B9%B4%ED%83%88%EB%A1%9C%EA%B7%B8.webp",
-  },
-  {
-    id: SUWAN_수원역,
-    location: "경기 수원시 팔달구 매산로 1",
-    time: "08:00 - 24:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A4.webp",
-  },
-  {
-    id: SUWAN_상현역,
-    location: "경기 용인시 수지구 광교중앙로 310",
-    time: "08:00 - 24:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%88%AC%EC%8D%B8_%EC%83%81%ED%98%84.webp",
-  },
-  {
-    id: SUWAN_수원시청,
-    location: "경기 수원시 팔달구 인계로 166번길",
-    time: "09:00 - 24:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%88%AC%EC%8D%B8_%EB%82%98%ED%98%9C%EC%84%9D%EA%B1%B0%EB%A6%AC.webp",
-    logo: "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A42.webp",
-  },
-  {
-    id: SUWAN_송죽,
-    location: "경기 수원시 장안구 경수대로 989",
-    time: "07:00 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EC%BB%A4%ED%94%BC%EB%B9%88_%EC%86%A1%EC%A3%BD.webp",
-  },
-  {
-    id: SUWAN_경희대,
-    location: "경기 수원시 영통구 덕영대로 1693",
-    time: "10:00 - 04:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EC%B9%B4%ED%8E%98%EC%B9%B8%EB%82%98.webp",
-  },
-  {
-    id: SUWAN_구운동,
-    location: "경기 수원시 권선구 구운중로4번길 20",
-    time: "10:30 - 21:00",
-  },
-  {
-    id: SUWAN_스타벅스,
-    location: "경기 수원시 영통구 대학로 47 ",
-    time: "07:30 - 21:00",
-  },
-  {
-    id: SUWAN_경기대,
-    location: "경기 수원시 영통구 대학3로4번길 12 ",
-    time: "08:00 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%83%90%EC%95%A4%ED%83%90%EC%8A%A4_%EA%B2%BD%EA%B8%B0%EB%8C%80.webp",
-  },
-  {
-    id: SUWAN_고색역,
-    location: "경기 수원시 영통구 대학3로4번길 12 ",
-    time: "12:00 - 21:30",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EA%B3%A0%EC%83%89%EC%97%AD_%EC%97%90%EC%9D%B4%ED%8B%B0%EC%94%A8.webp",
-  },
-  {
-    id: SUWAN_성균관대역,
-    location: "경기 수원시 영통구 대학3로4번길 12",
-    time: "07:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EC%84%B1%EB%8C%80%EC%97%AD_%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4.webp",
-  },
-  {
-    id: SUWAN_광교엘리웨이,
-    location: " 경기 수원시 영통구 대학3로4번길 12",
-    time: "10:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EA%B4%91%EA%B5%90_%EC%B1%85%EB%B0%9C%EC%A0%84%EC%86%8C.webp",
-  },
-
-  {
-    id: SUWAN_행궁동,
-    location: "경기 수원시 팔달구 신풍로 56",
-    time: "10:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%ED%96%89%EA%B6%81+81.2.jpg",
-  },
-  {
-    id: SUWAN_망포역,
-    location: "경기 수원시 영통구 영통로 195",
-    time: "08:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%88%98%EC%9B%90/%EB%A7%9D%ED%8F%AC_%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4.png",
-  },
-  {
-    id: SUWAN_광교중앙역,
-    location: "경기 수원시 영통구 센트럴타운로 85",
-    time: "09:00 - 22:30",
-  },
-
-  {
-    id: SUWAN_자유신청,
-    location: "",
-    time: "",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
-  },
-  //양천
-  {
-    id: YANG_위카페,
-    location: "서울특별시 강서구 등촌동 648-5 1층",
-    time: "08:00 - 21:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%9C%84%EC%B9%B4%ED%8E%98.webp",
-  },
-  {
-    id: YANG_할리스,
-    location: "서울특별시 영등포구 당산제2동 당산로 219",
-    time: "08:00 - 01:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%ED%95%A0%EB%A6%AC%EC%8A%A4_%EB%8B%B9%EC%82%B0.webp",
-  },
-  {
-    id: YANG_파스쿠찌,
-    location: "서울특별시 강서구 화곡동 897-14",
-    time: "08:00 - 00:00",
-  },
-  {
-    id: YANG_이디야,
-    location: "서울 양천구 신목로 102 대경프라자",
-    time: "07:30 - 23:30",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%9D%B4%EB%94%94%EC%95%BC_%EC%98%A4%EB%AA%A9%EA%B5%90.webp",
-  },
-  {
-    id: YANG_카페베네,
-    location: "서울 영등포구 당산로 138",
-    time: "08:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%B9%B4%ED%8E%98%EB%B2%A0%EB%84%A4_%EC%98%81%EB%93%B1%ED%8F%AC.webp",
-  },
-  {
-    id: YANG_스타벅스,
-    location: "서울 강서구 등촌로 57",
-    time: "07:30 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4_%ED%99%94%EA%B3%A1.webp",
-  },
-  {
-    id: YANG_카페꼼마,
-    location: "서울 영등포구 국제금융로 8길 16",
-    time: "07:30 - 21:30",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%B9%B4%ED%8E%98%EA%BC%BC%EB%A7%88.webp",
-  },
-  {
-    id: YANG_몽글,
-    location: "서울 구로구 공원로6나길 29-17",
-    time: "11:30 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EB%AA%BD%EA%B8%80.webp",
-  },
-  {
-    id: YANG_양천구청역,
-    location: "서울 양천구 목동동로 77",
-    time: "08:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%96%91%EC%B2%9C%EA%B5%AC%EC%B2%AD%EC%97%AD_%EC%8B%9C%EB%82%98%EB%B3%B8.png",
-  },
-  {
-    id: YANG_화곡역,
-    location: "서울 강서구 강서로 163",
-    time: "08:00 - 24:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%ED%99%94%EA%B3%A1%EC%97%AD.jpg",
-  },
-
-  {
-    id: YANG_신월동,
-    location: "서울 양천구 지양로 72",
-    time: "10:00 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%8B%A0%EC%9B%94%EB%8F%99_%EC%BD%94%EB%82%98%EB%B9%88%EC%8A%A4.png",
-  },
-  {
-    id: YANG_신길역,
-    location: "서울 영등포구 영등포로62길 2",
-    time: "09:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%8B%A0%EA%B8%B8%EC%97%AD_%EB%A0%88%EC%96%B4+%EA%B7%B8%EB%A3%A8%EB%B8%8C.png",
-  },
-  {
-    id: YANG_신풍역,
-    location: "서울 영등포구 신풍로 52-1",
-    time: "09:00 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%96%91%EC%B2%9C/%EC%8B%A0%ED%92%8D%EC%97%AD_%EC%9D%B4%EB%94%94%EC%95%BC.png",
-  },
-  {
-    id: YANG_자유신청,
-    location: "",
-    time: "",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
-  },
-
-  //안양
-  {
-    id: ANYANG_파스쿠찌,
-    location: "경기 안양시 만안구 안양로304번길 12",
-    time: "09:30 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%ED%8C%8C%EC%8A%A4%EC%BF%A0%EC%B0%8C_%EC%95%88%EC%96%91.webp",
-  },
-  {
-    id: ANYANG_숨맑은집,
-    location: "경기 안양시 동안구 평촌대로223번길 44",
-    time: "09:00 - 24:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EC%88%A8%EB%A7%91%EC%9D%80%EC%A7%91.webp",
-  },
-  {
-    id: ANYANG_인뎃커피,
-    location: "경기 안양시 동안구 흥안대로 530",
-    time: "09:00 - 24:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EC%9D%B8%EB%8E%83%EC%BB%A4%ED%94%BC.webp",
-  },
-  {
-    id: ANYANG_커피인더스트리,
-    location: "경기 군포시 군포로 731",
-    time: "09:00 - 24:00",
-  },
-  {
-    id: ANYANG_범계학원가,
-    location: "경기 안양시 동안구 귀인로 190번길 39",
-    time: "09:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EB%B2%94%EA%B3%84_%ED%95%99%EC%9B%90%EA%B0%80.png",
-  },
-  {
-    id: ANYANG_호계,
-    location: "경기 군포시 군포로 731",
-    time: "08:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EC%95%88%EC%96%91/%EB%B2%94%EA%B3%84_%ED%98%B8%EA%B3%84.png",
-  },
-  {
-    id: ANYANG_자유신청,
-    location: "",
-    time: "",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
-  },
-
-  //강남
-  {
-    id: GANGNAM_강남,
-    location: "서울 강남구 테헤란로 1길 29",
-    time: "07:30 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EA%B0%95%EB%82%A8.webp",
-  },
-  {
-    id: GANGNAM_강남구청,
-    location: "서울 강남구 선릉로131길 12",
-    time: "07:30 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%ED%8C%8C%EC%8A%A4%EC%BF%A0%EC%B0%8C_%EA%B0%95%EB%82%A8%EA%B5%AC%EC%B2%AD.webp",
-  },
-  {
-    id: GANGNAM_교대,
-    location: "서울 서초구 서초중앙로 119",
-    time: "08:00 - 05:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%95%84%ED%8E%9C%EC%A6%88.webp",
-  },
-  {
-    id: GANGNAM_논현,
-    location: "서울 서초구 신반포로47길 5",
-    time: "07:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EB%85%BC%ED%98%84.webp",
-  },
-  {
-    id: GANGNAM_선릉,
-    location: "서울 강남구 선릉로 433 세방빌딩",
-    time: "07:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EC%84%A0%EB%A6%89.webp",
-  },
-  {
-    id: GANGNAM_신논현,
-    location: "서울 강남구 강남대로112길 20",
-    time: "07:00 - 21:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EC%BB%A4%ED%94%BC%EB%B9%88_%EC%8B%A0%EB%85%BC%ED%98%84.webp",
-  },
-  {
-    id: GANGNAM_양재,
-    location: "서울 서초구 강남대로 210 행복빌딩",
-    time: "08:00 - 23:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EB%AF%B8%EC%98%A4%EC%BB%A4%ED%94%BC.webp",
-  },
-  {
-    id: GANGNAM_도곡,
-    location: "서울 가안ㅁ구 남부순환로 2736 지앤지빌딩",
-    time: "08:00 - 22:00",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%95%EB%82%A8/%EB%8F%84%EA%B3%A1%EB%8F%99_%EC%B9%B4%ED%8E%98%EC%98%AC%EB%A1%9C.png",
-  },
-  {
-    id: GANGNAM_자유신청,
-    location: "",
-    time: "",
-    image:
-      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%B0%B0%EA%B2%BD/%EA%B0%9C%EC%9D%B8+%EC%8A%A4%ED%84%B0%EB%94%94.jpg",
-  },
-];

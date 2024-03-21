@@ -101,11 +101,11 @@ export default function HomeStudySection() {
       >
         <>
           <BlurredPart
-            isBlur={location === "안양" || location === "인천"}
+            isBlur={location === "안양"}
             text={
               location === "안양"
                 ? "안양 지역은 톡방에서 별도 운영중입니다!"
-                : location === "인천"
+                : location === null
                 ? "스터디 장소 확정중입니다."
                 : null
             }

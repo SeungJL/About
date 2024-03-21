@@ -1,3 +1,10 @@
+import {
+  INC_구월동,
+  INC_부평,
+  INC_송도,
+  INC_송도DT,
+  INC_인하대,
+} from "../../../storage/study";
 import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
   ANYANG_숨맑은집,
@@ -130,7 +137,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     DONG_혜화역2,
     DONG_자유신청,
   ],
-  인천: [],
+  인천: [INC_구월동, INC_부평, INC_인하대, INC_송도, INC_송도DT],
 };
 
 export const PLACE_TO_LOCATION = createPlaceToLocationMap(LOCATION_TO_PLACE);

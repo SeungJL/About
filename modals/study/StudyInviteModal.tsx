@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { SQUARE_RANDOM_IMAGE } from "../../constants/image/imageUrl";
 import { WEB_URL } from "../../constants/system";
-import { STUDY_SPACE_INFO } from "../../storage/study";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/study/studyDetail";
@@ -25,9 +24,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
 
   const [isRenderingCheck, setIsRenderingCheck] = useState(false);
 
-  const location = STUDY_SPACE_INFO?.find(
-    (info) => info?.id === place?._id
-  )?.location;
+  const location = place.locationDetail;
 
   useEffect(() => {
     if (
