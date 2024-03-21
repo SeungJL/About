@@ -10,8 +10,11 @@ import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 import StudyVoteSubModalPrivate from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalPrivate";
-import { studyDateStatusState } from "../../../recoil/studyAtoms";
-import { myStudyState } from "../../../recoils/studyRecoils";
+
+import {
+  myStudyState,
+  studyDateStatusState,
+} from "../../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
 import { IModal } from "../../../types/reactTypes";
 import {
@@ -77,7 +80,7 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
 
   const handleSuccess = async () => {
     queryClient.invalidateQueries([STUDY_VOTE, date, location]);
-   
+
     if (myPrevVotePoint) {
       await getPoint({
         message: "스터디 투표 취소",

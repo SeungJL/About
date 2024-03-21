@@ -4,11 +4,13 @@ import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import {
   useGroupBelongMatchMutation,
   useMonthCalcMutation,
 } from "../hooks/admin/mutation";
 import { useImageUploadMutation } from "../hooks/image/mutations";
+import { studyDateStatusState } from "../recoils/studyRecoils";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
     dayjs("2024-03-11"),
@@ -17,6 +19,8 @@ function Test() {
     "동대문"
   );
   console.log(data);
+
+  const a = useRecoilValue(studyDateStatusState);
 
   let AA = "te";
   let BB = "te ";
@@ -79,6 +83,7 @@ function Test() {
           name="image"
           onChange={handleImageChange}
         />
+        {a}
         <Button type="button" onClick={() => match()}>
           클릭
         </Button>
