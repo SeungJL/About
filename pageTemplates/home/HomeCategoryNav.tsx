@@ -109,7 +109,8 @@ function HomeCategoryNav() {
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: var(--gap-4) 24px;
+  padding: 16px 24px;
+  padding-bottom: 8px;
   background-color: var(--gray-8);
 `;
 
