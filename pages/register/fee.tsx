@@ -11,7 +11,7 @@ import {
   getLocalStorageObj,
   setLocalStorageObj,
 } from "../../helpers/storageHelpers";
-import { useErrorToast } from "../../hooks/custom/CustomToast";
+import { useErrorToast, useToast } from "../../hooks/custom/CustomToast";
 import {
   useUserInfoFieldMutation,
   useUserRegisterMutation,
@@ -19,13 +19,15 @@ import {
 import RegisterCost from "../../pageTemplates/register/fee/RegisterCost";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
 
 function Fee() {
   const { data: session, update } = useSession();
   const errorToast = useErrorToast();
+  const toast = useToast();
   const router = useRouter();
 
-  const info = getLocalStorageObj(REGISTER_INFO);
+  const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
   console.log(info);
   const { mutate: changeRole } = useUserInfoFieldMutation("role");
 
@@ -39,6 +41,10 @@ function Fee() {
   });
 
   const onClickNext = () => {
+    if (info?.telephone.length < 11) {
+      toast("error", "핸드폰 번호를 확인해 주세요.");
+      return;
+    }
     mutate(info);
   };
 
