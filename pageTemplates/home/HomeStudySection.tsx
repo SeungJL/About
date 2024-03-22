@@ -142,6 +142,7 @@ export const setStudyDataToCardCol = (
     subtitle: data.place.brand,
     participants: data.attendences.map((att) => att.user),
     url: `/study/${data.place._id}/${urlDateParam}`,
+    maxCnt: 8,
     image: {
       url: data.place.image,
       priority: true,
