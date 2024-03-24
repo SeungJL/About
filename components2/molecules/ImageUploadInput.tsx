@@ -1,11 +1,11 @@
 import { Input } from "@chakra-ui/react";
 import { faCameraViewfinder } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import heic2any from "heic2any";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { DispatchType } from "../../types2/reactTypes";
-
 interface IImageUploadInput {
   setImageUrl: DispatchType<any>;
 }
@@ -15,12 +15,31 @@ export default function ImageUploadInput({
 }: IImageUploadInput) {
   const [imageUrl, setImageUrl] = useState(null);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      changeImage(file);
-      const image = URL.createObjectURL(file);
-      setImageUrl(image);
+      // HEIC 파일이면 JPEG로 변환
+      if (file.type === "image/heic") {
+        try {
+          const convertedBlob = (await heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 0.8,
+          })) as Blob;
+
+          // 변환된 Blob으로 미리보기 생성 및 상태 업데이트
+          const image = URL.createObjectURL(convertedBlob);
+          setImageUrl(image);
+          changeImage(convertedBlob); // 변환된 Blob을 상위 컴포넌트에 전달
+        } catch (error) {
+          console.error("Error converting HEIC to JPEG", error);
+        }
+      } else {
+        // HEIC가 아니라면 기존 로직대로 처리
+        const image = URL.createObjectURL(file);
+        setImageUrl(image);
+        changeImage(file);
+      }
     }
   };
 
