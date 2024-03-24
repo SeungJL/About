@@ -1,7 +1,7 @@
 import { Input } from "@chakra-ui/react";
 import { faCameraViewfinder } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import heic2any from "heic2any";
+
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styled from "styled-components";
@@ -20,6 +20,7 @@ export default function ImageUploadInput({
     if (file) {
       // HEIC 파일이면 JPEG로 변환
       if (file.type === "image/heic") {
+        const heic2any = (await import("heic2any")).default;
         try {
           const convertedBlob = (await heic2any({
             blob: file,
