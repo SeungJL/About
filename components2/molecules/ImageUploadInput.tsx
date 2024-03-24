@@ -18,8 +18,15 @@ export default function ImageUploadInput({
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      // HEIC 파일이면 JPEG로 변환
-      if (file.type === "image/heic") {
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+
+      // 이미 브라우저에서 읽을 수 있는 이미지 형식이거나, 확장자가 HEIC인 경우에만 변환 시도
+      if (file.type !== "image/heic" && fileExtension !== "heic") {
+        const image = URL.createObjectURL(file);
+        setImageUrl(image);
+        changeImage(file);
+      } else {
+        // 동적 임포트를 사용하여 heic2any를 클라이언트 사이드에서만 로드
         const heic2any = (await import("heic2any")).default;
         try {
           const convertedBlob = (await heic2any({
@@ -28,18 +35,19 @@ export default function ImageUploadInput({
             quality: 0.8,
           })) as Blob;
 
-          // 변환된 Blob으로 미리보기 생성 및 상태 업데이트
           const image = URL.createObjectURL(convertedBlob);
           setImageUrl(image);
-          changeImage(convertedBlob); // 변환된 Blob을 상위 컴포넌트에 전달
+          changeImage(convertedBlob);
         } catch (error) {
-          console.error("Error converting HEIC to JPEG", error);
+          // 이미 브라우저에서 읽을 수 있는 형식의 이미지인 경우 변환 과정 생략
+          if (error.code === 1) {
+            const image = URL.createObjectURL(file);
+            setImageUrl(image);
+            changeImage(file);
+          } else {
+            console.error("Error converting HEIC to JPEG", error);
+          }
         }
-      } else {
-        // HEIC가 아니라면 기존 로직대로 처리
-        const image = URL.createObjectURL(file);
-        setImageUrl(image);
-        changeImage(file);
       }
     }
   };
@@ -49,6 +57,7 @@ export default function ImageUploadInput({
   const handleBtnClick = () => {
     fileInputRef.current.click();
   };
+  console.log(13);
 
   // useEffect(() => {
   //   changeImage(imageUrl);
