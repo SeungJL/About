@@ -133,7 +133,6 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
     const formData = new FormData();
     formData.append("image", imageUrl);
     formData.append("path", "studyAttend");
-    console.log("imageFormData", formData);
     imageUpload(formData);
   };
 

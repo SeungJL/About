@@ -21,6 +21,7 @@ import {
   sortedStudyCardListState,
   studyDateStatusState,
 } from "../../recoils/studyRecoils";
+
 import { ITextAndColorSchemes } from "../../types2/propTypes";
 
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
