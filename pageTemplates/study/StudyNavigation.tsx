@@ -91,7 +91,7 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
       onError: () => typeToast("error"),
     }
   );
-
+  console.log(votingType);
   const { text: mainText, funcType: mainFuncType } = getMainButtonStatus(
     voteCnt >= MAX_USER_PER_PLACE,
     studyDateStatus,
@@ -181,6 +181,7 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
 }
 
 const getVotingType = (myStudy: IParticipation, placeId: string) => {
+  console.log(2, myStudy);
   return !myStudy ? null : myStudy?.place._id === placeId ? "same" : "other";
 };
 

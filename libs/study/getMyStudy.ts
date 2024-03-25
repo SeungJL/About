@@ -8,11 +8,12 @@ export const getMyStudy = (
   let myStudy: IParticipation | null = null;
   participations.forEach((par) =>
     par.attendences.forEach((who) => {
-      if (who.user.uid === myUid) {
+      if (who.user.uid === myUid && who.firstChoice) {
         myStudy = par;
       }
     })
   );
+
   return myStudy;
 };
 
