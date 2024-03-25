@@ -16,6 +16,7 @@ interface IAvatar {
   uid?: string;
   isPriority?: boolean;
   shadowAvatar?: number;
+  isLink?: boolean;
 }
 
 export default function Avatar({
@@ -25,6 +26,7 @@ export default function Avatar({
   uid,
   isPriority,
   shadowAvatar,
+  isLink = true,
 }: IAvatar) {
   const router = useRouter();
   const hasAvatar =
@@ -93,7 +95,7 @@ export default function Avatar({
 
   return (
     <>
-      {size === "sm" ? (
+      {size === "sm" || !isLink ? (
         <AvatarComponent />
       ) : (
         <Link href={`/profile/${uid}`}>

@@ -31,7 +31,7 @@ function GroupBlock({ group }: IGroupBlock) {
           ? "이승주"
           : "어바웃"
         : group.organizer.name,
-    인원: `${group.participants.length}/${
+    인원: `${group.participants.length + (group.id === 33 ? 3 : 0)}/${
       group.memberCnt.max === 0 ? "자유" : group.memberCnt.max + "명"
     }`,
     조건: `${
@@ -58,7 +58,9 @@ function GroupBlock({ group }: IGroupBlock) {
     const status = group.status;
     const min = group.memberCnt.min;
     const max = group.memberCnt.max;
-    const participantCnt = group.participants.length;
+    const participantCnt =
+      group.participants.length + (group.id === 33 ? 3 : 0);
+
     if (status === "gathering") {
       return {
         text: "모집중",

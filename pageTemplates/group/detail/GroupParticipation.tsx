@@ -5,6 +5,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Avatar from "../../../components2/atoms/Avatar";
 import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
+import { useToast } from "../../../hooks/custom/CustomToast";
 
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import { IGroup } from "../../../types/page/group";
@@ -16,7 +17,7 @@ interface IGroupParticipation {
 
 function GroupParticipation({ data }: IGroupParticipation) {
   const router = useRouter();
-
+  const toast = useToast();
   const setBeforePage = useSetRecoilState(prevPageUrlState);
 
   const organizer = data.organizer;
@@ -27,6 +28,14 @@ function GroupParticipation({ data }: IGroupParticipation) {
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
+
+  const outMemberCnt = data?.id === 33 ? 3 : 0;
+  const array = new Array(outMemberCnt).fill(0);
+  const onClickOutMember = () => {
+    toast("error", "외부 게스트의 프로필은 확인할 수 없습니다.");
+  };
+
+  console.log(array);
 
   return (
     <Layout>
@@ -77,6 +86,23 @@ function GroupParticipation({ data }: IGroupParticipation) {
               </MemberItem>
             )
         )}
+        {array?.map((_, idx) => (
+          <MemberItem key={idx}>
+            <ProfileWrapper onClick={onClickOutMember}>
+              <Avatar
+                image={""}
+                avatar={{ type: 0, bg: 0 }}
+                size="md"
+                isLink={false}
+              />
+            </ProfileWrapper>
+            <UserOverview>
+              <span>외부 참여자</span>
+              <div>코멘트가 없습니다.</div>
+            </UserOverview>
+            <ParticipateTime isFirst={true}>멤버</ParticipateTime>
+          </MemberItem>
+        ))}
       </Members>
     </Layout>
   );
