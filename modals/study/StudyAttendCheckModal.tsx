@@ -144,7 +144,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
     isFull: true,
   };
 
-  console.log(4, imageUrl);
+
 
   return (
     <>

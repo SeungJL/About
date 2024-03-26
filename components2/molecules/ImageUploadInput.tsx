@@ -57,7 +57,7 @@ export default function ImageUploadInput({
   const handleBtnClick = () => {
     fileInputRef.current.click();
   };
-  console.log(13);
+
 
   // useEffect(() => {
   //   changeImage(imageUrl);

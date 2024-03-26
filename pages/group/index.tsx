@@ -53,7 +53,7 @@ function Index() {
   const [isRuleModal, setIsRuleModal] = useState(false);
 
   const { data: groups, isLoading } = useGroupQuery();
-  console.log(category);
+
   useEffect(() => {
     setCategory({
       main:

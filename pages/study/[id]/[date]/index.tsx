@@ -46,7 +46,7 @@ export default function Page() {
   }, [studyAll]);
 
   const study = studyAll?.find((study) => study.place._id === id);
-  console.log(4, study, studyAll, id);
+
   const place = study?.place;
 
   const attendances =

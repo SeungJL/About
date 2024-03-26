@@ -32,3 +32,5 @@ export const RABBIT_RUN = "rabbitRun";
 export const REGISTER_INFO = "registerInfo";
 
 export const USER_GUIDE = "useGuide";
+
+export const HAS_STUDY_TODAY = "hasStudyToday";

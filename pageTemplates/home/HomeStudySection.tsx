@@ -11,6 +11,7 @@ import {
   CardColumnLayout,
   CardColumnLayoutSkeleton,
 } from "../../components2/organisms/CardColumnLayout";
+import { HAS_STUDY_TODAY } from "../../constants/keys/localStorage";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { getMyStudy } from "../../libs/study/getMyStudy";
@@ -43,6 +44,8 @@ export default function HomeStudySection() {
     "kr"
   );
 
+  const myUid = session?.user.uid;
+
   const setSortedStudyCardList = useSetRecoilState(sortedStudyCardListState);
   const setMyStudy = useSetRecoilState(myStudyState);
   const studyDateStatus = useRecoilValue(studyDateStatusState);
@@ -74,8 +77,21 @@ export default function HomeStudySection() {
     );
     setStudyCardColData(cardList.slice(0, 3));
     setSortedStudyCardList(cardList);
-    setMyStudy(getMyStudy(studyVoteData, session.user.uid));
 
+    const myStudy = getMyStudy(studyVoteData, myUid);
+    setMyStudy(myStudy);
+
+    if (date === dayjsToStr(dayjs())) {
+      const myInfo = myStudy?.attendences.find((who) => who.user.uid === myUid);
+
+      if (myInfo) {
+        if (myInfo?.arrived && dayjs().hour() >= 20) {
+          localStorage.setItem(HAS_STUDY_TODAY, undefined);
+        } else {
+          localStorage.setItem(HAS_STUDY_TODAY, "true");
+        }
+      }
+    }
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[1].status)) {
       decideStudyResult();
     }
@@ -179,7 +195,6 @@ const getBadgeText = (
 export const getNewDateBySwipe = (panInfo: PanInfo, date: string) => {
   const { offset, velocity } = panInfo;
   const swipe = swipePower(offset.x, velocity.x);
-  console.log(2, swipe, offset, velocity);
 
   let dateDayjs = dayjs(date);
   if (swipe < -swipeConfidenceThreshold) {

@@ -35,7 +35,6 @@ function GroupParticipation({ data }: IGroupParticipation) {
     toast("error", "외부 게스트의 프로필은 확인할 수 없습니다.");
   };
 
-  console.log(array);
 
   return (
     <Layout>

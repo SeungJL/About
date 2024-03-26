@@ -1,6 +1,9 @@
 import { IDailyCheckWinList } from "../constants2/serviceConstants/dailyCheckConstatns";
 
-export const getDistributionArr = (winList: IDailyCheckWinList[], size: number) => {
+export const getDistributionArr = (
+  winList: IDailyCheckWinList[],
+  size: number
+) => {
   const arr = new Array(size).fill(null);
   let cnt = 0;
   winList.forEach((win) => {
@@ -9,4 +12,8 @@ export const getDistributionArr = (winList: IDailyCheckWinList[], size: number) 
     cnt += percentValue;
   });
   return arr;
+};
+
+export const getPerformanceTime = () => {
+  return performance.now() / 1000;
 };

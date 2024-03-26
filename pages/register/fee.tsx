@@ -28,7 +28,7 @@ function Fee() {
   const router = useRouter();
 
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
-  console.log(info);
+
   const { mutate: changeRole } = useUserInfoFieldMutation("role");
 
   const { mutate } = useUserRegisterMutation({

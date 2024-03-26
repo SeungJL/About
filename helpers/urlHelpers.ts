@@ -8,12 +8,15 @@ import { convertLocationLangTo } from "./converterHelpers";
 export const getUrlWithLocationAndDate = (
   locationParam: LocationEn,
   dateParam: string,
-  userLocation: ActiveLocation = "수원"
+  userLocation: ActiveLocation = "수원",
+  isPrevView: boolean
 ) => {
   const location =
     locationParam || convertLocationLangTo(userLocation || "suw", "en");
   const locationBaseUrl = `/home?location=${location}`;
-  const dateQuery = !dateParam ? `&date=${getStudyStandardDate()}` : "";
+  const dateQuery = !dateParam
+    ? `&date=${getStudyStandardDate(isPrevView)}`
+    : "";
 
   return locationBaseUrl + dateQuery;
 };

@@ -17,7 +17,7 @@ export default function ArrowBackButton({ url }: IArrowBackButton) {
   const setSlideDirection = useSetRecoilState(slideDirectionState);
 
   const handleGoBack = () => {
-    console.log(233);
+
     setSlideDirection("left");
     if (prevPageUrl) {
       router.push(prevPageUrl);
