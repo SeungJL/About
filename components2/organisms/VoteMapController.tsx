@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Popover,
   PopoverArrow,
@@ -137,31 +138,36 @@ function VoteMapController({
           <PrecisionPopOver precision={precision} setPrecision={setPrecision} />
         </TopNav>
         <BottomNav>
-          <Button
-            size="sm"
-            w="34px"
-            h="34px"
-            border={preset !== "first" && "1px solid var(--gray-4)"}
-            bgColor={
-              preset === "first" ? "var(--color-mint) !important" : "white"
-            }
-            color={preset === "first" ? "white !important" : "var(--gray-2)"}
-            mr="var(--gap-2)"
-            onClick={() => onClickPreset("first")}
-          >
-            1
-          </Button>
-          <Button
-            w="34px"
-            h="34px"
-            bgColor={preset === "second" ? "var(--color-mint)" : "white"}
-            color={preset === "second" ? "white !important" : "var(--gray-2)"}
-            size="sm"
-            border="1px solid var(--gray-4)"
-            onClick={() => onClickSecond()}
-          >
-            2
-          </Button>
+          <Box>
+            <Button
+              size="sm"
+              w="34px"
+              h="34px"
+              border={preset !== "first" && "1px solid var(--gray-4)"}
+              bgColor={
+                preset === "first" ? "var(--color-mint) !important" : "white"
+              }
+              color={preset === "first" ? "white !important" : "var(--gray-2)"}
+              mr="var(--gap-2)"
+              onClick={() => onClickPreset("first")}
+            >
+              1
+            </Button>
+            <Button
+              w="34px"
+              h="34px"
+              bgColor={preset === "second" ? "var(--color-mint)" : "white"}
+              color={preset === "second" ? "white !important" : "var(--gray-2)"}
+              size="sm"
+              border="1px solid var(--gray-4)"
+              onClick={() => onClickSecond()}
+            >
+              2
+            </Button>
+          </Box>
+          <Box as="span" fontSize="18px" fontWeight={600}>
+            스터디 희망 장소를 터치해 주세요!
+          </Box>
         </BottomNav>
       </Layout>
     </>
@@ -255,6 +261,11 @@ const TopNav = styled.nav`
 `;
 
 const BottomNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 20px;
+  align-items: center;
   position: absolute;
   bottom: var(--gap-2);
   left: var(--gap-2);

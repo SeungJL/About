@@ -32,6 +32,7 @@ import {
 } from "../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
+import { getPerformanceTime } from "../../utils/mathUtils";
 
 export default function HomeStudySection() {
   const { data: session } = useSession();
@@ -60,6 +61,9 @@ export default function HomeStudySection() {
     }
   );
 
+  if (!studyVoteData) console.log("noStudy", getPerformanceTime());
+  else console.log("hasStudy", getPerformanceTime());
+
   const { mutate: decideStudyResult } = useStudyResultDecideMutation(date);
 
   useEffect(() => {
@@ -83,7 +87,6 @@ export default function HomeStudySection() {
 
     if (date === dayjsToStr(dayjs())) {
       const myInfo = myStudy?.attendences.find((who) => who.user.uid === myUid);
-
       if (myInfo) {
         if (myInfo?.arrived && dayjs().hour() >= 20) {
           localStorage.setItem(HAS_STUDY_TODAY, undefined);
@@ -92,6 +95,9 @@ export default function HomeStudySection() {
         }
       }
     }
+    if (!studyVoteData?.[1]?.status) {
+      console.log("ERROR", studyVoteData);
+    }
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[1].status)) {
       decideStudyResult();
     }
@@ -99,13 +105,15 @@ export default function HomeStudySection() {
 
   const onDragEnd = (panInfo: PanInfo) => {
     const newDate = getNewDateBySwipe(panInfo, date as string);
-
     if (newDate !== date) {
       newSearchParams.set("date", newDate);
       router.replace(`/home?${newSearchParams.toString()}`);
     }
     return;
   };
+
+  if (studyCardColData && !isLoading)
+    console.log("studyCompleted", getPerformanceTime());
 
   return (
     <AnimatePresence initial={false}>
