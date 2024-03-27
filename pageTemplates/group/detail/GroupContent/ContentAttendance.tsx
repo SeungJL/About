@@ -7,17 +7,14 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
 
-import { transferGroupDataState } from "../../../../recoil/transferDataAtoms";
-
 import { IWeekRecord } from "../../../../types/page/group";
 
-function ContentAttend() {
+function ContentAttend({ group }) {
   const { data: session } = useSession();
   const router = useRouter();
   const [isModal, setIsModal] = useState(false);
@@ -31,8 +28,6 @@ function ContentAttend() {
 
   const weekDay = ["월", "화", "수", "목", "금", "토", "일"];
   const topLineArr = ["이름", ...weekDay];
-
-  const group = useRecoilValue(transferGroupDataState);
 
   const isNotMember =
     group.organizer.uid !== uid &&

@@ -16,6 +16,7 @@ interface IGroupContent {
 type Category = "정보" | "모임" | "출석부" | "채팅";
 
 function GroupContent({ group }: IGroupContent) {
+  console.log(5, group);
   const [category, setCategory] = useState<Category>("정보");
 
   const categoryArr: Category[] = ["정보", "출석부", "모임", "채팅"];
@@ -28,7 +29,7 @@ function GroupContent({ group }: IGroupContent) {
 
   return (
     <Layout>
-      <TabNav tabOptionsArr={tabArr} selected={ category} />
+      <TabNav tabOptionsArr={tabArr} selected={category} />
       {/* <ContentNav>
         {categoryArr.map((item) => (
           <ContentBtn
@@ -46,7 +47,7 @@ function GroupContent({ group }: IGroupContent) {
         ) : category === "모임" ? (
           <ContentGather />
         ) : category === "출석부" ? (
-          <ContentAttend />
+          <ContentAttend group={group} />
         ) : (
           <ContentChat />
         )}
