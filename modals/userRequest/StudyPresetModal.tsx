@@ -1,12 +1,17 @@
 import { Box } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import ImageTileGridLayout, {
   IImageTileData,
 } from "../../components2/molecules/layouts/ImageTitleGridLayout";
-import { STUDY_PREFERENCE_LOCAL } from "../../constants/keys/queryKeys";
+import {
+  STUDY_PREFERENCE,
+  STUDY_PREFERENCE_LOCAL,
+} from "../../constants/keys/queryKeys";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
 import {
@@ -15,6 +20,7 @@ import {
 } from "../../hooks/study/queries";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { IStudyPlaces } from "../../types2/studyTypes/studyVoteTypes";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 import { IConfirmContent } from "../common/ConfirmModal";
 import ConfirmModal2 from "../common/ConfirmModal2";
 
@@ -49,7 +55,13 @@ function StudyPresetModal() {
   });
 
   const size =
-    studyPlaces?.length > 8 ? "xxl" : studyPlaces?.length > 4 ? "xl" : "md";
+    studyPlaces?.length > 12
+      ? "xxxl"
+      : studyPlaces?.length > 8
+      ? "xxl"
+      : studyPlaces?.length > 4
+      ? "xl"
+      : "md";
 
   useEffect(() => {
     if (!studyPreference) return;
@@ -59,14 +71,17 @@ function StudyPresetModal() {
     });
   }, [studyPreference]);
 
+  const queryClient = useQueryClient();
+
   const { mutate: setStudyPreference } = useStudyPreferenceMutation({
     onSuccess() {
       typeToast("change");
+      queryClient.refetchQueries([STUDY_PREFERENCE]);
     },
   });
 
   const { mutate: getPoint } = usePointSystemMutation("point");
-
+  console.log(5, presetPlaces);
   const selectFirst = () => {
     if (!presetPlaces?.place) {
       toast("error", "장소를 선택해 주세요!");
@@ -83,12 +98,19 @@ function StudyPresetModal() {
   };
 
   const onSubmit = async () => {
-    await setStudyPreference(presetPlaces);
-    await getPoint({ value: 20, message: "스터디 장소 설정" });
-    await localStorage.setItem(
+    const savedPlaces: IStudyPlaces = {
+      place: presetPlaces.place,
+      subPlace: presetPlaces.subPlace.filter((place) =>
+        studyPlaces.map((par) => par._id).includes(place)
+      ),
+    };
+
+    localStorage.setItem(
       STUDY_PREFERENCE_LOCAL,
-      JSON.stringify(presetPlaces)
+      JSON.stringify({ prefer: savedPlaces, date: dayjsToStr(dayjs()) })
     );
+    await setStudyPreference(savedPlaces);
+    await getPoint({ value: 20, message: "스터디 장소 설정" });
     onClose();
   };
 
@@ -100,7 +122,7 @@ function StudyPresetModal() {
 
   const imageDataArr: IImageTileData[] = studyPlaces?.map((place) => ({
     imageUrl: place.image,
-    text: place.brand,
+    text: place.branch,
     func: () => {
       if (!presetPlaces?.place) setPresetPlaces({ place: place._id });
       else {
@@ -135,7 +157,15 @@ function StudyPresetModal() {
         setIsModal={() => onClose()}
       >
         <Box
-          h="360px"
+          h={
+            size === "xxxl"
+              ? "360px"
+              : size === "xxl"
+              ? "310px"
+              : size === "xl"
+              ? "200px"
+              : "200px"
+          }
           overflowY="auto"
           sx={{
             "&::-webkit-scrollbar": {

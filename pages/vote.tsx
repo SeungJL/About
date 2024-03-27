@@ -1,10 +1,11 @@
 import { Flex, ListItem, UnorderedList } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { STUDY_VOTE_ICON } from "../assets/icons/MapChoiceIcon";
+import { getStudyVoteIcon } from "../assets/icons/MapChoiceIcon";
 import ScreenOverlay from "../components2/atoms/ScreenOverlay";
 import VoteMap from "../components2/organisms/VoteMap";
 import VoteMapController from "../components2/organisms/VoteMapController";
@@ -65,50 +66,70 @@ export default function StudyVoteMap() {
   const [voteScore, setVoteScore] = useState(2);
   const [markersOptions, setMarkersOptions] = useState<IMarkerOptions[]>();
   const [subSecond, setSubSecond] = useState<string[]>();
-
+  const [morePlaces, setMorePlaces] = useState<string[]>();
   const [centerValue, setCenterValue] = useState<{ lat: number; lng: number }>(
     null
   );
 
   const subPlacePoint = myVote?.subPlace?.length || 0;
 
-  const { data: studyVoteData, isLoading } = useStudyVoteQuery(date, location, {
+  const { data: studyVoteData } = useStudyVoteQuery(date, location, {
     enabled: !!location && !!date,
   });
 
   const preferenceStorage = localStorage.getItem(STUDY_PREFERENCE_LOCAL);
-  const { data: studyPreference } = useStudyPreferenceQuery({
+  const { data: studyPreference, isLoading } = useStudyPreferenceQuery({
     enabled: !preferenceStorage,
+    onSuccess() {
+      setMyVote(null);
+    },
   });
 
   //스터디 프리셋 적용
   useEffect(() => {
     if (data?.user?.location !== location) return;
     if (!preferenceStorage && isLoading) return;
-    if (preferenceStorage && preferenceStorage !== "undefined") {
-      setPreferInfo({ preset: "first", prefer: JSON.parse(preferenceStorage) });
-    } else if (studyPreference === null) {
+    if (myVote?.subPlace.length) return;
+
+    const savedPrefer = JSON.parse(preferenceStorage);
+
+    if (!savedPrefer && !studyPreference) {
       toast(
         "info",
         "최초 1회 프리셋 등록이 필요합니다. 앞으로는 더 빠르게 투표할 수 있고, 이후 마이페이지에서도 변경이 가능합니다."
       );
       newSearchParams.append("preset", "on");
       router.replace(pathname + "?" + newSearchParams.toString());
+    } else if (
+      dayjs(savedPrefer?.date).isBefore(dayjs().subtract(1, "month")) ||
+      !savedPrefer?.date
+    ) {
+      toast("info", "설정한 프리셋 기간이 만료되었습니다. 다시 등록해주세요!");
+      newSearchParams.append("preset", "on");
+      router.replace(pathname + "?" + newSearchParams.toString());
+    } else if (savedPrefer) {
+      setPreferInfo({
+        preset: "first",
+        prefer: savedPrefer.prefer,
+      });
     } else {
-      setPreferInfo({ preset: "first", prefer: studyPreference });
-      localStorage.setItem(
-        STUDY_PREFERENCE_LOCAL,
-        JSON.stringify(studyPreference)
-      );
+      // setPreferInfo({ preset: "first", prefer: studyPreference });
+      // localStorage.setItem(
+      //   STUDY_PREFERENCE_LOCAL,
+      //   JSON.stringify({
+      //     prefer: studyPreference,
+      //   })
+      // );
     }
-  }, [data?.user, studyPreference, preferenceStorage]);
+  }, [data?.user, studyPreference, preferenceStorage, isLoading]);
 
   useEffect(() => {
     if (!studyVoteData) return;
-
+    console.log(255);
     if (preferInfo?.preset === "first") {
-      const prefer = preferInfo.prefer;
-
+      const savedPrefer = JSON.parse(preferenceStorage);
+      const prefer = savedPrefer.prefer;
+      console.log(24, prefer);
       const place = studyVoteData.some((par) => par.place._id === prefer?.place)
         ? prefer.place
         : null;
@@ -121,25 +142,27 @@ export default function StudyVoteMap() {
 
   useEffect(() => {
     if (!studyVoteData) return;
+
     setMarkersOptions(getMarkersOptions(studyVoteData, myVote, subSecond));
   }, [studyVoteData, myVote]);
 
   //2지망 장소 추천 및 투표 점수 추가
   useEffect(() => {
-    if (!studyVoteData || !data?.user?.uid) return;
+    if (!studyVoteData || !data?.user?.uid || preferInfo?.preset) return;
     const place = myVote?.place;
 
     if (place) {
-      const { sub1, sub2 } = getSecondRecommendations(
-        studyVoteData,
-        place,
-        precision
-      );
-
-      setSubSecond(sub2);
+      const { sub1, sub2 } = getSecondRecommendations(studyVoteData, place);
+      setMorePlaces([...sub1, ...sub2]);
+      if (precision === 2) setSubSecond(sub2);
       setMyVote((old) => ({
         ...old,
-        subPlace: [...sub1, ...sub2],
+        subPlace:
+          precision === 0
+            ? []
+            : precision === 2
+            ? [...sub1, ...sub2]
+            : [...sub1],
       }));
       setVoteScore(
         (old) =>
@@ -198,7 +221,12 @@ export default function StudyVoteMap() {
               setMyVote={setMyVote}
             />
           </MapLayout>
-          <MapBottomNav myVote={myVote} voteScore={voteScore + subPlacePoint} />
+          <MapBottomNav
+            myVote={myVote}
+            setMyVote={setMyVote}
+            voteScore={voteScore + subPlacePoint}
+            morePlaces={morePlaces}
+          />
         </Layout>
       </Flex>
       {isPreset && <StudyPresetModal />}
@@ -208,13 +236,12 @@ export default function StudyVoteMap() {
 
 export const getSecondRecommendations = (
   voteData: IParticipation[],
-  placeId: string,
-  precision: 0 | 1 | 2
+  placeId: string
 ): { sub1: string[]; sub2: string[] } => {
   let temp1: string[] = [];
   let temp2: string[] = [];
-  if (precision !== 0) temp1 = [...getRecommendations(placeId, 1)];
-  if (precision === 2) temp2 = [...getRecommendations(placeId, 2)];
+  temp1 = [...getRecommendations(placeId, 1)];
+  temp2 = [...getRecommendations(placeId, 2)];
 
   const newSubPlaces1: string[] = [];
   const newSubPlaces2: string[] = [];
@@ -313,11 +340,10 @@ export const getMarkersOptions = (
       id: par.place._id,
       position: new naver.maps.LatLng(par.place.latitude, par.place.longitude),
       title: par.place.brand,
-      shape: { type: "rect", coords: [-5, -5, 30, 30] },
       icon: {
-        content: STUDY_VOTE_ICON[iconType],
-        size: new naver.maps.Size(25, 25),
-        anchor: new naver.maps.Point(12.5, 12.5),
+        content: getStudyVoteIcon(iconType, par.place.branch),
+        size: new naver.maps.Size(72, 72),
+        anchor: new naver.maps.Point(36, 44),
       },
       infoWindow,
       polyline,

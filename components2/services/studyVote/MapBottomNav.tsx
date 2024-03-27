@@ -11,11 +11,13 @@ import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
+import StudySubVoteModal from "../../../modals/study/StudySubVoteModal";
 import { slideDirectionState } from "../../../recoils/navigationRecoils";
 import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
+import { DispatchType } from "../../../types2/reactTypes";
 import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
 import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
@@ -27,9 +29,16 @@ import StudyVoteTimeRulletDrawer from "./StudyVoteTimeRulletDrawer";
 interface IMapBottomNav {
   myVote: IStudyVote;
   voteScore: number;
+  setMyVote: DispatchType<IStudyVote>;
+  morePlaces: string[];
 }
 
-function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
+function MapBottomNav({
+  morePlaces,
+  myVote,
+  voteScore,
+  setMyVote,
+}: IMapBottomNav) {
   const router = useRouter();
   const toast = useToast();
   const typeToast = useTypeToast();
@@ -43,6 +52,8 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
 
   const setSlideDirection = useSetRecoilState(slideDirectionState);
 
+  const [isSubVoteModal, setIsSubVoteModal] = useState(false);
+
   const [voteTime, setVoteTime] = useState<{ start: Dayjs; end: Dayjs }>();
   const [modalType, setModalType] = useState<"timePick" | "voteCancel">(null);
 
@@ -54,6 +65,10 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
   const onClickTimeSelect = () => {
     if (!myVote?.place) {
       toast("error", "장소를 먼저 선택해주세요!");
+      return;
+    }
+    if (!myVote?.subPlace.length) {
+      setIsSubVoteModal(true);
       return;
     }
     setModalType("timePick");
@@ -161,6 +176,12 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
     func: () => handleAbsent(),
   };
 
+  // const {  sub2 } = getSecondRecommendations(
+  //   studyVoteData,
+  //   place,
+  //   2
+  // );
+
   return (
     <>
       <Layout>
@@ -198,6 +219,14 @@ function MapBottomNav({ myVote, voteScore }: IMapBottomNav) {
           />
         )}
       </AnimatePresence>
+      {isSubVoteModal && (
+        <StudySubVoteModal
+          setMyVote={setMyVote}
+          subPlaces={morePlaces}
+          setIsModal={setIsSubVoteModal}
+          setTimeModal={() => setModalType("timePick")}
+        />
+      )}
     </>
   );
 }

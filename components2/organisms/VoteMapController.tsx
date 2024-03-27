@@ -11,11 +11,11 @@ import {
 } from "@chakra-ui/react";
 import {
   faBullseyeArrow,
+  faGear,
   faRotateRight,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import { DispatchNumber } from "../../types/reactTypes";
@@ -42,14 +42,15 @@ function VoteMapController({
   setCenterValue,
 }: IVoteMapController) {
   const failToast = useFailToast();
-
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const location = convertLocationLangTo(
     searchParams.get("location") as LocationEn,
     "kr"
   );
 
-  const [isModal, setIsModal] = useState(false);
+  const newSearchParams = new URLSearchParams(searchParams);
+  const router = useRouter();
 
   const onClickRetrun = (type: ReturnDot) => {
     const LOCATION_RETURN_DOT = {
@@ -110,6 +111,11 @@ function VoteMapController({
     onClickRetrun("중앙");
   };
 
+  const onClickGear = () => {
+    newSearchParams.append("preset", "on");
+    router.replace(pathname + "?" + newSearchParams.toString());
+  };
+
   return (
     <>
       <Layout>
@@ -159,13 +165,30 @@ function VoteMapController({
               bgColor={preset === "second" ? "var(--color-mint)" : "white"}
               color={preset === "second" ? "white !important" : "var(--gray-2)"}
               size="sm"
+              mr="var(--gap-2)"
               border="1px solid var(--gray-4)"
               onClick={() => onClickSecond()}
             >
               2
             </Button>
+            <Button
+              w="34px"
+              h="34px"
+              bgColor={preset === "second" ? "var(--color-mint)" : "white"}
+              color={preset === "second" ? "white !important" : "var(--gray-2)"}
+              size="sm"
+              border="1px solid var(--gray-4)"
+              onClick={onClickGear}
+            >
+              <FontAwesomeIcon icon={faGear} />
+            </Button>
           </Box>
-          <Box as="span" fontSize="18px" fontWeight={600}>
+          <Box
+            as="span"
+            fontSize="16px"
+            color="var(--color-mint)"
+            fontWeight={600}
+          >
             스터디 희망 장소를 터치해 주세요!
           </Box>
         </BottomNav>
