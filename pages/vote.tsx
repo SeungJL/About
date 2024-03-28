@@ -90,11 +90,11 @@ export default function StudyVoteMap() {
   //스터디 프리셋 적용
   useEffect(() => {
     if (data?.user?.location !== location) return;
-    if (!preferenceStorage && isLoading) return;
+    if (!preferenceStorage && !studyPreference) return;
     if (myVote?.subPlace.length) return;
 
     const savedPrefer = JSON.parse(preferenceStorage);
-
+    console.log(savedPrefer, studyPreference);
     if (!savedPrefer && !studyPreference) {
       toast(
         "info",
