@@ -93,6 +93,13 @@ export default function StudyVoteMap() {
 
   //스터디 프리셋 적용
   useEffect(() => {
+    console.log(
+      "first",
+      data?.user,
+      location,
+      preferenceStorage,
+      studyPreference
+    );
     if (data?.user?.location !== location) return;
     if (!preferenceStorage && !studyPreference) return;
     if (myVote?.subPlace.length) return;
