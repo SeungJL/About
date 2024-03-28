@@ -89,6 +89,8 @@ export default function StudyVoteMap() {
     },
   });
 
+  console.log(2, studyPreference);
+
   //스터디 프리셋 적용
   useEffect(() => {
     if (data?.user?.location !== location) return;
@@ -120,7 +122,7 @@ export default function StudyVoteMap() {
         router.replace(pathname + "?" + newSearchParams.toString());
         setIsAlert(true);
       }
-    } else if (savedPrefer) {
+    } else if (savedPrefer?.prefer) {
       setPreferInfo({
         preset: "first",
         prefer: savedPrefer.prefer,
