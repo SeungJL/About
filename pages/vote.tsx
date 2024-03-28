@@ -94,7 +94,7 @@ export default function StudyVoteMap() {
     if (myVote?.subPlace.length) return;
 
     const savedPrefer = JSON.parse(preferenceStorage);
-    console.log(savedPrefer, studyPreference);
+
     if (!savedPrefer && !studyPreference) {
       toast(
         "info",
