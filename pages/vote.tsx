@@ -71,6 +71,8 @@ export default function StudyVoteMap() {
     null
   );
 
+  const [isAlert, setIsAlert] = useState(false);
+
   const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const subPlacePoint = myVote?.subPlace?.length || 0;
@@ -96,19 +98,28 @@ export default function StudyVoteMap() {
     const savedPrefer = JSON.parse(preferenceStorage);
 
     if (!savedPrefer && !studyPreference) {
-      toast(
-        "info",
-        "최초 1회 프리셋 등록이 필요합니다. 앞으로는 더 빠르게 투표할 수 있고, 이후 마이페이지에서도 변경이 가능합니다."
-      );
-      newSearchParams.append("preset", "on");
-      router.replace(pathname + "?" + newSearchParams.toString());
+      if (!isAlert) {
+        toast(
+          "info",
+          "최초 1회 프리셋 등록이 필요합니다. 앞으로는 더 빠르게 투표할 수 있고, 이후 마이페이지에서도 변경이 가능합니다."
+        );
+        setIsAlert(true);
+        newSearchParams.append("preset", "on");
+        router.replace(pathname + "?" + newSearchParams.toString());
+      }
     } else if (
       dayjs(savedPrefer?.date).isBefore(dayjs().subtract(1, "month")) ||
       !savedPrefer?.date
     ) {
-      toast("info", "설정한 프리셋 기간이 만료되었습니다. 다시 등록해주세요!");
-      newSearchParams.append("preset", "on");
-      router.replace(pathname + "?" + newSearchParams.toString());
+      if (!isAlert) {
+        toast(
+          "info",
+          "설정한 프리셋 기간이 만료되었습니다. 다시 등록해주세요!"
+        );
+        newSearchParams.append("preset", "on");
+        router.replace(pathname + "?" + newSearchParams.toString());
+        setIsAlert(true);
+      }
     } else if (savedPrefer) {
       setPreferInfo({
         preset: "first",
