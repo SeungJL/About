@@ -67,7 +67,7 @@ function MapBottomNav({
       toast("error", "장소를 먼저 선택해주세요!");
       return;
     }
-    if (!myVote?.subPlace.length) {
+    if (!myVote?.subPlace?.length && studyDateStatus === "not passed") {
       setIsSubVoteModal(true);
       return;
     }
@@ -175,12 +175,6 @@ function MapBottomNav({
     subTitle: "스터디 신청을 취소하시겠습니까?",
     func: () => handleAbsent(),
   };
-
-  // const {  sub2 } = getSecondRecommendations(
-  //   studyVoteData,
-  //   place,
-  //   2
-  // );
 
   return (
     <>

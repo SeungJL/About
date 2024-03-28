@@ -22,7 +22,7 @@ import {
   getVoteLocationMaxBound,
 } from "../libs/study/getStudyVoteMap";
 import StudyPresetModal from "../modals/userRequest/StudyPresetModal";
-import { myStudyState } from "../recoils/studyRecoils";
+import { myStudyState, studyDateStatusState } from "../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../storage/study";
 import { IMapOptions, IMarkerOptions } from "../types2/lib/naverMapTypes";
 import { ActiveLocation } from "../types2/serviceTypes/locationTypes";
@@ -70,6 +70,8 @@ export default function StudyVoteMap() {
   const [centerValue, setCenterValue] = useState<{ lat: number; lng: number }>(
     null
   );
+
+  const studyDateStatus = useRecoilValue(studyDateStatusState);
 
   const subPlacePoint = myVote?.subPlace?.length || 0;
 
@@ -125,11 +127,11 @@ export default function StudyVoteMap() {
 
   useEffect(() => {
     if (!studyVoteData) return;
-    console.log(255);
+
     if (preferInfo?.preset === "first") {
       const savedPrefer = JSON.parse(preferenceStorage);
       const prefer = savedPrefer.prefer;
-      console.log(24, prefer);
+
       const place = studyVoteData.some((par) => par.place._id === prefer?.place)
         ? prefer.place
         : null;
@@ -148,7 +150,13 @@ export default function StudyVoteMap() {
 
   //2지망 장소 추천 및 투표 점수 추가
   useEffect(() => {
-    if (!studyVoteData || !data?.user?.uid || preferInfo?.preset) return;
+    if (
+      !studyVoteData ||
+      !data?.user?.uid ||
+      preferInfo?.preset ||
+      studyDateStatus !== "not passed"
+    )
+      return;
     const place = myVote?.place;
 
     if (place) {
@@ -182,7 +190,6 @@ export default function StudyVoteMap() {
     }
     setMyVote((old) => setVotePlaceInfo(id, old));
   };
-  
 
   return (
     <>

@@ -25,9 +25,9 @@ function Home() {
   const searchParams = useSearchParams();
   const locationParam = searchParams.get("location") as LocationEn;
   const dateParam = searchParams.get("date");
-  console.log(2, session);
+ 
   const hasStudyToday = localStorage.getItem(HAS_STUDY_TODAY);
-  console.log(session);
+  
   useEffect(() => {
     if (session?.user && (!locationParam || !dateParam)) {
       const initialUrl = getUrlWithLocationAndDate(
@@ -40,12 +40,7 @@ function Home() {
     }
   }, [session?.user, locationParam, dateParam]);
 
-  if (!session) console.log("noSession");
 
-  if (!dateParam || !locationParam)
-    console.log("noParam", dateParam, locationParam, getPerformanceTime());
-
-  if (dateParam && locationParam) console.log("hasParam", getPerformanceTime());
   return (
     <>
       <HomeInitialSetting />

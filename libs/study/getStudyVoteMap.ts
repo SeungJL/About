@@ -4,7 +4,7 @@ export const getVoteLocationCenterDot = () => ({
   양천: new naver.maps.LatLng(37.527588, 126.896441),
   강남: new naver.maps.LatLng(37.503744, 127.048898),
   동대문: new naver.maps.LatLng(37.58452, 127.041047),
-  인천: new naver.maps.LatLng(37.419334, 126.684935),
+  인천: new naver.maps.LatLng(37.428334, 126.680935),
 });
 
 export const getVoteLocationMaxBound = () => ({

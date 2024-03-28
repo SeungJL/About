@@ -22,7 +22,8 @@ export type StudyVoteActionType =
   | "출석 체크"
   | "출석 완료"
   | "당일 불참"
-  | "기간 만료";
+  | "기간 만료"
+  | "당일 참여";
 
 const ACTION_TO_VOTE_TYPE: Record<StudyVoteActionType, VoteType> = {
   "참여 신청": "vote",
@@ -31,6 +32,7 @@ const ACTION_TO_VOTE_TYPE: Record<StudyVoteActionType, VoteType> = {
   "출석 완료": "attendCompleted",
   "당일 불참": "absent",
   "기간 만료": "expired",
+  "당일 참여": "todayVote",
 };
 
 interface IStudyControllerVoteButton {
@@ -62,7 +64,7 @@ function StudyControllerVoteButton({
       return;
     }
     const type = buttonProps.text;
-    if (type === "참여 신청" || type === "투표 변경") {
+    if (type === "참여 신청" || type === "투표 변경" || type === "당일 참여") {
       router.push(`/vote?${newSearchParams.toString()}`);
       return;
     }
@@ -121,7 +123,7 @@ export const getStudyVoteButtonProps = (
           shadow: "rgba(0, 194, 179, 0.1)",
         };
       return {
-        text: "참여 신청",
+        text: "당일 참여",
         color: "var(--color-mint)",
         shadow: "var(--color-mint-light)",
       };

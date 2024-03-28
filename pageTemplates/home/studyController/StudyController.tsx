@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Slide from "../../../components/layout/PageSlide";
 import BetweenTextSwitcher from "../../../components2/molecules/navs/BetweenTextSwitcher";
-import StudyVoteMap from "../../../components2/services/studyVote/StudyVoteMap";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
 import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
@@ -21,7 +20,8 @@ export type VoteType =
   | "attendCompleted"
   | "absent"
   | "expired"
-  | "attendPrivate";
+  | "attendPrivate"
+  | "todayVote";
 
 function StudyController() {
   const router = useRouter();
@@ -93,9 +93,7 @@ function StudyController() {
           </InnerContainer>
         </OuterContainer>
       </Slide>
-      {(modalType === "vote" || modalType === "voteChange") && (
-        <StudyVoteMap setIsModal={() => setModalType(null)} />
-      )}
+
       {modalType === "attendCheck" && (
         <StudyAttendCheckModal setIsModal={() => setModalType(null)} />
       )}

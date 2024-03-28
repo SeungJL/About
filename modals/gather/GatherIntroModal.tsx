@@ -23,6 +23,7 @@ function GatherIntroModal({ setIsModal }: IModal) {
         <Ul>
           <li>파티룸, 대형술집, 여행 등</li>
         </Ul>
+        <li>일반 동아리원이 모임 개설시 지원금을 받습니다.</li>
       </Ol>
     </ModalLayout>
   );
