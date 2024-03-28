@@ -98,10 +98,11 @@ export default function StudyVoteMap() {
       data?.user,
       location,
       preferenceStorage,
-      studyPreference
+      studyPreference,
+      isLoading
     );
     if (data?.user?.location !== location) return;
-    if (!preferenceStorage && studyPreference === undefined) return;
+    if (!preferenceStorage && isLoading) return;
     if (myVote?.subPlace.length) return;
 
     const savedPrefer = JSON.parse(preferenceStorage);
