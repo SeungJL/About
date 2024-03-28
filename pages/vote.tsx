@@ -182,6 +182,7 @@ export default function StudyVoteMap() {
     }
     setMyVote((old) => setVotePlaceInfo(id, old));
   };
+  
 
   return (
     <>

@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
-import { Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import {
@@ -76,17 +76,65 @@ function Test() {
   return (
     <>
       <Layout>
-        <input
-          id="imageInput"
-          accept="image/*"
-          type="file"
-          name="image"
-          onChange={handleImageChange}
-        />
-        {a}
-        <Button type="button" onClick={() => match()}>
-          클릭
-        </Button>
+        <Box w="72px" h="72px">
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                padding: "0 4px",
+                borderRadius: "8px",
+                textAlign: "center",
+                backgroundColor: "white",
+                fontWeight: "600",
+                fontSize: "12px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              테스트테스트테스트
+            </div>
+            <button
+              style={{
+                width: "48px",
+                height: "48px",
+                padding: "8px",
+                borderRadius: "50%",
+                backgroundColor: "rgba(0, 194, 179, 0.1)",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "#00c2b3",
+                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "white",
+                  fontWeight: "700",
+                  padding: "4px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    backgroundColor: "white",
+                  }}
+                ></div>
+              </div>
+            </button>
+          </div>
+        </Box>
       </Layout>
     </>
   );

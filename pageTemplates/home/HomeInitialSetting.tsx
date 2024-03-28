@@ -118,7 +118,7 @@ function HomeInitialSetting() {
 }
 
 const GlobalStyle = createGlobalStyle`
-  background-color:black !important;
+
   .react-joyride__tooltip{
     height:180px !important;
     padding:16px !important;

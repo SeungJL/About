@@ -80,7 +80,7 @@ function StudySubVoteModal({
         setIsModal={setIsModal}
       >
         <Box
-          h={size === "xxl" ? "310px" : size === "xl" ? "200px" : "200px"}
+          h={size === "xxl" ? "310px" : size === "xl" ? "200px" : "100px"}
           overflowY="auto"
           sx={{
             "&::-webkit-scrollbar": {

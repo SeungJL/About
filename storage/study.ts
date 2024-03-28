@@ -75,6 +75,7 @@ export const DONG_동대문역 = "6597bed1a11634850ed506d5";
 export const DONG_혜화역 = "6597be44a11634850ed506d3";
 export const DONG_혜화역2 = "6597be67a11634850ed506d4";
 export const DONG_화랑대역 = "65bfac8f7d1dd938049ed19f";
+export const DONG_중화역 = "6604c1ee4920fb76c1a64e62";
 
 //인천
 export const INC_인하대 = "65fbc711ba2597c46415a027";
@@ -155,6 +156,7 @@ export const PLACE_TO_NAME = {
   [DONG_혜화역]: "캐치카페",
   [DONG_혜화역2]: "커피빈",
   [DONG_화랑대역]: "마르티",
+  [DONG_중화역]: "스타벅스",
 
   [INC_구월동]: "파스쿠찌",
   [INC_부평]: "하이테이블",
@@ -237,6 +239,7 @@ export const PLACE_TO_LOCATION = {
   [DONG_혜화역]: "동대문",
   [DONG_화랑대역]: "동대문",
   [DONG_혜화역2]: "동대문",
+  [DONG_중화역]: "동대문",
 
   [INC_구월동]: "인천",
   [INC_부평]: "인천",

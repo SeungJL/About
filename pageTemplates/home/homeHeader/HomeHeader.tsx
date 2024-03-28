@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import {
   faBadgeCheck,
   faBell,
+  faBooks,
   faCircleP,
   faCircleUser,
 } from "@fortawesome/pro-light-svg-icons";
@@ -25,6 +26,7 @@ import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useNoticeActiveLogQuery } from "../../../hooks/user/sub/interaction/queries";
 import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
+import StudyRuleModal from "../../../modals/aboutHeader/studyRuleModal/StudyRuleModal";
 import { slideDirectionState } from "../../../recoils/navigationRecoils";
 import { renderHomeHeaderState } from "../../../recoils/renderRecoils";
 import { transferShowDailyCheckState } from "../../../recoils/transferRecoils";
@@ -39,7 +41,7 @@ import { AlertIcon } from "../../../styles/icons";
 //   | "attendCheck"
 //   | "attendCheckWin";
 
-export type HomeHeaderModalType = "dailyCheck" | "pointGuide" | null;
+export type HomeHeaderModalType = "rule" | "dailyCheck" | "pointGuide" | null;
 
 function HomeHeader() {
   const searchParams = useSearchParams();
@@ -70,6 +72,10 @@ function HomeHeader() {
 
   const generateIconBtnArr = () => {
     let arr = [
+      {
+        icon: <FontAwesomeIcon icon={faBooks} />,
+        func: () => setModalType("rule"),
+      },
       {
         icon: <FontAwesomeIcon icon={faCircleP} />,
         func: () => setModalType("pointGuide"),
@@ -128,6 +134,9 @@ function HomeHeader() {
       )}
       {modalType === "dailyCheck" && (
         <DailyCheckModal setIsModal={() => setModalType(null)} />
+      )}
+      {modalType === "rule" && (
+        <StudyRuleModal setIsModal={() => setModalType(null)} />
       )}
     </>
   );

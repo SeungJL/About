@@ -1,10 +1,13 @@
 import {
+  DONG_화랑대역,
   INC_구월동,
   INC_송도,
   INC_송도DT,
   INC_인하대,
   SUWAN_광교,
+  SUWAN_워터쿨러,
   YANG_목동점,
+  YANG_발산역,
 } from "../../../storage/study";
 import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
@@ -99,6 +102,10 @@ export const STUDY_DISTANCE: {
       [SUWAN_광교엘리웨이, SUWAN_광교],
       [SUWAN_송죽, SUWAN_행궁동],
       [SUWAN_송죽, SUWAN_성균관대역],
+      [SUWAN_워터쿨러, SUWAN_광교],
+      [SUWAN_워터쿨러, SUWAN_경기대],
+      [SUWAN_워터쿨러, SUWAN_행궁동],
+      [SUWAN_워터쿨러, SUWAN_송죽],
     ],
     2: [
       [SUWAN_고색역, SUWAN_성균관대역],
@@ -178,6 +185,8 @@ export const STUDY_DISTANCE: {
       [YANG_신풍역, YANG_카페꼼마],
       [YANG_카페베네, YANG_카페꼼마],
       [YANG_신풍역, YANG_카페꼼마],
+      [YANG_발산역, YANG_화곡역],
+      [YANG_발산역, YANG_위카페],
     ],
     2: [
       [YANG_화곡역, YANG_양천구청역],
@@ -198,6 +207,7 @@ export const STUDY_DISTANCE: {
       [YANG_스타벅스, YANG_카페베네],
       [YANG_위카페, YANG_이디야],
       [YANG_이디야, YANG_신길역],
+      [YANG_발산역, YANG_파스쿠찌],
     ],
   },
   강남: {
@@ -272,6 +282,8 @@ export const STUDY_DISTANCE: {
       [DONG_서울시립대, DONG_장안동],
       [DONG_서울시립대, DONG_석계역],
       [DONG_딥십리역, DONG_장안동],
+      [DONG_화랑대역, DONG_월곡역],
+      [DONG_화랑대역, DONG_석계역],
     ],
     2: [
       [DONG_혜화역, DONG_안암역],
