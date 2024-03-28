@@ -1,4 +1,4 @@
-import { Textarea } from "@chakra-ui/react";
+import { Box, Textarea } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useParams, useSearchParams } from "next/navigation";
@@ -144,8 +144,6 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
     isFull: true,
   };
 
-
-
   return (
     <>
       <ModalLayout
@@ -157,6 +155,11 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
         <ModalSubtitle>
           도착하셨나요? <br />
           자리나 인상착의를 간단하게 적어주세요!
+          <br />
+          <Box as="span" fontSize="12px" color="var(--gray-3)">
+            {isPrivate &&
+              "+ 현재 아이폰 HEIC 포멧은 이미지 인증시 오류가 납니다. 설정 -> 카메라 -> 높은 호환성으로 바꿔주시거나 아니면 이후 해결되면 따로 공지하겠습니당 ㅜㅜ"}
+          </Box>
         </ModalSubtitle>
         {!isPrivate ? (
           <Textarea
