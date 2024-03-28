@@ -160,6 +160,12 @@ export default function StudyVoteMap() {
         studyVoteData.some((par) => par.place._id === sub)
       );
       setMyVote((old) => (place ? { ...old, place, subPlace } : { ...old }));
+
+      if (
+        !studyVoteData.map((data) => data.place._id).some((id) => id === place)
+      ) {
+        toast("info", "해당 지역에 설정된 프리셋이 없습니다.");
+      }
     } else if (preferInfo?.preset === null) setMyVote(null);
   }, [preferInfo, studyVoteData]);
 
@@ -179,11 +185,13 @@ export default function StudyVoteMap() {
     )
       return;
     const place = myVote?.place;
+    console.log(244, preferInfo?.preset);
 
     if (place) {
       const { sub1, sub2 } = getSecondRecommendations(studyVoteData, place);
       setMorePlaces([...sub1, ...sub2]);
       if (precision === 2) setSubSecond(sub2);
+
       setMyVote((old) => ({
         ...old,
         subPlace:
