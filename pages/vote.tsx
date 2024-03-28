@@ -143,7 +143,7 @@ export default function StudyVoteMap() {
 
     if (preferInfo?.preset === "first") {
       const savedPrefer = JSON.parse(preferenceStorage);
-      const prefer = savedPrefer.prefer;
+      const prefer = savedPrefer?.prefer;
 
       const place = studyVoteData.some((par) => par.place._id === prefer?.place)
         ? prefer.place
