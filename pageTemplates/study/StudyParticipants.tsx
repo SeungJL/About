@@ -105,7 +105,7 @@ const composeUserCardArr = (
 
   return {
     user: participant.user,
-    comment: participant.memo || "",
+    comment: participant.memo || absent?.message || "",
     rightComponentProps:
       arrived || absent
         ? {

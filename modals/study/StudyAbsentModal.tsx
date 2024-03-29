@@ -3,10 +3,13 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
+import { PLACE_TO_LOCATION } from "../../constants2/serviceConstants/studyConstants/studyLocationConstants";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
@@ -20,7 +23,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const typeToast = useTypeToast();
   const { data: session } = useSession();
   const { id, date } = useParams<{ id: string; date: string }>();
-
+  const location = PLACE_TO_LOCATION[id];
   const myStudy = useRecoilValue(myStudyState);
 
   const [value, setValue] = useState<string>("");
@@ -32,6 +35,8 @@ function StudyAbsentModal({ setIsModal }: IModal) {
   const { mutate: sendRequest } = useUserRequestMutation();
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
 
+  const queryClient = useQueryClient();
+
   const { mutate: absentStudy } = useStudyAbsentMutation(dayjs(date), {
     onSuccess: () => {
       typeToast("success");
@@ -40,6 +45,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
       if (dayjs() > startTime) fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER;
       else fee = POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE;
       getDeposit(fee);
+      queryClient.invalidateQueries([STUDY_VOTE, date, location]);
       sendRequest({
         writer: session.user.name,
         title: session.user.uid + `D${fee.value}`,
@@ -88,7 +94,7 @@ function StudyAbsentModal({ setIsModal }: IModal) {
               </P>
             )}
           </ModalSubtitle>
-          <Textarea />
+          <Textarea value={value} onChange={(e) => setValue(e.target.value)} />
         </Body>
       </ModalLayout>
     </>
