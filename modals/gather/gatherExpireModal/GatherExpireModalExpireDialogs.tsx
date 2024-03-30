@@ -38,6 +38,7 @@ function GatherExpireModalExpireDialog({
 
   const { mutate: statusOpen } = useGatherStatusMutation(gatherId, {
     onSuccess() {
+      setIsComplete(true);
       completeToast("free", "모임이 개설되었어요!");
     },
     onError: errorToast,
@@ -50,7 +51,6 @@ function GatherExpireModalExpireDialog({
 
   const onComplete = () => {
     statusOpen("open");
-    setIsComplete(true);
     onClose();
   };
 

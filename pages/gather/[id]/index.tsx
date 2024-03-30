@@ -28,6 +28,7 @@ function GatherDetail() {
   useEffect(() => {
     if (gathers) setGatherData(gathers.find((item) => item.id + "" === id));
   }, [gathers]);
+  console.log(2, gathers);
 
   return (
     <>

@@ -6,18 +6,18 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import {
   useCompleteToast,
-  useErrorToast
+  useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import {
   useGatherStatusMutation,
-  useGatherWritingMutation
+  useGatherWritingMutation,
 } from "../../../hooks/gather/mutations";
 import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
