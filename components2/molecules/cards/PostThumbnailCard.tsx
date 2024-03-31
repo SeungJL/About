@@ -77,8 +77,15 @@ export function PostThumbnailCard({
             <div className="userIconContainer">
               <UserIcon />
               <span>
-                {participants.length}/
-                {maxCnt || <FontAwesomeIcon icon={faInfinity} />}
+                <Box
+                  as="span"
+                  color={
+                    maxCnt && participants.length > maxCnt && "var(--color-red)"
+                  }
+                >
+                  {participants.length}
+                </Box>
+                /{maxCnt || <FontAwesomeIcon icon={faInfinity} />}
               </span>
             </div>
           </div>
