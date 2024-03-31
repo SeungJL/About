@@ -112,9 +112,6 @@ export default function HomeStudySection() {
     return;
   };
 
-  if (studyCardColData && !isLoading)
-    console.log("studyCompleted", getPerformanceTime());
-
   return (
     <AnimatePresence initial={false}>
       <MotionDiv

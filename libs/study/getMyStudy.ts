@@ -8,7 +8,11 @@ export const getMyStudy = (
   let myStudy: IParticipation | null = null;
   participations.forEach((par) =>
     par.attendences.forEach((who) => {
-      if (who.user.uid === myUid && who.firstChoice) {
+      if (
+        who.user.uid === myUid &&
+        who.firstChoice &&
+        par.status !== "dismissed"
+      ) {
         myStudy = par;
       }
     })
