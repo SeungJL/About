@@ -1,4 +1,6 @@
 import {
+  DONG_중화역,
+  DONG_화랑대역,
   INC_구월동,
   INC_부평,
   INC_송도,
@@ -136,6 +138,8 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     DONG_혜화역,
     DONG_혜화역2,
     DONG_자유신청,
+    DONG_화랑대역,
+    DONG_중화역,
   ],
   인천: [INC_구월동, INC_부평, INC_인하대, INC_송도, INC_송도DT],
 };

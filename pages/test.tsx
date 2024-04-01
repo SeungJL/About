@@ -13,10 +13,10 @@ import { useImageUploadMutation } from "../hooks/image/mutations";
 import { studyDateStatusState } from "../recoils/studyRecoils";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2024-03-18"),
-    dayjs("2024-03-24"),
+    dayjs("2024-03-25"),
+    dayjs("2024-03-31"),
     null,
-    "수원"
+    "강남"
   );
   console.log(data);
 
