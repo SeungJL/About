@@ -47,6 +47,7 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
 
   const { mutateAsync: openFree } = useStudyOpenFreeMutation(date, {
     onSuccess() {
+      queryClient.invalidateQueries([STUDY_VOTE, date, location]);
       completeToast("free", "스터디가 Free로 오픈되었습니다.");
     },
     onError: errorToast,
