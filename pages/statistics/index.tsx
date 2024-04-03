@@ -4,9 +4,9 @@ import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
+import { MainLoadingAbsolute } from "../../components/atoms/loaders/MainLoading";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
 import {
   sortUserRanking,
   sortUserScoreRanking,

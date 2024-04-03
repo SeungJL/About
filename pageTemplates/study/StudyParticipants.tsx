@@ -2,10 +2,10 @@ import { Box, Flex } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useState } from "react";
-import AlertNotCompletedModal from "../../components2/AlertNotCompletedModal";
-import AttendanceBadge from "../../components2/molecules/badge/AttendanceBadge";
-import { IProfileCommentCard } from "../../components2/molecules/cards/ProfileCommentCard";
-import ProfileCardColumn from "../../components2/organisms/ProfileCardColumn";
+import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
+import AttendanceBadge from "../../components/molecules/badge/AttendanceBadge";
+import { IProfileCommentCard } from "../../components/molecules/cards/ProfileCommentCard";
+import ProfileCardColumn from "../../components/organisms/ProfileCardColumn";
 import { IAbsence, IAttendance } from "../../types2/studyTypes/studyVoteTypes";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 

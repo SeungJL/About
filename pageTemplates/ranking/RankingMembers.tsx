@@ -2,7 +2,7 @@ import { Badge, Box } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import styled from "styled-components";
-import Avatar from "../../components2/atoms/Avatar";
+import Avatar from "../../components/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { RANKING_ANONYMOUS_USERS } from "../../constants/storage/anonymous";
 import { getUserBadge } from "../../helpers/userHelpers";
@@ -24,9 +24,8 @@ function RankingMembers({ rankingUsers, isScore }: IRankingMembers) {
   useEffect(() => {
     if (uid && !isGuest) {
       setTimeout(() => {
-     
         const element = document.getElementById(`ranking${uid}`);
-     
+
         element?.scrollIntoView({ behavior: "smooth" });
       }, 500);
     }

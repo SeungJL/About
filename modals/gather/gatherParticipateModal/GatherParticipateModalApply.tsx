@@ -1,5 +1,4 @@
 import { useParams } from "next/navigation";
-import { ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { birthToAge } from "../../../helpers/converterHelpers";
 import {
   useFailToast,
@@ -9,6 +8,7 @@ import { useGatherQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { DispatchNumber } from "../../../types/reactTypes";
 import { IUser } from "../../../types2/userTypes/userInfoTypes";
+import { ModalBodyNavTwo } from "../../Modals";
 
 interface IGatherParticipateModalApply {
   setPageNum: DispatchNumber;

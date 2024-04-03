@@ -5,12 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import BlurredPart from "../../components/common/masks/BlurredPart";
-import { IPostThumbnailCard } from "../../components2/molecules/cards/PostThumbnailCard";
+import BlurredPart from "../../components/molecules/BlurredPart";
+import { IPostThumbnailCard } from "../../components/molecules/cards/PostThumbnailCard";
 import {
   CardColumnLayout,
   CardColumnLayoutSkeleton,
-} from "../../components2/organisms/CardColumnLayout";
+} from "../../components/organisms/CardColumnLayout";
 import { HAS_STUDY_TODAY } from "../../constants/keys/localStorage";
 import { useStudyResultDecideMutation } from "../../hooks/study/mutations";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
@@ -32,7 +32,6 @@ import {
 } from "../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
-import { getPerformanceTime } from "../../utils/mathUtils";
 
 export default function HomeStudySection() {
   const { data: session } = useSession();
@@ -60,9 +59,6 @@ export default function HomeStudySection() {
       enabled: !!date && !!location,
     }
   );
-
-  if (!studyVoteData) console.log("noStudy", getPerformanceTime());
-  else console.log("hasStudy", getPerformanceTime());
 
   const { mutate: decideStudyResult } = useStudyResultDecideMutation(date);
 
@@ -95,9 +91,7 @@ export default function HomeStudySection() {
         }
       }
     }
-    if (!studyVoteData?.[1]?.status) {
-      console.log("ERROR", studyVoteData);
-    }
+
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[1].status)) {
       decideStudyResult();
     }

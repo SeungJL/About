@@ -2,10 +2,10 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import BottomNav from "../../components/layout/BottomNav";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import BottomNav from "../../components/layouts/BottomNav";
 
-import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   LOCATION_ALL,

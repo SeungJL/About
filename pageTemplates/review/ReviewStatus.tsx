@@ -2,9 +2,9 @@ import { faHeart, faMessage } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/modals/ModalPortal";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import ModalPortal from "../../modals/ModalPortal";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 const VOTER_SHOW_MAX = 7;
 function ReviewStatus({ temp }: { temp?: any }) {

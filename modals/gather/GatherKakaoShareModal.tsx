@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
-import { ModalLayout } from "../../components/modals/Modals";
-import { GATHER_SHARE_IMAGES } from "../../constants/image/imageUrl";
+import { GATHER_SHARE_IMAGES } from "../../assets/images/imageUrl";
+import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
 import { WEB_URL } from "../../constants/system";
+import { ModalLayout } from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGatherHeader } from "../../types/page/gather";

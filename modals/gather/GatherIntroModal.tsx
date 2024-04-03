@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function GatherIntroModal({ setIsModal }: IModal) {
   const footerOptions: IFooterOptions = {

@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
+import Header from "../../../components/layouts/Header";
 
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
 import { ISpaceControl } from "../../../types/page/admin";

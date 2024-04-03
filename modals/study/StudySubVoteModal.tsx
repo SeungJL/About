@@ -1,16 +1,16 @@
 import { Box } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import ImageTileGridLayout, {
   IImageTileData,
-} from "../../components2/molecules/layouts/ImageTitleGridLayout";
+} from "../../components/molecules/layouts/ImageTitleGridLayout";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { IModal } from "../../types/reactTypes";
 import { DispatchType } from "../../types2/reactTypes";
 import { ActiveLocation } from "../../types2/serviceTypes/locationTypes";
 import { IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IStudySubVoteModal extends IModal {
   subPlaces: string[];

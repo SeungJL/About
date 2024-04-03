@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import RuleIcon from "../../components/common/Icon/RuleIcon";
+import RuleIcon from "../../components/atoms/Icons/RuleIcon";
 import { useStoreGiftEntryQuery } from "../../hooks/sub/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
@@ -11,9 +11,10 @@ import { IStoreApplicant } from "../../types/page/store";
 
 import { Button } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
-import { StoreGiftImage } from "../../components/utils/CustomImages";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
+
+import Image from "next/image";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { isPrevBooleanState } from "../../recoil/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoil/transferDataAtoms";
@@ -134,11 +135,15 @@ function Event() {
                     </Trophy>
                   </Status>
                   <ImageWrapper>
-                    <StoreGiftImage
-                      imageSrc={item.image}
-                      giftId={item.giftId}
-                      isImagePriority={idx < 6}
+                    <Image
+                      src={item.image}
+                      alt="storeGift"
+                      priority={idx < 6}
+                      width={86.5}
+                      height={86.5}
+                      style={{ borderRadius: "var(--rounded)" }}
                     />
+
                     {(!isShowActive || item.max <= item.totalCnt) && (
                       <Circle>추첨 완료</Circle>
                     )}

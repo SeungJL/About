@@ -2,11 +2,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/PageSlide";
-import ButtonCheckNav from "../../../components/templates/ButtonCheckNav";
-import ProgressStatus from "../../../components/templates/ProgressStatus";
+import BottomNav from "../../../components/layouts/BottomNav";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
+
+import ButtonCheckNav from "../../../components/molecules/ButtonCheckNav";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";

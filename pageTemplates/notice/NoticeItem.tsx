@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { NoticeIcon } from "../../components/common/Icon/NoticeIcons";
+import { NoticeIcon } from "../../components/atoms/Icons/NoticeIcons";
 import { NOTICE_ALERT } from "../../constants/keys/localStorage";
 
 import { NOTICE_ARR } from "../../storage/notice";

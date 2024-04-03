@@ -1,12 +1,11 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../../components/modals/ModalPortal";
-import AlertModal, {
-  IAlertModalOptions,
-} from "../../../components2/AlertModal";
-import StudyVoteDrawer from "../../../components2/services/studyVote/StudyVoteDrawer";
+import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
+
+import StudyVoteDrawer from "../../../components/services/studyVote/StudyVoteDrawer";
 import { useToast } from "../../../hooks/custom/CustomToast";
+import ModalPortal from "../../../modals/ModalPortal";
 import StudyAbsentModal from "../../../modals/study/StudyAbsentModal";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
 import StudyChangeTimeModal from "../../../modals/study/StudyChangeTimeModal";

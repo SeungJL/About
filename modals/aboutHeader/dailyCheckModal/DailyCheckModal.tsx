@@ -14,12 +14,12 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { Badge } from "../../../components/common/customComponents/Badges";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+
+import { Badge } from "../../../components/atoms/badges/Badges";
 import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
+import { DAILY_CHECK_WIN_LIST } from "../../../constants/serviceConstants/dailyCheckConstatns";
+import { POINT_SYSTEM_PLUS } from "../../../constants/serviceConstants/pointSystemConstants";
 import { DAILY_CHECK_WIN_ITEM } from "../../../constants/settingValue/dailyCheck";
-import { DAILY_CHECK_WIN_LIST } from "../../../constants2/serviceConstants/dailyCheckConstatns";
-import { POINT_SYSTEM_PLUS } from "../../../constants2/serviceConstants/pointSystemConstants";
 import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { getRandomAlphabet } from "../../../helpers/eventHelpers";
 import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
@@ -37,6 +37,7 @@ import {
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
 import { getDistributionArr } from "../../../utils/mathUtils";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 const DISTRIBUTION_SIZE = 10000;
 

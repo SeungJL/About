@@ -1,7 +1,7 @@
-import { IHighlightedText } from "../../components2/atoms/HighlightedText";
+import { IHighlightedText } from "../../components/atoms/HighlightedText";
 import UserTimeBoard, {
   ITimeBoardParticipant,
-} from "../../components2/molecules/boards/userTimeBoard/UserTimeBoard";
+} from "../../components/molecules/boards/userTimeBoard/UserTimeBoard";
 import {
   IAttendance,
   StudyStatus,

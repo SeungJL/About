@@ -1,12 +1,12 @@
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../../components/common/loaders/MainLoading";
+import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
+import Header from "../../../components/layouts/Header";
 
-import Header from "../../../components/layout/Header";
-import ModalPortal from "../../../components/modals/ModalPortal";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 import CheckAbsentModal from "../../../modals/admin/CheckAbsentModal";
+import ModalPortal from "../../../modals/ModalPortal";
 
 function AdminAbsent() {
   const { data: suggestData, isLoading } = useUserRequestQuery("불참");

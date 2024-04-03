@@ -1,10 +1,10 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function RequestBirthModal({ setIsModal }: IModal) {
   const failToast = useFailToast();

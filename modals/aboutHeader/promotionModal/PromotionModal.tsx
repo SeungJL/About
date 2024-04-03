@@ -3,12 +3,8 @@ import { faCoins, faGift } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import {
-  IFooterOptions,
-  IHeaderOptions,
-  ModalLayout,
-} from "../../../components/modals/Modals";
 import { IModal } from "../../../types/reactTypes";
+import { IFooterOptions, IHeaderOptions, ModalLayout } from "../../Modals";
 import PromotionModalOverview from "./PromotionModalOverview";
 
 function PromotionModal({ setIsModal }: IModal) {

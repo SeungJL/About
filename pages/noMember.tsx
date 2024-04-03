@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-import { XAlertIcon } from "../components/common/Icon/AlertIcon";
+import { XAlertIcon } from "../components/atoms/Icons/AlertIcon";
 
 function NoMember({}) {
   const router = useRouter();

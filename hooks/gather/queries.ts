@@ -16,7 +16,7 @@ export const useGatherQuery = (options?: QueryOptions<IGather[]>) =>
     },
     options
   );
-  
+
 export const useGatherAllSummaryQuery = (
   options?: QueryOptions<IGatherSummary[]>
 ) =>

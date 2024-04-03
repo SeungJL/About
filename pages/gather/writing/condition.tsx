@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layout/BottomNav";
-import ProgressStatus from "../../../components/templates/ProgressStatus";
+import BottomNav from "../../../components/layouts/BottomNav";
+
 import { randomPassword } from "../../../helpers/validHelpers";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -22,11 +22,12 @@ import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 
 import { faUserPolice } from "@fortawesome/pro-solid-svg-icons";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
+import { PopOverIcon } from "../../../components/atoms/Icons/PopOverIcon";
 import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
 
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/PageSlide";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
 import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";

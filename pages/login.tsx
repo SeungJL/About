@@ -15,11 +15,12 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../components/modals/Modals";
+
 import { useToast } from "../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../hooks/user/queries";
 import ForceLogoutDialog from "../modals/login/ForceLogoutDialog";
 import GuestLoginModal from "../modals/login/GuestLoginModal";
+import { IFooterOptions, ModalLayout } from "../modals/Modals";
 import { IconKakao } from "../public/icons/Icons";
 
 const Login: NextPage<{

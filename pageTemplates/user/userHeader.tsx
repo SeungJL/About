@@ -1,9 +1,9 @@
 import { faGear } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Header from "../../components/layout/Header";
+import Header from "../../components/layouts/Header";
 import IconButtonNav, {
   IIconButtonNavBtn,
-} from "../../components2/molecules/navs/IconButtonNav";
+} from "../../components/molecules/navs/IconButtonNav";
 interface IUserHeader {}
 export default function UserHeader({}: IUserHeader) {
   const iconBtnArr: IIconButtonNavBtn[] = [

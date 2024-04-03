@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import {
   IPostThumbnailCard,
   PostThumbnailCard,
-} from "../../components2/molecules/cards/PostThumbnailCard";
+} from "../../components/molecules/cards/PostThumbnailCard";
 import { useGatherQuery } from "../../hooks/gather/queries";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
@@ -35,8 +35,6 @@ export default function GatherMain() {
       )
     );
   }, [gathers, location]);
-
-
 
   return (
     <Box m="0 16px">

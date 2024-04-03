@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Chart from "../../../components/dataViews/chart/Chart";
+import Chart from "../../../components/organisms/chart/Chart";
 
 function RecordAnalysisGraph() {
   return (

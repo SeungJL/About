@@ -2,10 +2,8 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
-import AlertModal, {
-  IAlertModalOptions,
-} from "../../../components2/AlertModal";
+
+import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 import {
   useCompleteToast,
   useFailToast,
@@ -16,6 +14,7 @@ import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { ModalSubtitle } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/reactTypes";
 import { IConfirmContent } from "../../common/ConfirmModal";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 interface IEnthusiasticModal extends IModal {}
 

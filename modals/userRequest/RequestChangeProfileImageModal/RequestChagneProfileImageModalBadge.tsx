@@ -2,12 +2,12 @@ import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 import { EventBadge } from "../../../types/user/user";
 

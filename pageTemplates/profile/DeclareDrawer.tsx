@@ -13,7 +13,7 @@ import { faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { DECLARE_LIST } from "../../constants/contents/requestContents";
+import { DECLARE_LIST } from "../../constants/contentsText/requestContents";
 import {
   useCompleteToast,
   useErrorToast,

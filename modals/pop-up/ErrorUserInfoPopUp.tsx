@@ -1,7 +1,7 @@
 import { signOut, useSession } from "next-auth/react";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";

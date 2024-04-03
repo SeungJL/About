@@ -13,10 +13,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Slide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layouts/PageSlide";
 import IconButtonNav, {
   IIconButtonNavBtn,
-} from "../../../components2/molecules/navs/IconButtonNav";
+} from "../../../components/molecules/navs/IconButtonNav";
 import {
   DAILY_CHECK_POP_UP,
   NOTICE_ACTIVE_CNT,

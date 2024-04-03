@@ -4,8 +4,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import TimeSelector from "../../components/features/picker/TimeSelector";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import {
   useCompleteToast,
@@ -16,7 +15,9 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,
 } from "../../hooks/study/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
+import TimeSelector from "../../components/molecules/picker/TimeSelector";
 import { IModal } from "../../types/reactTypes";
 import { IPlace } from "../../types/study/studyDetail";
 import { ITimeStartToEnd } from "../../types/timeAndDate";

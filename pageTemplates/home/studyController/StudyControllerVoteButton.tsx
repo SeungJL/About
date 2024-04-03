@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ShadowCircleButton, {
   IShadowCircleProps,
-} from "../../../components2/atoms/buttons/ShadowCircleButton";
+} from "../../../components/atoms/buttons/ShadowCircleButton";
 import { useTypeToast } from "../../../hooks/custom/CustomToast";
 
 import {

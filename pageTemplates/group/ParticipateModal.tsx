@@ -2,12 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { PopOverIcon } from "../../components/common/Icon/PopOverIcon";
-import {
-  IFooterOptions,
-  ModalFooterTwo,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { PopOverIcon } from "../../components/atoms/Icons/PopOverIcon";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
@@ -18,6 +13,11 @@ import {
 
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import {
+  IFooterOptions,
+  ModalFooterTwo,
+  ModalLayout,
+} from "../../modals/Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
@@ -96,7 +96,7 @@ function ParticipateModal({
         return;
       }
     }
-  
+
     if (isFree) participate();
     else sendRegisterForm({ answer, pointType: selectBtn });
     setIsModal(false);

@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import SuccessScreen from "../../components/layout/SuccessScreen";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
-import ImageUploadInput from "../../components2/molecules/ImageUploadInput";
+import SuccessScreen from "../../components/layouts/SuccessScreen";
+
+import ImageUploadInput from "../../components/molecules/ImageUploadInput";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
@@ -15,6 +15,7 @@ import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGather, IGatherWriting } from "../../types/page/gather";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IGatherWritingConfirmModal extends IModal {
   gatherData: IGatherWriting | IGather;

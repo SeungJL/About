@@ -1,4 +1,4 @@
-import { IDailyCheckWinList } from "../constants2/serviceConstants/dailyCheckConstatns";
+import { IDailyCheckWinList } from "../constants/serviceConstants/dailyCheckConstatns";
 
 export const getDistributionArr = (
   winList: IDailyCheckWinList[],

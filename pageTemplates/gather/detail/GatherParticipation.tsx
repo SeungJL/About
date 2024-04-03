@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Avatar from "../../../components2/atoms/Avatar";
+import Avatar from "../../../components/atoms/Avatar";
 import { prevPageUrlState } from "../../../recoils/navigationRecoils";
 import { transferUserSummaryState } from "../../../recoils/transferRecoils";
 import { IGather } from "../../../types2/gatherTypes/gatherTypes";

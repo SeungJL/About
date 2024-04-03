@@ -5,16 +5,16 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
+import { useCompleteToast } from "../../hooks/custom/CustomToast";
+import { usePromotionMutation } from "../../hooks/sub/promotion/mutations";
+import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
+import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import {
   IFooterOptions,
   ModalFooterOne,
   ModalFooterTwo,
   ModalLayout,
-} from "../../components/modals/Modals";
-import { useCompleteToast } from "../../hooks/custom/CustomToast";
-import { usePromotionMutation } from "../../hooks/sub/promotion/mutations";
-import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
-import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
+} from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";

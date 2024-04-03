@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Slide from "../../components/layout/PageSlide";
+import Slide from "../../components/layouts/PageSlide";
 
-import Header from "../../components/layout/Header";
-import Accordion from "../../components/templates/Accordion";
-import SectionBar from "../../components2/molecules/bars/SectionBar";
-import { ACCORDION_CONTENT_FAQ } from "../../constants/contents/accordionContents";
+import Header from "../../components/layouts/Header";
+import Accordion from "../../components/molecules/Accordion";
+import SectionBar from "../../components/molecules/bars/SectionBar";
+import { ACCORDION_CONTENT_FAQ } from "../../constants/contentsText/accordionContents";
 
 function Faq() {
   return (

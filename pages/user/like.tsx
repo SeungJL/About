@@ -2,9 +2,9 @@ import { faCircleHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
 
 import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";

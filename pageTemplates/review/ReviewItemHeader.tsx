@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
+import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 
 interface IReviewItemHeader {
   writer: any;

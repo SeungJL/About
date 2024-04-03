@@ -12,11 +12,11 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Slide from "../../components/layout/PageSlide";
-import { IAlertModalOptions } from "../../components2/AlertModal";
+import { IAlertModalOptions } from "../../components/AlertModal";
+import Slide from "../../components/layouts/PageSlide";
 
-import { IIconLinkTile } from "../../components2/atoms/IconLinkTile";
-import IconTileRowLayout from "../../components2/organisms/IconTileRowLayout";
+import { IIconLinkTile } from "../../components/atoms/IconLinkTile";
+import IconTileRowLayout from "../../components/organisms/IconTileRowLayout";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { MAX_USER_PER_PLACE } from "../../constants/settingValue/study/study";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";

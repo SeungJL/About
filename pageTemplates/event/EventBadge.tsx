@@ -2,12 +2,12 @@ import { Box } from "@chakra-ui/react";
 import { faLock, faLockOpen } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import AlertNotCompletedModal from "../../components2/AlertNotCompletedModal";
+import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
 import IconButtonColBlock, {
   IIconButtonColBlockProps,
-} from "../../components2/atoms/blocks/IconButtonColBlock";
-import SectionBar from "../../components2/molecules/bars/SectionBar";
-import BlockSlider from "../../components2/organisms/sliders/BlockSlider";
+} from "../../components/atoms/blocks/IconButtonColBlock";
+import SectionBar from "../../components/molecules/bars/SectionBar";
+import BlockSlider from "../../components/organisms/sliders/BlockSlider";
 import { BADGE_INFO, EVENT_BADGE } from "../../constants/settingValue/badge";
 import {
   EVENT_BADGE_딸기스무디,

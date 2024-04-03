@@ -2,9 +2,9 @@ import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
 import { useRecoilValue } from "recoil";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
-import { PostThumbnailCard } from "../../components2/molecules/cards/PostThumbnailCard";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
+import { PostThumbnailCard } from "../../components/molecules/cards/PostThumbnailCard";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { sortedStudyCardListState } from "../../recoils/studyRecoils";
 

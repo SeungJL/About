@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import AlertNotCompletedModal from "../../components2/AlertNotCompletedModal";
-import HighlightedTextButton from "../../components2/atoms/buttons/HighlightedTextButton";
+import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
+import HighlightedTextButton from "../../components/atoms/buttons/HighlightedTextButton";
 import Accordion, {
   IAccordionOptions,
-} from "../../components2/molecules/accordion/Accordion";
-import SectionBar from "../../components2/molecules/bars/SectionBar";
+} from "../../components/molecules/accordion/Accordion";
+import SectionBar from "../../components/molecules/bars/SectionBar";
 
 interface IEventMission {}
 export default function EventMission({}: IEventMission) {

@@ -1,4 +1,4 @@
-import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contents/GroupStudyContents";
+import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contentsText/GroupStudyContents";
 import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
 import { LocationFilterType } from "../system";
 import { ITimeStamps } from "../timeAndDate";

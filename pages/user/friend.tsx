@@ -2,10 +2,10 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
-import ProfileCommentCard from "../../components2/molecules/cards/ProfileCommentCard";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
+import ProfileCommentCard from "../../components/molecules/cards/ProfileCommentCard";
 import {
   useUidsToUsersInfoQuery,
   useUserInfoQuery,

@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { Alphabet } from "../../types/user/collections";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function AlphabetPopUp({ setIsModal }: IModal) {
   const router = useRouter();

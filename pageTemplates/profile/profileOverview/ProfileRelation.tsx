@@ -2,9 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import AlertModal, {
-  IAlertModalOptions,
-} from "../../../components2/AlertModal";
+import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 import {
   useCompleteToast,
   useFailToast,

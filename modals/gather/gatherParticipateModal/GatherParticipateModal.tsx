@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ModalLayout } from "../../../components/modals/Modals";
+import { ModalLayout } from "../../Modals";
 
 import { IModal } from "../../../types/reactTypes";
 import GatherParticipateModalApply from "./GatherParticipateModalApply";
@@ -9,8 +9,6 @@ import GatherParticipateModalPassword from "./GatherParticipateModalPassword";
 function GatherParticipateModal({ setIsModal }: IModal) {
   const [pageNum, setPageNum] = useState(0);
 
-
-  
   return (
     <ModalLayout title="참여 신청" setIsModal={setIsModal}>
       <>

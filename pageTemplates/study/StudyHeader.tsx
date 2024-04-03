@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
-import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
+import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
 
-import Header from "../../components/layout/Header";
+import Header from "../../components/layouts/Header";
 import { WEB_URL } from "../../constants/system";
 import { IPlace } from "../../types2/studyTypes/studyVoteTypes";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";

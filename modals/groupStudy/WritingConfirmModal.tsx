@@ -2,8 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import SuccessScreen from "../../components/layout/SuccessScreen";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
@@ -11,7 +10,9 @@ import {
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
 import { useGroupWritingMutation } from "../../hooks/groupStudy/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
+import SuccessScreen from "../../components/layouts/SuccessScreen";
 import { transferGroupDataState } from "../../recoil/transferDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IGroup, IGroupWriting } from "../../types/page/group";

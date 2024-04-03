@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IPostThumbnailCard } from "../components2/molecules/cards/PostThumbnailCard";
+import { IPostThumbnailCard } from "../components/molecules/cards/PostThumbnailCard";
 import { StudyDateStatus } from "../types2/studyTypes/studySubTypes";
 import { IParticipation } from "../types2/studyTypes/studyVoteTypes";
 

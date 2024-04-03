@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
+import Header from "../../../components/layouts/Header";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { isGatherEditState } from "../../../recoil/checkAtoms";

@@ -11,10 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
+import BottomNav from "../../../components/layouts/BottomNav";
+import Header from "../../../components/layouts/Header";
 
-import ProgressStatus from "../../../components/templates/ProgressStatus";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
@@ -22,11 +22,11 @@ import GatherWritingConditionCnt from "../../../pageTemplates/gather/writing/con
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
+import { PopOverIcon } from "../../../components/atoms/Icons/PopOverIcon";
 
 import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
 
-import Slide from "../../../components/layout/PageSlide";
+import Slide from "../../../components/layouts/PageSlide";
 import GroupConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import QuestionBottomDrawer from "../../../pageTemplates/group/writing/QuestionBottomDrawer";

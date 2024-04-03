@@ -4,10 +4,11 @@ import dayjs from "dayjs";
 import { forwardRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
+
 import {
   PickerDateAndTimeHeader,
   PICKER_DATE_AND_TIME,
-} from "../../../components/features/picker/DatePickerOptions";
+} from "../../../components/molecules/picker/DatePickerOptions";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { IGatherWriting } from "../../../types/page/gather";
 import { DispatchType } from "../../../types/reactTypes";
@@ -43,7 +44,7 @@ function GatherWritingDateDate({
     ({ value, onClick }, ref) => {
       const isDefault =
         value === dayjsToFormat(dayjs().hour(14).minute(0), "M월 D일 HH:mm");
-      
+
       return (
         <Button
           size="lg"

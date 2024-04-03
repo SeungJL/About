@@ -1,9 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { CopyBtn } from "../../components/common/Icon/CopyIcon";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
-import { ACCOUNT_SHORT } from "../../constants/contents/Private";
+import { CopyBtn } from "../../components/atoms/Icons/CopyIcon";
+import { ACCOUNT_SHORT } from "../../constants/contentsText/Private";
 import { USER_INFO } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
@@ -15,6 +14,7 @@ import { usePointSystemQuery } from "../../hooks/user/queries";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function RequestChargeDepositModal({ setIsModal }: IModal) {
   const { data: session } = useSession();

@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useState } from "react";
-import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
+import { MainLoadingAbsolute } from "../../components/atoms/loaders/MainLoading";
 import RecordAnalysisGraph from "../record/analysis/RecordAnalysisGraph";
 import RecordAnalysisSummary from "../record/analysis/RecordAnalysisSummary";
 

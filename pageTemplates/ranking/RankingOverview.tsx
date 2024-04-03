@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Avatar from "../../components2/atoms/Avatar";
+import Avatar from "../../components/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { USER_ROLE } from "../../constants/settingValue/role";
 import { getUserBadge } from "../../helpers/userHelpers";

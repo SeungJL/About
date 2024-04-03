@@ -3,14 +3,14 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { NewAlertIcon } from "../../components/atoms/Icons/AlertIcon";
 import {
   CalendarIcon,
   CampfireIcon,
   GroupIcon,
   MemberIcon,
   StoreIcon,
-} from "../../assets/icons/CategoryIcons";
-import { NewAlertIcon } from "../../components/common/Icon/AlertIcon";
+} from "../../components/atoms/Icons/CategoryIcons";
 
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { isGatherAlertState } from "../../recoil/alertAtoms";

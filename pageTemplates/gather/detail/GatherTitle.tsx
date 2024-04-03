@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Badge } from "../../../components/common/customComponents/Badges";
+import { Badge } from "../../../components/atoms/badges/Badges";
 import { STATUS_TO_TEXT } from "../../../constants/util/convert";
 
 import { GatherStatus } from "../../../types/page/gather";

@@ -1,9 +1,9 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";

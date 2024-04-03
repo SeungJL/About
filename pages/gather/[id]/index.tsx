@@ -3,8 +3,8 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MainLoading } from "../../../components/common/loaders/MainLoading";
-import Slide from "../../../components/layout/PageSlide";
+import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
+import Slide from "../../../components/layouts/PageSlide";
 import { useGatherQuery } from "../../../hooks/gather/queries";
 import GatherBottomNav from "../../../pageTemplates/gather/detail/GatherBottomNav";
 import GatherComments from "../../../pageTemplates/gather/detail/GatherComment";
@@ -28,7 +28,7 @@ function GatherDetail() {
   useEffect(() => {
     if (gathers) setGatherData(gathers.find((item) => item.id + "" === id));
   }, [gathers]);
-  console.log(2, gathers);
+
 
   return (
     <>

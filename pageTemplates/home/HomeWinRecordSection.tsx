@@ -2,9 +2,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import HighlightedTextButton from "../../components2/atoms/buttons/HighlightedTextButton";
-import SectionBar from "../../components2/molecules/bars/SectionBar";
-import SummaryTable from "../../components2/organisms/tables/SummaryTable";
+import HighlightedTextButton from "../../components/atoms/buttons/HighlightedTextButton";
+import SectionBar from "../../components/molecules/bars/SectionBar";
+import SummaryTable from "../../components/organisms/tables/SummaryTable";
 import { slideDirectionState } from "../../recoils/navigationRecoils";
 import { WIN_RECORD } from "../../storage/winRecord";
 interface IHomeWinRecordSection {}

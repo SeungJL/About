@@ -1,15 +1,15 @@
 import dayjs from "dayjs";
 import { Fragment, useState } from "react";
+
+import Slide from "../components/layouts/PageSlide";
+
 import styled from "styled-components";
-import MonthNav from "../components/features/atoms/MonthNav";
-import Slide from "../components/layout/PageSlide";
-
-import Header from "../components/layout/Header";
-import Accordion from "../components/templates/Accordion";
-import { ACCORDION_CONTENT_EVENT } from "../constants/contents/accordionContents";
-import { EVENT_CONTENT_2023 } from "../constants/contents/eventContents";
+import MonthNav from "../components/atoms/MonthNav";
+import Header from "../components/layouts/Header";
+import Accordion from "../components/molecules/Accordion";
+import { ACCORDION_CONTENT_EVENT } from "../constants/contentsText/accordionContents";
+import { EVENT_CONTENT_2023 } from "../constants/settingValue/eventContents";
 import { DAYS_OF_WEEK } from "../constants/util/util";
-
 const DAYS_TITLE = [
   "포인트 X 2",
   null,

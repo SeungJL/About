@@ -3,13 +3,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import HighlightedTextButton from "../../components2/atoms/buttons/HighlightedTextButton";
-import SectionBar from "../../components2/molecules/bars/SectionBar";
-import { IPostThumbnailCard } from "../../components2/molecules/cards/PostThumbnailCard";
+import HighlightedTextButton from "../../components/atoms/buttons/HighlightedTextButton";
+import SectionBar from "../../components/molecules/bars/SectionBar";
+import { IPostThumbnailCard } from "../../components/molecules/cards/PostThumbnailCard";
 import {
   CardColumnLayout,
   CardColumnLayoutSkeleton,
-} from "../../components2/organisms/CardColumnLayout";
+} from "../../components/organisms/CardColumnLayout";
 import { useGatherQuery } from "../../hooks/gather/queries";
 import {
   prevPageUrlState,

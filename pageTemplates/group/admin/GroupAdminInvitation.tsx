@@ -3,12 +3,10 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
-import { MainLoadingAbsolute } from "../../../components/common/loaders/MainLoading";
-import AlertModal, {
-  IAlertModalOptions,
-} from "../../../components2/AlertModal";
-import Avatar from "../../../components2/atoms/Avatar";
-import Selector from "../../../components2/atoms/Selector";
+import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
+import Avatar from "../../../components/atoms/Avatar";
+import { MainLoadingAbsolute } from "../../../components/atoms/loaders/MainLoading";
+import Selector from "../../../components/atoms/Selector";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { LOCATION_USE_ALL } from "../../../constants/location";
 import { useAdminUsersLocationControlQuery } from "../../../hooks/admin/quries";
@@ -48,9 +46,7 @@ export default function GroupAdminInvitation({
   const queryClient = useQueryClient();
 
   const { mutate } = useUserInfoFieldMutation("belong", {
-    onSuccess() {
-      console.log("SUC");
-    },
+    onSuccess() {},
   });
 
   const { mutate: mutate2 } = useGroupWaitingStatusMutation(+id, {

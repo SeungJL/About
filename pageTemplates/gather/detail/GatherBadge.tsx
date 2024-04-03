@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   GatherCategoryIcons,
   GATHER_TYPES,
-} from "../../../constants/contents/GatherContents";
+} from "../../../constants/contentsText/GatherContents";
 
 interface IGatherBadge {
   typeTitle: string;

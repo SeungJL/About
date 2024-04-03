@@ -3,9 +3,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
-import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
-import CountNum from "../../components/features/atoms/CountNum";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import CountNum from "../../components/atoms/CountNum";
+import { MainLoadingAbsolute } from "../../components/atoms/loaders/MainLoading";
 import { STORE_GIFT } from "../../constants/keys/queryKeys";
 import {
   useCompleteToast,
@@ -17,6 +16,7 @@ import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemQuery } from "../../hooks/user/queries";
 import { IStoreApplicant, IStoreGift } from "../../types/page/store";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IStoreApplyGiftModal extends IModal {
   giftInfo: IStoreGift;

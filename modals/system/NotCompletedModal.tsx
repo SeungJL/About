@@ -1,6 +1,6 @@
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function NotCompletedModal({ setIsModal }: IModal) {
   const footerOptions: IFooterOptions = {

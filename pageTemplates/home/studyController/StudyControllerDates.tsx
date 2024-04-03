@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import TextCircle from "../../../components2/atoms/TextCircle";
+import TextCircle from "../../../components/atoms/TextCircle";
 import { studyDateStatusState } from "../../../recoils/studyRecoils";
 import { getDateArr, handleChangeDate } from "./StudyController";
 

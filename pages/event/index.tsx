@@ -1,4 +1,4 @@
-import Slide from "../../components/layout/PageSlide";
+import Slide from "../../components/layouts/PageSlide";
 import EventBadge from "../../pageTemplates/event/EventBadge";
 import EventHeader from "../../pageTemplates/event/EventHeader";
 import EventMission from "../../pageTemplates/event/EventMission";

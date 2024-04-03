@@ -13,7 +13,7 @@ type CollectionAlphabetParam<T> = T extends "get"
 
 export const useAlphabetMutation = <T extends "get" | "change">(
   type: T,
-options?: MutationOptions<CollectionAlphabetParam<T>>
+  options?: MutationOptions<CollectionAlphabetParam<T>>
 ) => {
   const resetQueryData = useResetQueryData();
   return useMutation<void, AxiosError, CollectionAlphabetParam<T>>(

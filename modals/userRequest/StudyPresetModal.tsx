@@ -4,10 +4,9 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import ImageTileGridLayout, {
   IImageTileData,
-} from "../../components2/molecules/layouts/ImageTitleGridLayout";
+} from "../../components/molecules/layouts/ImageTitleGridLayout";
 import {
   STUDY_PREFERENCE,
   STUDY_PREFERENCE_LOCAL,
@@ -23,6 +22,7 @@ import { IStudyPlaces } from "../../types2/studyTypes/studyVoteTypes";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 import { IConfirmContent } from "../common/ConfirmModal";
 import ConfirmModal2 from "../common/ConfirmModal2";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function StudyPresetModal() {
   const router = useRouter();
@@ -81,7 +81,7 @@ function StudyPresetModal() {
   });
 
   const { mutate: getPoint } = usePointSystemMutation("point");
-  console.log(5, presetPlaces);
+
   const selectFirst = () => {
     if (!presetPlaces?.place) {
       toast("error", "장소를 선택해 주세요!");

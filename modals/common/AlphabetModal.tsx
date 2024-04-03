@@ -1,12 +1,8 @@
 import styled from "styled-components";
-import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
-import {
-  IFooterOptions,
-  IHeaderOptions,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 import { IModal } from "../../types/reactTypes";
 import { Alphabet } from "../../types/user/collections";
+import { IFooterOptions, IHeaderOptions, ModalLayout } from "../Modals";
 
 interface IAlphabetModal extends IModal {
   alphabet: Alphabet;

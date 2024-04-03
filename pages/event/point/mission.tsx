@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/PageSlide";
-import AlertNotCompletedModal from "../../../components2/AlertNotCompletedModal";
-import ButtonCard from "../../../components2/molecules/cards/ButtonCard";
-import { POINT_GET_EVENT_LIST } from "../../../constants2/serviceConstants/pointSystemConstants";
+import AlertNotCompletedModal from "../../../components/AlertNotCompletedModal";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import ButtonCard from "../../../components/molecules/cards/ButtonCard";
+import { POINT_GET_EVENT_LIST } from "../../../constants/serviceConstants/pointSystemConstants";
 
 export default function Mission() {
   const [isModal, setIsModal] = useState(false);

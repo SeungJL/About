@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import ImageTileSlider from "../../components2/organisms/sliders/ImageTileSlider";
+import ImageTileSlider from "../../components/organisms/sliders/ImageTileSlider";
 import { REVIEW_DATA } from "../../storage/Review";
 
 const IMAGE_VISIBLE = 10;

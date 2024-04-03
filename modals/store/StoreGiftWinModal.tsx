@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { selectRandomWinners } from "../../helpers/validHelpers";
 import { IGiftEntry } from "../../pages/store";

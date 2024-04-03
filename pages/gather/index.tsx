@@ -1,9 +1,9 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import WritingIcon from "../../components/common/Icon/WritingIcon";
-import Slide from "../../components/layout/PageSlide";
-import Divider from "../../components2/atoms/Divider";
+import Divider from "../../components/atoms/Divider";
+import WritingIcon from "../../components/atoms/Icons/WritingIcon";
+import Slide from "../../components/layouts/PageSlide";
 import { GATHER_INTRO_MODAL } from "../../constants/keys/localStorage";
 import { checkAndSetLocalStorage } from "../../helpers/storageHelpers";
 import GatherIntroModal from "../../modals/gather/GatherIntroModal";

@@ -24,7 +24,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
+import Header from "../../../components/layouts/Header";
 
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
 import { IAttendance, StudyStatus } from "../../../types/study/studyDetail";

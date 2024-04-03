@@ -3,12 +3,10 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/PageSlide";
-import AlertModal, {
-  IAlertModalOptions,
-} from "../../../components2/AlertModal";
-import ProfileCommentCard from "../../../components2/molecules/cards/ProfileCommentCard";
+import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import ProfileCommentCard from "../../../components/molecules/cards/ProfileCommentCard";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
@@ -41,9 +39,7 @@ export default function Member() {
   });
 
   const { mutate: handleBelong } = useUserInfoFieldMutation("belong", {
-    onSuccess() {
-      console.log("SUC");
-    },
+    onSuccess() {},
   });
   const belong = group && checkGroupGathering(group.hashTag);
 
@@ -62,7 +58,6 @@ export default function Member() {
     },
     text: "추방",
   };
-
 
   return (
     <>

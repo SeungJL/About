@@ -1,12 +1,12 @@
 import { useDisclosure } from "@chakra-ui/react";
-import AlertDialog from "../../../components/modals/AlertDialog";
-import { ModalFooterTwo } from "../../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useUserRegisterControlMutation } from "../../../hooks/user/mutations";
 import { IModal, IRefetch } from "../../../types/reactTypes";
+import AlertDialog from "../../AlertDialog";
+import { ModalFooterTwo } from "../../Modals";
 
 interface ICheckRegisterModalFooter extends IModal, IRefetch {
   uid: string;

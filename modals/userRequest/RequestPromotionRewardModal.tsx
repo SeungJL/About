@@ -3,13 +3,12 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
-import { CopyBtn } from "../../components/common/Icon/CopyIcon";
+import { CopyBtn } from "../../components/atoms/Icons/CopyIcon";
 
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import {
   PromotionComponent,
   PROMOTION_TEXT,
-} from "../../constants/contents/Private";
+} from "../../constants/contentsText/Private";
 import { POINT_SYSTEM_PLUS } from "../../constants/settingValue/pointSystem";
 import {
   useCompleteToast,
@@ -17,6 +16,7 @@ import {
 } from "../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { IModal } from "../../types/reactTypes";
 

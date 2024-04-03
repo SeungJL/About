@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Skeleton from "../../components/common/masks/skeleton/Skeleton";
+import Skeleton from "../../components/atoms/skeleton/Skeleton";
 
 function GroupSkeletonMain() {
   const temp = [1, 2, 3, 4, 5];

@@ -2,15 +2,15 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../../components/layout/BottomNav";
-import Header from "../../../../components/layout/Header";
-import Slide from "../../../../components/layout/PageSlide";
+import BottomNav from "../../../../components/layouts/BottomNav";
+import Header from "../../../../components/layouts/Header";
+import Slide from "../../../../components/layouts/PageSlide";
 
-import ProgressStatus from "../../../../components/templates/ProgressStatus";
+import ProgressStatus from "../../../../components/molecules/ProgressStatus";
 import {
   GROUP_STUDY_CATEGORY_ARR_ICONS,
   GROUP_STUDY_SUB_CATEGORY,
-} from "../../../../constants/contents/GroupStudyContents";
+} from "../../../../constants/contentsText/GroupStudyContents";
 
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";

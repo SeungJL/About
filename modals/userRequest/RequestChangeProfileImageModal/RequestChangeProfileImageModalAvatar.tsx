@@ -10,15 +10,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
 import styled from "styled-components";
-import ImageSlider from "../../../components/dataViews/imageSlider/ImageSlider";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+import ImageSlider from "../../../components/organisms/imageSlider/ImageSlider";
+import { COLOR_TABLE_LIGHT } from "../../../constants/colorConstants";
 import {
   AVATAR_COST,
   AVATAR_ICON,
 } from "../../../constants/settingValue/avatar";
-import { COLOR_TABLE_LIGHT } from "../../../constants2/colorConstants";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 import { IModal } from "../../../types/reactTypes";
 import { IAvatar } from "../../../types/user/user";

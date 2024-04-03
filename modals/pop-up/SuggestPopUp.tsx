@@ -2,9 +2,9 @@ import { faLightbulbOn } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 import RequestSuggestModal from "../userRequest/RequestSuggestModal";
 
 function SuggestPopUp({ setIsModal }: IModal) {

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+import { AlphabetIcon } from "../../../components/atoms/Icons/AlphabetIcon";
 import {
   useCompleteToast,
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 import { IModal } from "../../../types/reactTypes";
 import { Alphabet } from "../../../types/user/collections";

@@ -6,13 +6,12 @@ import { useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 // import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
-import ScreenOverlay from "../../components2/atoms/ScreenOverlay";
-import Spinner from "../../components2/atoms/Spinner";
-import ImageUploadInput from "../../components2/molecules/ImageUploadInput";
+import ScreenOverlay from "../../components/atoms/ScreenOverlay";
+import Spinner from "../../components/atoms/Spinner";
+import ImageUploadInput from "../../components/molecules/ImageUploadInput";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
+import { POINT_SYSTEM_PLUS } from "../../constants/serviceConstants/pointSystemConstants";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
-import { POINT_SYSTEM_PLUS } from "../../constants2/serviceConstants/pointSystemConstants";
 import { now } from "../../helpers/dateHelpers";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useImageUploadMutation } from "../../hooks/image/mutations";
@@ -24,6 +23,7 @@ import {
 import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { getMyStudyVoteInfo } from "../../libs/study/getMyStudy";
 import { getRandomAlphabet } from "../../libs/userEventLibs/collection";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";

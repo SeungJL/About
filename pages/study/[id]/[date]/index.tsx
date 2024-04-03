@@ -3,9 +3,9 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Slide from "../../../../components/layout/PageSlide";
-import Divider from "../../../../components2/atoms/Divider";
-import { PLACE_TO_LOCATION } from "../../../../constants2/serviceConstants/studyConstants/studyLocationConstants";
+import Divider from "../../../../components/atoms/Divider";
+import Slide from "../../../../components/layouts/PageSlide";
+import { PLACE_TO_LOCATION } from "../../../../constants/serviceConstants/studyConstants/studyLocationConstants";
 import { useStudyVoteQuery } from "../../../../hooks/study/queries";
 import { getStudyDateStatus } from "../../../../libs/study/date/getStudyDateStatus";
 import { getMyStudy } from "../../../../libs/study/getMyStudy";
@@ -28,7 +28,7 @@ export default function Page() {
   const setMyStudy = useSetRecoilState(myStudyState);
 
   const location = PLACE_TO_LOCATION[id];
-  console.log(location);
+
   const { data: studyAll } = useStudyVoteQuery(date, location, {
     enabled: !!location && !!date,
   });

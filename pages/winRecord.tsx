@@ -2,8 +2,8 @@ import { faCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import Header from "../components/layout/Header";
-import Slide from "../components/layout/PageSlide";
+import Header from "../components/layouts/Header";
+import Slide from "../components/layouts/PageSlide";
 import { WIN_RECORD } from "../storage/winRecord";
 
 function WinRecord() {

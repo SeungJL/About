@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Input from "../../components2/atoms/Input";
+import Input from "../../components/atoms/Input";
+import BottomNav from "../../components/layouts/BottomNav";
 
-import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,

@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
+import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
 import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/PageSlide";
-import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contents/friend";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contentsText/friend";
 import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { prevPageUrlState } from "../../../recoil/previousAtoms";
 import {

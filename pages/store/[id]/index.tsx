@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/PageSlide";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
 import StoreGiftWinModal from "../../../modals/store/StoreGiftWinModal";
 import StoreDetailCover from "../../../pageTemplates/store/detail/StoreDetailCover";

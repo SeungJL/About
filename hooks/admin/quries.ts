@@ -26,7 +26,7 @@ export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>
     },
     options
   );
-  
+
 export const useAdminUsersLocationControlQuery = (
   location: Location,
   options?: QueryOptions<IUser[]>

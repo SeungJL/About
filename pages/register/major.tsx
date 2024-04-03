@@ -3,10 +3,10 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
+import BottomNav from "../../components/layouts/BottomNav";
 
-import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
-import { majors_DATA } from "../../constants/contents/ProfileData";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { majors_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,

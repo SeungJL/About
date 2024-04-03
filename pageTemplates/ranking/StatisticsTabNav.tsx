@@ -1,6 +1,4 @@
-import TabNav, {
-  ITabNavOptions,
-} from "../../components2/molecules/navs/TabNav";
+import TabNav, { ITabNavOptions } from "../../components/molecules/navs/TabNav";
 import { DispatchType } from "../../types2/reactTypes";
 
 interface IStatisticsTabNav {

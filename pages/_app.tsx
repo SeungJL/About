@@ -8,7 +8,7 @@ import Head from "next/head";
 // import "nprogress/nprogress.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
-import Layout from "../components/base/Layout";
+import Layout from "../pageTemplates/layout/Layout";
 import "../styles/globals.css";
 import "../styles/variable.css";
 import theme from "../theme";

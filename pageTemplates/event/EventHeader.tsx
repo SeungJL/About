@@ -2,7 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { faCircleP } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import Header from "../../components/layout/Header";
+import Header from "../../components/layouts/Header";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
 interface IEventHeader {}

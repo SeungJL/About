@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
-import Avatar from "../../../components2/atoms/Avatar";
+import Avatar from "../../../components/atoms/Avatar";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
 import UserOverviewBadge from "./UserOverviewBadge";

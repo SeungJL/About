@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
+import BottomNav from "../../components/layouts/BottomNav";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 import { useSearchParams } from "next/navigation";
-import Input from "../../components2/atoms/Input";
-import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
-import { INTEREST_DATA } from "../../constants/contents/ProfileData";
+import Input from "../../components/atoms/Input";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { INTEREST_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,

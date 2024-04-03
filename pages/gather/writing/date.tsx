@@ -3,11 +3,11 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
-import BottomNav from "../../../components/layout/BottomNav";
-import Slide from "../../../components/layout/PageSlide";
+import BottomNav from "../../../components/layouts/BottomNav";
+import Slide from "../../../components/layouts/PageSlide";
 
-import Header from "../../../components/layout/Header";
-import ProgressStatus from "../../../components/templates/ProgressStatus";
+import Header from "../../../components/layouts/Header";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherWritingDateDate from "../../../pageTemplates/gather/writing/GatherWritingDateDate";
 import GatherWritingDateSubject from "../../../pageTemplates/gather/writing/GatherWritingDateSubject";

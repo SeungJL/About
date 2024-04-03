@@ -3,7 +3,7 @@ import EventBanner from "../../pageTemplates/home/EventBanner";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import Slide from "../../components/layout/PageSlide";
+import Slide from "../../components/layouts/PageSlide";
 import { getUrlWithLocationAndDate } from "../../helpers/urlHelpers";
 import HomeCategoryNav from "../../pageTemplates/home/HomeCategoryNav";
 import HomeGatherSection from "../../pageTemplates/home/HomeGatherSection";
@@ -17,7 +17,6 @@ import HomeStudySection from "../../pageTemplates/home/HomeStudySection";
 import HomeWinRecordSection from "../../pageTemplates/home/HomeWinRecordSection";
 import StudyController from "../../pageTemplates/home/studyController/StudyController";
 import { LocationEn } from "../../types/serviceTypes/locationTypes";
-import { getPerformanceTime } from "../../utils/mathUtils";
 
 function Home() {
   const router = useRouter();
@@ -25,9 +24,9 @@ function Home() {
   const searchParams = useSearchParams();
   const locationParam = searchParams.get("location") as LocationEn;
   const dateParam = searchParams.get("date");
- 
+
   const hasStudyToday = localStorage.getItem(HAS_STUDY_TODAY);
-  
+
   useEffect(() => {
     if (session?.user && (!locationParam || !dateParam)) {
       const initialUrl = getUrlWithLocationAndDate(
@@ -39,7 +38,6 @@ function Home() {
       router.replace(initialUrl);
     }
   }, [session?.user, locationParam, dateParam]);
-
 
   return (
     <>

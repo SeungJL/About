@@ -3,9 +3,9 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import styled from "styled-components";
-import { UserItem } from "../../../components/common/user/UserItem";
-import Header from "../../../components/layout/Header";
-import Slide from "../../../components/layout/PageSlide";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import { UserItem } from "../../../components/molecules/UserItem";
 
 import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";

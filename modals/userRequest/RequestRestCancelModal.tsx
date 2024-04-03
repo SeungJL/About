@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
@@ -9,6 +8,7 @@ import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
 import { IRest } from "../../types/user/user";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IRequestRestCancelModal extends IModal {
   rest: IRest;

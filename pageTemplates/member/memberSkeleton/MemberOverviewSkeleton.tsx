@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
+import Skeleton from "../../../components/atoms/skeleton/Skeleton";
 import { Location } from "../../../types/system";
 function MemberOverviewSkeleton() {
   const router = useRouter();

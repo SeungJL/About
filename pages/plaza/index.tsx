@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
-import ModalPortal from "../../components/modals/ModalPortal";
+import Header from "../../components/layouts/Header";
 import { usePlazaQuery } from "../../hooks/sub/plaza/queries";
 
 import Category from "../../pageTemplates/plaza/main/Category";
@@ -66,7 +65,6 @@ function Plaza() {
           <IconPencil />
         </Navigation>
       </Layout>{" "}
-     
     </>
   );
 }

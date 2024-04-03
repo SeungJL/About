@@ -4,8 +4,7 @@ import { useForm } from "react-hook-form";
 // import "react-date-range/dist/styles.css"; // main css file
 // import "react-date-range/dist/theme/default.css"; // theme css file
 import styled from "styled-components";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+import { PopOverIcon } from "../../../components/atoms/Icons/PopOverIcon";
 import {
   useCompleteToast,
   useFailToast,
@@ -14,6 +13,7 @@ import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 import { IModal } from "../../../types/reactTypes";
 import { IUserRequest } from "../../../types/user/userRequest";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 const POPOVER_MESSAGE =
   "일반 휴식은 기본 분기별로 1회, 최대 한달까지만 가능합니다. 추가적으로 휴식 기간이 필요한 경우 보증금 500원 차감과 함께 신청됩니다. 특별 휴식은 기간에 상관없이 휴식이 가능하나, 인정될만한 특수한 사정이 있는 경우에만 관리자 동의하에 가능합니다.";
 

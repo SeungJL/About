@@ -1,11 +1,11 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
+import BottomNav from "../../components/layouts/BottomNav";
 
-import Accordion from "../../components/templates/Accordion";
-import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
-import { ACCORDION_CONTENT_FEE } from "../../constants/contents/accordionContents";
+import Accordion from "../../components/molecules/Accordion";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { ACCORDION_CONTENT_FEE } from "../../constants/contentsText/accordionContents";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,

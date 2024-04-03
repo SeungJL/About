@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "../components/layout/Header";
+import Header from "../components/layouts/Header";
 
 function CheckGather() {
   return (

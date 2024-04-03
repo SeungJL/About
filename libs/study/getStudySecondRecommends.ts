@@ -1,4 +1,4 @@
-import { STUDY_DISTANCE } from "../../constants2/serviceConstants/studyConstants/studyDistanceConstants";
+import { STUDY_DISTANCE } from "../../constants/serviceConstants/studyConstants/studyDistanceConstants";
 import { ActiveLocation } from "../../types2/serviceTypes/locationTypes";
 
 export const getStudySecondRecommendation = (

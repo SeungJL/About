@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import {
   useCompleteToast,
@@ -12,6 +11,7 @@ import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { PLACE_TO_NAME } from "../../storage/study";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function StudyLightAbsentModal({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
+import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 
 import { useCollectionAlphabetQuery } from "../../hooks/user/sub/collection/queries";
 import UserCollectionAlphabetModal from "../../modals/user/collection/UserCollectionAlphabetModal";

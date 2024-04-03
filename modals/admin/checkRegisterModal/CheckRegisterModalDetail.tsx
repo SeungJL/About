@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
-import { ModalBody } from "../../../components/modals/Modals";
+import { CopyBtn } from "../../../components/atoms/Icons/CopyIcon";
 import { IUserRegisterForm } from "../../../types/user/user";
+import { ModalBody } from "../../Modals";
 
 interface ICheckRegisterModalDetail {
   applicant: IUserRegisterForm;

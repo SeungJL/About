@@ -1,11 +1,8 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import {
-  IFooterOptions,
-  IHeaderOptions,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+
 import { transferDailyCheckWinState } from "../../../recoils/transferRecoils";
+import { IFooterOptions, IHeaderOptions, ModalLayout } from "../../Modals";
 
 function DailyCheckWinModal() {
   const [dailyCheckWin, setDailyCheckWin] = useRecoilState(

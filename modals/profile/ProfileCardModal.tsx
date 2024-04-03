@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 import { birthToAge } from "../../helpers/converterHelpers";
 import {
   useUidsToUsersInfoQuery,
   useUserInfoQuery,
 } from "../../hooks/user/queries";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { IModal } from "../../types/reactTypes";
 

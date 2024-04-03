@@ -2,8 +2,8 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import Header from "../../components/layout/Header";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import Header from "../../components/layouts/Header";
 import {
   usePointSystemLogQuery,
   usePointSystemQuery,

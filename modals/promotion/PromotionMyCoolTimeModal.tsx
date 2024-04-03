@@ -2,10 +2,10 @@ import { Flex } from "@chakra-ui/react";
 import { faCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { PROMOTION_WIN } from "../../storage/winRecord";
 import { IPromotionApply } from "../../types/page/promotion";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IPromotionMyCoolTimeModal extends IModal {
   myApply: IPromotionApply;

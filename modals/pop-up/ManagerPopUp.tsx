@@ -11,12 +11,12 @@ import {
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { IModal } from "../../types/reactTypes";
 import { IUserRequest } from "../../types/user/userRequest";

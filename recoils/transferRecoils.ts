@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IDailyCheckWinList } from "../constants2/serviceConstants/dailyCheckConstatns";
+import { IDailyCheckWinList } from "../constants/serviceConstants/dailyCheckConstatns";
 import { Alphabet } from "../types2/serviceTypes/alphabetTypes";
 import { IUserSummary } from "../types2/userTypes/userInfoTypes";
 

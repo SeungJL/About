@@ -5,18 +5,19 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getStudyVoteIcon } from "../assets/icons/MapChoiceIcon";
-import ScreenOverlay from "../components2/atoms/ScreenOverlay";
-import VoteMap from "../components2/organisms/VoteMap";
-import VoteMapController from "../components2/organisms/VoteMapController";
-import MapBottomNav from "../components2/services/studyVote/MapBottomNav";
+
+import ScreenOverlay from "../components/atoms/ScreenOverlay";
+import VoteMap from "../components/organisms/VoteMap";
+import VoteMapController from "../components/organisms/VoteMapController";
+import MapBottomNav from "../components/services/studyVote/MapBottomNav";
 import { STUDY_PREFERENCE_LOCAL } from "../constants/keys/queryKeys";
-import { STUDY_DISTANCE } from "../constants2/serviceConstants/studyConstants/studyDistanceConstants";
+import { STUDY_DISTANCE } from "../constants/serviceConstants/studyConstants/studyDistanceConstants";
 import { useToast } from "../hooks/custom/CustomToast";
 import {
   useStudyPreferenceQuery,
   useStudyVoteQuery,
 } from "../hooks/study/queries";
+import { getStudyVoteIcon } from "../libs/study/getStudyVoteIcon";
 import {
   getVoteLocationCenterDot,
   getVoteLocationMaxBound,
@@ -89,25 +90,14 @@ export default function StudyVoteMap() {
     },
   });
 
-  console.log(2, studyPreference);
-
   //스터디 프리셋 적용
   useEffect(() => {
-    console.log(
-      "first",
-      data?.user,
-      location,
-      preferenceStorage,
-      studyPreference,
-      isLoading,
-      myVote
-    );
     if (data?.user?.location !== location) return;
     if (!preferenceStorage && isLoading) return;
     if (myVote?.subPlace.length) return;
 
     const savedPrefer = JSON.parse(preferenceStorage);
-    console.log("prefer", savedPrefer, studyPreference);
+
     if (!savedPrefer && !studyPreference) {
       if (!isAlert) {
         toast(
@@ -186,7 +176,6 @@ export default function StudyVoteMap() {
     )
       return;
     const place = myVote?.place;
-    console.log(244, preferInfo?.preset);
 
     if (place) {
       const { sub1, sub2 } = getSecondRecommendations(studyVoteData, place);

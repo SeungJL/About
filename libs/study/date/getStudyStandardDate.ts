@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { STUDY_DATE_START_HOUR } from "../../../constants2/serviceConstants/studyConstants/studyTimeConstant";
+import { STUDY_DATE_START_HOUR } from "../../../constants/serviceConstants/studyConstants/studyTimeConstant";
 import { dayjsToStr, getHour } from "../../../utils/dateTimeUtils";
 
 export const getStudyStandardDate = (isPrevView: boolean) => {

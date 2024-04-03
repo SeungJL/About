@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import Avatar from "../../../components2/atoms/Avatar";
+import Avatar from "../../../components/atoms/Avatar";
 import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { useToast } from "../../../hooks/custom/CustomToast";
 
@@ -34,7 +34,6 @@ function GroupParticipation({ data }: IGroupParticipation) {
   const onClickOutMember = () => {
     toast("error", "외부 게스트의 프로필은 확인할 수 없습니다.");
   };
-
 
   return (
     <Layout>

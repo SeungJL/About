@@ -2,8 +2,9 @@ import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import TimeSelectorUnit from "../../../components/features/atoms/TimeSelectorUnit";
-import Input from "../../../components2/atoms/Input";
+import Input from "../../../components/atoms/Input";
+import TimeSelectorUnit from "../../../components/atoms/TimeSelectorUnit";
+
 import { TIME_SELECTOR_UNIT } from "../../../constants/util/util";
 import { IGatherListItem, IGatherWriting } from "../../../types/page/gather";
 import { DispatchType } from "../../../types/reactTypes";

@@ -1,8 +1,6 @@
 import { useDisclosure } from "@chakra-ui/react";
 import styled from "styled-components";
-import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
-import AlertDialog from "../../../components/modals/AlertDialog";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
+import { CopyBtn } from "../../../components/atoms/Icons/CopyIcon";
 import {
   useCompleteToast,
   useErrorToast,
@@ -10,6 +8,8 @@ import {
 import { useUserRegisterControlMutation } from "../../../hooks/user/mutations";
 import { IModal, IRefetch } from "../../../types/reactTypes";
 import { IUserRegisterForm } from "../../../types/user/user";
+import AlertDialog from "../../AlertDialog";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 interface ICheckRegisterModal extends IModal, IRefetch {
   applicant: IUserRegisterForm;

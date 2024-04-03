@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
@@ -8,6 +7,7 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
 import { IModal } from "../../../types/reactTypes";
+import { ModalBodyNavTwo } from "../../Modals";
 
 function GatherParticipateModalParticipate({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();

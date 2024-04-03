@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import styled from "styled-components";
-import BlurredPart from "../../../../components/common/masks/BlurredPart";
+import BlurredPart from "../../../../components/molecules/BlurredPart";
 
 import { IGroup } from "../../../../types/page/group";
 import GroupDetailInfo from "../GroupDetail";

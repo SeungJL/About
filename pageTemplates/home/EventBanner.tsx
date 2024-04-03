@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
 import {
   EVENT_BANNER_CALENDAR,
   EVENT_BANNER_PASSION,
   EVENT_BANNER_PROMOTION,
-} from "../../constants/image/imageUrl";
+} from "../../assets/images/imageUrl";
+import ImageSlider from "../../components/organisms/imageSlider/ImageSlider";
 
 function EventBanner() {
   const router = useRouter();

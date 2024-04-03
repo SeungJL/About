@@ -2,10 +2,11 @@ import { faLightbulbOn } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import ModalPortal from "../../components/modals/ModalPortal";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/reactTypes";
+import ModalPortal from "../ModalPortal";
+import { IFooterOptions, ModalLayout } from "../Modals";
 import RequestSuggestModal from "../userRequest/RequestSuggestModal";
 
 function FreestudyPopUp({ setIsModal }: IModal) {

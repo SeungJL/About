@@ -2,24 +2,24 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import RuleIcon from "../../components/common/Icon/RuleIcon";
-import WritingIcon from "../../components/common/Icon/WritingIcon";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
-import RuleModal from "../../components/modals/RuleModal";
-import CheckBoxNav from "../../components/templates/CheckBoxNav";
-import Selector from "../../components2/atoms/Selector";
-import SectionBar from "../../components2/molecules/bars/SectionBar";
-import TabNav, {
-  ITabNavOptions,
-} from "../../components2/molecules/navs/TabNav";
+import RuleIcon from "../../components/atoms/Icons/RuleIcon";
+import WritingIcon from "../../components/atoms/Icons/WritingIcon";
+import Selector from "../../components/atoms/Selector";
+import Header from "../../components/layouts/Header";
+
+import Slide from "../../components/layouts/PageSlide";
+// import RuleModal from "../../components/modals/RuleModal";
+import SectionBar from "../../components/molecules/bars/SectionBar";
+import CheckBoxNav from "../../components/molecules/CheckBoxNav";
+import TabNav, { ITabNavOptions } from "../../components/molecules/navs/TabNav";
 import {
   GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_RULE_CONTENT,
   GROUP_STUDY_SUB_CATEGORY,
-} from "../../constants/contents/GroupStudyContents";
+} from "../../constants/contentsText/GroupStudyContents";
 import { shuffleArray } from "../../helpers/utilHelpers";
 import { useGroupQuery } from "../../hooks/groupStudy/queries";
+import RuleModal from "../../modals/RuleModal";
 import GroupBlock from "../../pageTemplates/group/GroupBlock";
 import GroupMine from "../../pageTemplates/group/GroupMine";
 import GroupSkeletonMain from "../../pageTemplates/group/GroupSkeletonMain";

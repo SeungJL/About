@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../../../components/modals/Modals";
 import TabNav, {
   ITabNavOptions,
-} from "../../../components2/molecules/navs/TabNav";
+} from "../../../components/molecules/navs/TabNav";
 import { IModal } from "../../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 import PointSystemsModalFee from "./PointSystemsModalFee";
 import PointSystemsModalPoint from "./PointSystemsModalPoint";
 

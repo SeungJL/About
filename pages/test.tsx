@@ -38,9 +38,7 @@ function Test() {
   // };
 
   const { mutate: match } = useGroupBelongMatchMutation({
-    onSuccess(data) {
-      console.log("SUCSC", data);
-    },
+    onSuccess(data) {},
   });
 
   const { mutate } = useMonthCalcMutation({

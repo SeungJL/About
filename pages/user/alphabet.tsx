@@ -8,11 +8,11 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-import { AlphabetIcon } from "../../components/common/Icon/AlphabetIcon";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
-import Avatar from "../../components2/atoms/Avatar";
+import Avatar from "../../components/atoms/Avatar";
+import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { getUserBadge } from "../../helpers/userHelpers";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";

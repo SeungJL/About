@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
+import Skeleton from "../../../components/atoms/skeleton/Skeleton";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 
 function PromotionModalDetail() {
@@ -38,7 +38,7 @@ function PromotionModalDetail() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
- 
+
   > div {
     display: flex;
     > span:first-child {

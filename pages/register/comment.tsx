@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
+import BottomNav from "../../components/layouts/BottomNav";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
 import { Input } from "@chakra-ui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryClient } from "react-query";
-import ProgressHeader from "../../components2/molecules/headers/ProgressHeader";
-import { MESSAGE_DATA } from "../../constants/contents/ProfileData";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { MESSAGE_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import { USER_INFO } from "../../constants/keys/queryKeys";
 import {

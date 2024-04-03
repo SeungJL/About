@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import { SQUARE_RANDOM_IMAGE } from "../../../constants/image/imageUrl";
+import { SQUARE_RANDOM_IMAGE } from "../../../assets/images/imageUrl";
 
 interface IGroupCover {
   image: string;

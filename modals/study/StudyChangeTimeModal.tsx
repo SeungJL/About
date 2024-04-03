@@ -6,11 +6,10 @@ import { useStudyParticipationMutation } from "../../hooks/study/mutations";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useQueryClient } from "react-query";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
-import RulletPickerTwo from "../../components2/molecules/picker/RulletPickerTwo";
+import RulletPickerTwo from "../../components/molecules/picker/RulletPickerTwo";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
+import { STUDY_VOTE_HOUR_ARR } from "../../constants/serviceConstants/studyConstants/studyTimeConstant";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
-import { STUDY_VOTE_HOUR_ARR } from "../../constants2/serviceConstants/studyConstants/studyTimeConstant";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../hooks/user/queries";
@@ -20,6 +19,7 @@ import { PLACE_TO_LOCATION } from "../../storage/study";
 import { IModal } from "../../types/reactTypes";
 import { IStudyTime } from "../../types2/studyTypes/studyVoteTypes";
 import { createTimeArr, parseTimeToDayjs } from "../../utils/dateTimeUtils";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IStudyChangeTimeModal extends IModal {}
 
@@ -42,7 +42,6 @@ function StudyChangeTimeModal({ setIsModal }: IStudyChangeTimeModal) {
   const { data: session } = useSession();
   const { id, date } = useParams<{ id: string; date: string }>();
   const location = PLACE_TO_LOCATION[id];
-
 
   const myStudy = useRecoilValue(myStudyState);
   const isFree = myStudy.status === "free";
@@ -87,7 +86,6 @@ function StudyChangeTimeModal({ setIsModal }: IStudyChangeTimeModal) {
     "patch",
     {
       onSuccess() {
-     
         queryClient.invalidateQueries([STUDY_VOTE, date, location]);
         if (isFree) return;
         if (startTime && dayjs() > startTime && !prevFee) {

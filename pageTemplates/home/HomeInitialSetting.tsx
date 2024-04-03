@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
 import { useSetRecoilState } from "recoil";
 import { createGlobalStyle } from "styled-components";
-import { STEPS_CONTENTS } from "../../constants/contents/GuideContents";
+import { STEPS_CONTENTS } from "../../constants/contentsText/GuideContents";
 import { USER_GUIDE } from "../../constants/keys/localStorage";
 import { useGroupQuery } from "../../hooks/groupStudy/queries";
 import { useUserInfoQuery } from "../../hooks/user/queries";

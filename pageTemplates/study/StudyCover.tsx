@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import CircleLogoImage from "../../components2/atoms/CircleLogImage";
-import RoundedCoverImage from "../../components2/atoms/RoundedCoverImage";
-import { STUDY_CAFE_LOGO } from "../../constants2/serviceConstants/studyConstants/studyCafeLogoConstants";
+import CircleLogoImage from "../../components/atoms/CircleLogImage";
+import RoundedCoverImage from "../../components/atoms/RoundedCoverImage";
+import { STUDY_CAFE_LOGO } from "../../constants/serviceConstants/studyConstants/studyCafeLogoConstants";
 
 interface IStudyCover {
   brand: string;

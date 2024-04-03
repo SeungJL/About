@@ -1,5 +1,5 @@
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
 import { IModal } from "../../types/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 import { IConfirmContent } from "./ConfirmModal";
 
 interface IConfirmModal extends IModal {

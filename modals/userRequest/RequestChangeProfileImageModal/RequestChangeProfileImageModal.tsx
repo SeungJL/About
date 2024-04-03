@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
-import { ModalLayout } from "../../../components/modals/Modals";
 import { USER_INFO } from "../../../constants/keys/queryKeys";
 import {
   useCompleteToast,
@@ -15,6 +14,7 @@ import {
   useUserUpdateProfileImageMutation,
 } from "../../../hooks/user/mutations";
 import { IModal } from "../../../types/reactTypes";
+import { ModalLayout } from "../../Modals";
 import RequestChagneProfileImageModalBadge from "./RequestChagneProfileImageModalBadge";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";
 

@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { PopOverIcon } from "../../components/common/Icon/PopOverIcon";
-import Skeleton from "../../components/common/masks/skeleton/Skeleton";
-import ProfileIcon from "../../components/common/user/Profile/ProfileIcon";
-import { IFooterOptions, ModalLayout } from "../../components/modals/Modals";
+import { PopOverIcon } from "../../components/atoms/Icons/PopOverIcon";
+import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
+import Skeleton from "../../components/atoms/skeleton/Skeleton";
 import { BADGE_INFO } from "../../constants/settingValue/badge";
 import { USER_ROLE } from "../../constants/settingValue/role";
 import {
@@ -12,6 +11,7 @@ import {
 } from "../../hooks/admin/quries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import PointScoreBar from "../../pageTemplates/point/pointScore/PointScoreBar";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { IModal } from "../../types/reactTypes";
 import {

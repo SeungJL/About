@@ -4,17 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
-import Header from "../../components/layout/Header";
-import Slide from "../../components/layout/PageSlide";
+import { DEFAULT_IMAGE_URL } from "../../assets/images/imageUrl";
+import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
 import ButtonGroups, {
   IButtonOpions,
-} from "../../components2/molecules/groups/ButtonGroups";
-import { DEFAULT_IMAGE_URL } from "../../constants/image/imageUrl";
+} from "../../components/molecules/groups/ButtonGroups";
+import ImageSlider from "../../components/organisms/imageSlider/ImageSlider";
+import { ACTIVE_LOCATIONS } from "../../constants/locationConstants";
 import { WEB_URL } from "../../constants/system";
-import { ACTIVE_LOCATIONS } from "../../constants2/locationConstants";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherAllSummaryQuery } from "../../hooks/gather/queries";
 import ReviewContent from "../../pageTemplates/review/ReviewContent";

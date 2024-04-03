@@ -1,13 +1,10 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-  ModalBodyNavTwo,
-  ModalLayout,
-} from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGatherQuery } from "../../../hooks/gather/queries";
 import { IModal } from "../../../types/reactTypes";
+import { ModalBodyNavTwo, ModalLayout } from "../../Modals";
 import GatherExpireModalCancelDialog from "./GatherExpireModalCancelDialog";
 import GatherExpireModalExpireDialog from "./GatherExpireModalExpireDialogs";
 
