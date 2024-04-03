@@ -99,7 +99,8 @@ export default function StudyVoteMap() {
       location,
       preferenceStorage,
       studyPreference,
-      isLoading
+      isLoading,
+      myVote
     );
     if (data?.user?.location !== location) return;
     if (!preferenceStorage && isLoading) return;

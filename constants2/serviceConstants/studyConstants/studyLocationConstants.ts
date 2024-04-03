@@ -6,6 +6,7 @@ import {
   INC_송도,
   INC_송도DT,
   INC_인하대,
+  SUWAN_워터쿨러,
 } from "../../../storage/study";
 import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 import {
@@ -90,6 +91,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     SUWAN_행궁동,
     SUWAN_광교중앙역,
     SUWAN_망포역,
+    SUWAN_워터쿨러,
   ],
   양천: [
     YANG_이디야,
