@@ -4,8 +4,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { useVoteStatusResetMutation } from "../../../hooks/admin/mutation";
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function ResetStudyStatus() {
   const onClick = () => {};

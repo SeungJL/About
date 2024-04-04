@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { reviewContentIdState } from "../../../../recoil/previousAtoms";
+import { reviewContentIdState } from "../../../../recoils/previousAtoms";
 import { IImageSliderItem, ImageContainer } from "../ImageSlider";
 
 interface IImageSliderGatherReviewNav {

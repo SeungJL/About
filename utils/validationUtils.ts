@@ -1,3 +1,10 @@
+import { ACTIVE_LOCATIONS } from "../constants/locationConstants";
+import { ActiveLocation } from "../types2/serviceTypes/locationTypes";
+
+export function isLocationType(value: string): value is ActiveLocation {
+  return ACTIVE_LOCATIONS.includes(value as ActiveLocation);
+}
+
 export const checkIsKorean = (str: string) => {
   for (let i = 0; i < str.length; i++) {
     const code = str.charCodeAt(i);

@@ -7,7 +7,7 @@ import ImageTileGridLayout, {
 } from "../../../components/molecules/layouts/ImageTitleGridLayout";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study/study";
 import { useToast } from "../../../hooks/custom/CustomToast";
-import { IPlace } from "../../../types/study/studyDetail";
+import { IPlace } from "../../../types2/study/studyDetail";
 import { IParticipation } from "../../../types2/studyTypes/studyVoteTypes";
 
 interface IPlaceSelectorSub {

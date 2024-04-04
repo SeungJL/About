@@ -1,16 +1,16 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { requestServer } from "../../helpers/methodHelpers";
+import { requestServer } from "../../libs/methodHelpers";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
-import { MutationOptions } from "../../types/reactTypes";
-import { IPointSystem } from "../../types/user/pointSystem";
+import { IPointSystem } from "../../types2/pointSystem";
+import { MutationOptions } from "../../types2/reactTypes";
 import {
   IAvatar,
   IUser,
   IUserRegisterFormWriting,
-  Role,
-} from "../../types/user/user";
+  UserRole,
+} from "../../types2/userTypes/userInfoTypes";
 
 export const useUserRegisterMutation = (
   options?: MutationOptions<IUserRegisterFormWriting>
@@ -53,7 +53,7 @@ export const useUserInfoMutation = (options?: MutationOptions<IUser>) =>
 type UserInfoFieldParam<T> = T extends "avatar"
   ? IAvatar
   : T extends "role"
-  ? { role: Role }
+  ? { role: UserRole }
   : T extends "rest"
   ? { info: IApplyRest }
   : T extends "belong"

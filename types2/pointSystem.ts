@@ -1,5 +1,3 @@
-import { Location } from "../system";
-
 //common
 export interface IPointSystem {
   value: number;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { DispatchType } from "../../types/reactTypes";
+import { DispatchType } from "../../types2/reactTypes";
 import { IPlace, IStudyPlaces } from "../../types2/studyTypes/studyVoteTypes";
 import PlaceSelectorSub from "../molecules/picker/PlaceSelectorSub";
 

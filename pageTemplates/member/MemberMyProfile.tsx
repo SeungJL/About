@@ -3,8 +3,8 @@ import styled from "styled-components";
 import ScoreBadge from "../../components/atoms/badges/ScoreBadge";
 import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 import { USER_ROLE } from "../../constants/settingValue/role";
-import { birthToAge } from "../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
+import { birthToAge } from "../../utils/convertUtils/convertTypes";
 function MemberMyProfile() {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";

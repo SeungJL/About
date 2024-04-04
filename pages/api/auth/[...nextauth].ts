@@ -9,7 +9,7 @@ import { refreshAccessToken } from "../../../libs/backend/oauthUtils";
 import { Account } from "../../../models/account";
 import { User } from "../../../models/user";
 import { ActiveLocation } from "../../../types/serviceTypes/locationTypes";
-import { Role } from "../../../types/user/user";
+import { Role } from "../../../types2/userTypes/userInfoTypes";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -105,7 +105,7 @@ export const authOptions: NextAuthOptions = {
       if (trigger === "update") {
         return session;
       }
-      
+
       if (session.user.name === "guest") {
         session.user.id = "0";
         session.user.uid = "0";
@@ -126,7 +126,6 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, account, user, trigger, session }) {
-    
       if (trigger === "update" && token?.role) {
         token.role = "waiting";
         return token;

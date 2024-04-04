@@ -20,22 +20,23 @@ import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { DAILY_CHECK_WIN_LIST } from "../../../constants/serviceConstants/dailyCheckConstatns";
 import { POINT_SYSTEM_PLUS } from "../../../constants/serviceConstants/pointSystemConstants";
 import { DAILY_CHECK_WIN_ITEM } from "../../../constants/settingValue/dailyCheck";
-import { dayjsToStr } from "../../../helpers/dateHelpers";
-import { getRandomAlphabet } from "../../../helpers/eventHelpers";
+
 import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { useAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
 import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
 import { useDailyCheckQuery } from "../../../hooks/user/sub/dailyCheck/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
+import { getRandomAlphabet } from "../../../libs/userEventLibs/collection";
 import {
   transferAlphabetState,
   transferDailyCheckWinState,
   transferShowDailyCheckState,
 } from "../../../recoils/transferRecoils";
-import { IModal } from "../../../types/reactTypes";
-import { IUserRequest } from "../../../types/user/userRequest";
+import { IModal } from "../../../types2/reactTypes";
+import { IUserRequest } from "../../../types2/userTypes/userRequestTypes";
 import { getDistributionArr } from "../../../utils/mathUtils";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 

@@ -11,14 +11,14 @@ import BottomNav from "../../components/layouts/BottomNav";
 
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
-import { birthToAge } from "../../helpers/converterHelpers";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import { birthToAge } from "../../utils/convertUtils/convertTypes";
 import {
   getLocalStorageObj,
   setLocalStorageObj,
-} from "../../helpers/storageHelpers";
-import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
-import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { IUserRegisterFormWriting } from "../../types/user/user";
+} from "../../utils/storageUtils";
 
 dayjs.locale("ko");
 function Birthday() {

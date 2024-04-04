@@ -1,14 +1,12 @@
-import { BADGE_INFO } from "../constants/settingValue/badge";
 import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,
   EVENT_BADGE_민트초코,
-} from "../constants/storage/eventBadgeUser";
-import { ISortedUserAttends, IUserRankings } from "../types/page/ranking";
-import { IVoteRate } from "../types/study/study";
-import { IScore } from "../types/user/pointSystem";
-import { UserBadge } from "../types/user/user";
-import { IUser } from "../types2/userTypes/userInfoTypes";
+} from "../../constants/storage/eventBadgeUser";
+import { ISortedUserAttends, IUserRankings } from "../../types2/page/ranking";
+import { IScore } from "../../types2/pointSystem";
+import { IVoteRate } from "../../types2/study/study";
+import { IUser, UserBadge } from "../../types2/userTypes/userInfoTypes";
 
 type DataArrMap = {
   score: IScore[];

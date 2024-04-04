@@ -6,11 +6,14 @@ import BottomNav from "../../components/layouts/BottomNav";
 
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
-import { setLocalStorageObj } from "../../helpers/storageHelpers";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { setLocalStorageObj } from "../../utils/storageUtils";
 
-import { Gender, IUserRegisterFormWriting } from "../../types/user/user";
+import {
+  Gender,
+  IUserRegisterFormWriting,
+} from "../../types2/userTypes/userInfoTypes";
 
 function Gender() {
   const router = useRouter();

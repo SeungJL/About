@@ -3,20 +3,23 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
-import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
+import {
+  birthToAge,
+  birthToDayjs,
+} from "../../../utils/convertUtils/convertTypes";
 
+import Avatar from "../../../components/atoms/Avatar";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contentsText/friend";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import {
   transferMemberDataState,
-  transferUserDataState,
-} from "../../../recoil/transferDataAtoms";
-import { IUser } from "../../../types/user/user";
+  transferUserSummaryState,
+} from "../../../recoils/transferRecoils";
+import { IUser, IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function FriendCategory() {
   const router = useRouter();
@@ -25,7 +28,7 @@ function FriendCategory() {
 
   const membersData = useRecoilValue(transferMemberDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const setUserData = useSetRecoilState(transferUserSummaryState);
 
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
@@ -56,7 +59,7 @@ function FriendCategory() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
-  const onClickProfile = (user: IUser) => {
+  const onClickProfile = (user: IUserSummary) => {
     setUserData(user);
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
@@ -70,7 +73,12 @@ function FriendCategory() {
           {filterMember?.map((who) => (
             <Item key={who.uid} onClick={() => onClickProfile(who)}>
               <ProfileHeader>
-                <ProfileIcon user={who} size="md" />
+                <Avatar
+                  image={who.profileImage}
+                  avatar={who.avatar}
+                  uid={who.uid}
+                  size="md"
+                />
                 <span>{who.name}</span>
               </ProfileHeader>
               <Info>

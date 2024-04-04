@@ -3,7 +3,7 @@ import {
   TIME_SELECTOR_END,
   TIME_SELECTOR_START,
 } from "../../../constants/util/util";
-import { ITimeSelector } from "../../../types/timeAndDate";
+import { ITimeSelector } from "../../../types2/timeAndDate";
 import TimeSelectorDual from "../../atoms/TimeSelectorDual";
 
 const TimeSelector = ({ times, setTimes }: ITimeSelector) => {

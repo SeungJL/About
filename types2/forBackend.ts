@@ -1,5 +1,5 @@
 import { IPlace } from "./study/studyDetail";
-import { IUser } from "./user/user";
+import { IUser } from "./userTypes/userInfoTypes";
 
 export interface IAttendance2 extends Document {
   date: Date;

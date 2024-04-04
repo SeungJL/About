@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import styled from "styled-components";
-import { category, IPlazaData } from "../../../types/page/plaza";
+import { category, IPlazaData } from "../../../types2/page/plaza";
 
 export default function PlazaBlock({
   data,

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Badge } from "../../../components/atoms/badges/Badges";
 import { NewAlertIcon } from "../../../components/atoms/Icons/AlertIcon";
-import { GatherStatus } from "../../../types/page/gather";
+import { GatherStatus } from "../../../types2/page/gather";
 
 interface IGroupTitle {
   title: string;

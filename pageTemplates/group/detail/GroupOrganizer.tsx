@@ -2,8 +2,8 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { Badge } from "../../../components/atoms/badges/Badges";
 import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
-import { getDateDiff } from "../../../helpers/dateHelpers";
-import { IUser } from "../../../types/user/user";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
+import { getDateDiff } from "../../../utils/dateTimeUtils";
 
 interface IGroupOrganizer {
   createdAt: string;

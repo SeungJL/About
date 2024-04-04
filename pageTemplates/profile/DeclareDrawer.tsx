@@ -21,9 +21,12 @@ import {
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { DispatchString, DispatchType } from "../../types/reactTypes";
-import { IUser } from "../../types/user/user";
-import { DeclareRequest, IUserRequest } from "../../types/user/userRequest";
+import { DispatchString, DispatchType } from "../../types2/reactTypes";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
+import {
+  DeclareRequest,
+  IUserRequest,
+} from "../../types2/userTypes/userRequestTypes";
 
 interface IDeclareDrawer {
   userData: IUser;

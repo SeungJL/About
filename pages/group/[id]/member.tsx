@@ -14,7 +14,7 @@ import { useGroupExileUserMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
-import { IGroup } from "../../../types/page/group";
+import { IGroup } from "../../../types2/page/group";
 import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
 export default function Member() {

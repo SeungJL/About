@@ -13,10 +13,10 @@ import {
   NOTICE_ACTIVE_CNT,
   NOTICE_ALERT,
 } from "../../../constants/keys/localStorage";
-import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useNoticeActiveLogQuery } from "../../../hooks/user/sub/interaction/queries";
 import { NOTICE_ARR } from "../../../storage/notice";
 import { AlertIcon } from "../../../styles/icons";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 interface IHomeHeaderIcons {
   setIconType: React.Dispatch<any>;

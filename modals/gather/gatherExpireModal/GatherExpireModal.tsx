@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGatherQuery } from "../../../hooks/gather/queries";
-import { IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types2/reactTypes";
 import { ModalBodyNavTwo, ModalLayout } from "../../Modals";
 import GatherExpireModalCancelDialog from "./GatherExpireModalCancelDialog";
 import GatherExpireModalExpireDialog from "./GatherExpireModalExpireDialogs";

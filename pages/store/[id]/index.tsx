@@ -9,7 +9,7 @@ import StoreDetailCover from "../../../pageTemplates/store/detail/StoreDetailCov
 import StoreDetailDetails from "../../../pageTemplates/store/detail/StoreDetailDetails";
 import StoreDetailNav from "../../../pageTemplates/store/detail/StoreDetailNav";
 import StoreDetailOverview from "../../../pageTemplates/store/detail/StoreDetailOverview";
-import { transferStoreGiftDataState } from "../../../recoil/transferDataAtoms";
+import { transferStoreGiftDataState } from "../../../recoils/transferRecoils";
 
 const dayjs = require("dayjs");
 require("dayjs/locale/ko");

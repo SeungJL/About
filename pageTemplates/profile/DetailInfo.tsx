@@ -2,8 +2,8 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import BlurredPart from "../../components/molecules/BlurredPart";
 import Chart from "../../components/organisms/chart/Chart";
-import { birthToAge } from "../../helpers/converterHelpers";
-import { IUser } from "../../types/user/user";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
+import { birthToAge } from "../../utils/convertUtils/convertTypes";
 
 function DetailInfo({ user }: { user: IUser }) {
   const { data: session } = useSession();

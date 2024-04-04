@@ -1,9 +1,9 @@
 import { Badge } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
-import { getUserBadge } from "../../../helpers/userHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { IUserBadge } from "../../../types/user/user";
+import { getUserBadge } from "../../../libs/userEventLibs/userHelpers";
+import { IUserBadge } from "../../../types2/userTypes/userInfoTypes";
 
 function UserOverviewBadge() {
   const [badge, setBadge] = useState<IUserBadge>();

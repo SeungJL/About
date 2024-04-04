@@ -10,7 +10,7 @@ import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
+import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
 
 function GroupWritingGuide() {
   const router = useRouter();

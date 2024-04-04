@@ -8,12 +8,12 @@ import styled from "styled-components";
 import Avatar from "../../../components/atoms/Avatar";
 import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
-import { getDateDiff } from "../../../helpers/dateHelpers";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
 import { IGatherComment } from "../../../types2/gatherTypes/gatherTypes";
+import { getDateDiff } from "../../../utils/dateTimeUtils";
 export interface IGatherCommentUnit {
   gatherId: number;
   comment: string;

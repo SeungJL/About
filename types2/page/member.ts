@@ -1,4 +1,4 @@
-import { IUser } from "../user/user";
+import { IUser } from "../userTypes/userInfoTypes";
 
 export type MemberGroup =
   | "member"

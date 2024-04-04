@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ImageTileSlider, {
   IImageTile,
 } from "../../components/organisms/sliders/ImageTileSlider";
-import { IGroup } from "../../types/page/group";
+import { IGroup } from "../../types2/page/group";
 import { getRandomImage } from "../../utils/imageUtils";
 
 interface IGroupMine {

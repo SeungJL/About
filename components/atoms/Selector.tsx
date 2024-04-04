@@ -4,7 +4,7 @@ import { Select } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { DispatchType } from "../../types2/reactTypes";
 import { ActiveLocation } from "../../types2/serviceTypes/locationTypes";
-import { isLocationType } from "../../utils/typeCheckUtils";
+import { isLocationType } from "../../utils/validationUtils";
 
 interface ISelector {
   defaultValue: string;

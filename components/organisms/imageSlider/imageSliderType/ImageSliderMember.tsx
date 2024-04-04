@@ -3,10 +3,13 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { dayjsToFormat } from "../../../../helpers/dateHelpers";
-import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../../recoil/transferDataAtoms";
-import { IUser } from "../../../../types/user/user";
+import { prevPageUrlState } from "../../../../recoils/previousAtoms";
+import { transferUserSummaryState } from "../../../../recoils/transferRecoils";
+import {
+  IUser,
+  IUserSummary,
+} from "../../../../types2/userTypes/userInfoTypes";
+import { dayjsToFormat } from "../../../../utils/dateTimeUtils";
 import Avatar from "../../../atoms/Avatar";
 import HeartLikeIcon from "../../../atoms/Icons/HeartLikeIcon";
 import { ImageContainer } from "../ImageSlider";
@@ -18,9 +21,9 @@ interface IImageSliderMember {
 function ImageSliderMember({ imageContainer }: IImageSliderMember) {
   const router = useRouter();
   const setBeforePage = useSetRecoilState(prevPageUrlState);
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const setUserData = useSetRecoilState(transferUserSummaryState);
 
-  const onClickUser = (user: IUser) => {
+  const onClickUser = (user: IUserSummary) => {
     setUserData(user);
     router.push(`/profile/${user.uid}`);
     setBeforePage(router?.asPath);
@@ -40,7 +43,7 @@ function ImageSliderMember({ imageContainer }: IImageSliderMember) {
       }}
       slidesPerView={9.5}
     >
-      {(imageContainer as IUser[]).map((user, index) => {
+      {(imageContainer as IUserSummary[]).map((user, index) => {
         return (
           <SwiperSlide key={index}>
             <MemberItem>

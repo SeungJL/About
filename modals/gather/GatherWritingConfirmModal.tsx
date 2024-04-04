@@ -10,11 +10,11 @@ import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherWritingMutation } from "../../hooks/gather/mutations";
-import { isGatherEditState } from "../../recoil/checkAtoms";
-import { sharedGatherWritingState } from "../../recoil/sharedDataAtoms";
+import { isGatherEditState } from "../../recoils/checkAtoms";
+import { sharedGatherWritingState } from "../../recoils/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGather, IGatherWriting } from "../../types/page/gather";
-import { IModal } from "../../types/reactTypes";
+import { IGather, IGatherWriting } from "../../types2/page/gather";
+import { IModal } from "../../types2/reactTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IGatherWritingConfirmModal extends IModal {

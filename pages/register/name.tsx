@@ -7,14 +7,14 @@ import BottomNav from "../../components/layouts/BottomNav";
 
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
-import {
-  getLocalStorageObj,
-  setLocalStorageObj,
-} from "../../helpers/storageHelpers";
 import { checkIsKorean } from "../../helpers/validHelpers";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { IUserRegisterFormWriting } from "../../types/user/user";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
 
 function Name() {
   const searchParams = useSearchParams();

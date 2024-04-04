@@ -8,14 +8,14 @@ import styled from "styled-components";
 import Avatar from "../../../components/atoms/Avatar";
 import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
-import { getDateDiff } from "../../../helpers/dateHelpers";
+import { getDateDiff } from "../../../utils/dateTimeUtils";
 // import { Group_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGroupCommentMutation } from "../../../hooks/groupStudy/mutations";
 
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
-import { IGatherComment } from "../../../types/page/gather";
+import { IGatherComment } from "../../../types2/page/gather";
 // import GroupCommentEditModal from "../../../modals/group/GroupCommentEditModal";
 
 export interface IGroupCommentUnit {

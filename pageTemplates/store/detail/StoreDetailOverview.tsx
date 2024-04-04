@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IStoreGift } from "../../../types/page/store";
+import { IStoreGift } from "../../../types2/page/store";
 
 interface IStoreDetailOverview {
   info: IStoreGift;

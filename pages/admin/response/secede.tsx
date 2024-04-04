@@ -6,7 +6,7 @@ import Header from "../../../components/layouts/Header";
 import AdminLocationSelector from "../../../components/molecules/picker/AdminLocationSelector";
 
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
-import { IUserRequest } from "../../../types/user/userRequest";
+import { IUserRequest } from "../../../types2/userTypes/userRequestTypes";
 
 function AdminSecede() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();

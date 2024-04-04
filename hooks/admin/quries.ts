@@ -1,21 +1,18 @@
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery } from "react-query";
+
 import {
   ADMIN_STUDY_RECORD,
   USER_REGISTER_FORM,
   USER_REQUEST,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../helpers/dateHelpers";
-import { QueryOptions } from "../../types/reactTypes";
-import { Location } from "../../types/system";
-import { IUserRegisterForm } from "../../types/user/user";
-import {
-  IUserRequest,
-  UserRequestCategory,
-} from "../../types/user/userRequest";
-import { IUser } from "../../types2/userTypes/userInfoTypes";
+
+import { QueryOptions } from "../../types2/reactTypes";
+import { IUser, IUserRegisterForm } from "../../types2/userTypes/userInfoTypes";
+import { IUserRequest, UserRequestCategory } from "../../types2/userTypes/userRequestTypes";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>
   useQuery<IUser[], AxiosError, IUser[]>(

@@ -1,5 +1,5 @@
-import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
-import { ITimeStamps } from "../timeAndDate";
+import { ITimeStamps } from "./timeAndDate";
+import { IUserSummary } from "./userTypes/userInfoTypes";
 
 export type Alphabet = "A" | "B" | "O" | "U" | "T";
 

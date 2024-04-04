@@ -4,12 +4,13 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MONTH_LIST } from "../../../constants/util/util";
-import { getMonth } from "../../../helpers/dateHelpers";
+
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/queries";
 
-import { IVoteRate } from "../../../types/study/study";
-import { IUser } from "../../../types/user/user";
+import { IVoteRate } from "../../../types2/study/study";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
+import { getMonth } from "../../../utils/dateTimeUtils";
 import { ChartStudyOptions } from "./ChartOptions";
 
 interface IChart {

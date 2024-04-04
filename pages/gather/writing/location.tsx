@@ -10,8 +10,8 @@ import LocationSearch from "../../../components/organisms/location/LocationSearc
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherLocation } from "../../../types/page/gather";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
+import { IGatherLocation } from "../../../types2/page/gather";
 
 function WritingGahterLocation() {
   const router = useRouter();

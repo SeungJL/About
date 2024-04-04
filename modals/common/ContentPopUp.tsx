@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types2/reactTypes";
 
 export interface IContentPopUpContents {
   title: string;

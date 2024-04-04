@@ -6,12 +6,12 @@ import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/groupStudy";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
-import { dayjsToFormat, getDateWeek } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useGroupAttendMutation } from "../../hooks/groupStudy/mutations";
+import { dayjsToFormat, getDateWeek } from "../../utils/dateTimeUtils";
 
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types2/reactTypes";
 
 interface IAttendCheckModal extends IModal {
   id: number;

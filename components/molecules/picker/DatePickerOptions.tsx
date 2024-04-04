@@ -5,7 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 export const PICKER_DATE_AND_TIME = {
   timeFormat: "HH:mm",

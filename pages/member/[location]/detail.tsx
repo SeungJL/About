@@ -9,26 +9,26 @@ import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 
 import { BADGE_COLOR } from "../../../constants/settingValue/badge";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { getUserBadge } from "../../../helpers/userHelpers";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import { getUserBadge } from "../../../libs/userEventLibs/userHelpers";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import {
   transferMemberDataState,
-  transferUserDataState,
-} from "../../../recoil/transferDataAtoms";
-import { IUser } from "../../../types/user/user";
+  transferUserSummaryState,
+} from "../../../recoils/transferRecoils";
+import { IUser, IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function MemberDetail() {
   const router = useRouter();
 
   const memberData = useRecoilValue(transferMemberDataState);
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const setUserData = useSetRecoilState(transferUserSummaryState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
 
   const section = memberData?.section;
 
   const onClickUser = (user: IUser) => {
-    setUserData(user);
+    setUserData(user as IUserSummary);
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };

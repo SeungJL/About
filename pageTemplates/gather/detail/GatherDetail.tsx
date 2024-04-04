@@ -5,8 +5,8 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 import { CopyBtn } from "../../../components/atoms/Icons/CopyIcon";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { IGather } from "../../../types2/gatherTypes/gatherTypes";
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 dayjs.locale("ko");
 
 interface IGatherDetailInfo {

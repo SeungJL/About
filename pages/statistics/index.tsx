@@ -7,20 +7,20 @@ import styled from "styled-components";
 import { MainLoadingAbsolute } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
-import {
-  sortUserRanking,
-  sortUserScoreRanking,
-} from "../../helpers/userHelpers";
 import { useAdminUsersLocationControlQuery } from "../../hooks/admin/quries";
 import { useTypeToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserAttendRateQuery } from "../../hooks/user/sub/studyRecord/queries";
+import {
+  sortUserRanking,
+  sortUserScoreRanking,
+} from "../../libs/userEventLibs/userHelpers";
 import RankingMembers from "../../pageTemplates/ranking/RankingMembers";
 import RankingOverview from "../../pageTemplates/ranking/RankingOverview";
 import StatisticsFilterBar from "../../pageTemplates/ranking/StatisticsFilterBar";
 import StatisticsMine from "../../pageTemplates/ranking/StatisticsMine";
 import StatisticsTabNav from "../../pageTemplates/ranking/StatisticsTabNav";
-import { IUserRankings } from "../../types/page/ranking";
+import { IUserRankings } from "../../types2/page/ranking";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 

@@ -8,14 +8,14 @@ import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { majors_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import {
   getLocalStorageObj,
   setLocalStorageObj,
-} from "../../helpers/storageHelpers";
-import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
-import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+} from "../../utils/storageUtils";
 
-import { IMajor } from "../../types/user/user";
+import { IMajor } from "../../types2/userTypes/userInfoTypes";
 
 function Major() {
   const router = useRouter();

@@ -6,10 +6,10 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Badge } from "../../components/atoms/badges/Badges";
-import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useFailToast } from "../../hooks/custom/CustomToast";
-import { transferGroupDataState } from "../../recoil/transferDataAtoms";
-import { IGroup } from "../../types/page/group";
+import { transferGroupDataState } from "../../recoils/transferRecoils";
+import { IGroup } from "../../types2/page/group";
+import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
 interface IGroupBlock {
   group: IGroup;

@@ -6,8 +6,8 @@ import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
 
-import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useInteractionLikeQuery } from "../../hooks/user/sub/interaction/queries";
+import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
 function Like() {
   const { data: activeLogs } = useInteractionLikeQuery();

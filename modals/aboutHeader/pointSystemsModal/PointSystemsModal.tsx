@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TabNav, {
   ITabNavOptions,
 } from "../../../components/molecules/navs/TabNav";
-import { IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types2/reactTypes";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 import PointSystemsModalFee from "./PointSystemsModalFee";
 import PointSystemsModalPoint from "./PointSystemsModalPoint";

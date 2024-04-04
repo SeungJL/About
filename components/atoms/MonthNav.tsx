@@ -1,9 +1,7 @@
 import { faCaretLeft, faCaretRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dayjs } from "dayjs";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isRecordLoadingState } from "../../recoil/loadingAtoms";
 import { DispatchType } from "../../types2/reactTypes";
 
 interface IMonthNav {
@@ -12,10 +10,7 @@ interface IMonthNav {
 }
 
 function MonthNav({ month, setNavMonth }: IMonthNav) {
-  const setIsRecordLoading = useSetRecoilState(isRecordLoadingState);
-
   const onClick = (dir: "left" | "right") => {
-    setIsRecordLoading(true);
     if (dir === "left") setNavMonth((old) => old.subtract(1, "month"));
     else setNavMonth((old) => old.add(1, "month"));
   };

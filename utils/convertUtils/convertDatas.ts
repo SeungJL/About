@@ -100,3 +100,17 @@ export const getUserRole = (role: UserRole) => {
       return "열활 멤버";
   }
 };
+
+export const getRestInfo = (restData: string) => {
+  const [type, date, content] = restData.split(`/`);
+  return {
+    type,
+    date,
+    content,
+  };
+};
+
+export const shuffleArray = (array: any[]) => {
+  if (!array) return;
+  return array.sort(() => Math.random() - 0.5);
+};

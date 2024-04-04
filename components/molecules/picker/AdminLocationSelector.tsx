@@ -2,8 +2,9 @@ import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { LOCATION_ALL, RegisterLocation } from "../../../constants/location";
 
-import { IUserRegisterForm } from "../../../types/user/user";
-import { IUserRequest } from "../../../types/user/userRequest";
+import { IUserRegisterForm } from "../../../types2/userTypes/userInfoTypes";
+import { IUserRequest } from "../../../types2/userTypes/userRequestTypes";
+
 import ButtonCheckNav from "../ButtonCheckNav";
 
 interface IAdminLocationSelector {

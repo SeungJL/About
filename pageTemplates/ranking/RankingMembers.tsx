@@ -5,9 +5,9 @@ import styled from "styled-components";
 import Avatar from "../../components/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { RANKING_ANONYMOUS_USERS } from "../../constants/storage/anonymous";
-import { getUserBadge } from "../../helpers/userHelpers";
-import { IRankingUser } from "../../types/page/ranking";
-import { IVoteRate } from "../../types/study/study";
+import { getUserBadge } from "../../libs/userEventLibs/userHelpers";
+import { IRankingUser } from "../../types2/page/ranking";
+import { IVoteRate } from "../../types2/study/study";
 
 interface IRankingMembers {
   rankingUsers: IVoteRate[];

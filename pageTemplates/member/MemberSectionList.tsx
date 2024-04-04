@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ImageSlider from "../../components/organisms/imageSlider/ImageSlider";
-import { IUser } from "../../types/user/user";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
 
 interface IMemberMember {
   members: IUser[];

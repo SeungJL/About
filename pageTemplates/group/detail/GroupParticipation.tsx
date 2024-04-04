@@ -7,8 +7,8 @@ import Avatar from "../../../components/atoms/Avatar";
 import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { useToast } from "../../../hooks/custom/CustomToast";
 
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { IGroup } from "../../../types/page/group";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
+import { IGroup } from "../../../types2/page/group";
 import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
 
 interface IGroupParticipation {

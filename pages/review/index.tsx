@@ -22,8 +22,8 @@ import ReviewGatherSummary from "../../pageTemplates/review/ReviewGatherSummary"
 import ReviewItemHeader from "../../pageTemplates/review/ReviewItemHeader";
 import ReviewStatus from "../../pageTemplates/review/ReviewStatus";
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
-import { IGatherLocation, IGatherType } from "../../types/page/gather";
 import { LocationFilterType } from "../../types/system";
+import { IGatherLocation, IGatherType } from "../../types2/page/gather";
 import {
   ActiveLocation,
   ActiveLocationAll,

@@ -7,8 +7,8 @@ import {
   USER_POINT_SYSTEM,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { QueryOptions } from "../../types/reactTypes";
-import { IPointLog } from "../../types/user/pointSystem";
+import { IPointLog } from "../../types2/pointSystem";
+import { QueryOptions } from "../../types2/reactTypes";
 import { IUser } from "../../types2/userTypes/userInfoTypes";
 
 export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>

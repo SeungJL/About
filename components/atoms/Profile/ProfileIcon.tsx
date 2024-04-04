@@ -11,14 +11,18 @@ import {
   AVATAR_COLOR,
   AVATAR_ICON,
 } from "../../../constants/settingValue/avatar";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { transferUserDataState } from "../../../recoil/transferDataAtoms";
-import { Size } from "../../../types/system";
-import { IUser, IUserRegisterForm } from "../../../types/user/user";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
+import { transferUserSummaryState } from "../../../recoils/transferRecoils";
+
+import {
+  IUser,
+  IUserRegisterForm,
+  IUserSummary,
+} from "../../../types2/userTypes/userInfoTypes";
 
 interface IProfileIcon {
   user: IUser | IUserRegisterForm | "guest" | "ABOUT";
-  size: Size;
+  size: any;
   isMember?: boolean;
   isImagePriority?: boolean;
 }
@@ -26,7 +30,7 @@ interface IProfileIcon {
 function ProfileIcon({ user, size, isMember, isImagePriority }: IProfileIcon) {
   const router = useRouter();
 
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const setUserData = useSetRecoilState(transferUserSummaryState);
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
 
   const avatarType = user !== "guest" ? (user as IUser)?.avatar?.type : 0;
@@ -55,7 +59,7 @@ function ProfileIcon({ user, size, isMember, isImagePriority }: IProfileIcon) {
   const onClick = () => {
     if (!isMember) return;
     const url = router.pathname;
-    setUserData(user as IUser);
+    setUserData(user as IUserSummary);
     setPrevPageUrl(url);
 
     router.push(`/profile/${(user as IUser).uid}`);

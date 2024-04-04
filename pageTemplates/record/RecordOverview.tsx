@@ -3,10 +3,10 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import { IArrivedData } from "../../types/study/study";
+import { IArrivedData } from "../../types2/study/study";
+import { dayjsToFormat } from "../../utils/dateTimeUtils";
 interface IRecordOverview {
   arrivedCalendar: IArrivedData[];
 }

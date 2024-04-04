@@ -11,8 +11,6 @@ import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { NOTICE_HEART_LOG } from "../../../constants/keys/queryKeys";
 import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { USER_ROLE } from "../../../constants/settingValue/role";
-import { dayjsToStr } from "../../../helpers/dateHelpers";
-import { getUserBadge } from "../../../helpers/userHelpers";
 import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
@@ -23,12 +21,14 @@ import {
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
+import { getUserBadge } from "../../../libs/userEventLibs/userHelpers";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 import {
   IInteractionLikeStorage,
   IInteractionSendLike,
-} from "../../../types/interaction";
-import { IUser } from "../../../types/user/user";
+} from "../../../types2/interaction";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
 
 interface IProfileInfo {
   user: IUser;

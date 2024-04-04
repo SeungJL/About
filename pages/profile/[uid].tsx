@@ -12,13 +12,13 @@ import BottomDrawer from "../../pageTemplates/profile/BottomDrawer";
 import DeclareDrawer from "../../pageTemplates/profile/DeclareDrawer";
 import DetailInfo from "../../pageTemplates/profile/DetailInfo";
 import ProfileOverview from "../../pageTemplates/profile/ProfileOverview";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
-import { transferUserDataState } from "../../recoil/transferDataAtoms";
-import { DeclareRequest } from "../../types/user/userRequest";
+import { prevPageUrlState } from "../../recoils/previousAtoms";
+import { transferUserSummaryState } from "../../recoils/transferRecoils";
+import { DeclareRequest } from "../../types2/userTypes/userRequestTypes";
 
 function ProfilePage() {
   const router = useRouter();
-  const userData = useRecoilValue(transferUserDataState);
+  const userData = useRecoilValue(transferUserSummaryState);
   const beforePage = useRecoilValue(prevPageUrlState);
 
   const uid = router.query.uid;

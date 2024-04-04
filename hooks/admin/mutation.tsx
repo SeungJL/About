@@ -2,10 +2,10 @@ import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../helpers/dateHelpers";
-import { requestServer } from "../../helpers/methodHelpers";
-import { MutationOptions } from "../../types/reactTypes";
-import { IPointSystem } from "../../types/user/pointSystem";
+import { requestServer } from "../../libs/methodHelpers";
+import { IPointSystem } from "../../types2/pointSystem";
+import { MutationOptions } from "../../types2/reactTypes";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>
   useMutation<void, AxiosError, any>(async (profile) => {

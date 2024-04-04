@@ -11,7 +11,7 @@ import { useUserFriendMutation } from "../../../hooks/user/mutations";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
-import { IUser } from "../../../types/user/user";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
 
 interface IProfileRelation {
   user: IUser;

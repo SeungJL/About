@@ -1,13 +1,14 @@
 import { useParams } from "next/navigation";
-import { birthToAge } from "../../../helpers/converterHelpers";
+
 import {
   useFailToast,
   useTypeErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGatherQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { DispatchNumber } from "../../../types/reactTypes";
+import { DispatchNumber } from "../../../types2/reactTypes";
 import { IUser } from "../../../types2/userTypes/userInfoTypes";
+import { birthToAge } from "../../../utils/convertUtils/convertTypes";
 import { ModalBodyNavTwo } from "../../Modals";
 
 interface IGatherParticipateModalApply {

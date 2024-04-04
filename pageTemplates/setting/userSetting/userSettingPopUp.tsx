@@ -9,10 +9,10 @@ import {
   SUGGEST_POP_UP,
   USER_GUIDE_POP_UP,
 } from "../../../constants/keys/localStorage";
-import { checkAndSetLocalStorage } from "../../../helpers/storageHelpers";
 import EnthusiasticModal from "../../../modals/aboutHeader/EnthusiasticModal/EnthusiasticModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
 import PromotionModal from "../../../modals/aboutHeader/promotionModal/PromotionModal";
+import { checkAndSetLocalStorage } from "../../../utils/storageUtils";
 
 import AlphabetPopUp from "../../../modals/pop-up/AlphabetPopUp";
 import FAQPopUp from "../../../modals/pop-up/FAQPopUp";

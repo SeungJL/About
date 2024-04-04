@@ -9,7 +9,6 @@ import { GROUP_GATHERING_IMAGE } from "../../../assets/images/randomImages";
 import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
 import Slide from "../../../components/layouts/PageSlide";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
-import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useGroupAttendancePatchMutation } from "../../../hooks/groupStudy/mutations";
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
 import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
@@ -20,7 +19,8 @@ import GroupCover from "../../../pageTemplates/group/detail/GroupCover";
 import GroupHeader from "../../../pageTemplates/group/detail/GroupHeader";
 import GroupParticipation from "../../../pageTemplates/group/detail/GroupParticipation";
 import GroupTitle from "../../../pageTemplates/group/detail/GroupTitle";
-import { IGroup } from "../../../types/page/group";
+import { IGroup } from "../../../types2/page/group";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 function GroupDetail() {
   const { data: session } = useSession();

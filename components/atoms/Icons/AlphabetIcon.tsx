@@ -19,7 +19,7 @@ import {
   TABLE_STRING_COLORS_BG,
   TABLE_STRONG_COLORS,
 } from "../../../constants/styles";
-import { Alphabet } from "../../../types/user/collections";
+import { Alphabet } from "../../../types2/collections";
 
 interface IAlphabetIcon {
   alphabet: Alphabet;

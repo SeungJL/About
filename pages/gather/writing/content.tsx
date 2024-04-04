@@ -13,7 +13,7 @@ import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
 
 function WritingGatherContent() {
   const router = useRouter();

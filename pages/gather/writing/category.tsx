@@ -14,10 +14,10 @@ import {
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGatherType } from "../../../types/page/gather";
+import { IGatherType } from "../../../types2/page/gather";
 
 function WritingGatherCategory() {
   const router = useRouter();

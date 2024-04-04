@@ -15,8 +15,8 @@ import {
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../../pageTemplates/register/RegisterOverview";
-import { prevPageUrlState } from "../../../../recoil/previousAtoms";
-import { sharedGroupWritingState } from "../../../../recoil/sharedDataAtoms";
+import { prevPageUrlState } from "../../../../recoils/previousAtoms";
+import { sharedGroupWritingState } from "../../../../recoils/sharedDataAtoms";
 function WritingStudyCategorySub() {
   const router = useRouter();
   const failToast = useFailToast();

@@ -6,9 +6,11 @@ import DailyCheckWinModal from "../../modals/aboutHeader/dailyCheckModal/DailyCh
 import AlphabetModal from "../../modals/common/AlphabetModal";
 import WriteDrawer from "../../modals/home/writeDrawer";
 import ErrorUserInfoPopUp from "../../modals/pop-up/ErrorUserInfoPopUp";
-import { transferAlphabetState } from "../../recoil/transferDataAtoms";
-import { transferDailyCheckWinState } from "../../recoils/transferRecoils";
-import { DispatchBoolean } from "../../types/reactTypes";
+import {
+  transferAlphabetState,
+  transferDailyCheckWinState,
+} from "../../recoils/transferRecoils";
+import { DispatchBoolean } from "../../types2/reactTypes";
 interface IBaseModal {
   isGuest: boolean;
   isError: boolean;

@@ -6,9 +6,9 @@ import {
   LOCATION_TABLE_COLOR,
 } from "../../constants/location";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { DispatchType } from "../../types/reactTypes";
-import { IArrivedData } from "../../types/study/study";
 import { Location, LocationFilterType } from "../../types/system";
+import { DispatchType } from "../../types2/reactTypes";
+import { IArrivedData } from "../../types2/study/study";
 
 interface IRecordLocationCategory {
   initialData: IArrivedData[];

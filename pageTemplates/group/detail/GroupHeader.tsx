@@ -17,12 +17,12 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
 
-import { isGroupEditState } from "../../../recoil/checkAtoms";
+import { isGroupEditState } from "../../../recoils/checkAtoms";
 
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
+import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGroup } from "../../../types/page/group";
+import { IGroup } from "../../../types2/page/group";
 import BottomDrawer from "../../profile/BottomDrawer";
 
 interface IGroupHeader {

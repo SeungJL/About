@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 import { ActiveIcon } from "../../components/atoms/Icons/NoticeIcons";
 import { NOTICE_ACTIVE_LOG } from "../../constants/keys/queryKeys";
-import { getDateDiff } from "../../helpers/dateHelpers";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
@@ -17,9 +16,10 @@ import { useUserFriendMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { useInteractionMutation } from "../../hooks/user/sub/interaction/mutations";
+import { getDateDiff } from "../../utils/dateTimeUtils";
 
-import { INoticeActiveLog } from "../../types/interaction";
-import { Alphabet } from "../../types/user/collections";
+import { Alphabet } from "../../types2/collections";
+import { INoticeActiveLog } from "../../types2/interaction";
 
 interface INoticeActive {
   activeLogs: INoticeActiveLog[];

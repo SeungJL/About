@@ -17,14 +17,15 @@ import {
   GROUP_STUDY_RULE_CONTENT,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contentsText/GroupStudyContents";
-import { shuffleArray } from "../../helpers/utilHelpers";
+
 import { useGroupQuery } from "../../hooks/groupStudy/queries";
 import RuleModal from "../../modals/RuleModal";
 import GroupBlock from "../../pageTemplates/group/GroupBlock";
 import GroupMine from "../../pageTemplates/group/GroupMine";
 import GroupSkeletonMain from "../../pageTemplates/group/GroupSkeletonMain";
 import GroupSkeletonMine from "../../pageTemplates/group/GroupSkeletonMine";
-import { GroupCategory, IGroup } from "../../types/page/group";
+import { GroupCategory, IGroup } from "../../types2/page/group";
+import { shuffleArray } from "../../utils/convertUtils/convertDatas";
 
 interface ICategory {
   main: GroupCategory;

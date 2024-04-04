@@ -20,7 +20,7 @@ import {
 } from "../../modals/Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types2/reactTypes";
 
 interface IParticipateModal extends IModal {
   fee: number;

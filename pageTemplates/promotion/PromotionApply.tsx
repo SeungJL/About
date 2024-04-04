@@ -7,7 +7,7 @@ import { useFailToast } from "../../hooks/custom/CustomToast";
 import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import ModalPortal from "../../modals/ModalPortal";
 import PromotionApplyModal from "../../modals/promotion/PromotionApplyModal";
-import { IPromotionApply } from "../../types/page/promotion";
+import { IPromotionApply } from "../../types2/page/promotion";
 
 type FormValues = {
   uniName: string;

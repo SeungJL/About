@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Slide from "../../components/layouts/PageSlide";
-import { getUrlWithLocationAndDate } from "../../helpers/urlHelpers";
+
 import HomeCategoryNav from "../../pageTemplates/home/HomeCategoryNav";
 import HomeGatherSection from "../../pageTemplates/home/HomeGatherSection";
 import HomeHeader from "../../pageTemplates/home/homeHeader/HomeHeader";
@@ -17,6 +17,7 @@ import HomeStudySection from "../../pageTemplates/home/HomeStudySection";
 import HomeWinRecordSection from "../../pageTemplates/home/HomeWinRecordSection";
 import StudyController from "../../pageTemplates/home/studyController/StudyController";
 import { LocationEn } from "../../types/serviceTypes/locationTypes";
+import { getUrlWithLocationAndDate } from "../../utils/convertUtils/convertTypes";
 
 function Home() {
   const router = useRouter();

@@ -19,8 +19,8 @@ import styled from "styled-components";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { IModal } from "../../types/reactTypes";
-import { IUserRequest } from "../../types/user/userRequest";
+import { IModal } from "../../types2/reactTypes";
+import { IUserRequest } from "../../types2/userTypes/userRequestTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IRequestSuggestModal extends IModal {

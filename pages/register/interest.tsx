@@ -13,7 +13,7 @@ import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   getLocalStorageObj,
   setLocalStorageObj,
-} from "../../helpers/storageHelpers";
+} from "../../utils/storageUtils";
 
 function Interest() {
   const router = useRouter();

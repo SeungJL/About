@@ -14,8 +14,8 @@ import styled from "styled-components";
 import SectionBar from "../../components/molecules/bars/SectionBar";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../constants/contentsText/friend";
 import { useFailToast } from "../../hooks/custom/CustomToast";
-import { transferMemberDataState } from "../../recoil/transferDataAtoms";
-import { IUser } from "../../types/user/user";
+import { transferMemberDataState } from "../../recoils/transferRecoils";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
 
 interface IMemberRecommend {
   members: IUser[];

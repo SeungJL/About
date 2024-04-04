@@ -1,10 +1,10 @@
 import { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
-import { dayjsToStr } from "../../helpers/dateHelpers";
-import { requestServer } from "../../helpers/methodHelpers";
-import { MutationOptions } from "../../types/reactTypes";
-import { IStudyParticipate } from "../../types/study/study";
+import { requestServer } from "../../libs/methodHelpers";
+import { MutationOptions } from "../../types2/reactTypes";
+import { IStudyParticipate } from "../../types2/study/study";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 import {
   IStudyPlaces,

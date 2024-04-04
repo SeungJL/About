@@ -1,8 +1,8 @@
 import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contentsText/GroupStudyContents";
-import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
-import { LocationFilterType } from "../system";
+import { LocationFilterType } from "../../types/system";
 import { ITimeStamps } from "../timeAndDate";
-import { IUser } from "../user/user";
+import { IUser, IUserSummary } from "../userTypes/userInfoTypes";
+
 import { GatherStatus, IGatherComment } from "./gather";
 
 export type GroupCategory = typeof GROUP_STUDY_CATEGORY_ARR[number];

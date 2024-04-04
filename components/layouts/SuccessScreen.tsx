@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isVoteCompletedState } from "../../recoil/renderTriggerAtoms";
+import { isVoteCompletedState } from "../../recoils/renderRecoils";
 
 interface ISuccessScreen {
   children?: React.ReactNode;

@@ -10,18 +10,18 @@ import {
   STUDY_VOTE,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../helpers/dateHelpers";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
-import { QueryOptions } from "../../types/reactTypes";
+import { QueryOptions } from "../../types2/reactTypes";
 
-import { IArrivedData } from "../../types/study/study";
+import { IArrivedData } from "../../types2/study/study";
 import {
   IPlace,
   IStudyPreferencesQuery,
   IStudyStartTime,
-} from "../../types/study/studyDetail";
+} from "../../types2/study/studyDetail";
 
-import { Location } from "../../types/system";
+import { Location } from "../../types2/serviceTypes/locationTypes";
 import {
   IParticipation,
   IStudyPlaces,

@@ -13,10 +13,10 @@ import { useGroupWritingMutation } from "../../hooks/groupStudy/mutations";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 import SuccessScreen from "../../components/layouts/SuccessScreen";
-import { transferGroupDataState } from "../../recoil/transferDataAtoms";
+import { transferGroupDataState } from "../../recoils/transferRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGroup, IGroupWriting } from "../../types/page/group";
-import { DispatchType, IModal } from "../../types/reactTypes";
+import { IGroup, IGroupWriting } from "../../types2/page/group";
+import { DispatchType, IModal } from "../../types2/reactTypes";
 
 interface IGroupConfirmModal extends IModal {
   groupWriting: IGroupWriting;

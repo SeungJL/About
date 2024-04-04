@@ -8,7 +8,7 @@ import Slide from "../../../components/layouts/PageSlide";
 import ParticipateModal from "../../../pageTemplates/group/ParticipateModal";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { transferGroupDataState } from "../../../recoil/transferDataAtoms";
+import { transferGroupDataState } from "../../../recoils/transferRecoils";
 
 function Participate() {
   const group = useRecoilValue(transferGroupDataState);

@@ -9,16 +9,17 @@ import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
 import Slide from "../../../components/layouts/PageSlide";
 import SectionBar from "../../../components/molecules/bars/SectionBar";
 import BlurredPart from "../../../components/molecules/BlurredPart";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
 import { useAdminUsersLocationControlQuery } from "../../../hooks/admin/quries";
 import MemberHeader from "../../../pageTemplates/member/MemberHeader";
 import MemberRecommend from "../../../pageTemplates/member/MemberRecommend";
 import MemberSectionList from "../../../pageTemplates/member/MemberSectionList";
 import MemberSectionTitle from "../../../pageTemplates/member/MemberSectionTitle";
-import { transferMemberDataState } from "../../../recoil/transferDataAtoms";
-import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
+import { transferMemberDataState } from "../../../recoils/transferRecoils";
 import { Location } from "../../../types/system";
-import { IUser } from "../../../types/user/user";
+import { IGroupedMembers, MemberGroup } from "../../../types2/page/member";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
+
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 const MEMBER_SECTIONS: MemberGroup[] = [
   "birth",

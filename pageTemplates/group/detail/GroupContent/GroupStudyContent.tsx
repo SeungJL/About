@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TabNav, {
   ITabNavOptions,
 } from "../../../../components/molecules/navs/TabNav";
-import { IGroup } from "../../../../types/page/group";
+import { IGroup } from "../../../../types2/page/group";
 import ContentAttend from "./ContentAttendance";
 import ContentChat from "./ContentChat";
 import ContentGather from "./ContentGather";
@@ -16,7 +16,6 @@ interface IGroupContent {
 type Category = "정보" | "모임" | "출석부" | "채팅";
 
 function GroupContent({ group }: IGroupContent) {
-
   const [category, setCategory] = useState<Category>("정보");
 
   const categoryArr: Category[] = ["정보", "출석부", "모임", "채팅"];

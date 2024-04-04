@@ -12,7 +12,6 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import BottomNav from "../../../components/layouts/BottomNav";
 
-import { randomPassword } from "../../../helpers/validHelpers";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
@@ -29,9 +28,10 @@ import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
 import { Location } from "../../../types/system";
+import { IGatherMemberCnt, IGatherWriting } from "../../../types2/page/gather";
+import { randomPassword } from "../../../utils/validationUtils";
 
 type ButtonType = "gender" | "age" | "pre" | "location" | "manager";
 

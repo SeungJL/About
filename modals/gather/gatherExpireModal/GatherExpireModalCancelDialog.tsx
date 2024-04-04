@@ -19,7 +19,7 @@ import {
   useGatherStatusMutation,
   useGatherWritingMutation,
 } from "../../../hooks/gather/mutations";
-import { DispatchBoolean } from "../../../types/reactTypes";
+import { DispatchBoolean } from "../../../types2/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
 interface IGatherExpireModalCancelDialog {

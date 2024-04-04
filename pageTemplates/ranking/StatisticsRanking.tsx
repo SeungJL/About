@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { useState } from "react";
-import { getMonth } from "../../helpers/dateHelpers";
 import { useAdminUsersControlQuery } from "../../hooks/admin/quries";
-import { RankingCategory } from "../../types/page/ranking";
+import { RankingCategory } from "../../types2/page/ranking";
+import { getMonth } from "../../utils/dateTimeUtils";
 
 interface IStatisticsRanking {}
 export default function StatisticsRanking({}: IStatisticsRanking) {

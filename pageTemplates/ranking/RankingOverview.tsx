@@ -6,10 +6,10 @@ import styled from "styled-components";
 import Avatar from "../../components/atoms/Avatar";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
 import { USER_ROLE } from "../../constants/settingValue/role";
-import { getUserBadge } from "../../helpers/userHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { IMyRank } from "../../types/page/ranking";
-import { UserBadge } from "../../types/user/user";
+import { getUserBadge } from "../../libs/userEventLibs/userHelpers";
+import { IMyRank } from "../../types2/page/ranking";
+import { UserBadge } from "../../types2/userTypes/userInfoTypes";
 
 interface IRankingOverview {
   myRankInfo: IMyRank;

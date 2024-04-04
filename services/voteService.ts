@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
-import { strToDate } from "../helpers/dateHelpers";
 import { Vote } from "../models/vote";
+import { strToDate } from "../utils/dateTimeUtils";
 
 export const findOneVote = (date: Date) =>
   Vote.findOne({ date }).populate([

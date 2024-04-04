@@ -19,3 +19,5 @@ export type CombinedLocation =
   | ActiveLocation;
 
 export type ActiveLocationAll = ActiveLocation | "전체";
+
+export type LocationFilterType = Location | CombinedLocation | "전체" | "보류";

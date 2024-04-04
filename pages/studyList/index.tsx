@@ -5,8 +5,8 @@ import { useRecoilValue } from "recoil";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
 import { PostThumbnailCard } from "../../components/molecules/cards/PostThumbnailCard";
-import { dayjsToFormat } from "../../helpers/dateHelpers";
 import { sortedStudyCardListState } from "../../recoils/studyRecoils";
+import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
 export default function StudyList() {
   const sortedStudyCardList = useRecoilValue(sortedStudyCardListState);

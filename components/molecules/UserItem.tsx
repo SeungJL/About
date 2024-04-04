@@ -1,29 +1,34 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
-import { transferUserDataState } from "../../recoil/transferDataAtoms";
-import { IUser } from "../../types/user/user";
-import ProfileIcon from "../atoms/Profile/ProfileIcon";
+import { prevPageUrlState } from "../../recoils/previousAtoms";
+import { transferUserSummaryState } from "../../recoils/transferRecoils";
+import { IUser, IUserSummary } from "../../types2/userTypes/userInfoTypes";
+import Avatar from "../atoms/Avatar";
 
 interface IUserItem {
-  user: IUser;
+  user: IUserSummary | IUser;
 
   children: React.ReactNode;
 }
 
 export const UserItem = ({ user, children }: IUserItem) => {
   const router = useRouter();
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const setUserData = useSetRecoilState(transferUserSummaryState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
-  const onClickProfile = (user: IUser) => {
+  const onClickProfile = (user: IUserSummary) => {
     setUserData(user);
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
   };
   return (
     <MemberItem key={user.uid} onClick={() => onClickProfile(user)}>
-      <ProfileIcon user={user} size="sm" />
+      <Avatar
+        image={user.profileImage}
+        avatar={user.avatar}
+        uid={user.uid}
+        size="sm"
+      />
       <UserOverview>
         <span>{user?.name}</span>
         <div>{user.comment}</div>

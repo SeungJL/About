@@ -12,7 +12,6 @@ import {
   LOCATION_NOT_OPEN,
   LOCATION_RECRUITING,
 } from "../../constants/location";
-import { setLocalStorageObj } from "../../helpers/storageHelpers";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import LocationBlockProfileEdit from "../../pageTemplates/register/location/LocationBlockProfileEdit";
 import LocationMember from "../../pageTemplates/register/location/LocationMember";
@@ -20,7 +19,8 @@ import LocationTitle from "../../pageTemplates/register/location/LocationTitle";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { Location } from "../../types/system";
-import { IUserRegisterFormWriting } from "../../types/user/user";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import { setLocalStorageObj } from "../../utils/storageUtils";
 
 function RegisterLocation() {
   const searchParams = useSearchParams();

@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
+import { IUserSummary } from "../userTypes/userInfoTypes";
 import { IPlace } from "./studyDetail";
 
 /** arrived */

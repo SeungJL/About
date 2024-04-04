@@ -6,10 +6,10 @@ import {
   LOCATION_OPEN_DATE,
   LOCATION_TABLE_COLOR,
 } from "../../constants/location";
-import { dayjsToStr } from "../../helpers/dateHelpers";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { IArrivedData } from "../../types/study/study";
 import { Location } from "../../types/system";
+import { IArrivedData } from "../../types2/study/study";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 interface IRecordCalendar {
   filterData: IArrivedData[];

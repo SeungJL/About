@@ -14,7 +14,6 @@ import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
 import { BADGE_COLOR } from "../../constants/settingValue/badge";
-import { getUserBadge } from "../../helpers/userHelpers";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useAlphabetCompletedMutation } from "../../hooks/user/sub/collection/mutations";
@@ -22,11 +21,12 @@ import {
   useCollectionAlphabetAllQuery,
   useCollectionAlphabetQuery,
 } from "../../hooks/user/sub/collection/queries";
+import { getUserBadge } from "../../libs/userEventLibs/userHelpers";
 import AlphabetChangeModal from "../../modals/user/collection/AlphabetChangeModal";
-import { prevPageUrlState } from "../../recoil/previousAtoms";
+import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
 
-import { Alphabet, ICollectionAlphabet } from "../../types/user/collections";
+import { Alphabet, ICollectionAlphabet } from "../../types2/collections";
 import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
 
 const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];

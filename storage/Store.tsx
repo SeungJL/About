@@ -1,4 +1,4 @@
-import { IStoreGift } from "../types/page/store";
+import { IStoreGift } from "../types2/page/store";
 
 export const STORE_GIFT_ACTIVE: IStoreGift[] = [
   {

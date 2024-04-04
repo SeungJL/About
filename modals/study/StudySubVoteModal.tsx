@@ -5,8 +5,7 @@ import ImageTileGridLayout, {
   IImageTileData,
 } from "../../components/molecules/layouts/ImageTitleGridLayout";
 import { useStudyVoteQuery } from "../../hooks/study/queries";
-import { IModal } from "../../types/reactTypes";
-import { DispatchType } from "../../types2/reactTypes";
+import { DispatchType, IModal } from "../../types2/reactTypes";
 import { ActiveLocation } from "../../types2/serviceTypes/locationTypes";
 import { IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";

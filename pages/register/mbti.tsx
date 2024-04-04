@@ -7,13 +7,13 @@ import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { MBTI } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
 import {
   getLocalStorageObj,
   setLocalStorageObj,
-} from "../../helpers/storageHelpers";
-import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
-import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { IUserRegisterFormWriting } from "../../types/user/user";
+} from "../../utils/storageUtils";
 
 function Mbti() {
   const router = useRouter();

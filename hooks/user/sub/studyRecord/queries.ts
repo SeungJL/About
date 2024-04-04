@@ -7,11 +7,11 @@ import {
   USER_FINDPARTICIPATION,
 } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
-import { dayjsToStr } from "../../../../helpers/dateHelpers";
-import { QueryOptions } from "../../../../types/reactTypes";
-import { IVoteRate } from "../../../../types/study/study";
-import { IDayjsStartToEnd } from "../../../../types/timeAndDate";
+import { QueryOptions } from "../../../../types2/reactTypes";
 import { ActiveLocation } from "../../../../types2/serviceTypes/locationTypes";
+import { IVoteRate } from "../../../../types2/study/study";
+import { IDayjsStartToEnd } from "../../../../types2/timeAndDate";
+import { dayjsToStr } from "../../../../utils/dateTimeUtils";
 
 type UserAttendRateReturn<T> = T extends true ? IVoteRate : IVoteRate[];
 

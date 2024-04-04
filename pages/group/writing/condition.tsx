@@ -30,10 +30,10 @@ import Slide from "../../../components/layouts/PageSlide";
 import GroupConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import QuestionBottomDrawer from "../../../pageTemplates/group/writing/QuestionBottomDrawer";
-import { sharedGroupWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherMemberCnt } from "../../../types/page/gather";
-import { IGroupWriting } from "../../../types/page/group";
+import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
 import { Location, LocationFilterType } from "../../../types/system";
+import { IGatherMemberCnt } from "../../../types2/page/gather";
+import { IGroupWriting } from "../../../types2/page/group";
 
 type ButtonType =
   | "gender"

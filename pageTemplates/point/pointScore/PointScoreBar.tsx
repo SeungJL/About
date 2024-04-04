@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BADGE_COLOR, BADGE_INFO } from "../../../constants/settingValue/badge";
 import { SCHEME_TO_COLOR } from "../../../constants/styles";
-import { getUserBadge } from "../../../helpers/userHelpers";
+import { getUserBadge } from "../../../libs/userEventLibs/userHelpers";
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
-import { UserBadge } from "../../../types/user/user";
+import { UserBadge } from "../../../types2/userTypes/userInfoTypes";
 
 interface IPointScoreBar {
   myScore: number;

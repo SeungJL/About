@@ -22,7 +22,6 @@ import {
   NOTICE_ACTIVE_CNT,
   NOTICE_ALERT,
 } from "../../../constants/keys/localStorage";
-import { dayjsToStr } from "../../../helpers/dateHelpers";
 import { useNoticeActiveLogQuery } from "../../../hooks/user/sub/interaction/queries";
 import DailyCheckModal from "../../../modals/aboutHeader/dailyCheckModal/DailyCheckModal";
 import PointSystemsModal from "../../../modals/aboutHeader/pointSystemsModal/PointSystemsModal";
@@ -32,6 +31,7 @@ import { renderHomeHeaderState } from "../../../recoils/renderRecoils";
 import { transferShowDailyCheckState } from "../../../recoils/transferRecoils";
 import { NOTICE_ARR } from "../../../storage/notice";
 import { AlertIcon } from "../../../styles/icons";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 // export type HomeHeaderModalType =
 //   | "promotion"
 //   | "rabbit"

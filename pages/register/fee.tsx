@@ -7,10 +7,6 @@ import Accordion from "../../components/molecules/Accordion";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { ACCORDION_CONTENT_FEE } from "../../constants/contentsText/accordionContents";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
-import {
-  getLocalStorageObj,
-  setLocalStorageObj,
-} from "../../helpers/storageHelpers";
 import { useErrorToast, useToast } from "../../hooks/custom/CustomToast";
 import {
   useUserInfoFieldMutation,
@@ -20,6 +16,10 @@ import RegisterCost from "../../pageTemplates/register/fee/RegisterCost";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
 
 function Fee() {
   const { data: session, update } = useSession();

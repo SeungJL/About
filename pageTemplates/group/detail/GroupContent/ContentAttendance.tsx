@@ -8,11 +8,11 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { dayjsToFormat } from "../../../../helpers/dateHelpers";
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
+import { dayjsToFormat } from "../../../../utils/dateTimeUtils";
 
-import { IWeekRecord } from "../../../../types/page/group";
+import { IWeekRecord } from "../../../../types2/page/group";
 
 function ContentAttend({ group }) {
   const { data: session } = useSession();

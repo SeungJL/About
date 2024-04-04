@@ -1,5 +1,5 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { IPlazaData } from "../types/page/plaza";
+import { IPlazaData } from "../types2/page/plaza";
 
 export const PlazaSchema: Schema<IPlazaData> = new Schema({
   category: {

@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import { Size } from "../../../types/system";
 
 interface IAboutIcon {
-  size?: Size;
+  size?: any;
 }
 
 export const AboutIcon = ({ size }: IAboutIcon) => (
   <Layout size={size}>A</Layout>
 );
 
-const Layout = styled.div<{ size: Size }>`
+const Layout = styled.div<{ size: any }>`
   display: flex;
   justify-content: center;
   align-items: center;

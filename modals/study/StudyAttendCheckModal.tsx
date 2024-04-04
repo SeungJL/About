@@ -12,7 +12,6 @@ import ImageUploadInput from "../../components/molecules/ImageUploadInput";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { POINT_SYSTEM_PLUS } from "../../constants/serviceConstants/pointSystemConstants";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
-import { now } from "../../helpers/dateHelpers";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useImageUploadMutation } from "../../hooks/image/mutations";
 import { useStudyAttendCheckMutation } from "../../hooks/study/mutations";
@@ -23,13 +22,14 @@ import {
 import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { getMyStudyVoteInfo } from "../../libs/study/getMyStudy";
 import { getRandomAlphabet } from "../../libs/userEventLibs/collection";
+import { now } from "../../utils/dateTimeUtils";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types2/reactTypes";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 

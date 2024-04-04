@@ -13,9 +13,9 @@ import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutatio
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
 import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
 import GroupAdminInvitation from "../../../pageTemplates/group/admin/GroupAdminInvitation";
-import { IGroup } from "../../../types/page/group";
+import { IGroup } from "../../../types2/page/group";
 
-import { IUser } from "../../../types/user/user";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
 
 function Admin() {
   const completeToast = useCompleteToast();

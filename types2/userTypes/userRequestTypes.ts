@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { Location } from "../system";
+import { Location } from "../serviceTypes/locationTypes";
 import { ITimeStamps } from "../timeAndDate";
 
 export type UserRequestCategory =

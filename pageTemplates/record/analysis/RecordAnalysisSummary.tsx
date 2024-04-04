@@ -2,10 +2,10 @@ import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getWeekNumber } from "../../../helpers/dateHelpers";
 import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/queries";
-import { DispatchBoolean } from "../../../types/reactTypes";
-import { IDayjsStartToEnd } from "../../../types/timeAndDate";
+import { DispatchBoolean } from "../../../types2/reactTypes";
+import { IDayjsStartToEnd } from "../../../types2/timeAndDate";
+import { getWeekNumber } from "../../../utils/dateTimeUtils";
 
 const WEEKS_CNT = 4;
 

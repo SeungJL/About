@@ -5,10 +5,10 @@ import styled from "styled-components";
 import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
 import Header from "../../../components/layouts/Header";
 import AdminLocationSelector from "../../../components/molecules/picker/AdminLocationSelector";
-import { birthToAge } from "../../../helpers/converterHelpers";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
+import { birthToAge } from "../../../utils/convertUtils/convertTypes";
 
-import { IUserRequest } from "../../../types/user/userRequest";
+import { IUserRequest } from "../../../types2/userTypes/userRequestTypes";
 
 function AdminGroupGather() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { ICollectionAlphabet } from "../../../types/user/collections";
+import { ICollectionAlphabet } from "../../../types2/collections";
 
 interface IuserOverviewPointNav {
   alphabets: ICollectionAlphabet;

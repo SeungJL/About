@@ -1,7 +1,7 @@
-import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
+import { IScore } from "../pointSystem";
 import { IVoteRate } from "../study/study";
-import { IScore } from "../user/pointSystem";
 import { IUser } from "../user/user";
+import { IUserSummary } from "../userTypes/userInfoTypes";
 
 export interface IRankScore {
   isRank: boolean;

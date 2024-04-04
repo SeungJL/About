@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import {
   useCompleteToast,
@@ -8,9 +7,8 @@ import {
 } from "../../hooks/custom/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
-import { isRefetchstudyState } from "../../recoil/refetchingAtoms";
 import { PLACE_TO_NAME } from "../../storage/study";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types2/reactTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 function StudyLightAbsentModal({ setIsModal }: IModal) {
@@ -22,12 +20,9 @@ function StudyLightAbsentModal({ setIsModal }: IModal) {
   const placeId = router.query.placeId;
   const isPrivate = PLACE_TO_NAME[placeId as string] === "자유신청";
 
-  const setIsRefetchstudy = useSetRecoilState(isRefetchstudyState);
-
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
-      setIsRefetchstudy(true);
       let fee = POINT_SYSTEM_Deposit.STUDY_PRIVATE_ABSENT;
       if (isPrivate) getDeposit(fee);
       completeToast("success");

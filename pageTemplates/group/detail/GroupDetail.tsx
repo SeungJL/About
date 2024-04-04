@@ -2,8 +2,8 @@ import { faVenusMars } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { IGroup } from "../../../types/page/group";
+import { IGroup } from "../../../types2/page/group";
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 dayjs.locale("ko");
 
 interface IGroupDetailInfo {

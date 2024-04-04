@@ -1,4 +1,7 @@
-import { USER_BADGE_ARR } from "../../constants/serviceConstants/badgeConstants";
+import {
+  USER_BADGE_ARR,
+  USER_EVENT_BADGE_ARR,
+} from "../../constants/serviceConstants/badgeConstants";
 import { USER_ROLE } from "../../constants/serviceConstants/userConstants";
 import { ActiveLocation, Location } from "../serviceTypes/locationTypes";
 
@@ -61,3 +64,4 @@ export interface IRest {
 
 export type UserRole = typeof USER_ROLE[number];
 export type UserBadge = typeof USER_BADGE_ARR[number];
+export type EventBadge = typeof USER_EVENT_BADGE_ARR[number];

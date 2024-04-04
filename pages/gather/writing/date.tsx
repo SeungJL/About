@@ -13,8 +13,8 @@ import GatherWritingDateDate from "../../../pageTemplates/gather/writing/GatherW
 import GatherWritingDateSubject from "../../../pageTemplates/gather/writing/GatherWritingDateSubject";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherListItem } from "../../../types/page/gather";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
+import { IGatherListItem } from "../../../types2/page/gather";
 
 function WritingDate() {
   const failToast = useFailToast();

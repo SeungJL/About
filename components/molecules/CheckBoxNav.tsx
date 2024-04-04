@@ -2,12 +2,11 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { faCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { DispatchString } from "../../types/reactTypes";
 
 interface ICheckBoxNav {
   buttonList: string[];
   selectedButton: string;
-  setSelectedButton: (value:string) => void;
+  setSelectedButton: (value: string) => void;
 }
 
 function CheckBoxNav({

@@ -5,8 +5,8 @@ import { AboutIcon } from "../../../components/atoms/Icons/AboutIcon";
 
 import Avatar from "../../../components/atoms/Avatar";
 import { ABOUT_UID } from "../../../constants/system";
-import { getDateDiff } from "../../../helpers/dateHelpers";
 import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import { getDateDiff } from "../../../utils/dateTimeUtils";
 
 interface IGatherOrganizer {
   createdAt: string;

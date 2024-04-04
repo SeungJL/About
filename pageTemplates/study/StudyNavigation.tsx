@@ -25,7 +25,7 @@ import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../hooks/user/queries";
 import { myStudyState, studyDateStatusState } from "../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { IPointLog } from "../../types/user/pointSystem";
+import { IPointLog } from "../../types2/pointSystem";
 import { StudyDateStatus } from "../../types2/studyTypes/studySubTypes";
 import {
   IParticipation,

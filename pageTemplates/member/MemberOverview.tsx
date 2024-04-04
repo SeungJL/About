@@ -2,11 +2,11 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { LOCATION_OPEN_DATE } from "../../constants/location";
-import { birthToAge } from "../../helpers/converterHelpers";
-import { MemberGroup } from "../../types/page/member";
 import { Location } from "../../types/system";
+import { MemberGroup } from "../../types2/page/member";
+import { birthToAge } from "../../utils/convertUtils/convertTypes";
 
-import { IUser } from "../../types/user/user";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
 interface IMemberOverview {
   onClickSection: (section: MemberGroup) => void;
   groups: IUser[][];
