@@ -1,36 +1,40 @@
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/templates/ProgressStatus";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import BottomNav from "../../components/layouts/BottomNav";
+
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import {
   LOCATION_ALL,
   LOCATION_NOT_OPEN,
   LOCATION_RECRUITING,
 } from "../../constants/location";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import LocationBlockProfileEdit from "../../pagesComponents/register/location/LocationBlockProfileEdit";
-import LocationMember from "../../pagesComponents/register/location/LocationMember";
-import LocationTitle from "../../pagesComponents/register/location/LocationTitle";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-import { Location } from "../../types/system";
+import LocationBlockProfileEdit from "../../pageTemplates/register/location/LocationBlockProfileEdit";
+import LocationMember from "../../pageTemplates/register/location/LocationMember";
+import LocationTitle from "../../pageTemplates/register/location/LocationTitle";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { Location } from "../../types2/serviceTypes/locationTypes";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import { setLocalStorageObj } from "../../utils/storageUtils";
 
 function RegisterLocation() {
+  const searchParams = useSearchParams();
+  const { data: session } = useSession();
+  const isProfileEdit = !!searchParams.get("edit");
+
   const router = useRouter();
 
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
+  const info: IUserRegisterFormWriting = JSON.parse(
+    localStorage.getItem(REGISTER_INFO)
   );
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+
   const [errorMessage, setErrorMessage] = useState("");
-  const [location, setLocation] = useState<Location>(registerForm?.location);
+  const [location, setLocation] = useState<Location>(info?.location);
   const [isLoading, setIsLoading] = useState(true);
 
   //회원 정보 수정일 경우
@@ -56,7 +60,7 @@ function RegisterLocation() {
         comment,
         telephone,
       } = userInfo;
-      setRegisterForm({
+      setLocalStorageObj(REGISTER_INFO, {
         location,
         name,
         mbti,
@@ -67,47 +71,47 @@ function RegisterLocation() {
         comment,
         telephone,
       });
+
       setLocation(userInfo.location);
       setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProfileEdit, userInfo]);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (location === null) {
+      e.preventDefault();
       setErrorMessage("지역을 선택해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, location }));
-    router.push(`/register/name`);
+
+    setLocalStorageObj(REGISTER_INFO, { ...info, location });
   };
 
   return (
     <>
-      {isLoading ? (
+      {false ? (
         <MainLoading />
       ) : (
-        <PageLayout>
-          <ProgressStatus value={10} />
-          <Header
+        <>
+          <ProgressHeader
             title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-            url={isProfileEdit ? "/user/profile" : "/login"}
+            value={10}
           />
+
           <RegisterLayout errorMessage={errorMessage}>
             <RegisterOverview>
               <span>지역을 선택해 주세요</span>
-              {isProfileEdit ? (
+              {!isProfileEdit ? (
                 <span>오픈 또는 예약중인 지역만 선택할 수 있습니다.</span>
               ) : (
-                <span>
-                  이후 다른 지역으로의 변경은 운영진에게 문의해주세요!
-                </span>
+                <span>활동 지역 변경은 운영진을 통해서만 가능합니다.</span>
               )}
             </RegisterOverview>
             <ButtonNav>
-              {LOCATION_ALL?.map((place) => (
+              {LOCATION_ALL?.map((place, idx) => (
                 <Button
-                  isSelected={location === place}
+                  $picked={(location === place).toString()}
                   onClick={() => setLocation(place)}
                   key={place}
                   disabled={isProfileEdit || LOCATION_NOT_OPEN.includes(place)}
@@ -118,9 +122,11 @@ function RegisterLocation() {
                       {!LOCATION_NOT_OPEN.includes(place) && (
                         <LocationMember location={place} />
                       )}
-                      {LOCATION_RECRUITING.includes(place) && (
-                        <Message>예약 인원 40명이 되면 열려요!</Message>
-                      )}
+                      {LOCATION_RECRUITING.includes(place) &&
+                        (idx === LOCATION_ALL.length - 1 ||
+                          idx === LOCATION_ALL.length - 2) && (
+                          <Message>예약 인원 40명이 되면 열려요!</Message>
+                        )}
                     </>
                   ) : (
                     <LocationBlockProfileEdit location={place} />
@@ -129,30 +135,30 @@ function RegisterLocation() {
               ))}
             </ButtonNav>
           </RegisterLayout>
-          <BottomNav onClick={() => onClickNext()} />
-        </PageLayout>
+          <BottomNav onClick={onClickNext} url="/register/name" />
+        </>
       )}
     </>
   );
 }
 
 const ButtonNav = styled.nav`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-md);
+  gap: var(--gap-3);
 `;
 
-const Button = styled.button<{ isSelected: boolean }>`
-  padding: var(--padding-md) var(--padding-sub);
+const Button = styled.button<{ $picked: string }>`
+  padding: var(--gap-2) var(--gap-3);
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
   height: 68px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   border: ${(props) =>
-    props.isSelected ? "1.5px solid var(--font-h1)" : "var(--border-main)"};
+    props.$picked === "true" ? "var(--border-thick)" : "var(--border)"};
 `;
 
 const Message = styled.div`
@@ -161,7 +167,7 @@ const Message = styled.div`
   bottom: -20px;
   font-size: 10px;
   left: 50%;
-  color: var(--font-h3);
+  color: var(--gray-3);
   transform: translate(-50%, 0);
 `;
 

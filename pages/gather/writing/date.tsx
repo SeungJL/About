@@ -3,17 +3,18 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
-import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
-import ProgressStatus from "../../../components/templates/ProgressStatus";
+import BottomNav from "../../../components/layouts/BottomNav";
+import Slide from "../../../components/layouts/PageSlide";
+
+import Header from "../../../components/layouts/Header";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
-import GatherWritingDateDate from "../../../pagesComponents/gather/writing/GatherWritingDateDate";
-import GatherWritingDateSubject from "../../../pagesComponents/gather/writing/GatherWritingDateSubject";
-import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherListItem } from "../../../types/page/gather";
+import GatherWritingDateDate from "../../../pageTemplates/gather/writing/GatherWritingDateDate";
+import GatherWritingDateSubject from "../../../pageTemplates/gather/writing/GatherWritingDateSubject";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
+import { IGatherListItem } from "../../../types2/page/gather";
 
 function WritingDate() {
   const failToast = useFailToast();
@@ -45,9 +46,11 @@ function WritingDate() {
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={60} />
-      <Header title="" url="/gather/writing/content" />
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={60} />
+        <Header isSlide={false} title="" url="/gather/writing/content" />
+      </Slide>
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 주제를 선택해 주세요.</span>
@@ -62,9 +65,9 @@ function WritingDate() {
           setGatherList={setGatherList}
           date={date}
         />
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </PageLayout>
+      <BottomNav onClick={() => onClickNext()} />
+    </>
   );
 }
 

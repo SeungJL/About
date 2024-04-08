@@ -2,16 +2,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { MainLoadingAbsolute } from "../../components/common/loaders/MainLoading";
-import CountNum from "../../components/features/atoms/CountNum";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import CountNum from "../../components/atoms/CountNum";
+import { MainLoadingAbsolute } from "../../components/atoms/loaders/MainLoading";
 import { STORE_GIFT } from "../../constants/keys/queryKeys";
 import {
   useCompleteToast,
@@ -21,9 +14,9 @@ import {
 import { useStoreMutation } from "../../hooks/sub/store/mutation";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemQuery } from "../../hooks/user/queries";
-import { isGuestState } from "../../recoil/userAtoms";
-import { IStoreApplicant, IStoreGift } from "../../types/page/store";
-import { IModal } from "../../types/reactTypes";
+import { IStoreApplicant, IStoreGift } from "../../types2/page/store";
+import { IModal } from "../../types2/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IStoreApplyGiftModal extends IModal {
   giftInfo: IStoreGift;
@@ -37,7 +30,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   const [value, setValue] = useState(1);
 
@@ -68,7 +61,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
     }
     const info: IStoreApplicant = {
       name: session.user.name,
-      uid: session.uid,
+      uid: session.user.uid,
       cnt: value,
       giftId: giftInfo.giftId,
     };
@@ -76,35 +69,42 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
     applyGift(info);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "응모하기",
+      func: onApply,
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="lg">
-      <ModalHeader text="상품 응모" />
-      <ModalBody>
-        {!isLoading ? (
-          <>
-            <Item>
-              <span>상품</span>
-              <span>{giftInfo?.name}</span>
-            </Item>
-            <Item>
-              <span>보유 포인트</span>
-              <span>{myPoint} point</span>
-            </Item>
-            <Item>
-              <span>필요 포인트</span>
-              <NeedPoint overMax={totalCost > myPoint}>
-                {totalCost} point
-              </NeedPoint>
-            </Item>
-            <CountNav>
-              <CountNum value={value} setValue={setValue} />
-            </CountNav>
-          </>
-        ) : (
-          <MainLoadingAbsolute />
-        )}
-      </ModalBody>
-      <ModalFooterOne text="응모하기" onClick={onApply} isFull={true} />
+    <ModalLayout
+      title="상품 응모"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      {!isLoading ? (
+        <>
+          <Item>
+            <span>상품</span>
+            <span>{giftInfo?.name}</span>
+          </Item>
+          <Item>
+            <span>보유 포인트</span>
+            <span>{myPoint} point</span>
+          </Item>
+          <Item>
+            <span>필요 포인트</span>
+            <NeedPoint overMax={totalCost > myPoint}>
+              {totalCost} point
+            </NeedPoint>
+          </Item>
+          <CountNav>
+            <CountNum value={value} setValue={setValue} />
+          </CountNav>
+        </>
+      ) : (
+        <MainLoadingAbsolute />
+      )}
     </ModalLayout>
   );
 }
@@ -112,7 +112,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
   > span:last-child {
     font-weight: 600;
   }

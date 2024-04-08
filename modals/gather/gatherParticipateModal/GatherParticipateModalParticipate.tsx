@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { ModalBody, ModalBodyNavTwo } from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
@@ -7,7 +6,8 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
-import { IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types2/reactTypes";
+import { ModalBodyNavTwo } from "../../Modals";
 
 function GatherParticipateModalParticipate({ setIsModal }: IModal) {
   const completeToast = useCompleteToast();
@@ -36,14 +36,12 @@ function GatherParticipateModalParticipate({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalBody>
-      <ModalBodyNavTwo
-        topText="1차 참여 신청"
-        bottomText="2차 참여 신청"
-        onClickTop={() => selectGatherTime("first")}
-        onClickBottom={() => selectGatherTime("second")}
-      />
-    </ModalBody>
+    <ModalBodyNavTwo
+      topText="1차 참여 신청"
+      bottomText="2차 참여 신청"
+      onClickTop={() => selectGatherTime("first")}
+      onClickBottom={() => selectGatherTime("second")}
+    />
   );
 }
 

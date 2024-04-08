@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Textarea = styled.textarea`
   flex: 1;
-  background-color: var(--font-h56);
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-sub);
+  background-color: var(--gray-7);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-3);
   &:focus {
     outline: none;
   }
@@ -13,9 +13,9 @@ export const Textarea = styled.textarea`
 export const InputSm = styled.input`
   flex: 1;
   width: 100%;
-  background-color: var(--font-h56);
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-sub);
+  background-color: var(--gray-7);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-3);
   text-align: start;
   &:focus {
     outline: none;
@@ -25,13 +25,13 @@ export const InputSm = styled.input`
 export const InputLg = styled.input`
   height: 48px;
   width: 100%;
-  border: var(--border-main);
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-3);
   &:focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
   ::placeholder {
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
 `;

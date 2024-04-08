@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { CopyBtn } from "../../../components/common/Icon/CopyIcon";
-import { ModalBody } from "../../../components/modals/Modals";
-import { IUserRegisterForm } from "../../../types/user/user";
+import { CopyBtn } from "../../../components/atoms/Icons/CopyIcon";
+import { IUserRegisterForm } from "../../../types2/userTypes/userInfoTypes";
+import { ModalBody } from "../../Modals";
 
 interface ICheckRegisterModalDetail {
   applicant: IUserRegisterForm;
@@ -47,14 +47,14 @@ function CheckRegisterModalDetail({ applicant }: ICheckRegisterModalDetail) {
 
 const Item = styled.div`
   font-size: 14px;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   > b {
     display: inline-block;
     width: 64px;
   }
 `;
 const IconWrapper = styled.span`
-  margin-left: var(--margin-md);
+  margin-left: var(--gap-2);
 `;
 
 export default CheckRegisterModalDetail;

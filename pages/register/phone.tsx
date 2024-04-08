@@ -1,56 +1,73 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/templates/ProgressStatus";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import Input from "../../components/atoms/Input";
+import BottomNav from "../../components/layouts/BottomNav";
+
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
 
 function Phone() {
   const router = useRouter();
 
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const info = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [value, setValue] = useState(registerForm?.telephone || "");
+  const [value, setValue] = useState(info?.telephone || "");
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (value === "") {
       setErrorMessage("핸드폰 번호를 입력해 주세요.");
+      e.preventDefault();
       return;
     }
     if (value.length < 11) {
       setErrorMessage("핸드폰 번호를 확인해 주세요.");
+      e.preventDefault();
       return;
     }
-    setRegisterForm((old) => ({ ...old, telephone: value }));
-    router.push(`/register/fee`);
+
+    setLocalStorageObj(REGISTER_INFO, { ...info, telephone: value });
   };
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      inputRef?.current?.focus();
+    }, 500);
+  }, []);
+
   return (
-    <PageLayout>
-      <ProgressStatus value={88} />
-      <Header title="회원가입" url="/register/comment" />
+    <>
+      <ProgressHeader title="회원가입" value={90} />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>핸드폰 번호를 작성해 주세요</span>
           <span>해당 번호로 연락을 드리니 정확하게 작성해 주세요.</span>
         </RegisterOverview>
-        <NameInput
+        <Input
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="전화번호를 입력해 주세요."
+          inputRef={inputRef}
         />
-        <BottomNav onClick={() => onClickNext()} />
+        {/* <NameInput
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="전화번호를 입력해 주세요."
+        /> */}
       </RegisterLayout>
-    </PageLayout>
+      <BottomNav onClick={onClickNext} url="/register/fee" />
+    </>
   );
 }
 
@@ -60,17 +77,17 @@ const Layout = styled(motion.div)`
 
 const NameInput = styled.input`
   margin-top: 40px;
-  border: var(--border-main);
+  border: var(--border);
   height: 40px;
   width: 100%;
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-sub);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-3);
   ::placeholder {
     font-size: 12px;
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
   :focus {
-    outline-color: var(--font-h1);
+    outline-color: var(--gray-1);
   }
 `;
 

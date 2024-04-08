@@ -3,19 +3,23 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import Header from "../../../components/layout/Header";
-import { birthToAge, birthToDayjs } from "../../../helpers/converterHelpers";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
+import {
+  birthToAge,
+  birthToDayjs,
+} from "../../../utils/convertUtils/convertTypes";
 
-import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contents/friend";
-import { dayjsToFormat } from "../../../helpers/dateHelpers";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
+import Avatar from "../../../components/atoms/Avatar";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contentsText/friend";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import {
   transferMemberDataState,
-  transferUserDataState,
-} from "../../../recoil/transferDataAtoms";
-import { IUser } from "../../../types/user/user";
+  transferUserSummaryState,
+} from "../../../recoils/transferRecoils";
+import { IUser, IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function FriendCategory() {
   const router = useRouter();
@@ -24,7 +28,7 @@ function FriendCategory() {
 
   const membersData = useRecoilValue(transferMemberDataState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
-  const setUserData = useSetRecoilState(transferUserDataState);
+  const setUserData = useSetRecoilState(transferUserSummaryState);
 
   const [filterMember, setFilterMember] = useState<IUser[]>([]);
 
@@ -55,7 +59,7 @@ function FriendCategory() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
-  const onClickProfile = (user: IUser) => {
+  const onClickProfile = (user: IUserSummary) => {
     setUserData(user);
     setBeforePage(router?.asPath);
     router.push(`/profile/${user.uid}`);
@@ -63,59 +67,63 @@ function FriendCategory() {
 
   return (
     <>
-      <Header
-        title={FRIEND_RECOMMEND_CATEGORY[idx]}
-        url={`/member/${locationUrl}`}
-      />
-      <Layout>
-        {filterMember?.map((who) => (
-          <Item key={who.uid} onClick={() => onClickProfile(who)}>
-            <ProfileHeader>
-              <ProfileIcon user={who} size="md" />
-              <span>{who.name}</span>
-            </ProfileHeader>
-            <Info>
-              <Detail>
-                <span>나이</span>
-                <span>{birthToAge(who.birth)}</span>
-                {idx === 2 && (
-                  <Birthday>
-                    / {dayjsToFormat(birthToDayjs(who.birth), "M월 D일")}
-                  </Birthday>
-                )}
-              </Detail>
-              <Detail>
-                <span>성별</span>
-                <span>{who?.gender.slice(0, 1)}</span>
-              </Detail>
-              <Detail>
-                <span>MBTI</span>
-                <span>{who?.mbti || "미작성"}</span>
-              </Detail>
-              <Detail>
-                <span>전공</span>
-                <span>{who?.majors ? who?.majors[0]?.detail : "미작성"}</span>
-              </Detail>
-            </Info>
-          </Item>
-        ))}
-      </Layout>
+      <Header title={FRIEND_RECOMMEND_CATEGORY[idx]} />
+      <Slide>
+        <Layout>
+          {filterMember?.map((who) => (
+            <Item key={who.uid} onClick={() => onClickProfile(who)}>
+              <ProfileHeader>
+                <Avatar
+                  image={who.profileImage}
+                  avatar={who.avatar}
+                  uid={who.uid}
+                  size="md"
+                />
+                <span>{who.name}</span>
+              </ProfileHeader>
+              <Info>
+                <Detail>
+                  <span>나이</span>
+                  <span>{birthToAge(who.birth)}</span>
+                  {idx === 2 && (
+                    <Birthday>
+                      / {dayjsToFormat(birthToDayjs(who.birth), "M월 D일")}
+                    </Birthday>
+                  )}
+                </Detail>
+                <Detail>
+                  <span>성별</span>
+                  <span>{who?.gender.slice(0, 1)}</span>
+                </Detail>
+                <Detail>
+                  <span>MBTI</span>
+                  <span>{who?.mbti || "미작성"}</span>
+                </Detail>
+                <Detail>
+                  <span>전공</span>
+                  <span>{who?.majors ? who?.majors[0]?.detail : "미작성"}</span>
+                </Detail>
+              </Info>
+            </Item>
+          ))}
+        </Layout>
+      </Slide>
     </>
   );
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  padding: var(--padding-sub) 0;
+  margin: 0 var(--gap-4);
+  padding: var(--gap-3) 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--margin-md);
+  gap: var(--gap-2);
 `;
 
 const Item = styled.div`
-  border: var(--border-main-light);
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-md);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-2);
 `;
 
 const ProfileHeader = styled.div`
@@ -123,17 +131,17 @@ const ProfileHeader = styled.div`
   align-items: center;
   > span {
     font-weight: 600;
-    margin-left: var(--margin-main);
+    margin-left: var(--gap-4);
     font-size: 15px;
   }
 `;
 
 const Info = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
   flex-direction: column;
   line-height: 2.2;
-  padding-left: var(--padding-min);
+  padding-left: var(--gap-1);
 `;
 
 const Detail = styled.div`
@@ -144,18 +152,18 @@ const Detail = styled.div`
     width: 50px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
   > span:last-child {
-    color: var(--font-h1);
+    color: var(--gray-1);
     font-size: 13px;
   }
 `;
 
 const Birthday = styled.span`
-  margin-left: var(--margin-min);
+  margin-left: var(--gap-1);
   font-weight: 600;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 export default FriendCategory;

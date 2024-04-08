@@ -6,12 +6,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import VoteList from "../../pagesComponents/plaza/writing/VoteList";
-import WritingCategory from "../../pagesComponents/plaza/writing/WritingCategory";
-import WritingContent from "../../pagesComponents/plaza/writing/WritingContent";
-import WritingHeader from "../../pagesComponents/plaza/writing/WritingHeader";
-import WritingType from "../../pagesComponents/plaza/writing/WritingType";
-import { IPlazaData } from "../../types/page/plaza";
+import VoteList from "../../pageTemplates/plaza/writing/VoteList";
+import WritingCategory from "../../pageTemplates/plaza/writing/WritingCategory";
+import WritingContent from "../../pageTemplates/plaza/writing/WritingContent";
+import WritingHeader from "../../pageTemplates/plaza/writing/WritingHeader";
+import WritingType from "../../pageTemplates/plaza/writing/WritingType";
+import { IPlazaData } from "../../types2/page/plaza";
 
 function WritingPlaza() {
   const router = useRouter();
@@ -76,13 +76,13 @@ const TitleInput = styled.input`
   height: 44px;
   display: flex;
   align-items: center;
-  border-bottom: 2px solid var(--font-h6);
-  background-color: var(--font-h8);
-  color: var(--font-h2);
+  border-bottom: 2px solid var(--gray-6);
+  background-color: var(--gray-8);
+  color: var(--gray-2);
   ::placeholder {
     font-size: 16px;
     font-weight: 600;
-    color: var(--font-h4);
+    color: var(--gray-4);
   }
 `;
 

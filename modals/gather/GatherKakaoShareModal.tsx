@@ -1,22 +1,18 @@
-import { Button, ModalFooter } from "@chakra-ui/react";
+import { ModalFooter } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
-import {
-  ModalBody,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
-import { GATHER_SHARE_IMAGES } from "../../constants/image/imageUrl";
+import { GATHER_SHARE_IMAGES } from "../../assets/images/imageUrl";
+import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
 import { WEB_URL } from "../../constants/system";
-import { userInfoState } from "../../recoil/userAtoms";
+import { ModalLayout } from "../Modals";
+
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGatherHeader } from "../../types/page/gather";
-import { IModal } from "../../types/reactTypes";
+import { IGatherHeader } from "../../types2/page/gather";
+import { IModal } from "../../types2/reactTypes";
 
 interface IGatherKakaoShareModal extends IModal, IGatherHeader {}
 
@@ -30,7 +26,7 @@ function GatherKakaoShareModal({
   const [selectedItem, setSelectedItem] = useState<number>();
   const [adminImageUrl, setAdminImageUrl] = useState<string>();
 
-  const userInfo = useRecoilValue(userInfoState);
+  const { data: session } = useSession();
 
   const onClickItem = (idx) => {
     if (idx === selectedItem) setSelectedItem(null);
@@ -46,35 +42,26 @@ function GatherKakaoShareModal({
   };
 
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="xl" height={430}>
-      <ModalHeader text="공유 이미지 선택" />
-      <ModalBody>
-        <ModalSubtitle>
-          단톡방에 공유 할 이미지를 선택해 주세요!
-          {userInfo?.uid === "2259633694" && (
-            <Button
-              ml="4px"
-              size="xs"
-              colorScheme={adminImageUrl ? "mintTheme" : "gray"}
-              onClick={onClickAdminBtn}
-            >
-              스터디
-            </Button>
-          )}
-        </ModalSubtitle>
-        <Container>
-          {GATHER_SHARE_IMAGES.map((item, idx) => (
-            <Item
-              key={idx}
-              onClick={() => onClickItem(idx)}
-              isSelected={idx === selectedItem}
-            >
-              <Image src={item} layout="fill" alt="gatherShareImage" />
-            </Item>
-          ))}
-        </Container>
-      </ModalBody>
-      <ModalFooter p="var(--padding-sub) var(--padding-main)">
+    <ModalLayout title="공유 이미지 선택" setIsModal={setIsModal}>
+      <ModalSubtitle>단톡방에 공유 할 이미지를 선택해 주세요!</ModalSubtitle>
+      <Container>
+        {GATHER_SHARE_IMAGES.map((item, idx) => (
+          <Item
+            key={idx}
+            onClick={() => onClickItem(idx)}
+            isSelected={idx === selectedItem}
+          >
+            <Image
+              src={item}
+              fill={true}
+              sizes="150px"
+              alt="gatherShareImage"
+            />
+          </Item>
+        ))}
+      </Container>
+
+      <ModalFooter p="var(--gap-3) var(--gap-4)">
         <KakaoShareBtn
           title={title}
           subtitle={date === "미정" ? date : dayjs(date).format("M월 D일(dd)")}
@@ -100,7 +87,7 @@ const Container = styled.div`
   grid-template-rows: repeat(3, 1fr);
   width: 100%;
   height: 100%;
-  gap: var(--margin-sub);
+  gap: var(--gap-3);
 `;
 
 const Item = styled.div<{ isSelected: boolean }>`
@@ -108,10 +95,10 @@ const Item = styled.div<{ isSelected: boolean }>`
   border: ${(props) =>
     props.isSelected ? "4px solid var(--color-mint)" : null};
 
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 2/1;
   display: flex;
   align-items: center;
   justify-content: center;

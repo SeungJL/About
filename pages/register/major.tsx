@@ -1,31 +1,33 @@
 import { useToast } from "@chakra-ui/react";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/templates/ProgressStatus";
-import { majors_DATA } from "../../constants/contents/ProfileData";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
-import { IMajor } from "../../types/user/user";
+import BottomNav from "../../components/layouts/BottomNav";
+
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { majors_DATA } from "../../constants/contentsText/ProfileData";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
 
 function Major() {
   const router = useRouter();
   const toast = useToast();
+  const searchParams = useSearchParams();
+  const isProfileEdit = !!searchParams.get("edit");
 
-  const isProfileEdit = useRecoilValue(isProfileEditState);
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const info = getLocalStorageObj(REGISTER_INFO);
 
-  const [majors, setmajors] = useState<IMajor[]>(registerForm?.majors || []);
+  const [majors, setmajors] = useState<
+    { department: string; detail: string }[]
+  >(info?.majors || []);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (!majors.length) {
       toast({
         title: "진행 불가",
@@ -35,10 +37,11 @@ function Major() {
         isClosable: true,
         position: "top",
       });
+      e.preventDefault();
       return;
     }
-    setRegisterForm((old) => ({ ...old, majors }));
-    router.push(`/register/interest`);
+
+    setLocalStorageObj(REGISTER_INFO, { ...info, majors });
   };
 
   const onClickBtn = (department: string, detail: string) => {
@@ -61,18 +64,18 @@ function Major() {
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={60} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/mbti"
+        value={60}
       />
+
       <RegisterLayout>
         <RegisterOverview>
           <span>전공을 선택해 주세요</span>
           <span>다중 선택도 가능해요.</span>
         </RegisterOverview>
-        <div style={{ height: "40px" }} />
+
         {majors_DATA?.map((item, idx) => (
           <Section key={idx}>
             <SectionTitle>{item.department}</SectionTitle>
@@ -80,7 +83,7 @@ function Major() {
               {item.details?.map((detail, idx) => (
                 <Content
                   key={idx}
-                  isSelected={Boolean(
+                  $isSelected={Boolean(
                     majors?.find(
                       (majors) =>
                         majors.detail === detail &&
@@ -96,13 +99,13 @@ function Major() {
           </Section>
         ))}
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
-    </PageLayout>
+      <BottomNav onClick={onClickNext} url="/register/interest" />
+    </>
   );
 }
 
 const Section = styled.section`
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
 `;
 
 const SectionTitle = styled.span`
@@ -111,20 +114,20 @@ const SectionTitle = styled.span`
 `;
 
 const SectionContent = styled.div`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   display: flex;
   flex-wrap: wrap;
 `;
 
-const Content = styled.button<{ isSelected: boolean }>`
-  padding: var(--padding-min) var(--padding-md);
+const Content = styled.button<{ $isSelected: boolean }>`
+  padding: var(--gap-1) var(--gap-2);
   font-size: 12px;
   border-radius: 100px;
-  border: 1px solid var(--font-h5);
-  margin-right: var(--margin-md);
-  margin-bottom: var(--margin-md);
-  background-color: ${(props) => props.isSelected && "var(--color-mint)"};
-  color: ${(props) => props.isSelected && "white"};
+  border: 1px solid var(--gray-5);
+  margin-right: var(--gap-2);
+  margin-bottom: var(--gap-2);
+  background-color: ${(props) => props.$isSelected && "var(--color-mint)"};
+  color: ${(props) => props.$isSelected && "white"};
 `;
 
 export default Major;

@@ -1,41 +1,55 @@
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/templates/ProgressStatus";
-import { checkIsKorean } from "../../helpers/validHelpers";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import { ChangeEvent, useRef, useState } from "react";
+import Input from "../../components/atoms/Input";
+import BottomNav from "../../components/layouts/BottomNav";
+
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
+import { checkIsKorean } from "../../utils/validationUtils";
 
 function Name() {
+  const searchParams = useSearchParams();
+
   const router = useRouter();
   const { data: session } = useSession();
 
-  const isProfileEdit = useRecoilValue(isProfileEditState);
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
+
+  const inputRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (inputRef.current) {
+  //     inputRef.current.focus();
+  //   }
+  // }, []);
+
+  const isProfileEdit = !!searchParams.get("edit");
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [value, setValue] = useState(registerForm?.name || session?.user.name);
+  const [value, setValue] = useState(info?.name || session?.user.name);
 
-  const onClickNext = () => {
-    if (value.length < 2 || value.length > 3) {
-      setErrorMessage("2자 이상 입력해 주세요.");
+  const onClickNext = (e) => {
+    if (value.length < 2 || value.length > 4) {
+      setErrorMessage("글자수를 확인해주세요.");
+      e.preventDefault();
       return;
     }
     if (!checkIsKorean(value)) {
       setErrorMessage("한글로만 입력해 주세요.");
+      e.preventDefault();
       return;
     }
-    setRegisterForm((old) => ({ ...old, name: value }));
-    router.push(`/register/gender`);
+    setLocalStorageObj(REGISTER_INFO, { ...info, name: value });
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,42 +58,27 @@ function Name() {
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={20} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/location"
+        value={20}
       />
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
-          <span>이름을 입력해주세요</span>
+          <span>이름을 입력해 주세요</span>
           <span>실명으로 작성해주세요!</span>
         </RegisterOverview>
-        <NameInput
+        <Input
+          inputRef={inputRef}
           value={value}
           onChange={onChange}
           placeholder="이름을 입력해주세요."
+          disabled={isProfileEdit}
         />
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
-    </PageLayout>
+      <BottomNav onClick={onClickNext} url="/register/gender" />
+    </>
   );
 }
-
-const NameInput = styled.input`
-  margin-top: 40px;
-  border: var(--border-main);
-  height: 40px;
-  width: 100%;
-  border-radius: var(--border-radius-sub);
-  padding: var(--padding-sub);
-  ::placeholder {
-    font-size: 12px;
-    color: var(--font-h4);
-  }
-  :focus {
-    outline-color: var(--font-h1);
-  }
-`;
 
 export default Name;

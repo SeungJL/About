@@ -3,15 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
-import ModalPortal from "../../components/modals/ModalPortal";
+import Header from "../../components/layouts/Header";
 import { usePlazaQuery } from "../../hooks/sub/plaza/queries";
 
-import NotCompletedModal2 from "../../modals/system/NotCompletedModal2";
-import Category from "../../pagesComponents/plaza/main/Category";
-import PlazaBlock from "../../pagesComponents/plaza/main/PlazaBlock";
-import { PlazaLayout } from "../../pagesComponents/plaza/main/plazaStyles";
-import { category } from "../../types/page/plaza";
+import Category from "../../pageTemplates/plaza/main/Category";
+import PlazaBlock from "../../pageTemplates/plaza/main/PlazaBlock";
+import { PlazaLayout } from "../../pageTemplates/plaza/main/plazaStyles";
+import { category } from "../../types2/page/plaza";
 
 function Plaza() {
   const { data } = usePlazaQuery({
@@ -67,11 +65,6 @@ function Plaza() {
           <IconPencil />
         </Navigation>
       </Layout>{" "}
-      {isNotice && (
-        <ModalPortal setIsModal={setIsNotice}>
-          <NotCompletedModal2 setIsModal={setIsNotice} />
-        </ModalPortal>
-      )}
     </>
   );
 }

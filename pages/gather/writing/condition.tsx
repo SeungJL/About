@@ -20,27 +20,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
-import ProgressStatus from "../../../components/templates/ProgressStatus";
-import { randomPassword } from "../../../helpers/validHelpers";
+import BottomNav from "../../../components/layouts/BottomNav";
+
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import GatherWritingConditionAgeRange from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionAgeRange";
-import GatherWritingConditionCnt from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionCnt";
-import GatherWritingConditionPre from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionPre";
-import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
+import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
+import GatherWritingConditionCnt from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionCnt";
+import GatherWritingConditionPre from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionPre";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 
 import { faUserPolice } from "@fortawesome/pro-solid-svg-icons";
-import { PopOverIcon } from "../../../components/common/Icon/PopOverIcon";
+import { PopOverIcon } from "../../../components/atoms/Icons/PopOverIcon";
 import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
 
-import GatherWritingConditionLocation from "../../../pagesComponents/gather/writing/condition/GatherWritingConditionLocation";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
-import { Location } from "../../../types/system";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
+import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
+import { IGatherMemberCnt, IGatherWriting } from "../../../types2/page/gather";
+import { Location } from "../../../types2/serviceTypes/locationTypes";
+import { randomPassword } from "../../../utils/validationUtils";
 
 type ButtonType = "gender" | "age" | "pre" | "location" | "manager";
 
@@ -109,9 +110,11 @@ function WritingCondition() {
 
   return (
     <>
-      <PageLayout>
-        <ProgressStatus value={100} />
-        <Header title="" url="/gather/writing/location" />
+      <>
+        <Slide isFixed={true}>
+          <ProgressStatus value={100} />
+          <Header isSlide={false} title="" url="/gather/writing/location" />
+        </Slide>
         <RegisterLayout>
           <RegisterOverview>
             <span>조건을 선택해 주세요.</span>
@@ -149,7 +152,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.gender}
                 onChange={(e) => toggleSwitch(e, "gender")}
@@ -161,7 +164,7 @@ function WritingCondition() {
                 <span>나이(만)</span>
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.age}
                 onChange={(e) => toggleSwitch(e, "age")}
@@ -180,7 +183,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.location}
                 onChange={(e) => toggleSwitch(e, "location")}
@@ -199,7 +202,7 @@ function WritingCondition() {
                 />
               </Name>
               <Switch
-                mr="var(--margin-min)"
+                mr="var(--gap-1)"
                 colorScheme="mintTheme"
                 isChecked={condition.pre}
                 onChange={(e) => toggleSwitch(e, "pre")}
@@ -223,7 +226,7 @@ function WritingCondition() {
                   />
                 </Name>
                 <Switch
-                  mr="var(--margin-min)"
+                  mr="var(--gap-1)"
                   colorScheme="mintTheme"
                   isChecked={condition.manager}
                   onChange={(e) => toggleSwitch(e, "manager")}
@@ -231,9 +234,9 @@ function WritingCondition() {
               </Item>
             )}
           </Container>
-          <BottomNav onClick={() => onClickNext()} text="완료" />
         </RegisterLayout>
-      </PageLayout>
+        <BottomNav onClick={() => onClickNext()} text="완료" />
+      </>
       {isConfirmModal && (
         <GatherWritingConfirmModal
           setIsModal={setIsConfirmModal}
@@ -248,21 +251,21 @@ const Name = styled.div`
   display: flex;
   align-items: center;
   span {
-    margin-left: var(--margin-md);
+    margin-left: var(--gap-2);
   }
 `;
 
 const Container = styled.div`
   font-size: 14px;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
 `;
 
 const Item = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-main) 0;
+  padding: var(--gap-4) 0;
   align-items: center;
-  border-bottom: var(--border-sub);
+  border-bottom: var(--border);
 `;
 
 const GenderPopOver = () => (

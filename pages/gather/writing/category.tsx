@@ -2,21 +2,22 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
-import ProgressStatus from "../../../components/templates/ProgressStatus";
+import BottomNav from "../../../components/layouts/BottomNav";
+import Slide from "../../../components/layouts/PageSlide";
+
+import Header from "../../../components/layouts/Header";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import {
   GatherCategoryIcons,
   GATHER_TYPES,
-} from "../../../constants/contents/GatherContents";
+} from "../../../constants/contentsText/GatherContents";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
-import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
-import { prevPageUrlState } from "../../../recoil/previousAtoms";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
+import { prevPageUrlState } from "../../../recoils/previousAtoms";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGatherType } from "../../../types/page/gather";
+import { IGatherType } from "../../../types2/page/gather";
 
 function WritingGatherCategory() {
   const router = useRouter();
@@ -41,9 +42,11 @@ function WritingGatherCategory() {
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={20} />
-      <Header title="" url={prevPageUrl || "/gather"} />
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={20} />
+        <Header isSlide={false} title="" />
+      </Slide>
       <RegisterLayout>
         <RegisterOverview>
           <span>주제를 선택해 주세요.</span>
@@ -65,12 +68,12 @@ function WritingGatherCategory() {
         </ItemContainer>
       </RegisterLayout>
       <BottomNav onClick={onClickNext} />
-    </PageLayout>
+    </>
   );
 }
 
 const ItemContainer = styled.div`
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-5);
   display: flex;
   flex-direction: column;
 `;
@@ -78,11 +81,12 @@ const ItemContainer = styled.div`
 const Item = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
-  margin-bottom: var(--margin-md);
+  background-color: white;
+  margin-bottom: var(--gap-2);
   height: 60px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   border: ${(props) =>
-    props.isSelected ? "2px solid var(--color-mint)" : "var(--border-main)"};
+    props.isSelected ? "2px solid var(--color-mint)" : "var(--border)"};
 `;
 
 const IconWrapper = styled.div`
@@ -99,7 +103,7 @@ const Info = styled.div`
     font-weight: 600;
   }
   > span:last-child {
-    color: var(--font-h3);
+    color: var(--gray-3);
     font-size: 12px;
   }
 `;

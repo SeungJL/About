@@ -1,4 +1,4 @@
-import { useToast } from "@chakra-ui/react";
+import { useToast as useChakraToast } from "@chakra-ui/react";
 import { AxiosError } from "axios";
 import { useCallback } from "react";
 
@@ -11,8 +11,82 @@ export type FailToast =
   | "error"
   | "time";
 
+export const useToast = () => {
+  const toast = useChakraToast();
+
+  const showToast = useCallback(
+    (
+      status: "success" | "error" | "warning" | "info",
+      title: string,
+      subTitle?: string
+    ) => {
+      toast({
+        title: title,
+        description: subTitle,
+        status,
+        duration: 3000,
+        variant: "subtle",
+      });
+    },
+    [toast]
+  );
+
+  return showToast;
+};
+
+type ToastType = "guest" | "cancel" | "error" | "success" | "change";
+
+export const useTypeToast = () => {
+  const toast = useChakraToast();
+
+  const showToast = useCallback(
+    (type: ToastType) => {
+      toast({ ...getTypeToToast(type), duration: 3000, variant: "subtle" });
+    },
+    [toast]
+  );
+
+  return showToast;
+};
+
+const getTypeToToast = (
+  type: ToastType
+): {
+  status: "success" | "error" | "warning" | "info";
+  title: string;
+  subTitle?: string;
+} => {
+  switch (type) {
+    case "guest":
+      return {
+        status: "error",
+        title: "게스트는 사용할 수 없는 기능입니다.",
+      };
+    case "cancel":
+      return {
+        status: "error",
+        title: "취소되었습니다.",
+      };
+    case "error":
+      return {
+        status: "error",
+        title: "오류가 발생했습니다. 관리자에게 문의해주세요!",
+      };
+    case "success":
+      return {
+        status: "success",
+        title: "완료되었습니다.",
+      };
+    case "change":
+      return {
+        status: "success",
+        title: "변경되었습니다.",
+      };
+  }
+};
+
 export const useFailToast = () => {
-  const toast = useToast();
+  const toast = useChakraToast();
 
   const showFailToast = useCallback(
     (type: FailToast, sub?: string, isTop: boolean = false) => {
@@ -49,7 +123,7 @@ export type CompleteToast =
   | "point";
 
 export const useCompleteToast = () => {
-  const toast = useToast();
+  const toast = useChakraToast();
   const showCompleteToast = useCallback(
     (type: CompleteToast, sub?: string | number, isTop: boolean = false) => {
       let text = "";
@@ -59,11 +133,7 @@ export const useCompleteToast = () => {
       if (type === "apply") text = "신청 완료!";
       if (type === "success") text = "정상적으로 처리되었습니다.";
       if (type === "studyVote") {
-        const seqText =
-          sub === 10 ? "첫" : sub === 5 ? "두" : sub === 2 ? "세" : undefined;
-        text = sub
-          ? `${seqText}번째로 투표 완료! ${sub} Point 적립`
-          : "투표 완료!";
+        text = "투표 완료! 포인트가 적립되었습니다.";
       }
       if (type === "content")
         toast({
@@ -117,4 +187,26 @@ export const useTypeErrorToast = () => {
       );
   };
   return handleError;
+};
+
+export const useInfoToast = () => {
+  const toast = useChakraToast();
+
+  const showFailToast = useCallback(
+    (type: FailToast, sub?: string, isTop: boolean = false) => {
+      let text = "";
+      if (type === "free") text = sub;
+
+      toast({
+        title: "알림",
+        description: text,
+        status: "info",
+        duration: 3000,
+        isClosable: true,
+        position: isTop ? "top" : "bottom",
+      });
+    },
+    [toast]
+  );
+  return showFailToast;
 };

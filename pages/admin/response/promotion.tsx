@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { MainLoading } from "../../../components/common/loaders/MainLoading";
-import Header from "../../../components/layout/Header";
+
+import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
+import Header from "../../../components/layouts/Header";
+
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 
 function AdminPromotion() {
@@ -34,7 +36,7 @@ const Layout = styled.div``;
 const Item = styled.div`
   display: flex;
   padding: 12px;
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: 1px solid var(--gray-5);
   > span {
     margin-right: 12px;
   }

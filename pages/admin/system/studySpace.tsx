@@ -2,12 +2,12 @@ import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
-import { StudySpaceLogo } from "../../../components/utils/CustomImages";
-import { useStudyPlacesQuery } from "../../../hooks/study/queries";
-import { ISpaceControl } from "../../../types/page/admin";
+import Header from "../../../components/layouts/Header";
 
-function AdminStudySpace() {
+import { useStudyPlacesQuery } from "../../../hooks/study/queries";
+import { ISpaceControl } from "../../../types2/page/admin";
+
+function Adminstudy() {
   const { data } = useStudyPlacesQuery("all");
   const { register, handleSubmit } = useForm({});
 
@@ -137,7 +137,8 @@ function AdminStudySpace() {
           >
             <div>
               <ImageContainer>
-                <StudySpaceLogo place={place} isBig={false} />
+                {/* <studyLogo place={place} isBig={false} /> */}
+                temp
               </ImageContainer>
               <SpaceInfo>
                 <Status>
@@ -236,7 +237,7 @@ const AddForm = styled.form`
       width: 80px;
     }
     input {
-      background-color: var(--font-h7);
+      background-color: var(--gray-7);
     }
   }
 `;
@@ -244,7 +245,7 @@ const AddForm = styled.form`
 const ImageContainer = styled.div`
   width: 77px;
   height: 77px;
-  border: 1px solid var(--font-h5);
+  border: 1px solid var(--gray-5);
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -253,7 +254,7 @@ const ImageContainer = styled.div`
 `;
 
 const SpaceInfo = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   margin-left: 12px;
   display: flex;
   flex-direction: column;
@@ -272,12 +273,12 @@ const Status = styled.div`
 const Branch = styled.input`
   font-weight: 800;
   font-size: 16px;
-  color: var(--font-h1);
+  color: var(--gray-1);
 `;
 
 const Info = styled.input`
-  color: var(--font-h3);
+  color: var(--gray-3);
   font-size: 12px;
 `;
 
-export default AdminStudySpace;
+export default Adminstudy;

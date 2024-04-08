@@ -1,20 +1,20 @@
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
+import { encode, JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import KakaoProvider from "next-auth/providers/kakao";
 import dbConnect from "../../../libs/backend/dbConnect";
 import clientPromise from "../../../libs/backend/mongodb";
-import {
-  getProfile,
-  refreshAccessToken,
-} from "../../../libs/backend/oauthUtils";
+import { refreshAccessToken } from "../../../libs/backend/oauthUtils";
 import { Account } from "../../../models/account";
 import { User } from "../../../models/user";
-import { Role } from "../../../types/user/user";
+import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
+
+const secret = process.env.NEXTAUTH_SECRET;
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
-  secret: process.env.NEXTAUTH_SECRET,
+  secret,
   providers: [
     //직접적으로 사용자 정보를 인증하는 경우
     CredentialsProvider({
@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
           id: "0",
           uid: "0",
           name: "guest",
-          role: "member",
+          role: "guest",
           profileImage: "",
           isActive: true,
         };
@@ -46,10 +46,12 @@ export const authOptions: NextAuthOptions = {
         id: profile.id.toString(),
         uid: profile.id.toString(),
         name: profile.properties.nickname,
-        role: "human",
-        profileImage: profile.properties.profile_image,
+        role: "newUser",
+        profileImage:
+          profile.properties.thumbnail_image ||
+          profile.properties.profile_image,
         isActive: false,
-        score: 0,
+        email: profile.id.toString(),
       }),
     }),
   ],
@@ -63,30 +65,34 @@ export const authOptions: NextAuthOptions = {
     updateAge: 3 * 24 * 60 * 60, // 3 days
   },
   pages: {
-    //로그인 할 때 보여질 페이지
-    signIn: "/login",
-    //로그아웃이나 에러날 때 등 보여질 페이지 추가 가능
+    signIn: "/home",
+    // signOut: "/login",
+    error: "/login",
+    // verifyRequest: "/2",
+    newUser: "/register/location",
   },
+
   callbacks: {
-    //user은 위에서 만든 profile, account는 계정 정보
-    //반환값이 true면 인증 성공했다는 뜻
-    //false면 nextAuth의 반환 실패메세지
-    async signIn({ user, account }) {
+    async signIn({ account, user, profile, credentials }) {
       if (account.provider === "guest") return true;
 
-      const accessToken: any = account.access_token;
-      if (!accessToken) return false;
+      if (!account.access_token) return false;
 
-      const kakaoProfile = await getProfile(accessToken, user.uid as string);
-      if (!kakaoProfile) return false;
+      // if (user.role === "newUser") return false;
+
+      if (user) {
+        account.role = user.role;
+      }
+
+      const profileImage =
+        profile.properties.thumbnail_image || profile.properties.profile_image;
+      const endcodedToken = await encode({ token: account, secret });
       await dbConnect();
-      //해당 uid가 존재하는 경우에는 카카오 프로필만 업데이트
       await User.updateOne(
         { uid: user.uid },
         {
           $set: {
-            profileImage:
-              kakaoProfile.thumbnailURL || kakaoProfile.profileImage,
+            profileImage,
           },
         }
       );
@@ -94,29 +100,40 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
     //session과 token모두 초기값인데, 이전 과정에서 겹치는 부분들은 업데이트가 되어있음
-    async session({ session, token }) {
+    async session({ session, token, user, trigger }) {
+      if (trigger === "update") {
+        return session;
+      }
+
       if (session.user.name === "guest") {
-        session.id = "0";
-        session.uid = "0";
-        session.role = "guest";
-        session.error = "";
-        session.isActive = false;
+        session.user.id = "0";
+        session.user.uid = "0";
+        session.user.name = "guest";
+        session.user.role = "guest";
+        session.user.location = "수원";
+        session.user.isActive = false;
       } else {
-        session.id = token.id.toString();
-        session.uid = token.uid.toString();
+        session.user.id = token.id.toString();
+        session.user.uid = token.uid.toString();
         session.user.name = token.name;
-        session.role = token.role as Role;
-        session.error = token.error;
-        session.isActive = token.isActive as boolean;
+        session.user.role = token.role;
+        session.user.isActive = token.isActive;
+        session.user.location = token.location;
+        session.user.profileImage = token.profileImage;
       }
       return session;
     },
-    //token 빼고는 모두 초기값으로 undefined
-    //
-    async jwt({ token, account, profile, user }) {
+
+    async jwt({ token, account, user, trigger, session }) {
+      if (trigger === "update" && token?.role) {
+        token.role = "waiting";
+        return token;
+      }
+
       if (account && account.provider === "guest") {
         return token;
       }
+
       if (account && user) {
         await Account.updateOne(
           { providerAccountId: account.providerAccountId },
@@ -129,17 +146,19 @@ export const authOptions: NextAuthOptions = {
             },
           }
         );
-        return {
+        const newToken: JWT = {
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
-          accessTokenExpires: Date.now() + account.expires_at * 1000,
+          accessTokenExpires: Date.now() + (account?.expires_at || 0) * 1000,
           id: user.id.toString(),
-          uid: (profile as any)?.id,
-          name: (profile as any)?.properties?.nickname,
-          picture: (profile as any)?.properties?.profile_image,
+          uid: user.uid,
+          name: user.name,
+          profileImage: user.profileImage,
           role: user.role,
           isActive: user.isActive,
+          location: user.location as unknown as ActiveLocation,
         };
+        return newToken;
       }
 
       if (token.accessTokenExpires) {

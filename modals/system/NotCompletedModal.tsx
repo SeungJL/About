@@ -1,21 +1,20 @@
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types2/reactTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function NotCompletedModal({ setIsModal }: IModal) {
+  const footerOptions: IFooterOptions = {
+    main: {},
+  };
+
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="sm">
-        <ModalHeader text="미완성 컨텐츠" />
-        <ModalBody>
-          <ModalSubtitle>개발 진행중인 컨텐츠입니다. (곧 나옴)</ModalSubtitle>
-        </ModalBody>
-        <ModalFooterOne onClick={() => setIsModal(false)} />
+      <ModalLayout
+        title="준비중인 컨텐츠"
+        footerOptions={footerOptions}
+        setIsModal={setIsModal}
+      >
+        <ModalSubtitle>개발 진행중인 컨텐츠입니다.</ModalSubtitle>
       </ModalLayout>
     </>
   );

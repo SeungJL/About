@@ -1,4 +1,4 @@
-import { GatherStatus } from "../../types/page/gather";
+import { GatherStatus } from "../../types2/page/gather";
 
 export const STATUS_TO_TEXT: Record<GatherStatus, string> = {
   open: "오픈",

@@ -7,15 +7,16 @@ import {
   USER_POINT_SYSTEM,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { QueryOptions } from "../../types/reactTypes";
-import { IPointLog } from "../../types/user/pointSystem";
-import { IUser } from "../../types/user/user";
+import { IPointLog } from "../../types2/pointSystem";
+import { QueryOptions } from "../../types2/reactTypes";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
 
 export const useUserInfoQuery = (options?: QueryOptions<IUser>) =>
   useQuery<IUser, AxiosError, IUser>(
     [USER_INFO],
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile`);
+
       return res.data;
     },
     options
@@ -73,7 +74,7 @@ export const useUidToUserInfoQuery = (
   options?: QueryOptions<IUser>
 ) =>
   useQuery<IUser, AxiosError, IUser>(
-    [UID_TO_USER],
+    [UID_TO_USER, uid],
     async () => {
       const res = await axios.get<IUser>(`${SERVER_URI}/user/profile/${uid}`);
 

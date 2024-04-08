@@ -1,34 +1,36 @@
 import { Button } from "@chakra-ui/react";
 import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
-import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/templates/ProgressStatus";
-import { birthToAge } from "../../helpers/converterHelpers";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import BottomNav from "../../components/layouts/BottomNav";
+
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import { birthToAge } from "../../utils/convertUtils/convertTypes";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
+
 dayjs.locale("ko");
 function Birthday() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const searchParams = useSearchParams();
+  const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
 
   const initialDate = new Date(2000, 0, 1);
 
-  const birth = registerForm?.birth;
+  const birth = info?.birth;
 
   const defaultBirth =
     birth && Number(birth?.slice(0, 2)) < 50
@@ -44,33 +46,35 @@ function Birthday() {
       +defaultBirth?.slice(4, 6) - 1,
       +defaultBirth?.slice(6)
     );
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const isProfileEdit = !!searchParams.get("edit");
   const [startDate, setStartDate] = useState(defaultBirthDate || initialDate);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     const age = birthToAge(dayjs(startDate).format("YYMMDD"));
 
     if (age < 19 || age > 26) {
       setErrorMessage("죄송합니다. 19 ~ 26세의 인원만 가입이 가능합니다.");
+      e.preventDefault();
       return;
     }
-    if (dayjs(startDate))
-      setRegisterForm((old) => ({
-        ...old,
+
+    if (dayjs(startDate)) {
+      setLocalStorageObj(REGISTER_INFO, {
+        ...info,
         birth: dayjs(startDate).format("YYMMDD"),
-      }));
-    router.push(`mbti`);
+      });
+    }
   };
 
   const myBirth = dayjs(startDate).format("YYYY년 M월 D일");
 
   return (
-    <PageLayout>
-      <ProgressStatus value={40} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/gender"
+        value={40}
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>생년월일을 입력해 주세요</span>
@@ -110,8 +114,8 @@ function Birthday() {
           </Button>
         </DateContainer>
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
-    </PageLayout>
+      <BottomNav onClick={onClickNext} url="/register/mbti" />
+    </>
   );
 }
 
@@ -123,20 +127,17 @@ const StyledDatePicker = styled(DatePicker)`
   text-align: center;
   font-size: 13px;
   font-weight: 600;
-  color: var(--font-h2);
-`;
-
-const Layout = styled(motion.div)`
-  height: 100vh;
+  color: var(--gray-2);
+  outline: none;
 `;
 
 const DateStr = styled.div`
   font-size: 22px;
-  margin: var(--margin-max) 0;
+  margin: var(--gap-5) 0;
 `;
 
 const DateContainer = styled.div`
-  margin-bottom: var(--margin-main);
+  margin-bottom: var(--gap-4);
   display: flex;
   flex-direction: column;
   align-items: center;

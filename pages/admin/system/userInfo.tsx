@@ -1,10 +1,11 @@
 import { useToast } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Header from "../../../components/layout/Header";
+import Header from "../../../components/layouts/Header";
+
 import { useUpdateProfileMutation } from "../../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../../hooks/admin/quries";
-import { IUser } from "../../../types/user/user";
+import { IUser } from "../../../types2/userTypes/userInfoTypes";
 
 function AdminUserInfo() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -84,7 +85,7 @@ const Search = styled.div`
   }
 `;
 const SearchInput = styled.input`
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
   margin-right: 6px;
 `;
 const Layout = styled.div`
@@ -99,7 +100,7 @@ const SectionHeader = styled.header`
   justify-content: center;
   font-size: 16px;
   font-weight: 600;
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
 `;
 
 const Section = styled.section`

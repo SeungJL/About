@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { now } from "../../../helpers/dateHelpers";
+import { now } from "../../../utils/dateTimeUtils";
 
 export default async function handler(
   req: NextApiRequest,

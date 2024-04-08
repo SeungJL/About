@@ -1,48 +1,35 @@
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
+import Slide from "../../components/layouts/PageSlide";
+
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import UserNavigation from "../../pagesComponents/user/userNavigation/UserNavigation";
-import UserOverview from "../../pagesComponents/user/userOverview/UserOverView";
-import { isRefetchUserInfoState } from "../../recoil/refetchingAtoms";
-import { isGuestState } from "../../recoil/userAtoms";
+import UserCollection from "../../pageTemplates/user/userCollection";
+import UserHeader from "../../pageTemplates/user/userHeader";
+import UserOverview from "../../pageTemplates/user/userOverview/UserOverView";
+import UserProfile from "../../pageTemplates/user/userProfile";
 
 function UserInfo() {
-  const isGuest = useRecoilValue(isGuestState);
-  const [isRefetchUserInfo, setIsRefetchUserInfo] = useRecoilState(
-    isRefetchUserInfoState
-  );
-
-  const { data: userInfo, refetch } = useUserInfoQuery({
-    enabled: !isGuest,
-  });
-
-  useEffect(() => {
-    if (isRefetchUserInfo) {
-      setIsRefetchUserInfo(false);
-      refetch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRefetchUserInfo]);
+  const { data: userInfo } = useUserInfoQuery({});
 
   return (
-    <PageLayout>
-      <Header title="마이페이지" />
-      {(userInfo || isGuest) && (
-        <UserLayout>
-          <UserOverview userInfo={userInfo} />
-          <UserNavigation />
-        </UserLayout>
-      )}
-    </PageLayout>
+    <>
+      <UserHeader />
+      <Slide>
+        {userInfo && (
+          <UserLayout>
+            <UserOverview />
+            <UserProfile />
+            <UserCollection />
+          </UserLayout>
+        )}
+      </Slide>
+    </>
   );
 }
 
 const UserLayout = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: white;
 `;
 
 export default UserInfo;

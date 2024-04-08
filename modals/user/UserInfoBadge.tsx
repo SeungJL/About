@@ -20,7 +20,7 @@ const Layout = styled.div`
 const Contatiner = styled.div`
   width: 90%;
   height: 90%;
-  border: 1px solid var(--font-h5);
+  border: 1px solid var(--gray-5);
   border-radius: 6px;
   padding: 10px;
   display: flex;
@@ -28,7 +28,7 @@ const Contatiner = styled.div`
   justify-content: center;
 `;
 const Text = styled.span`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
 `;
 

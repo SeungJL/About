@@ -1,44 +1,45 @@
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/templates/ProgressStatus";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import BottomNav from "../../components/layouts/BottomNav";
 
-import { Gender } from "../../types/user/user";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { setLocalStorageObj } from "../../utils/storageUtils";
+
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
 
 function Gender() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
+  const searchParams = useSearchParams();
+  const info: IUserRegisterFormWriting = JSON.parse(
+    localStorage.getItem(REGISTER_INFO)
   );
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+
+  const isProfileEdit = !!searchParams.get("edit");
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [gender, setGender] = useState<Gender>(registerForm?.gender);
+  const [gender, setGender] = useState(info?.gender);
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (!gender) {
       setErrorMessage("성별을 선택해 주세요.");
+      e.preventDefault();
       return;
     }
-    setRegisterForm((old) => ({ ...old, gender }));
-    router.push(`/register/birthday`);
+    setLocalStorageObj(REGISTER_INFO, { ...info, gender });
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={30} />
-      <Header
+    <>
+      <ProgressHeader
+        value={30}
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/name"
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>성별을 입력해 주세요</span>
@@ -46,21 +47,21 @@ function Gender() {
         </RegisterOverview>
         <ButtonNav>
           <Button
-            isSelected={gender === "남성"}
+            $isSelected={gender === "남성"}
             onClick={() => setGender("남성")}
           >
             남성
           </Button>
           <Button
-            isSelected={gender === "여성"}
+            $isSelected={gender === "여성"}
             onClick={() => setGender("여성")}
           >
             여성
           </Button>
         </ButtonNav>
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
-    </PageLayout>
+      <BottomNav onClick={onClickNext} url="/register/birthday" />
+    </>
   );
 }
 
@@ -70,15 +71,15 @@ const ButtonNav = styled.nav`
   justify-content: space-between;
 `;
 
-const Button = styled.button<{ isSelected: boolean }>`
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
-  border-radius: var(--border-radius-sub);
+const Button = styled.button<{ $isSelected: boolean }>`
+  color: ${(props) => (props.$isSelected ? "var(--gray-1)" : "var(--gray-4)")};
+  border-radius: var(--rounded-lg);
   flex: 0.49;
   height: 48px;
   font-size: 14px;
-  font-weight: ${(props) => props.isSelected && "600"};
+  font-weight: ${(props) => props.$isSelected && "600"};
   border: ${(props) =>
-    props.isSelected ? "var(--border-thick)" : "var(--border-main)"};
+    props.$isSelected ? "var(--border-thick)" : "var(--border)"};
 `;
 
 export default Gender;

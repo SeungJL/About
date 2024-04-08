@@ -1,31 +1,35 @@
 import { Box, Button } from "@chakra-ui/react";
 import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import KakaoShareBtn from "../../components/common/Icon/KakaoShareBtn";
-import { MainLoading } from "../../components/common/loaders/MainLoading";
-import ImageSlider from "../../components/dataViews/imageSlider/ImageSlider";
-import Header from "../../components/layout/Header";
-import ButtonCheckNav from "../../components/templates/ButtonCheckNav";
-import { DEFAULT_IMAGE_URL } from "../../constants/image/imageUrl";
-import { LOCATION_USE_ALL } from "../../constants/location";
+import { DEFAULT_IMAGE_URL } from "../../assets/images/imageUrl";
+import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
+import { MainLoading } from "../../components/atoms/loaders/MainLoading";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
+import ButtonGroups, {
+  IButtonOpions,
+} from "../../components/molecules/groups/ButtonGroups";
+import ImageSlider from "../../components/organisms/imageSlider/ImageSlider";
+import { ACTIVE_LOCATIONS } from "../../constants/locationConstants";
 import { WEB_URL } from "../../constants/system";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGatherAllSummaryQuery } from "../../hooks/gather/queries";
-import ReviewContent from "../../pagesComponents/review/ReviewContent";
-import ReviewGatherSummary from "../../pagesComponents/review/ReviewGatherSummary";
-import ReviewItemHeader from "../../pagesComponents/review/ReviewItemHeader";
-import ReviewStatus from "../../pagesComponents/review/ReviewStatus";
-import {
-  prevPageUrlState,
-  reviewContentIdState,
-} from "../../recoil/previousAtoms";
+import ReviewContent from "../../pageTemplates/review/ReviewContent";
+import ReviewGatherSummary from "../../pageTemplates/review/ReviewGatherSummary";
+import ReviewItemHeader from "../../pageTemplates/review/ReviewItemHeader";
+import ReviewStatus from "../../pageTemplates/review/ReviewStatus";
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
-import { IGatherLocation, IGatherType } from "../../types/page/gather";
-import { LocationFilterType } from "../../types/system";
+import { IGatherLocation, IGatherType } from "../../types2/page/gather";
+import {
+  ActiveLocation,
+  ActiveLocationAll,
+  LocationEn,
+  LocationFilterType,
+} from "../../types2/serviceTypes/locationTypes";
+import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 export interface IGatherSummary {
   title: string;
@@ -42,18 +46,18 @@ interface IReview extends IReviewData {
 
 function Review() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const location = searchParams.get("location");
+  const locationKr = convertLocationLangTo(location as LocationEn, "kr");
   const errorToast = useErrorToast();
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();
-  const [category, setCategory] = useState<LocationFilterType>("전체");
+  const [category, setCategory] = useState<ActiveLocationAll>("전체");
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
-  const [reviewContentId, setReviewContentId] =
-    useRecoilState(reviewContentIdState);
+  const reviewContentId = searchParams.get("scroll");
 
   const [visibleCnt, setVisibleCnt] = useState(8);
-
-  const url = WEB_URL + router?.asPath;
 
   const writers = {
     이승주: {
@@ -136,6 +140,7 @@ function Review() {
   useEffect(() => {
     if (reviewContentId && reviewData) {
       const element = document.getElementById(`review${reviewContentId}`);
+
       if (element) {
         window.scrollTo({
           top: element.offsetTop,
@@ -143,7 +148,7 @@ function Review() {
         });
       }
     }
-    setReviewContentId(null);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviewContentId, reviewData]);
 
@@ -151,81 +156,90 @@ function Review() {
     setVisibleCnt((old) => old + 8);
   };
 
+  const buttonArr: IButtonOpions[] = ["전체", ...ACTIVE_LOCATIONS].map(
+    (location) => ({
+      text: location,
+      func: () =>
+        location === "전체"
+          ? router.replace("/review")
+          : router.replace(
+              `/review?location=${convertLocationLangTo(
+                location as ActiveLocation,
+                "en"
+              )}`
+            ),
+    })
+  );
+
   return (
     <>
-      <Header
-        title="모임 리뷰"
-        url={prevPageUrl || "/gather"}
-        isPrev={!!prevPageUrl}
-      >
+      <Header title="모임 리뷰">
         <KakaoShareBtn
           title="모임 리뷰"
           subtitle="즐거운 모임 가득 ~!"
-          url={url}
+          url={`${WEB_URL}/review?location=${location}`}
           img={REVIEW_DATA && REVIEW_DATA[0]?.images[0]}
         />
       </Header>
-      <Layout>
-        {reviewData ? (
-          <>
-            <NavWrapper>
-              <ButtonCheckNav
-                buttonList={["전체", ...LOCATION_USE_ALL]}
-                selectedButton={category}
-                setSelectedButton={setCategory}
+
+      {reviewData ? (
+        <Slide>
+          <Layout>
+            <>
+              <ButtonGroups
+                buttonDataArr={buttonArr}
+                currentValue={
+                  convertLocationLangTo(location as LocationEn, "kr") || "전체"
+                }
               />
-            </NavWrapper>
-            <Main>
-              {reviewData.slice(0, visibleCnt).map((item) => (
-                <Item id={"review" + item.id} key={item.id}>
-                  <ReviewItemHeader
-                    writer={writers[item?.writer || "이승주"]}
-                    date={item.dateCreated}
-                  />
-                  <ImageWrapper>
-                    <ImageSlider imageContainer={item.images} type="review" />
-                  </ImageWrapper>
-                  {item.summary ? (
-                    <ReviewGatherSummary summary={item.summary} />
-                  ) : (
-                    <Spacing />
-                  )}
-                  {item?.text && <ReviewContent text={item.text} />}
-                  <ReviewStatus temp={writers["이승주"]} />
-                </Item>
-              ))}
-              {visibleCnt < reviewData.length && (
-                <Button
-                  onClick={handleLoadMore}
-                  m="var(--margin-main)"
-                  colorScheme="gray"
-                  boxShadow="var(--box-shadow)"
-                  color="var(--font-h3)"
-                >
-                  <Box mr="var(--margin-md)">더 보기</Box>
-                  <FontAwesomeIcon icon={faEllipsis} />
-                </Button>
-              )}
-            </Main>
-          </>
-        ) : (
-          <MainLoading />
-        )}
-      </Layout>
+
+              <Main>
+                {reviewData.slice(0, visibleCnt).map((item) => (
+                  <Item id={"review" + item.id} key={item.id}>
+                    <ReviewItemHeader
+                      writer={writers[item?.writer || "이승주"]}
+                      date={item.dateCreated}
+                    />
+                    <ImageWrapper>
+                      <ImageSlider imageContainer={item.images} type="review" />
+                    </ImageWrapper>
+                    {item.summary ? (
+                      <ReviewGatherSummary summary={item.summary} />
+                    ) : (
+                      <Spacing />
+                    )}
+                    {item?.text && <ReviewContent text={item.text} />}
+                    <ReviewStatus temp={writers["이승주"]} />
+                  </Item>
+                ))}
+                {visibleCnt < reviewData.length && (
+                  <Button
+                    onClick={handleLoadMore}
+                    m="var(--gap-4)"
+                    colorScheme="gray"
+                    boxShadow="var(--shadow)"
+                    color="var(--gray-3)"
+                  >
+                    <Box mr="var(--gap-2)">더 보기</Box>
+                    <FontAwesomeIcon icon={faEllipsis} />
+                  </Button>
+                )}
+              </Main>
+            </>
+          </Layout>
+        </Slide>
+      ) : (
+        <MainLoading />
+      )}
     </>
   );
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-min);
-`;
-
-const NavWrapper = styled.div`
-  padding: var(--padding-md) var(--padding-sub);
+  margin-top: var(--gap-1);
 `;
 
 const Main = styled.main`
-  margin-top: var(--margin-sub);
   display: flex;
   flex-direction: column;
 `;
@@ -236,13 +250,14 @@ const ImageWrapper = styled.div`
 `;
 
 const Item = styled.div`
-  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
+  border: var(--border);
+  box-shadow: var(--shadow);
 `;
 
 const Spacing = styled.div`
-  height: var(--margin-max);
+  height: var(--gap-5);
 `;
 
 export default Review;

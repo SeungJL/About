@@ -19,7 +19,7 @@ import {
   useGatherStatusMutation,
   useGatherWritingMutation,
 } from "../../../hooks/gather/mutations";
-import { DispatchBoolean } from "../../../types/reactTypes";
+import { DispatchBoolean } from "../../../types2/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
 interface IGatherExpireModalCancelDialog {
@@ -77,7 +77,7 @@ function GatherExpireModalCancelDialog({
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent m="auto var(--margin-main)">
+          <AlertDialogContent m="auto var(--gap-4)">
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               모집을 취소하시겠습니까?
             </AlertDialogHeader>
@@ -95,7 +95,7 @@ function GatherExpireModalCancelDialog({
               <Button
                 colorScheme="mintTheme"
                 onClick={onCancel}
-                ml="var(--margin-md)"
+                ml="var(--gap-2)"
               >
                 모집취소
               </Button>

@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { now } from "../../../../helpers/dateHelpers";
 import { isPreviliged } from "../../../../libs/backend/authUtils";
 import dbConnect from "../../../../libs/backend/dbConnect";
 import { Vote } from "../../../../models/vote";
+import { now } from "../../../../utils/dateTimeUtils";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

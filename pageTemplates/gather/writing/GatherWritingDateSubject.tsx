@@ -1,0 +1,146 @@
+import { Box } from "@chakra-ui/react";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import Input from "../../../components/atoms/Input";
+import TimeSelectorUnit from "../../../components/atoms/TimeSelectorUnit";
+
+import { TIME_SELECTOR_UNIT } from "../../../constants/util/util";
+import { IGatherListItem, IGatherWriting } from "../../../types2/page/gather";
+import { DispatchType } from "../../../types2/reactTypes";
+import { ITime } from "../../../types2/timeAndDate";
+
+interface IGatherWritingDateSubject {
+  gatherWriting: IGatherWriting;
+  setGatherList: DispatchType<IGatherListItem[]>;
+  date: Date;
+}
+interface IGatherSubject {
+  text: string;
+  time: ITime;
+}
+
+function GatherWritingDateSubject({
+  gatherWriting,
+  setGatherList,
+  date,
+}: IGatherWritingDateSubject) {
+  const [firstGather, setFirstGather] = useState<IGatherSubject>({
+    text: gatherWriting?.gatherList?.[0]?.text || "",
+    time: { hours: 14, minutes: 0 },
+  });
+  const [secondGather, setSecondGather] = useState<IGatherSubject>({
+    text: gatherWriting?.gatherList?.[1]?.text || "늦참",
+    time: { hours: 18, minutes: 0 },
+  });
+
+  useEffect(() => {
+    if (date)
+      setFirstGather((old) => ({
+        ...old,
+        time: {
+          hours: dayjs(date).hour(),
+          minutes: dayjs(date).minute(),
+        },
+      }));
+  }, [date]);
+
+  useEffect(() => {
+    const gatherList = [{ text: firstGather.text, time: firstGather.time }];
+    if (secondGather?.text?.length)
+      gatherList.push({ text: secondGather.text, time: secondGather.time });
+    setGatherList(gatherList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    firstGather.text,
+    firstGather.time,
+    secondGather.text,
+    secondGather.time,
+  ]);
+
+  const onChangeInput = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: "first" | "second"
+  ) => {
+    const value = e.target.value;
+    if (type === "first") setFirstGather((old) => ({ ...old, text: value }));
+    if (type === "second") setSecondGather((old) => ({ ...old, text: value }));
+  };
+
+  return (
+    <Layout>
+      <TimeContent>
+        <span>1차 모임</span>
+
+        <Box flex={1}>
+          <Input
+            placeholder="ex) 보드게임"
+            value={firstGather?.text}
+            onChange={(e) => onChangeInput(e, "first")}
+          />
+        </Box>
+        <Box h="40px" />
+        <TimeSelectorUnit
+          time={firstGather?.time}
+          setTime={(time) => setFirstGather((old) => ({ ...old, time }))}
+          timeArr={TIME_SELECTOR_UNIT}
+        />
+      </TimeContent>
+      <TimeContent>
+        <span>2차 모임</span>
+        <Box flex={1}>
+          <Input
+            placeholder="ex) 뒤풀이"
+            value={secondGather?.text}
+            onChange={(e) => onChangeInput(e, "second")}
+          />
+        </Box>
+        <Box h="40px" />
+        <TimeSelectorUnit
+          time={secondGather?.time}
+          setTime={(time) => setSecondGather((old) => ({ ...old, time }))}
+          timeArr={TIME_SELECTOR_UNIT}
+          disabled={secondGather?.text === ""}
+        />
+      </TimeContent>
+      <Message>
+        2차 모임이 없는 경우 &lsquo;늦참&rsquo;으로 설정해주세요!
+      </Message>
+    </Layout>
+  );
+}
+
+const Layout = styled.div`
+  margin-top: 60px;
+`;
+
+const Message = styled.div`
+  margin-top: var(--gap-5);
+  font-size: 13px;
+  color: var(--gray-4);
+`;
+const TimeContent = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: var(--gap-4);
+  > span:first-child {
+    color: var(--gray-2);
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: var(--gap-3);
+  }
+`;
+
+const TimeContentInput = styled.input`
+  flex: 1;
+  border: var(--border);
+  border-radius: var(--rounded-lg);
+  height: 36px;
+  padding: var(--gap-2);
+  font-size: 12px;
+  :focus {
+    outline: none;
+    border: var(--border-thick);
+  }
+`;
+export default GatherWritingDateSubject;

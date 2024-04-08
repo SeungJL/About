@@ -1,21 +1,16 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../../components/common/Icon/AlphabetIcon";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+import { AlphabetIcon } from "../../../components/atoms/Icons/AlphabetIcon";
 import {
   useCompleteToast,
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import { isGuestState, userInfoState } from "../../../recoil/userAtoms";
-import { IModal } from "../../../types/reactTypes";
-import { Alphabet } from "../../../types/user/collections";
+import { IFooterOptions, ModalLayout } from "../../Modals";
+
+import { Alphabet } from "../../../types2/collections";
+import { IModal } from "../../../types2/reactTypes";
 
 interface IAlphabetChangeModal extends IModal {
   myAlphabets: Alphabet[];
@@ -31,8 +26,8 @@ function AlphabetChangeModal({
 }: IAlphabetChangeModal) {
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
-  const isGuest = useRecoilValue(isGuestState);
-  const userInfo = useRecoilValue(userInfoState);
+
+  const { data: userInfo } = useUserInfoQuery();
 
   const { mutate: requestAlphabet } = useInteractionMutation(
     "alphabet",
@@ -81,46 +76,49 @@ function AlphabetChangeModal({
   };
   const ABOUT: Alphabet[] = ["A", "B", "O", "U", "T"];
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "교환 신청",
+      func: handleAlphabetChange,
+    },
+  };
+
   return (
-    <ModalLayout size="lg" onClose={() => setIsModal(false)}>
-      <ModalHeader text="알파벳 교환 신청" />
-      <ModalBody>
-        <SectionTitle>상대 보유</SectionTitle>
-        <AlphabetContainer>
-          {ABOUT.map((alphabet) => (
-            <AlphabetBtn
-              isSelected={alphabet === selectedAlphabet?.opponent}
-              key={alphabet}
-              onClick={() => onClickAlphabet("opponent", alphabet)}
-            >
-              <AlphabetIcon
-                alphabet={alphabet}
-                isDuotone={!opponentAlpabets?.includes(alphabet)}
-              />
-            </AlphabetBtn>
-          ))}
-        </AlphabetContainer>
-        <SectionTitle style={{ marginTop: "auto" }}>내 보유</SectionTitle>
-        <AlphabetContainer>
-          {ABOUT.map((alphabet) => (
-            <AlphabetBtn
-              isSelected={alphabet === selectedAlphabet?.mine}
-              key={alphabet}
-              onClick={() => onClickAlphabet("mine", alphabet)}
-            >
-              <AlphabetIcon
-                alphabet={alphabet}
-                isDuotone={!myAlphabets?.includes(alphabet)}
-              />
-            </AlphabetBtn>
-          ))}
-        </AlphabetContainer>
-      </ModalBody>
-      <ModalFooterOne
-        isFull={true}
-        text="교환 신청"
-        onClick={handleAlphabetChange}
-      />
+    <ModalLayout
+      title="알파벳 교환 신청"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <SectionTitle>상대 보유</SectionTitle>
+      <AlphabetContainer>
+        {ABOUT.map((alphabet) => (
+          <AlphabetBtn
+            isSelected={alphabet === selectedAlphabet?.opponent}
+            key={alphabet}
+            onClick={() => onClickAlphabet("opponent", alphabet)}
+          >
+            <AlphabetIcon
+              alphabet={alphabet}
+              isDuotone={!opponentAlpabets?.includes(alphabet)}
+            />
+          </AlphabetBtn>
+        ))}
+      </AlphabetContainer>
+      <SectionTitle style={{ marginTop: "auto" }}>내 보유</SectionTitle>
+      <AlphabetContainer>
+        {ABOUT.map((alphabet) => (
+          <AlphabetBtn
+            isSelected={alphabet === selectedAlphabet?.mine}
+            key={alphabet}
+            onClick={() => onClickAlphabet("mine", alphabet)}
+          >
+            <AlphabetIcon
+              alphabet={alphabet}
+              isDuotone={!myAlphabets?.includes(alphabet)}
+            />
+          </AlphabetBtn>
+        ))}
+      </AlphabetContainer>
     </ModalLayout>
   );
 }
@@ -128,11 +126,11 @@ function AlphabetChangeModal({
 const SectionTitle = styled.div`
   font-size: 13px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const AlphabetContainer = styled.div`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   display: flex;
   justify-content: space-around;
   font-size: 14px;
@@ -144,14 +142,14 @@ const AlphabetBtn = styled.button<{ isSelected: boolean }>`
   padding: 12px;
   height: 46px;
   width: 46px;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
   display: flex;
   justify-content: center;
   align-items: center;
   border: ${(props) =>
     props.isSelected
       ? "2px solid var(--color-mint)"
-      : "2px solid var(--font-h5)"};
+      : "2px solid var(--gray-5)"};
 `;
 
 export default AlphabetChangeModal;

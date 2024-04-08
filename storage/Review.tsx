@@ -1,4 +1,4 @@
-import { LocationFilterType } from "../types/system";
+import { LocationFilterType } from "../types2/serviceTypes/locationTypes";
 
 export interface IReviewData {
   id: number;
@@ -446,5 +446,53 @@ export const REVIEW_DATA: IReviewData[] = [
     ],
     text: "일찍부터 와서 공부를 시작함. 일단 여기 대박인게 저 넓은 공간에 사람이 우리밖에 없었음. 그래서 눈치 안보고 공부하다가 얘기하다가 함. 케이크 먹으면서 그렇게 5시간 정도 하고 저녁을 먹으러 감. 오랜 토론 끝에 닭갈비로 결정했음. 맥주 딱 한잔만 했음. 원래 약간의 술은 공부에 도움이 된다고 누가 그랬음. 아무튼 그럼. 저녁을 먹은 뒤 앞에 투썸 미팅룸 큰걸로 빌려서 10시까지 공부함. 되게 뭔가 많이 한 듯.",
     title: "12월 6일 정기스터디",
+  },
+  {
+    id: 116,
+    dateCreated: "12월 14일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.14+%EC%88%98%EC%9B%90+%EC%8A%A4%ED%84%B0%EB%94%94/KakaoTalk_20231216_145858635_03.jpg",
+    ],
+    text: "오늘도 역시 거의 장소 전세내고 쓴 기분... 알고보니 9시까지 사용이 가능해서 6시까지 공부하다가 저녁먹고 다시와서 마저 했음. 저녁은 역할맥에 갔는데 술 먹으러 간건 아니고(설마 시험 기간인데) 라이트한 안주를 찾다가 가게 됨.",
+    title: "12월 14일 정기스터디",
+  },
+  {
+    id: 120,
+    dateCreated: "12월 20일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.20+%EC%88%98%EC%9B%90/KakaoTalk_20231221_202156894.jpg",
+    ],
+    text: "사진이 왜 이러냐면... 그만큼 신나게 놀았기 때문이다. 스터디를 마치고 맛있는 고기와 껍데기로 1차를 시작했다. 나름 유튜브에서 많이 봤던 곳을 갔는데 상상을 초월하게 맛있었다. 2차로는 새로 생긴 술집을 갔다. 별 얘기를 다 한거 같다. 원래 2차로 끝내려고 했는데, 3차로 노래방에 갔다. 온돌식 룸이었는데 분위기가 좋았다. 처음에는 분명 잔잔하게 시작을 했던 거 같은데, 끝나고 나니까 막차 시간에 너무 힘들었다. 의도치않게 정말 열정적으로 놀게되었다.",
+    title: "20일 수원역 번개",
+  },
+  {
+    id: 121,
+    dateCreated: "12월 28일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/12.28+%EC%88%98%EC%9B%90/KakaoTalk_20240101_124748459_03.jpg",
+    ],
+    text: "1차는 이자카야를 갔는데 가격이 너무 비싸서 조금만 먹고 2차로 이동했다. 룸술집이었는데 주문을 하고 한참이 지나도 메뉴가 계속 안나와서 몇번을 더 물어보니까 와이파이가 잘 안돼서 주문이 안들어왔다는데... 21세기 강남에서 이게 말인가? 분노게이지가 올라가던 도중 과일화채 2개가 서비스로 나와서 맛있게 먹었다. 막차를 놓쳐서 집 가는게 힘들었지만... I들 사이에 껴 있으니까 힐링이 되고 좋았다.",
+    title: "강남 술 번개(28일)",
+  },
+  {
+    id: 122,
+    dateCreated: "1월 8일",
+    images: [
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564_01.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564_02.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564_03.jpg",
+      "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EB%A6%AC%EB%B7%B0/01.08_%EC%A0%84%EC%8B%9C%ED%9A%8C/KakaoTalk_20240110_171022564.jpg",
+    ],
+    text: "반나절 내내 놀았어요! 점심에 피자 먹고, 전시회 본 다음에, 걷다가, 보드게임 하고, 늦게까지 전막걸리를 마셨던 알찬(?) 플랜이었죠. 말도 안되게 돈이 나온건 비밀...",
+    title: "전시회 번개",
   },
 ];

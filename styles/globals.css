@@ -1,56 +1,29 @@
 :root {
   --chakra-fonts-body: unset;
 }
+
 @font-face {
   font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoT.woff2") format("woff2");
-  font-weight: 100;
-}
-@font-face {
-  font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoUL.woff2") format("woff2");
-  font-weight: 200;
-}
-@font-face {
-  font-family: "test";
-  src: url("/fonts/AppleSDGothicNeoL.woff2") format("woff2");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoR.woff2") format("woff2");
+  src: url("/fonts/subsetAppleSDGothicNeoR.woff2") format("woff2");
   font-weight: 400;
-}
-@font-face {
-  font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoM.woff2") format("woff2");
-  font-weight: 500;
-}
-@font-face {
-  font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoSB.woff2") format("woff2");
-  font-weight: 600;
-}
-@font-face {
-  font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoB.woff2") format("woff2");
-  font-weight: 700;
-}
-@font-face {
-  font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoEB.woff2") format("woff2");
-  font-weight: 800;
-}
-@font-face {
-  font-family: "apple";
-  src: url("/fonts/AppleSDGothicNeoH.woff2") format("woff2");
-  font-weight: 900;
+  font-display: swap;
 }
 
-html,
+@font-face {
+  font-family: "apple";
+  src: url("/fonts/subsetAppleSDGothicNeoB.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+html {
+  background-color: var(--gray-8);
+}
 body {
   font-family: apple;
   font-size: 14px;
+  background-color: var(--gray-8);
+  color: var(--gray-1);
 }
 
 a {
@@ -62,15 +35,20 @@ a {
   box-sizing: border-box;
 }
 
+.ReactQueryDevtoolsPanel {
+  height: 320px !important;
+}
+
 #__next {
-  min-width: 360px;
+  min-width: 340px;
   max-width: 390px;
+  padding-top: 56px !important;
+  padding-bottom: 40px;
+  min-height: calc(100dvh - 96px);
   margin: 0 auto;
-  min-height: 100vh;
-  height: 100%;
+  background-color: var(--gray-8);
+
   overflow: hidden;
-  background-color: white;
-  color: var(--font-h1);
 }
 
 .CircularProgressbar-trail {

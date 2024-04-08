@@ -1,45 +1,46 @@
-import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import PageLayout from "../../components/layout/PageLayout";
-import ProgressStatus from "../../components/templates/ProgressStatus";
-import { MBTI } from "../../constants/contents/ProfileData";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
-import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import BottomNav from "../../components/layouts/BottomNav";
+
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { MBTI } from "../../constants/contentsText/ProfileData";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
 
 function Mbti() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const searchParams = useSearchParams();
+  const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [mbti, setMbti] = useState(registerForm?.mbti);
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const [mbti, setMbti] = useState(info?.mbti);
+  const isProfileEdit = !!searchParams.get("edit");
 
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (!mbti) {
+      e.preventDefault();
       setErrorMessage("항목을 선택해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({ ...old, mbti }));
-    router.push(`/register/major`);
+    setLocalStorageObj(REGISTER_INFO, { ...info, mbti });
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={50} />
-      <Header
+    <>
+      <ProgressHeader
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/birthday"
+        value={50}
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>MBTI를 선택해 주세요</span>
@@ -49,7 +50,7 @@ function Mbti() {
           {MBTI?.map((item, idx) => (
             <Button
               key={idx}
-              isSelected={mbti === item}
+              $isSelected={mbti === item}
               onClick={() => setMbti(item)}
             >
               {item}
@@ -57,32 +58,28 @@ function Mbti() {
           ))}
         </ButtonNav>
       </RegisterLayout>
-      <BottomNav onClick={() => onClickNext()} />
-    </PageLayout>
+      <BottomNav onClick={onClickNext} url="/register/major" />
+    </>
   );
 }
 
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
-
 const ButtonNav = styled.nav`
   margin-top: 40px;
-  margin-bottom: var(--margin-md);
+  margin-bottom: var(--gap-2);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--margin-md);
+  gap: var(--gap-2);
 `;
 
-const Button = styled.button<{ isSelected: boolean }>`
-  color: ${(props) => (props.isSelected ? "var(--font-h1)" : "var(--font-h4)")};
-  border-radius: var(--border-radius-sub);
+const Button = styled.button<{ $isSelected: boolean }>`
+  color: ${(props) => (props.$isSelected ? "var(--gray-1)" : "var(--gray-4)")};
+  border-radius: var(--rounded-lg);
   flex: 0.49;
   height: 48px;
   font-size: 14px;
-  font-weight: ${(props) => props.isSelected && "600"};
+  font-weight: ${(props) => props.$isSelected && "600"};
   border: ${(props) =>
-    props.isSelected ? "var(--border-thick)" : "var(--border-main)"};
+    props.$isSelected ? "var(--border-thick)" : "var(--border)"};
 `;
 
 export default Mbti;

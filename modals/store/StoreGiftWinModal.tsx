@@ -1,14 +1,9 @@
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
-import { selectRandomWinners } from "../../helpers/validHelpers";
 import { IGiftEntry } from "../../pages/store";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types2/reactTypes";
+import { selectRandomWinners } from "../../utils/validationUtils";
 interface IStoreGiftWinModal extends IModal {
   applicants: IGiftEntry;
   winCnt: number;
@@ -32,18 +27,24 @@ function StoreGiftWinModal({
     applicants.giftId
   );
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "확인",
+    },
+  };
+
   return (
-    <ModalLayout onClose={() => setIsModal(false)} size="md">
-      <ModalHeader text="당첨자 발표" />
-      <ModalBody>
-        <Message>당첨을 축하합니다!</Message>
-        <Winner>
-          {winners.map((num, idx) => (
-            <Win key={idx}>{users[num]?.name || "비공개"}</Win>
-          ))}
-        </Winner>
-      </ModalBody>
-      <ModalFooterOne text="확인" onClick={() => setIsModal(false)} />
+    <ModalLayout
+      title="당첨자 발표"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <Message>당첨을 축하합니다!</Message>
+      <Winner>
+        {winners.map((num, idx) => (
+          <Win key={idx}>{users[num]?.name || "비공개"}</Win>
+        ))}
+      </Winner>
     </ModalLayout>
   );
 }
@@ -53,15 +54,16 @@ const Message = styled.div`
   font-weight: 700;
   font-size: 16px;
   color: var(--color-mint);
-  margin-top: var(--margin-min);
-  margin-bottom: var(--margin-max);
+  margin-top: var(--gap-1);
+  margin-bottom: var(--gap-5);
 `;
 
 const Winner = styled.div`
+  padding: 12px 0;
   display: flex;
   align-items: center;
-  flex: 1;
-  border-radius: var(--border-radius-sub);
+
+  border-radius: var(--rounded-lg);
   justify-content: space-around;
   border: var(--border-mint);
 `;
@@ -69,7 +71,7 @@ const Winner = styled.div`
 const Win = styled.span`
   font-size: 15px;
   font-weight: 600;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 export default StoreGiftWinModal;

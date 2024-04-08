@@ -3,20 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import RuleIcon from "../../components/common/Icon/RuleIcon";
-import Header from "../../components/layout/Header";
+import RuleIcon from "../../components/atoms/Icons/RuleIcon";
 import { useStoreGiftEntryQuery } from "../../hooks/sub/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
-import { IStoreApplicant } from "../../types/page/store";
+import { IStoreApplicant } from "../../types2/page/store";
 
 import { Button } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { StoreGiftImage } from "../../components/utils/CustomImages";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
+
+import Image from "next/image";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
-import { isPrevBooleanState } from "../../recoil/previousAtoms";
-import { transferStoreGiftDataState } from "../../recoil/transferDataAtoms";
-import { IStoreGift } from "../../types/page/store";
+import { isPrevBooleanState } from "../../recoils/previousAtoms";
+import { transferStoreGiftDataState } from "../../recoils/transferRecoils";
+import { IStoreGift } from "../../types2/page/store";
 
 export interface IGiftEntry extends IStoreGift {
   users: IStoreApplicant[];
@@ -27,7 +29,7 @@ interface IGiftEntries {
   inactive: IGiftEntry[];
 }
 
-function Store() {
+function Event() {
   const router = useRouter();
   const errorToast = useErrorToast();
   const [giftEntries, setGiftEntries] = useState<IGiftEntries>();
@@ -93,76 +95,82 @@ function Store() {
 
   return (
     <>
-      <Header title="포인트 스토어" url="/point">
+      <Header title="포인트 스토어">
         <RuleIcon setIsModal={setIsModal} />
       </Header>
-      <Layout>
-        <Nav>
-          <Button
-            onClick={() => setIsShowActive(true)}
-            colorScheme={isShowActive ? "mintTheme" : "gray"}
-          >
-            현재 상품
-          </Button>
-          <Button
-            onClick={() => setIsShowActive(false)}
-            colorScheme={!isShowActive ? "mintTheme" : "gray"}
-          >
-            지난 상품
-          </Button>
-        </Nav>
-        {!isLoading && (
-          <Container>
-            {giftArr.map((item, idx) => (
-              <Item key={idx} onClick={() => onClickGift(item)}>
-                <Status>
-                  <Trophy>
-                    {new Array(item.winner).fill(0).map((_, idx) => (
-                      <div key={idx}>
-                        <FontAwesomeIcon
-                          icon={faTrophy}
-                          color="var(--color-mint)"
-                        />
-                      </div>
-                    ))}
-                  </Trophy>
-                  <ApplyCnt>
-                    <span>{isShowActive ? item.totalCnt : item.max}</span>
-                    <span>/{item.max}</span>
-                  </ApplyCnt>
-                </Status>
-                <ImageWrapper>
-                  <StoreGiftImage
-                    imageSrc={item.image}
-                    giftId={item.giftId}
-                    isImagePriority={idx < 6}
-                  />
+      <Slide>
+        <Layout>
+          <Nav>
+            <Button
+              onClick={() => setIsShowActive(true)}
+              colorScheme={isShowActive ? "mintTheme" : "gray"}
+            >
+              현재 상품
+            </Button>
+            <Button
+              onClick={() => setIsShowActive(false)}
+              colorScheme={!isShowActive ? "mintTheme" : "gray"}
+            >
+              지난 상품
+            </Button>
+          </Nav>
+          {!isLoading && (
+            <Container>
+              {giftArr.map((item, idx) => (
+                <Item key={idx} onClick={() => onClickGift(item)}>
+                  <Status>
+                    <ApplyCnt>
+                      <span>{isShowActive ? item.totalCnt : item.max}</span>
+                      <span>/{item.max}</span>
+                    </ApplyCnt>
+                    <Trophy>
+                      {new Array(item.winner).fill(0).map((_, idx) => (
+                        <div key={idx}>
+                          <FontAwesomeIcon
+                            icon={faTrophy}
+                            color="var(--color-mint)"
+                          />
+                        </div>
+                      ))}
+                    </Trophy>
+                  </Status>
+                  <ImageWrapper>
+                    <Image
+                      src={item.image}
+                      alt="storeGift"
+                      priority={idx < 6}
+                      width={86.5}
+                      height={86.5}
+                      style={{ borderRadius: "var(--rounded)" }}
+                    />
+
+                    {(!isShowActive || item.max <= item.totalCnt) && (
+                      <Circle>추첨 완료</Circle>
+                    )}
+                  </ImageWrapper>
+                  <Info>
+                    <Name>{item.name}</Name>
+                    <Point>{item.point} point</Point>
+                  </Info>
                   {(!isShowActive || item.max <= item.totalCnt) && (
-                    <Circle>추첨 완료</Circle>
+                    <CompletedRapple />
                   )}
-                </ImageWrapper>
-                <Info>
-                  <Name>{item.name}</Name>
-                  <Point>{item.point} point</Point>
-                </Info>
-                {(!isShowActive || item.max <= item.totalCnt) && (
-                  <CompletedRapple />
-                )}
-              </Item>
-            ))}
-          </Container>
-        )}
-      </Layout>
+                </Item>
+              ))}
+            </Container>
+          )}
+        </Layout>
+      </Slide>
       {isModal && <StoreRuleModal setIsModal={setIsModal} />}
     </>
   );
 }
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
+  margin: 0 var(--gap-4);
 `;
 
 const Nav = styled.nav`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   display: flex;
 `;
 
@@ -171,54 +179,56 @@ const Container = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
 
-  padding: var(--padding-main) 0;
-  gap: var(--margin-sub);
+  padding: var(--gap-4) 0;
+  gap: var(--gap-3);
 `;
 
 const Item = styled.button`
   position: relative;
-  height: 196px;
-  padding: var(--padding-md);
-  background-color: var(--font-h7);
+
+  padding: var(--gap-2);
+  background-color: white;
+  border: var(--border);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: var(--border-radius-sub);
+  border-radius: var(--rounded-lg);
 `;
 
 const Status = styled.div`
-  align-self: flex-end;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
-  font-size: 13px;
+  width: 100%;
+  font-size: 14px;
 `;
 
 const Trophy = styled.div`
   display: flex;
-  align-items: center;
-  margin-left: auto;
+  margin-left: 4px;
   > div {
-    margin-left: var(--padding-min);
+    margin-left: 4px;
   }
 `;
 
 const ApplyCnt = styled.div`
-  align-self: flex-end;
-  color: var(--font-h3);
+  color: var(--gray-2);
+  font-size: 16px;
 `;
 
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
-
-  margin-top: -16px;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--rounded-lg);
+  overflow: hidden;
 `;
 
 const Info = styled.div`
-  margin-top: -12px;
+  margin-top: 12px;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -229,7 +239,6 @@ const Name = styled.span`
 `;
 
 const Point = styled.span`
-  margin-top: var(--margin-min);
   color: var(--color-mint);
   font-size: 16px;
 `;
@@ -240,7 +249,7 @@ const Circle = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  border: 2px solid var(--font-h1);
+  border: 2px solid var(--gray-1);
   display: flex;
   font-size: 14px;
   justify-content: center;
@@ -256,8 +265,8 @@ const CompletedRapple = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--font-h56);
+  background-color: var(--gray-7);
   opacity: 0.5;
 `;
 
-export default Store;
+export default Event;

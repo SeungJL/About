@@ -1,26 +1,45 @@
 import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useQuery } from "react-query";
+
 import {
   ADMIN_STUDY_RECORD,
   USER_REGISTER_FORM,
   USER_REQUEST,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../helpers/dateHelpers";
-import { QueryOptions } from "../../types/reactTypes";
-import { Location } from "../../types/system";
-import { IUser, IUserRegisterForm } from "../../types/user/user";
+
+import { QueryOptions } from "../../types2/reactTypes";
+import { Location } from "../../types2/serviceTypes/locationTypes";
+import { IUser, IUserRegisterForm } from "../../types2/userTypes/userInfoTypes";
 import {
   IUserRequest,
   UserRequestCategory,
-} from "../../types/user/userRequest";
+} from "../../types2/userTypes/userRequestTypes";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>
   useQuery<IUser[], AxiosError, IUser[]>(
     "adminUserControl",
     async () => {
       const res = await axios.get<IUser[]>(`${SERVER_URI}/admin/user`);
+      return res.data;
+    },
+    options
+  );
+
+export const useAdminUsersLocationControlQuery = (
+  location: Location,
+  options?: QueryOptions<IUser[]>
+) =>
+  useQuery<IUser[], AxiosError, IUser[]>(
+    ["adminUserControl", location],
+    async () => {
+      const res = await axios.get<IUser[]>(`${SERVER_URI}/admin/user`, {
+        params: {
+          location,
+        },
+      });
       return res.data;
     },
     options

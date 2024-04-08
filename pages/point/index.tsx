@@ -1,15 +1,15 @@
-import { useRecoilValue } from "recoil";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
+import Header from "../../components/layouts/Header";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import PointIntro from "../../pagesComponents/point/PointIntro";
-import PointPoint from "../../pagesComponents/point/PointPoint";
-import PointScore from "../../pagesComponents/point/PointScore";
-import PointSkeleton from "../../pagesComponents/point/skeleton/PointSkeleton";
-import { isGuestState } from "../../recoil/userAtoms";
+import PointIntro from "../../pageTemplates/point/PointIntro";
+import PointPoint from "../../pageTemplates/point/PointPoint";
+import PointScore from "../../pageTemplates/point/PointScore";
+import PointSkeleton from "../../pageTemplates/point/skeleton/PointSkeleton";
 
 function Point() {
-  const isGuest = useRecoilValue(isGuestState);
+  const { data: session } = useSession();
+  const isGuest = session?.user.name === "guest";
   const { data: userInfo } = useUserInfoQuery({
     enabled: !isGuest,
   });
@@ -33,8 +33,9 @@ function Point() {
 }
 
 const Layout = styled.div`
-  margin: 0 var(--margin-main);
-  margin-top: var(--margin-sub);
+  background-color: var(--gray-8);
+  margin: 0 var(--gap-4);
+  margin-top: var(--gap-3);
 `;
 
 const Container = styled.div``;

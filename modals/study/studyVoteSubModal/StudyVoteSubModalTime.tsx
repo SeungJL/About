@@ -2,17 +2,19 @@ import { Dayjs } from "dayjs";
 import "dayjs/locale/ko";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import TimeRullet from "../../../components/features/picker/TimeRullet";
+import TimeRullet from "../../../components/molecules/picker/TimeRullet";
+
 import { STUDY_START_VOTETIME_HOUR } from "../../../constants/settingValue/study/study";
-import { DispatchType } from "../../../types/reactTypes";
-import { IStudyParticipate } from "../../../types/study/study";
-import { IDayjsStartToEnd } from "../../../types/timeAndDate";
+import { DispatchType } from "../../../types2/reactTypes";
+
+import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
+import { IDayjsStartToEnd } from "../../../types2/timeAndDate";
 
 interface IStudyVoteSubModalTime {
-  setVoteInfo: DispatchType<IStudyParticipate>;
+  setMyVote: DispatchType<IStudyVote>;
 }
 
-function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
+function StudyVoteSubModalTime({ setMyVote }: IStudyVoteSubModalTime) {
   const [selectTime, setSelectTime] = useState<IDayjsStartToEnd>({
     start: null,
     end: null,
@@ -21,7 +23,7 @@ function StudyVoteSubModalTime({ setVoteInfo }: IStudyVoteSubModalTime) {
   useEffect(() => {
     const start = selectTime?.start;
     const end = selectTime?.end;
-    setVoteInfo((old) => ({ ...old, start, end }));
+    setMyVote((old) => ({ ...old, start, end }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectTime]);
 
@@ -87,13 +89,13 @@ const TimeWrapper = styled.div`
 
   > span {
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
     font-size: 13px;
   }
 `;
 
 const Spacer = styled.div`
-  width: var(--margin-main);
+  width: var(--gap-4);
 `;
 
 export default StudyVoteSubModalTime;

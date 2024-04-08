@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { InputLg } from "../../../styles/layout/input";
-import { DispatchType } from "../../../types/reactTypes";
-import { IStudyParticipate } from "../../../types/study/study";
+import { DispatchType } from "../../../types2/reactTypes";
+import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
 
 interface IStudyVoteSubModalPrivate {
-  setVoteInfo: DispatchType<IStudyParticipate>;
+  setVoteInfo: DispatchType<IStudyVote>;
 }
 
 function StudyVoteSubModalPrivate({ setVoteInfo }: IStudyVoteSubModalPrivate) {
@@ -34,23 +34,22 @@ function StudyVoteSubModalPrivate({ setVoteInfo }: IStudyVoteSubModalPrivate) {
 }
 
 const Layout = styled.div`
-  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: var(--margin-max);
+  margin-top: var(--gap-3);
 `;
 
 const Overview = styled.div`
-  color: var(--font-h2);
-  font-size: 15px;
-  margin-bottom: var(--margin-sub);
+  color: var(--gray-2);
+  font-size: 16px;
+  margin-bottom: var(--gap-3);
 `;
 
 const Rule = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   margin-top: 32px;
-  font-size: 12px;
-  line-height: var(--line-height);
+  font-size: 14px;
 `;
 
 export default StudyVoteSubModalPrivate;

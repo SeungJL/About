@@ -3,24 +3,27 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
 import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalLayout,
-} from "../../components/modals/Modals";
-import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
+  GATHER_CONTENT,
+  GROUP_STUDY_ALL,
+} from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../hooks/gather/mutations";
-import { IModal } from "../../types/reactTypes";
+import { useGroupCommentMutation } from "../../hooks/groupStudy/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
+
+import { IModal } from "../../types2/reactTypes";
 
 interface IGatherCommentEditModal extends IModal {
   commentText: string;
   commentId: string;
+  type?: "group";
 }
 
 function GatherCommentEditModal({
   commentText,
   setIsModal,
   commentId,
+  type,
 }: IGatherCommentEditModal) {
   const router = useRouter();
   const gatherId = +router.query.id;
@@ -30,6 +33,25 @@ function GatherCommentEditModal({
   const [value, setValue] = useState(commentText);
 
   const resetQueryData = useResetQueryData();
+
+  const { mutate: deleteCommentGroup } = useGroupCommentMutation(
+    "delete",
+    gatherId,
+    {
+      onSuccess() {
+        resetQueryData([GROUP_STUDY_ALL]);
+      },
+    }
+  );
+  const { mutate: editCommentGroup } = useGroupCommentMutation(
+    "patch",
+    gatherId,
+    {
+      onSuccess() {
+        resetQueryData([GROUP_STUDY_ALL]);
+      },
+    }
+  );
   const { mutate: deleteComment } = useGatherCommentMutation(
     "delete",
     gatherId,
@@ -50,62 +72,70 @@ function GatherCommentEditModal({
   };
 
   const onDelete = () => {
-    deleteComment({ commentId });
+    if (type === "group") deleteCommentGroup({ commentId });
+    else deleteComment({ commentId });
     onComplete();
   };
 
   const onEdit = () => {
-    editComment({ comment: value, commentId });
+    if (type === "group") editCommentGroup({ comment: value, commentId });
+    else editComment({ comment: value, commentId });
     onComplete();
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "변경",
+      func: onEdit,
+    },
+    sub: {
+      text: "취소",
+    },
+  };
+
   return (
-    <>
-      <ModalLayout onClose={() => setIsModal(false)} size="xs">
-        <ModalBody>
-          <Container>
-            {isFirst ? (
-              <>
-                <button onClick={() => setIsFirst(false)}>수정하기</button>
-                <button onClick={onDelete}>삭제하기</button>
-              </>
-            ) : (
-              <>
-                <Input
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-              </>
-            )}
-          </Container>
-        </ModalBody>
-        {!isFirst && (
-          <ModalFooterTwo
-            leftText="취소"
-            rightText="변경"
-            onClickLeft={() => setIsModal(false)}
-            onClickRight={onEdit}
-          />
+    <ModalLayout
+      title=""
+      footerOptions={isFirst ? null : footerOptions}
+      setIsModal={setIsModal}
+    >
+      <Container>
+        {isFirst ? (
+          <>
+            <button onClick={() => setIsFirst(false)}>수정하기</button>
+            <button onClick={onDelete}>삭제하기</button>
+          </>
+        ) : (
+          <>
+            <Input value={value} onChange={(e) => setValue(e.target.value)} />
+          </>
         )}
-      </ModalLayout>
-    </>
+      </Container>
+    </ModalLayout>
   );
 }
 
 const Container = styled.div`
   height: 100%;
+  margin-bottom: var(--gap-4);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
   align-items: flex-start;
+  > button {
+    :focus {
+      outline: none;
+    }
+  }
 `;
 
 const Input = styled.input`
-  margin-top: var(--margin-md);
-  padding: var(--padding-md);
+  margin-top: var(--gap-2);
+  padding: var(--gap-2);
   width: 100%;
-  border: var(--border-main-light);
-  border-radius: var(--border-radius-sub);
+  border: var(--border);
+  border-radius: var(--rounded-lg);
   font-size: 12px;
   :focus {
     outline: none;

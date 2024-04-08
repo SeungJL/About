@@ -5,28 +5,23 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import ImageSlider from "../../../components/dataViews/imageSlider/ImageSlider";
+import ImageSlider from "../../../components/organisms/imageSlider/ImageSlider";
+import { COLOR_TABLE_LIGHT } from "../../../constants/colorConstants";
 import {
-  ModalBody,
-  ModalFooterOne,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
-import {
-  AVATAR_COLOR,
   AVATAR_COST,
   AVATAR_ICON,
 } from "../../../constants/settingValue/avatar";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
-import { isGuestState } from "../../../recoil/userAtoms";
-import { IModal } from "../../../types/reactTypes";
-import { IAvatar } from "../../../types/user/user";
+import { IFooterOptions, ModalLayout } from "../../Modals";
+
+import { IModal } from "../../../types2/reactTypes";
+import { IAvatar } from "../../../types2/userTypes/userInfoTypes";
 
 interface IRequestChangeProfileImageModalAvatar extends IModal {
   setUserAvatar: UseMutateFunction<
@@ -41,9 +36,10 @@ function RequestChangeProfileImageModalAvatar({
   setIsModal,
   setUserAvatar,
 }: IRequestChangeProfileImageModalAvatar) {
+  const { data: session } = useSession();
   const failToast = useFailToast();
 
-  const isGuest = useRecoilValue(isGuestState);
+  const isGuest = session?.user.name === "guest";
 
   const [iconIdx, setIconIdx] = useState(0);
   const [back, setBack] = useState(false);
@@ -82,49 +78,56 @@ function RequestChangeProfileImageModalAvatar({
     setIsModal(false);
   };
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "변경",
+      func: onSubmit,
+    },
+  };
+
   return (
-    <ModalLayout size="xl" onClose={() => setIsModal(false)}>
-      <ModalHeader text="아바타 캐릭터 선택" />
-      <ModalBody>
-        <UpPart>
-          <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
-            {iconIdx !== 0 && <FontAwesomeIcon icon={faChevronLeft} />}
-          </ArrowIcon>
-          <AnimatePresence>
-            <IconWrapper
-              custom={back}
-              variants={variants}
-              initial="entry"
-              animate="center"
-              exit="exit"
-              key={iconIdx}
-            >
-              <Icon bg={AVATAR_COLOR[BG]}>
-                <Image
-                  width={80}
-                  height={80}
-                  src={AVATAR_ICON[iconIdx]}
-                  alt="avatar"
-                />
-              </Icon>
-              <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
-            </IconWrapper>
-          </AnimatePresence>
-          <ArrowIcon isLeft={false} onClick={() => handleMove("next")}>
-            {iconIdx !== AVATAR_ICON.length - 1 && (
-              <FontAwesomeIcon icon={faChevronRight} />
-            )}
-          </ArrowIcon>
-        </UpPart>
-        <DownPart>
-          <ImageSlider
-            type="avatarColor"
-            imageContainer={AVATAR_COLOR}
-            onClick={(idx) => setBG(idx)}
-          />
-        </DownPart>
-      </ModalBody>
-      <ModalFooterOne text="변경" onClick={onSubmit} isFull={true} />
+    <ModalLayout
+      title="아바타 프로필"
+      footerOptions={footerOptions}
+      setIsModal={setIsModal}
+    >
+      <UpPart>
+        <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
+          {iconIdx !== 0 && <FontAwesomeIcon icon={faChevronLeft} />}
+        </ArrowIcon>
+        <AnimatePresence>
+          <IconWrapper
+            custom={back}
+            variants={variants}
+            initial="entry"
+            animate="center"
+            exit="exit"
+            key={iconIdx}
+          >
+            <Icon bg={COLOR_TABLE_LIGHT[BG]}>
+              <Image
+                width={80}
+                height={80}
+                src={AVATAR_ICON[iconIdx]}
+                alt="avatar"
+              />
+            </Icon>
+            <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
+          </IconWrapper>
+        </AnimatePresence>
+        <ArrowIcon isLeft={false} onClick={() => handleMove("next")}>
+          {iconIdx !== AVATAR_ICON.length - 1 && (
+            <FontAwesomeIcon icon={faChevronRight} />
+          )}
+        </ArrowIcon>
+      </UpPart>
+      <DownPart>
+        <ImageSlider
+          type="avatarColor"
+          imageContainer={COLOR_TABLE_LIGHT}
+          onClick={(idx) => setBG(idx)}
+        />
+      </DownPart>
     </ModalLayout>
   );
 }
@@ -155,16 +158,16 @@ const ArrowIcon = styled.div<{ isLeft: boolean }>`
 const DownPart = styled.div`
   display: flex;
   align-items: center;
-  padding: var(--padding-md) 0;
-  margin-top: var(--margin-sub);
-  border-top: var(--border-sub);
-  border-bottom: var(--border-sub);
+  padding: var(--gap-2) 0;
+  margin-top: var(--gap-3);
+  border-top: var(--border);
+  border-bottom: var(--border);
 `;
 
 const Icon = styled.div<{ bg: string }>`
   width: 100px;
   height: 100px;
-  margin-bottom: var(--margin-sub);
+  margin-bottom: var(--gap-3);
   display: flex;
   justify-content: center;
   align-items: center;

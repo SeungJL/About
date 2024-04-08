@@ -1,17 +1,21 @@
 import { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
-import { dayjsToStr } from "../../helpers/dateHelpers";
-import { requestServer } from "../../helpers/methodHelpers";
-import { MutationOptions } from "../../types/reactTypes";
-import { IStudyParticipate, IStudyPlaces } from "../../types/study/study";
+import { requestServer } from "../../libs/methodHelpers";
+import { MutationOptions } from "../../types2/reactTypes";
+import { IStudyParticipate } from "../../types2/study/study";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
-import { IDayjsStartToEnd } from "../../types/timeAndDate";
+import {
+  IStudyPlaces,
+  IStudyTime,
+  IStudyVote,
+} from "../../types2/studyTypes/studyVoteTypes";
 
 type StudyParticipationParam<T> = T extends "post"
-  ? IStudyParticipate
+  ? IStudyVote
   : T extends "patch"
-  ? IDayjsStartToEnd
+  ? IStudyTime
   : void;
 
 export const useStudyParticipationMutation = <
@@ -24,7 +28,7 @@ export const useStudyParticipationMutation = <
   useMutation<void, AxiosError, StudyParticipationParam<T>>((param) => {
     const voteInfo = param;
     if (method !== "delete") {
-      const updatedVoteInfo = voteInfo as IStudyParticipate | IDayjsStartToEnd;
+      const updatedVoteInfo = voteInfo as IStudyParticipate | IStudyTime;
       const { start, end } = updatedVoteInfo;
       updatedVoteInfo.start = voteDate
         .hour(start.hour())
@@ -58,20 +62,20 @@ export const useStudyQuickVoteMutation = (
   );
 
 export const useStudyOpenFreeMutation = (
-  date: Dayjs,
+  date: string,
   options?: MutationOptions<string>
 ) =>
   useMutation<void, AxiosError, string>(
     (placeId) =>
       requestServer<{ placeId: string }>({
         method: "patch",
-        url: `vote/${dayjsToStr(date)}/free`,
+        url: `vote/${date}/free`,
         body: { placeId },
       }),
     options
   );
 
-export const useStudyArrivedMutation = (
+export const useStudyAttendCheckMutation = (
   date: Dayjs,
   options?: MutationOptions<string>
 ) =>
@@ -100,14 +104,14 @@ export const useStudyAbsentMutation = (
   );
 
 export const useStudyResultDecideMutation = (
-  date: Dayjs,
+  date: string,
   options?: MutationOptions<void>
 ) =>
   useMutation<any, AxiosError, void>(
     () =>
       requestServer<void>({
         method: "patch",
-        url: `admin/vote/${dayjsToStr(date)}/status/confirm`,
+        url: `admin/vote/${date}/status/confirm`,
       }),
     options
   );
@@ -124,4 +128,3 @@ export const useStudyPreferenceMutation = (
       }),
     options
   );
-

@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { requestServer } from "../../../../helpers/methodHelpers";
-import { MutationOptions } from "../../../../types/reactTypes";
-import { IUserRequest } from "../../../../types/user/userRequest";
+import { requestServer } from "../../../../libs/methodHelpers";
+import { MutationOptions } from "../../../../types2/reactTypes";
+import { IUserRequest } from "../../../../types2/userTypes/userRequestTypes";
 
 export const useUserRequestMutation = (
   options?: MutationOptions<IUserRequest>

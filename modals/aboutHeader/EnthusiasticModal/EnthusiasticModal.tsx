@@ -1,22 +1,20 @@
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
+
+import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 import {
   useCompleteToast,
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
-import { locationState } from "../../../recoil/userAtoms";
+
 import { ModalSubtitle } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/reactTypes";
-import ConfirmModal, { IConfirmContent } from "../../common/ConfirmModal";
+import { IModal } from "../../../types2/reactTypes";
+import { IConfirmContent } from "../../common/ConfirmModal";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 interface IEnthusiasticModal extends IModal {}
 
@@ -28,10 +26,10 @@ const LOCATION_WIN = {
 };
 
 function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
+  const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const failToast = useFailToast();
-  const location = useRecoilValue(locationState);
-
+  const location = session?.user.location;
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const { data: memberCnt, isLoading } = useCounterQuery(
@@ -44,13 +42,13 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
 
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {
-      completeToast("free", "이번 달 열활멤버가 되었습니다!");
+      completeToast("free", "이번 달 열공멤버가 되었습니다!");
       setIsModal(false);
     },
   });
 
   const confirmContent: IConfirmContent = {
-    title: "열활멤버에 지원하시겠어요?",
+    title: "열공멤버에 지원하시겠어요?",
     onClickRight: () => {
       if (isExpired) {
         failToast("free", "이미 마감되었습니다.");
@@ -62,54 +60,72 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
   };
 
   const isExpired = LOCATION_WIN[location] <= memberCnt;
+
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "지원하기",
+      func: () => setIsConfirmModal(true),
+    },
+    sub: {},
+    isFull: true,
+  };
+
+  const alertOptions: IAlertModalOptions = {
+    title: " 열공멤버에 지원하시겠어요?",
+    subTitle: "자동으로 등록됩니다.",
+    func: () => {
+      if (isExpired) {
+        failToast("free", "이미 마감되었습니다.");
+        setIsConfirmModal(false);
+        return;
+      }
+      mutate({ role: "enthusiastic" });
+    },
+    text: "신청",
+  };
+
   return (
     <>
-      <ModalLayout size="xl" onClose={() => setIsModal(false)}>
-        <ModalHeader text="12월 열활멤버 모집" />
-        <ModalBody>
-          <ModalSubtitle>매 달마다 열활멤버 신청을 받습니다.</ModalSubtitle>
-          <CurrentMember>
-            현재 인원:
-            <span>
-              {!isLoading &&
-                (isExpired ? "모집 마감" : `${memberCnt + 1 || 1}명`)}
-            </span>
-          </CurrentMember>
-          <Container>
+      <ModalLayout
+        title={`${dayjs().month() + 2}월 열공멤버 신청 `}
+        footerOptions={footerOptions}
+        setIsModal={setIsModal}
+      >
+        <ModalSubtitle>
+          매 달마다 선착순으로 열공멤버 신청을 받습니다!
+        </ModalSubtitle>
+        <CurrentMember>
+          현재 인원:
+          <span>
+            {!isLoading &&
+              (isExpired ? "모집 마감" : `${memberCnt + 1 || 1}명`)}
+          </span>
+        </CurrentMember>
+        <Container>
+          <li>
+            <b>모집 인원:</b> {LOCATION_WIN[location]}명
+          </li>
+          <li>
+            <b>지원 조건</b>
+          </li>
+          <Condition>
+            <li>만 19~23세의 대학생</li>
+            <li>인원 당 1회만 등록 가능</li>
             <li>
-              <b>모집 인원:</b> {LOCATION_WIN[location]}명
+              한달 동안
+              <b>
+                <u>4번 스터디 참여 또는 신청</u>
+              </b>
             </li>
-            <li>
-              <b>지원 조건</b>
-            </li>
-            <Condition>
-              <li>만 20~23세의 대학생</li>
-              <li>인원 당 1회만 등록 가능</li>
-              <li>
-                한달 동안
-                <b>
-                  <u>4번 스터디 참여 또는 신청</u>
-                </b>
-              </li>
-              <span>(미오픈 투표, FREE 오픈, 개인스터디 = 2회당 1번)</span>
-            </Condition>
-            <Win>
-              <b>현금 5000원</b>
-              <br />
-              <span>(이번만 5000원. 이후에는 포인트)</span>
-            </Win>
-          </Container>
-        </ModalBody>
-        <ModalFooterTwo
-          leftText="닫기"
-          rightText="지원"
-          onClickLeft={() => setIsModal(false)}
-          onClickRight={() => setIsConfirmModal(true)}
-          isFull={true}
-        />
+            <span>(미오픈 투표, FREE 오픈, 개인스터디 = 2회당 1번)</span>
+          </Condition>
+          <Win>
+            <b>300 POINT 지급 !</b>
+          </Win>
+        </Container>
       </ModalLayout>
       {isConfirmModal && (
-        <ConfirmModal content={confirmContent} setIsModal={setIsConfirmModal} />
+        <AlertModal options={alertOptions} setIsModal={setIsConfirmModal} />
       )}
     </>
   );
@@ -118,42 +134,43 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
 const CurrentMember = styled.div`
   border: var(--border-mint);
   width: max-content;
-  padding: var(--padding-min) var(--padding-md);
-  border-radius: var(--border-radius-sub);
+  padding: var(--gap-1) var(--gap-2);
+  border-radius: var(--rounded-lg);
   font-size: 13px;
   > span {
-    margin-left: var(--margin-min);
+    margin-left: var(--gap-1);
     color: var(--color-mint);
   }
 `;
 
 const Container = styled.ul`
-  margin-top: var(--margin-sub);
-  margin-left: var(--margin-main);
+  margin-top: var(--gap-3);
+  margin-left: var(--gap-4);
   font-size: 14px;
-  line-height: var(--line-height);
+
+  > li {
+    margin-bottom: var(--gap-1);
+  }
 `;
 
 const Condition = styled.ol`
-  margin-left: var(--margin-main);
+  margin-left: var(--gap-4);
   font-size: 13px;
   > li {
     > b {
-      margin-left: var(--margin-min);
+      margin-left: var(--gap-1);
       color: var(--color-mint);
     }
   }
   > span {
     font-size: 12px;
-    color: var(--font-h3);
+    color: var(--gray-3);
   }
 `;
 
 const Win = styled.li`
-  > span {
-    font-size: 12px;
-    color: var(--font-h3);
-    margin-left: var(--margin-main);
+  > b {
+    color: var(--color-mint);
   }
 `;
 

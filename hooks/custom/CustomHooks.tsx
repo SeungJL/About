@@ -21,11 +21,10 @@ export const useResetQueryData = () => {
   const queryClient = useQueryClient();
 
   const refetchWithDelay = useCallback(
-    (key: any | any[]) => {
-      const timeoutId = setTimeout(() => {
-        queryClient.refetchQueries(key);
-      }, 800);
-      return () => clearTimeout(timeoutId);
+    (key: any | any[], func?: () => void) => {
+      queryClient.invalidateQueries(key);
+
+      if (func) func();
     },
     [queryClient]
   );

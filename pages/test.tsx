@@ -1,99 +1,147 @@
-import { Badge, Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
-import { useRef } from "react";
 import styled from "styled-components";
 import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 
-import { useUserInfoQuery } from "../hooks/user/queries";
-
+import { Box } from "@chakra-ui/react";
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import {
+  useGroupBelongMatchMutation,
+  useMonthCalcMutation,
+} from "../hooks/admin/mutation";
+import { useImageUploadMutation } from "../hooks/image/mutations";
+import { studyDateStatusState } from "../recoils/studyRecoils";
 function Test() {
-  const { data: session } = useSession();
-  const { data: userInfo } = useUserInfoQuery();
-  const C = useRef();
-  const AA = () => <button>23</button>;
-
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2023-12-04"),
-    dayjs("2023-12-10"),
-    true,
-    "수원"
+    dayjs("2024-04-01"),
+    dayjs("2024-04-07"),
+    null,
+    "인천"
   );
+  console.log(data);
+
+  const a = useRecoilValue(studyDateStatusState);
+
+  let AA = "te";
+  let BB = "te ";
+  if (AA === BB) console.log(444);
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
     null,
-    "안양"
+    "수원"
   );
-  console.log(4, data, data2);
+  // const decodeByAES256 = (encodedTel: string) => {
+  //   const bytes = CryptoJS.AES.decrypt(encodedTel, key);
+  //   const originalText = bytes.toString(CryptoJS.enc.Utf8);
+  //   return originalText;
+  // };
 
-  const onClick = () => {};
+  const { mutate: match } = useGroupBelongMatchMutation({
+    onSuccess(data) {},
+  });
+
+  const { mutate } = useMonthCalcMutation({
+    onSuccess(data) {},
+    onError(err) {
+      console.error(err);
+    },
+  });
+
+  const handleForm = (e) => {
+    e.preventDefault();
+  };
+
+  const { mutate: A } = useImageUploadMutation({
+    onSuccess(data) {},
+  });
+
+  const [image, setImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setImage(file);
+  };
+  const submitForm = () => {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("path", "hello");
+
+    A(formData);
+  };
 
   return (
-    <Layout>
-      <Badge colorScheme="red">테스트</Badge>
-      <Button onClick={onClick}>23</Button>
-    </Layout>
+    <>
+      <Layout>
+        <Box w="72px" h="72px">
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                padding: "0 4px",
+                borderRadius: "8px",
+                textAlign: "center",
+                backgroundColor: "white",
+                fontWeight: "600",
+                fontSize: "12px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              테스트테스트테스트
+            </div>
+            <button
+              style={{
+                width: "48px",
+                height: "48px",
+                padding: "8px",
+                borderRadius: "50%",
+                backgroundColor: "rgba(0, 194, 179, 0.1)",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "#00c2b3",
+                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "white",
+                  fontWeight: "700",
+                  padding: "4px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    backgroundColor: "white",
+                  }}
+                ></div>
+              </div>
+            </button>
+          </div>
+        </Box>
+      </Layout>
+    </>
   );
 }
 
 const Layout = styled.div`
   margin-top: 200px;
   margin-left: 50px;
-  > * {
-    margin-right: 20px;
-  }
   display: flex;
-  > span:first-child {
-    font-weight: 300;
-  }
-  > span:nth-child(2) {
-    font-weight: 400;
-  }
-  > span:nth-child(3) {
-    font-weight: 500;
-  }
-  > span:nth-child(4) {
-    font-weight: 600;
-  }
-  > span:nth-child(5) {
-    font-weight: 700;
-  }
-  > span:last-child {
-    font-weight: 800;
-  }
-`;
-
-const A = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(
-    to right,
-    rgba(3, 224, 154, 1),
-    rgba(1, 175, 237, 1)
-  );
-`;
-const B = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(
-    to right,
-    rgba(3, 224, 154, 0.6),
-    rgba(1, 175, 237, 0.6)
-  );
-`;
-
-const D = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(
-    to right,
-    rgba(3, 224, 154, 0.35),
-    rgba(1, 175, 237, 0.35)
-  );
 `;
 
 export default Test;

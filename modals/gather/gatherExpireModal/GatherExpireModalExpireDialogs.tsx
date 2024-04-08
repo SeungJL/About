@@ -16,7 +16,7 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGatherStatusMutation } from "../../../hooks/gather/mutations";
-import { DispatchBoolean } from "../../../types/reactTypes";
+import { DispatchBoolean } from "../../../types2/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
 interface IGatherExpireModalExpireDialog {
@@ -38,6 +38,7 @@ function GatherExpireModalExpireDialog({
 
   const { mutate: statusOpen } = useGatherStatusMutation(gatherId, {
     onSuccess() {
+      setIsComplete(true);
       completeToast("free", "모임이 개설되었어요!");
     },
     onError: errorToast,
@@ -50,7 +51,6 @@ function GatherExpireModalExpireDialog({
 
   const onComplete = () => {
     statusOpen("open");
-    setIsComplete(true);
     onClose();
   };
 
@@ -62,7 +62,7 @@ function GatherExpireModalExpireDialog({
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent m="auto var(--margin-main)">
+          <AlertDialogContent m="auto var(--gap-4)">
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               모집을 완료하겠습니까?
             </AlertDialogHeader>
@@ -76,7 +76,7 @@ function GatherExpireModalExpireDialog({
               <Button
                 colorScheme="mintTheme"
                 onClick={onComplete}
-                ml="var(--margin-min)"
+                ml="var(--gap-1)"
               >
                 모집완료
               </Button>

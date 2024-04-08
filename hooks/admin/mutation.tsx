@@ -2,10 +2,10 @@ import axios, { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../helpers/dateHelpers";
-import { requestServer } from "../../helpers/methodHelpers";
-import { MutationOptions } from "../../types/reactTypes";
-import { IPointSystem } from "../../types/user/pointSystem";
+import { requestServer } from "../../libs/methodHelpers";
+import { IPointSystem } from "../../types2/pointSystem";
+import { MutationOptions } from "../../types2/reactTypes";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>
   useMutation<void, AxiosError, any>(async (profile) => {
@@ -13,6 +13,29 @@ export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>
       profile,
     });
   }, options);
+
+interface IAdminPointSystemParam extends IAdminPointSystemRequest {
+  uid: string;
+  type: "point" | "deposit" | "score";
+}
+
+interface IAdminPointSystemRequest {
+  value: number;
+  message: string;
+}
+
+export const useAdminPointSystemMutation = (
+  options?: MutationOptions<IAdminPointSystemParam>
+) =>
+  useMutation<void, AxiosError, IAdminPointSystemParam>(
+    async (param) =>
+      requestServer<IAdminPointSystemRequest>({
+        method: "post",
+        url: `admin/user/${param.uid}/${param.type}`,
+        body: { value: param.value, message: param.message },
+      }),
+    options
+  );
 
 export const useAdminAboutPointMutation = (
   uid: string,
@@ -53,6 +76,25 @@ export const useVoteStatusResetMutation = (options?: MutationOptions<Dayjs>) =>
       requestServer<Dayjs>({
         method: "patch",
         url: `admin/vote/${dayjsToStr(date)}/reset`,
+      }),
+    options
+  );
+
+export const useMonthCalcMutation = (options?: MutationOptions) =>
+  useMutation<void, AxiosError, void>(
+    () =>
+      requestServer<Dayjs>({
+        method: "patch",
+        url: "admin/manage/monthCalc",
+      }),
+    options
+  );
+export const useGroupBelongMatchMutation = (options?: MutationOptions) =>
+  useMutation<void, AxiosError, void>(
+    () =>
+      requestServer({
+        method: "patch",
+        url: "groupStudy/belong/match",
       }),
     options
   );

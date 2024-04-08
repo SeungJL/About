@@ -1,3 +1,4 @@
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import {
   faAlarmClock,
   faCalendarXmark,
@@ -16,55 +17,55 @@ function PointSystemsModalFee() {
       <Layout>
         <Item>
           <Name>스터디 지각</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faAlarmClock} />
+          <FontAwesomeIcon size="2x" icon={faAlarmClock} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE.value}원</Point>
         </Item>
         <Item>
           <Name>당일 불참 1</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faDoNotEnter} />
+          <FontAwesomeIcon size="2x" icon={faDoNotEnter} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_ABSENT_BEFORE.value}원</Point>
         </Item>
         <Item>
           <Name>당일 불참 2</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faCircleXmark} />
+          <FontAwesomeIcon size="2x" icon={faCircleXmark} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_ABSENT_AFTER.value}원</Point>
         </Item>
         <Item>
           <Name>한달 정산</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faCalendarXmark} />
+          <FontAwesomeIcon size="2x" icon={faCalendarXmark} />
           <Point>{POINT_SYSTEM_Deposit.STUDY_MONTH_CALCULATE.value}원</Point>
         </Item>
         <Item>
           <Name>규칙</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faScaleBalanced} />
+          <FontAwesomeIcon size="2x" icon={faScaleBalanced} />
           <Point>OUT</Point>
         </Item>
         <Item>
           <Name>운영진 경고</Name>
-          <FontAwesomeIcon fontSize="32px" icon={faUserPilot} />
+          <FontAwesomeIcon size="2x" icon={faUserPilot} />
           <Point>OUT</Point>
         </Item>
       </Layout>
-      <Contents>
-        <li>지각은 1시간 기준</li>
-        <li>당일 불참 기준은 스터디 시작 이전과 이후로 분류</li>
-        <li>한 달에 1회 이상 스터디 참여 필수</li>
-      </Contents>
+      <UnorderedList mt="12px">
+        <ListItem>스터디 지각은 1시간 기준입니다.</ListItem>
+        <ListItem>한 달에 1회 이상 스터디 참여 필수입니다.</ListItem>
+      </UnorderedList>
     </>
   );
 }
 
 const Layout = styled.div`
-  margin-top: var(--margin-min);
+  margin-top: var(--gap-1);
   display: grid;
+  color: var(--gray-2);
   grid-template-columns: repeat(3, 1fr);
   > div:nth-child(-n + 3) {
-    border-bottom: var(--border-main-light);
+    border-bottom: var(--border);
   }
   > div:nth-child(2),
   div:nth-child(5) {
-    border-left: var(--border-main-light);
-    border-right: var(--border-main-light);
+    border-left: var(--border);
+    border-right: var(--border);
   }
 `;
 
@@ -72,28 +73,16 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--padding-md);
+  padding: var(--gap-2);
 `;
 
 const Name = styled.span`
-  margin-bottom: var(--margin-md);
-  font-size: 12px;
+  margin-bottom: var(--gap-3);
 `;
 
 const Point = styled.span`
-  margin-top: var(--margin-md);
+  margin-top: var(--gap-2);
   color: var(--color-red);
-`;
-const Contents = styled.div`
-  margin-top: var(--margin-sub);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: var(--line-height);
-  font-size: 12.5px;
-  color: var(--font-h2);
-  margin-left: var(--margin-min);
 `;
 
 export default PointSystemsModalFee;

@@ -1,59 +1,57 @@
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../components/layout/BottomNav";
-import Header from "../../components/layout/Header";
-import ProgressStatus from "../../components/templates/ProgressStatus";
-import RegisterLayout from "../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../pagesComponents/register/RegisterOverview";
+import BottomNav from "../../components/layouts/BottomNav";
+import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 
-import PageLayout from "../../components/layout/PageLayout";
-import { INTEREST_DATA } from "../../constants/contents/ProfileData";
-import { isProfileEditState } from "../../recoil/previousAtoms";
-import { sharedRegisterFormState } from "../../recoil/sharedDataAtoms";
+import { useSearchParams } from "next/navigation";
+import Input from "../../components/atoms/Input";
+import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
+import { INTEREST_DATA } from "../../constants/contentsText/ProfileData";
+import { REGISTER_INFO } from "../../constants/keys/localStorage";
+import {
+  getLocalStorageObj,
+  setLocalStorageObj,
+} from "../../utils/storageUtils";
 
 function Interest() {
   const router = useRouter();
-  const [registerForm, setRegisterForm] = useRecoilState(
-    sharedRegisterFormState
-  );
+  const searchParams = useSearchParams();
+  const info = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [firstValue, setFirstValue] = useState(
-    registerForm?.interests?.first || ""
-  );
-  const [secondValue, setSecondValue] = useState(
-    registerForm?.interests?.second || ""
-  );
+  const [firstValue, setFirstValue] = useState(info?.interests?.first || "");
+  const [secondValue, setSecondValue] = useState(info?.interests?.second || "");
 
-  const isProfileEdit = useRecoilValue(isProfileEditState);
+  const isProfileEdit = !!searchParams.get("edit");
 
   const onChange = (event: ChangeEvent<HTMLInputElement>, isFirst) => {
     const value = event?.target.value;
     if (isFirst) setFirstValue(value);
     else setSecondValue(value);
   };
-  const onClickNext = () => {
+  const onClickNext = (e) => {
     if (firstValue === "") {
+      e.preventDefault();
       setErrorMessage("관심사를 작성해 주세요.");
       return;
     }
-    setRegisterForm((old) => ({
-      ...old,
+
+    setLocalStorageObj(REGISTER_INFO, {
+      ...info,
       interests: { first: firstValue, second: secondValue },
-    }));
-    router.push(`/register/comment`);
+    });
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={70} />
-      <Header
+    <>
+      <ProgressHeader
+        value={70}
         title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        url="/register/major"
       />
+
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
           <span>관심 분야를 선택해 주세요</span>
@@ -86,8 +84,8 @@ function Interest() {
           </Item>
         </Container>
       </RegisterLayout>
-      <BottomNav onClick={onClickNext} />
-    </PageLayout>
+      <BottomNav onClick={onClickNext} url="/register/comment" />
+    </>
   );
 }
 
@@ -95,32 +93,32 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   > div {
-    margin-bottom: var(--margin-max);
+    margin-bottom: var(--gap-5);
     > span {
       display: inline-block;
-      color: var(--font-h1);
-      font-weight: 600;
-      font-size: 12px;
-      margin-bottom: var(--margin-md);
+      color: var(--gray-1);
+
+      font-size: 14px;
+      margin-bottom: var(--gap-2);
     }
   }
 `;
 
 const Example = styled.div`
-  margin-top: var(--margin-main);
+  margin-top: var(--gap-4);
 
   > div {
-    color: var(--font-h3);
-    padding: var(--padding-min);
-    background-color: var(--font-h7);
-    border: 1px solid var(--font-h6);
-    border-radius: var(--border-radius-sub);
+    color: var(--gray-3);
+    padding: var(--gap-1);
+    background-color: var(--gray-7);
+    border: 1px solid var(--gray-6);
+    border-radius: var(--rounded-lg);
     display: flex;
     flex-wrap: wrap;
+
     > span {
       font-size: 12px;
       margin-right: 6px;
-      line-height: var(--line-height);
     }
   }
 `;
@@ -130,17 +128,17 @@ const Item = styled.div`
   flex-direction: column;
 `;
 
-const Input = styled.input`
-  padding: var(--padding-sub) var(--padding-md);
-  border: 1px solid var(--font-h6);
-  background-color: var(--font-h7);
-  border-radius: var(--border-radius-sub);
-  ::placeholder {
-    color: var(--font-h4);
-  }
-  :focus {
-    outline-color: var(--font-h1);
-  }
-`;
+// const Input = styled.input`
+//   padding: var(--gap-3) var(--gap-2);
+//   border: 1px solid var(--gray-6);
+//   background-color: var(--gray-7);
+//   border-radius: var(--rounded-lg);
+//   ::placeholder {
+//     color: var(--gray-4);
+//   }
+//   :focus {
+//     outline-color: var(--gray-1);
+//   }
+// `;
 
 export default Interest;

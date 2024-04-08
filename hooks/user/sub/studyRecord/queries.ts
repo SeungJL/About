@@ -7,20 +7,31 @@ import {
   USER_FINDPARTICIPATION,
 } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
-import { dayjsToStr } from "../../../../helpers/dateHelpers";
-import { QueryOptions } from "../../../../types/reactTypes";
-import { IVoteRate } from "../../../../types/study/study";
-import { IDayjsStartToEnd } from "../../../../types/timeAndDate";
+import { QueryOptions } from "../../../../types2/reactTypes";
+import { ActiveLocation } from "../../../../types2/serviceTypes/locationTypes";
+import { IVoteRate } from "../../../../types2/study/study";
+import { IDayjsStartToEnd } from "../../../../types2/timeAndDate";
+import { dayjsToStr } from "../../../../utils/dateTimeUtils";
+
 type UserAttendRateReturn<T> = T extends true ? IVoteRate : IVoteRate[];
 
 export const useUserAttendRateQuery = <T extends boolean>(
   startDay: Dayjs,
   endDay: Dayjs,
   isUserScope: T = true as T,
+  summary: boolean,
+  location?: ActiveLocation,
   options?: QueryOptions<UserAttendRateReturn<T>>
 ) =>
   useQuery<UserAttendRateReturn<T>, AxiosError, UserAttendRateReturn<T>>(
-    [USER_ATTEND_RATE, dayjsToStr(startDay), dayjsToStr(endDay)],
+    [
+      USER_ATTEND_RATE,
+      dayjsToStr(startDay),
+      dayjsToStr(endDay),
+      isUserScope,
+      summary,
+      location,
+    ],
     async () => {
       const scopeQuery = isUserScope ? "" : "all";
       const res = await axios.get<UserAttendRateReturn<T>>(
@@ -29,6 +40,8 @@ export const useUserAttendRateQuery = <T extends boolean>(
           params: {
             startDay: startDay.format("YYYY-MM-DD"),
             endDay: endDay.format("YYYY-MM-DD"),
+            ...(summary ? { summary: true } : {}),
+            ...(location ? { location } : {}),
           },
         }
       );
@@ -61,7 +74,7 @@ export const useUserAttendRateQueries = <T extends boolean>(
   };
   const queryFns = monthList.map((month) => queryFn(month));
   return useQuery(
-    [USER_FINDPARTICIPATION, isUserScope],
+    [USER_FINDPARTICIPATION, isUserScope, monthList],
     async () => {
       const results = await Promise.all(queryFns);
       return results;

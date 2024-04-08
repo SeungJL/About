@@ -54,4 +54,22 @@ export const STUDY_CAFE_LOGO = {
   할리스:
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%ED%95%A0%EB%A6%AC%EC%8A%A4.webp",
   행궁: "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%ED%96%89%EA%B6%81+81.2.webp",
+  해머스미스커피:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%ED%95%B4%EB%A8%B8%EC%8A%A4%EB%AF%B8%EC%8A%A4.jpg",
+  캐치카페:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%BA%90%EC%B9%98.jpg",
+  커피니:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%BB%A4%ED%94%BC%EB%8B%88.png",
+  아띠커피:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%95%84%EB%9D%A0%EC%BB%A4%ED%94%BC.png",
+  카페어바웃:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%96%B4%EB%B0%94%EC%9B%83.jpg",
+  카페_뮬:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%AE%AC.jpg",
+  빵쌤: "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%B9%B5%EC%83%98.png",
+  D_CAFE:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/D%EC%B9%B4%ED%8E%98.jpg",
+  카페디졸브:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%94%94%EC%A1%B8%EB%B8%8C.jpg",
+    
 };

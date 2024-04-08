@@ -1,17 +1,19 @@
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import Header from "../../components/layout/Header";
+import Header from "../../components/layouts/Header";
+import Slide from "../../components/layouts/PageSlide";
+
 import { SERVER_URI } from "../../constants/system";
 import { useFailToast } from "../../hooks/custom/CustomToast";
-import { userInfoState } from "../../recoil/userAtoms";
 
 function Admin() {
+  const { data: session } = useSession();
   const router = useRouter();
   const failToast = useFailToast();
-  const userInfo = useRecoilValue(userInfoState);
-  const role = userInfo?.role;
+
+  const role = session?.user.role;
 
   const onClick = (url: string, isAccess?: boolean) => {
     if (isAccess !== false) {
@@ -36,74 +38,84 @@ function Admin() {
   return (
     <>
       <Layout>
-        <Header title="관리자 페이지" />
-        <UserLayout>
-          <Navigation>
-            <div>
-              <BlockName>유저 응답</BlockName>
-              <NavBlock>
-                <button onClick={() => onClick(`register`)}>
-                  가입신청 확인
-                </button>
-                <button onClick={() => onClick(`attend`)}>
-                  출석 당첨자 확인
-                </button>
-                <button onClick={() => onClick(`groupGather`)}>
-                  조모임 신청 확인
-                </button>
-                <button onClick={() => onClick(`suggest`)}>
-                  건의사항 확인
-                </button>
-                <button onClick={() => onClick(`rest`)}>휴식신청 확인</button>
-                <button onClick={() => onClick(`badge`)}>배지신청 확인</button>
-                <button onClick={() => onClick(`promotion`)}>
-                  홍보인원 확인
-                </button>
-                <button onClick={() => onClick(`secede`)}>탈퇴신청 확인</button>
-                <button onClick={() => onClick(`absent`)}>당일불참 확인</button>
-              </NavBlock>
-            </div>
-            <div>
-              <BlockName>유저 정보</BlockName>
-              <NavBlock>
-                <button onClick={() => onClick(`userInfo`, false)}>
-                  유저 정보 관리
-                </button>
-                <button>유저 상태 확인</button>
-                <button onClick={() => onClick(`pointLog`, false)}>
-                  포인트시스템 로그
-                </button>
-              </NavBlock>
-            </div>
-            <div>
-              <BlockName>스터디 관리</BlockName>
-              <NavBlock>
-                <button onClick={() => onClick(`studySpace`, false)}>
-                  스터디 장소 정보
-                </button>
-                <button onClick={() => onClick(`studyStatus`, false)}>
-                  스터디 상태 변경
-                </button>
-                <button onClick={() => onClick(`resetStudySpace`, false)}>
-                  스터디 초기화 및 업데이트
-                </button>
-                <button onClick={() => onClick(`resetStudyStatus`, false)}>
-                  스터디 상태 초기화
-                </button>
-              </NavBlock>
-            </div>
-            <div>
-              <BlockName>로그 관리</BlockName>
-              <NavBlock>
-                <button onClick={() => onRemoveLog()}>오래된 로그 삭제</button>
-              </NavBlock>
-            </div>
+        <Header title="관리자 페이지" url="/user/setting" />
+        <Slide>
+          <UserLayout>
+            <Navigation>
+              <div>
+                <BlockName>유저 응답</BlockName>
+                <NavBlock>
+                  <button onClick={() => onClick(`register`)}>
+                    가입신청 확인
+                  </button>
+                  <button onClick={() => onClick(`attend`)}>
+                    출석 당첨자 확인
+                  </button>
+                  <button onClick={() => onClick(`groupGather`)}>
+                    조모임 신청 확인
+                  </button>
+                  <button onClick={() => onClick(`suggest`)}>
+                    건의사항 확인
+                  </button>
+                  <button onClick={() => onClick(`rest`)}>휴식신청 확인</button>
+                  <button onClick={() => onClick(`badge`)}>
+                    배지신청 확인
+                  </button>
+                  <button onClick={() => onClick(`promotion`)}>
+                    홍보인원 확인
+                  </button>
+                  <button onClick={() => onClick(`secede`)}>
+                    탈퇴신청 확인
+                  </button>
+                  <button onClick={() => onClick(`absent`)}>
+                    당일불참 확인
+                  </button>
+                </NavBlock>
+              </div>
+              <div>
+                <BlockName>유저 정보</BlockName>
+                <NavBlock>
+                  <button onClick={() => onClick(`userInfo`, false)}>
+                    유저 정보 관리
+                  </button>
+                  <button>유저 상태 확인</button>
+                  <button onClick={() => onClick(`pointLog`, false)}>
+                    포인트시스템 로그
+                  </button>
+                </NavBlock>
+              </div>
+              <div>
+                <BlockName>스터디 관리</BlockName>
+                <NavBlock>
+                  <button onClick={() => onClick(`study`, false)}>
+                    스터디 장소 정보
+                  </button>
+                  <button onClick={() => onClick(`studyStatus`, false)}>
+                    스터디 상태 변경
+                  </button>
+                  <button onClick={() => onClick(`resetStudySpace`, false)}>
+                    스터디 초기화 및 업데이트
+                  </button>
+                  <button onClick={() => onClick(`resetStudyStatus`, false)}>
+                    스터디 상태 초기화
+                  </button>
+                </NavBlock>
+              </div>
+              <div>
+                <BlockName>로그 관리</BlockName>
+                <NavBlock>
+                  <button onClick={() => onRemoveLog()}>
+                    오래된 로그 삭제
+                  </button>
+                </NavBlock>
+              </div>
 
-            <div>
-              <BlockName />
-            </div>
-          </Navigation>
-        </UserLayout>
+              <div>
+                <BlockName />
+              </div>
+            </Navigation>
+          </UserLayout>
+        </Slide>
       </Layout>
     </>
   );
@@ -122,7 +134,7 @@ const UserLayout = styled.div`
 const Navigation = styled.nav`
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--font-h5);
+  border: 1px solid var(--gray-5);
   border-radius: 6px;
   overflow: hidden;
   padding: 0px 0;
@@ -130,26 +142,26 @@ const Navigation = styled.nav`
 
 const BlockName = styled.div`
   padding-bottom: 3px;
-  background-color: var(--font-h6);
+  background-color: var(--gray-6);
   font-weight: 600;
   font-size: 12px;
   height: 24px;
   display: flex;
   align-items: end;
-  color: var(--font-h2);
+  color: var(--gray-2);
   padding-left: 6px;
 `;
 
 const NavBlock = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: var(--font-h8);
+  background-color: var(--gray-8);
   padding-left: 6px;
   > button {
     text-align: start;
     height: 42px;
     font-size: 13px;
-    border-bottom: 1.5px solid var(--font-h6);
+    border-bottom: 1.5px solid var(--gray-6);
   }
 `;
 

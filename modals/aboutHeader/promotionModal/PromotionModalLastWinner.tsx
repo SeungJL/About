@@ -22,13 +22,13 @@ const Layout = styled.div`
   justify-content: space-between;
   border: var(--border-mint);
   height: 94px;
-  border-radius: var(--border-radius-main);
-  padding: var(--padding-md);
+  border-radius: var(--rounded-lg);
+  padding: var(--gap-2);
   > * {
     flex: 1;
   }
   > div {
-    margin-top: var(--margin-sub);
+    margin-top: var(--gap-3);
     font-weight: 600;
     display: flex;
     justify-content: space-between;
@@ -37,7 +37,7 @@ const Layout = styled.div`
   }
 
   > span {
-    color: var(--font-h2);
+    color: var(--gray-2);
     font-size: 11px;
   }
 `;

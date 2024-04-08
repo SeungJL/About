@@ -1,12 +1,14 @@
 import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ProfileIcon from "../../../components/common/user/Profile/ProfileIcon";
-import AdminLocationSelector from "../../../components/features/picker/AdminLocationSelector";
-import Header from "../../../components/layout/Header";
+
+import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
+import Header from "../../../components/layouts/Header";
+import AdminLocationSelector from "../../../components/molecules/picker/AdminLocationSelector";
+
 import { useUserRegisterFormsQuery } from "../../../hooks/admin/quries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
-import { IUserRegisterForm } from "../../../types/user/user";
+import { IUserRegisterForm } from "../../../types2/userTypes/userInfoTypes";
 
 function AdminRegister() {
   const [isModal, setIsModal] = useState(false);
@@ -28,7 +30,7 @@ function AdminRegister() {
       }, 1000);
     setIsRefetch(false);
   }, [isRefetch, refetch]);
-  console.log(registerData);
+
   return (
     <>
       <Header title="가입 신청 확인" url="/admin" />
@@ -86,7 +88,7 @@ const Main = styled.main`
   flex-direction: column;
   margin-top: 14px;
   > div:first-child {
-    border-top: 1px solid var(--font-h5);
+    border-top: 1px solid var(--gray-5);
   }
 `;
 
@@ -97,7 +99,7 @@ const Item = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: 1px solid var(--font-h5);
+  border-bottom: 1px solid var(--gray-5);
 `;
 
 const Summary = styled.div`
@@ -115,14 +117,14 @@ const Summary = styled.div`
     }
     > span:last-child {
       font-size: 11px;
-      color: var(--font-h3);
+      color: var(--gray-3);
     }
   }
   > span {
     margin-right: 12px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--font-h2);
+    color: var(--gray-2);
   }
 `;
 

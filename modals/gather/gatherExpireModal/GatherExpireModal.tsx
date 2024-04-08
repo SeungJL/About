@@ -1,22 +1,20 @@
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import {
-  ModalBody,
-  ModalBodyNavTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../../components/modals/Modals";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import { transferGatherDataState } from "../../../recoil/transferDataAtoms";
-import { IModal } from "../../../types/reactTypes";
+import { useGatherQuery } from "../../../hooks/gather/queries";
+import { IModal } from "../../../types2/reactTypes";
+import { ModalBodyNavTwo, ModalLayout } from "../../Modals";
 import GatherExpireModalCancelDialog from "./GatherExpireModalCancelDialog";
 import GatherExpireModalExpireDialog from "./GatherExpireModalExpireDialogs";
 
 export type GatherExpireModalDialogType = "expire" | "cancel";
 
 function GatherExpireModal({ setIsModal }: IModal) {
-  const gatherData = useRecoilValue(transferGatherDataState);
+  const { id } = useParams<{ id: string }>() || {};
+  const { data: gathers } = useGatherQuery();
+
+  const gatherData = gathers?.find((item) => item.id + "" === id);
 
   const resetQueryData = useResetQueryData();
   const [modal, setModal] = useState<GatherExpireModalDialogType>();
@@ -31,16 +29,13 @@ function GatherExpireModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout onClose={() => setIsModal(false)} size="sm">
-        <ModalHeader text="모집 종료" />
-        <ModalBody>
-          <ModalBodyNavTwo
-            topText="모집 마감"
-            bottomText="모임 취소"
-            onClickTop={() => setModal("expire")}
-            onClickBottom={() => setModal("cancel")}
-          />
-        </ModalBody>
+      <ModalLayout title="모집 종료" setIsModal={setIsModal}>
+        <ModalBodyNavTwo
+          topText="모집 마감"
+          bottomText="모임 취소"
+          onClickTop={() => setModal("expire")}
+          onClickBottom={() => setModal("cancel")}
+        />
       </ModalLayout>
       <GatherExpireModalExpireDialog
         setIsComplete={setIsComplete}

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import Skeleton from "../../../components/common/masks/skeleton/Skeleton";
+import Skeleton from "../../../components/atoms/skeleton/Skeleton";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 
 function PromotionModalDetail() {
@@ -38,7 +38,7 @@ function PromotionModalDetail() {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: var(--line-height);
+
   > div {
     display: flex;
     > span:first-child {
@@ -50,7 +50,7 @@ const Layout = styled.div`
 `;
 const Temp = styled.span`
   font-size: 11px;
-  color: var(--font-h3);
+  color: var(--gray-3);
 `;
 const VoteNum = styled.span``;
 

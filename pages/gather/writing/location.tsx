@@ -2,16 +2,16 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import LocationSearch from "../../../components/features/location/LocationSearch";
-import BottomNav from "../../../components/layout/BottomNav";
-import Header from "../../../components/layout/Header";
-import PageLayout from "../../../components/layout/PageLayout";
-import ProgressStatus from "../../../components/templates/ProgressStatus";
+import BottomNav from "../../../components/layouts/BottomNav";
+import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
+import LocationSearch from "../../../components/organisms/location/LocationSearch";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
-import RegisterLayout from "../../../pagesComponents/register/RegisterLayout";
-import RegisterOverview from "../../../pagesComponents/register/RegisterOverview";
-import { sharedGatherWritingState } from "../../../recoil/sharedDataAtoms";
-import { IGatherLocation } from "../../../types/page/gather";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
+import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
+import { IGatherLocation } from "../../../types2/page/gather";
 
 function WritingGahterLocation() {
   const router = useRouter();
@@ -37,9 +37,11 @@ function WritingGahterLocation() {
   };
 
   return (
-    <PageLayout>
-      <ProgressStatus value={80} />
-      <Header title="" url="/gather/writing/date" />
+    <>
+      <Slide isFixed={true}>
+        <ProgressStatus value={80} />
+        <Header isSlide={false} title="" url="/gather/writing/date" />
+      </Slide>
       <RegisterLayout>
         <RegisterOverview>
           <span>날짜와 장소를 선택해 주세요.</span>
@@ -54,27 +56,26 @@ function WritingGahterLocation() {
             }
           />
         </Location>
-
-        <BottomNav onClick={() => onClickNext()} />
       </RegisterLayout>
-    </PageLayout>
+      <BottomNav onClick={() => onClickNext()} />
+    </>
   );
 }
 
 const LocationDetailInput = styled.input`
   width: 100%;
   background-color: inherit;
-  border-bottom: var(--border-main);
+  border-bottom: var(--border);
   padding-top: 0;
-  padding-bottom: var(--padding-md);
-  padding-left: var(--padding-min);
+  padding-bottom: var(--gap-2);
+  padding-left: var(--gap-1);
   outline: none;
   font-size: 13px;
-  color: var(--font-h2);
+  color: var(--gray-2);
 `;
 
 const Location = styled.div`
-  margin-top: var(--margin-sub);
+  margin-top: var(--gap-3);
   background-color: inherit;
 `;
 

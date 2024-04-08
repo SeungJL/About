@@ -12,48 +12,46 @@ import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
 import {
-  ModalBody,
-  ModalFooterTwo,
-  ModalHeader,
-  ModalLayout,
-} from "../../components/modals/Modals";
-import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
-import { IModal } from "../../types/reactTypes";
-import { IUserRequest } from "../../types/user/userRequest";
+import { IModal } from "../../types2/reactTypes";
+import { IUserRequest } from "../../types2/userTypes/userRequestTypes";
 
 function ManagerPopUp({ setIsModal }: IModal) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const footerOptions: IFooterOptions = {
+    main: {
+      text: "지원하기",
+      func: onOpen,
+    },
+    sub: {},
+  };
+
   return (
     <>
-      <ModalLayout size="lg" onClose={() => setIsModal(false)}>
-        <ModalHeader text="운영진 공고" />
-        <ModalBody>
-          <Subtitile>모집 조건</Subtitile>
-          <Ol>
-            <li>22 ~ 24세</li>
-            <li>일주일 2회 스터디 참여 가능하신 분</li>
-            <li>사람 만나는 거 좋아하고 외향적이신 분</li>
-            <li>오프라인 모임도 종종 참여할 수 있는 분</li>
-          </Ol>
-          <Subtitile>혜택</Subtitile>
-          <Ul>
-            <li>매달 커피 값으로 2만원씩 지원</li>
-            <li>원하는 스터디 장소 있으면 장소 개설해드려요</li>
-            <li>기타 특전</li>
-          </Ul>
-        </ModalBody>
-        <ModalFooterTwo
-          leftText="닫기"
-          rightText="지원하기"
-          onClickLeft={() => setIsModal(false)}
-          onClickRight={() => onOpen()}
-        />
+      <ModalLayout
+        title="운영진 모집 공고"
+        footerOptions={footerOptions}
+        setIsModal={setIsModal}
+      >
+        <Subtitile>모집 조건</Subtitile>
+        <Ol>
+          <li>22 ~ 24세</li>
+          <li>일주일 2회 스터디 참여 가능하신 분</li>
+          <li>사람 만나는 거 좋아하고 외향적이신 분</li>
+          <li>오프라인 모임도 종종 참여할 수 있는 분</li>
+        </Ol>
+        <Subtitile>혜택</Subtitile>
+        <Ul>
+          <li>매달 커피 값으로 2만원씩 지원</li>
+          <li>원하는 스터디 장소 있으면 장소 개설해드려요</li>
+          <li>기타 특전</li>
+        </Ul>
       </ModalLayout>
       <Dialog isOpen={isOpen} onClose={onClose} setIsModal={setIsModal} />
     </>
@@ -81,7 +79,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
       category: "건의",
       writer: session?.user.name,
       title: "운영진 지원",
-      content: session?.uid as string,
+      content: session?.user?.uid as string,
     };
     mutate(data);
   };
@@ -94,7 +92,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
       onClose={onClose}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent m="auto var(--margin-main)">
+        <AlertDialogContent m="auto var(--gap-4)">
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             운영진에 지원하시겠어요?
           </AlertDialogHeader>
@@ -106,7 +104,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
             <Button
               colorScheme="mintTheme"
               onClick={handleSubmit}
-              ml="var(--margin-min)"
+              ml="var(--gap-1)"
             >
               신청
             </Button>
@@ -118,23 +116,23 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
 };
 
 const Subtitile = styled.div`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: var(--margin-min);
+  margin-bottom: var(--gap-1);
 `;
 
 const Ol = styled.ol`
-  color: var(--font-h2);
+  color: var(--gray-2);
   font-size: 12px;
-  margin-left: var(--margin-main);
-  margin-bottom: var(--margin-md);
+  margin-left: var(--gap-4);
+  margin-bottom: var(--gap-2);
 `;
 
 const Ul = styled.ul`
   font-size: 12px;
-  color: var(--font-h2);
-  margin-left: var(--margin-main);
+  color: var(--gray-2);
+  margin-left: var(--gap-4);
 `;
 
 export default ManagerPopUp;

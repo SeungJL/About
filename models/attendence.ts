@@ -1,5 +1,5 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { IAttendance2, IParticipant } from "../types/forBackend";
+import { IAttendance2, IParticipant } from "../types2/forBackend";
 
 const ParticipantSchema: Schema<IParticipant> = new Schema(
   {

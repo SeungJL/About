@@ -1,49 +1,47 @@
 import { Button } from "@chakra-ui/react";
 import styled from "styled-components";
-import {
-  ModalBody,
-  ModalHeaderCenter,
-  ModalLayout,
-} from "../../../components/modals/Modals";
 import { ModalSubtitle } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types2/reactTypes";
+import { IHeaderOptions, ModalLayout } from "../../Modals";
 
 function UserCollectionAlphabetModal({ setIsModal }: IModal) {
+  const headerOptions: IHeaderOptions = {};
   return (
-    <ModalLayout size="xl" onClose={() => setIsModal(false)}>
-      <ModalHeaderCenter text="수집 보상" />
-      <ModalBody>
-        <ModalSubtitle isCenter={true}>
-          알파벳을 수집하고 상품을 획득해 봐요!
-        </ModalSubtitle>
-        <Container>
-          <Item>
-            <div>스타벅스 아메리카노</div>
-            <div>1회차 상품</div>
-          </Item>
-          <Item>
-            <div>공차 상품권</div>
-            <div>2회차 상품</div>
-          </Item>
-          <Item>
-            <div>민트초코 배지</div>
-            <div>3회차 상품</div>
-          </Item>
-          <Item>
-            <div>배달의민족 10000원권</div>
-            <div>4회차 상품</div>
-          </Item>
-          <Button
-            w="100px"
-            mt="auto"
-            mb="var(--margin-main)"
-            colorScheme="mintTheme"
-            onClick={() => setIsModal(false)}
-          >
-            확인
-          </Button>
-        </Container>
-      </ModalBody>
+    <ModalLayout
+      title="수집 보상"
+      headerOptions={headerOptions}
+      setIsModal={setIsModal}
+    >
+      <ModalSubtitle isCenter={true}>
+        알파벳을 수집하고 상품을 획득해 봐요!
+      </ModalSubtitle>
+      <Container>
+        <Item>
+          <div>스타벅스 아메리카노</div>
+          <div>1회차 상품</div>
+        </Item>
+        <Item>
+          <div>공차 상품권</div>
+          <div>2회차 상품</div>
+        </Item>
+        <Item>
+          <div>민트초코 배지</div>
+          <div>3회차 상품</div>
+        </Item>
+        <Item>
+          <div>배달의민족 10000원권</div>
+          <div>4회차 상품</div>
+        </Item>
+        <Button
+          w="100px"
+          mt="20px"
+          mb="var(--gap-4)"
+          colorScheme="mintTheme"
+          onClick={() => setIsModal(false)}
+        >
+          확인
+        </Button>
+      </Container>
     </ModalLayout>
   );
 }
@@ -57,11 +55,11 @@ const Container = styled.div`
 
 const Item = styled.div`
   width: 100%;
-  padding: var(--padding-sub) var(--padding-sub);
+  padding: var(--gap-3) var(--gap-3);
   display: flex;
   font-size: 13px;
-  border-bottom: var(--border-main-light);
-  color: var(--font-h2);
+  border-bottom: var(--border);
+  color: var(--gray-2);
   > div {
     flex: 1;
     text-align: center;
