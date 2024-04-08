@@ -196,7 +196,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
           </div>
         ) : (
           <div>
-            🎉잘 하고 있어요🎉
+            p 🎉잘 하고 있어요🎉
             <br />
             이번주도 열심히 파이팅~!
           </div>
