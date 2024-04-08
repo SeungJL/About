@@ -804,6 +804,7 @@ export const WIN_RECORD: {
     detail: "스토어 당첨",
     present: "베라 싱글",
   },
+
   {
     name: "권혜",
     date: "4/8",
@@ -816,12 +817,7 @@ export const WIN_RECORD: {
     detail: "스토어 당첨",
     present: "올영 10000원",
   },
-  {
-    name: "최영",
-    date: "4/8",
-    detail: "스토어 당첨",
-    present: "베라 싱글",
-  },
+
   {
     name: "이효",
     date: "4/8",
