@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
-import ScoreBadge from "../../components/atoms/badges/ScoreBadge";
+import UserBadge from "../../components/atoms/badges/UserBadge";
 import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 import { USER_ROLE } from "../../constants/settingValue/role";
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -26,7 +26,7 @@ function MemberMyProfile() {
               </InfoItem>
               <InfoItem>
                 <span>배지</span>
-                <ScoreBadge score={userInfo.score} uid={userInfo.uid} />
+                <UserBadge score={userInfo.score} uid={userInfo.uid} />
               </InfoItem>
               <InfoItem>
                 <span>구성</span>

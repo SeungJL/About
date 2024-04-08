@@ -3,7 +3,7 @@ import { Document } from "mongoose";
 import { IStudyPlaces } from "../studyTypes/studyVoteTypes";
 
 import { IDayjsStartToEnd, ITimeStamps, ITimeStartToEnd } from "../timeAndDate";
-import { IUser } from "../user/user";
+import { IUser } from "../userTypes/userInfoTypes";
 
 export interface IVote extends Document {
   date: Date;

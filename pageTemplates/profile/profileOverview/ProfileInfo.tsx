@@ -21,7 +21,6 @@ import {
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import { getUserBadge } from "../../../libs/userEventLibs/userHelpers";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 import {
@@ -29,6 +28,7 @@ import {
   IInteractionSendLike,
 } from "../../../types2/interaction";
 import { IUser } from "../../../types2/userTypes/userInfoTypes";
+import { getUserBadge } from "../../../utils/convertUtils/convertDatas";
 
 interface IProfileInfo {
   user: IUser;
@@ -45,7 +45,7 @@ function ProfileInfo({ user }: IProfileInfo) {
   const [isConditionOk, setIsConditionOk] = useState(false);
   const [isHeartLoading, setIsHeartLoading] = useState(true);
 
-  const { badge } = getUserBadge(user?.score, user?.uid);
+  const badge = getUserBadge(user?.score, user?.uid);
 
   const status = USER_ROLE[user?.role];
   const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(

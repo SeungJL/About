@@ -18,6 +18,7 @@ import {
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 import TimeSelector from "../../components/molecules/picker/TimeSelector";
+import { PLACE_TO_LOCATION } from "../../storage/study";
 import { IModal } from "../../types2/reactTypes";
 import { IPlace } from "../../types2/study/studyDetail";
 import { ITimeStartToEnd } from "../../types2/timeAndDate";
@@ -39,7 +40,7 @@ function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
 
   const placeId = id;
 
-  const location = session?.user.location;
+  const location = PLACE_TO_LOCATION[id];
 
   const [time, setTime] = useState<ITimeStartToEnd>({
     start: { hours: 14, minutes: 0 },

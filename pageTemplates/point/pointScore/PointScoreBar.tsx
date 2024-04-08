@@ -4,11 +4,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BADGE_COLOR, BADGE_INFO } from "../../../constants/settingValue/badge";
+import {
+  BADGE_COLOR_MAPPINGS,
+  BADGE_INFO,
+} from "../../../constants/serviceConstants/badgeConstants";
+
 import { SCHEME_TO_COLOR } from "../../../constants/styles";
-import { getUserBadge } from "../../../libs/userEventLibs/userHelpers";
+
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
 import { UserBadge } from "../../../types2/userTypes/userInfoTypes";
+import {
+  getNextBadge,
+  getUserBadge,
+} from "../../../utils/convertUtils/convertDatas";
 
 interface IPointScoreBar {
   myScore: number;
@@ -26,19 +34,18 @@ function PointScoreBar({ myScore, hasQuestion = true }: IPointScoreBar) {
 
   useEffect(() => {
     if (myScore === 0) {
-      setUserBadge({ badge: "아메리카노", nextBadge: "라떼" });
+      setUserBadge({ badge: "아메리카노", nextBadge: "망고" });
       return;
     }
-    const { badge, nextBadge } = getUserBadge(
-      myScore,
-      session?.user?.uid as string
-    );
+    const badge = getUserBadge(myScore, session?.user?.uid as string);
+    const nextBadge = getNextBadge(badge);
+
     setUserBadge({ badge, nextBadge });
   }, [myScore, session?.user?.uid]);
 
   const { badge, nextBadge } = userBadge;
 
-  const badgeColor = BADGE_COLOR[userBadge.badge];
+  const badgeColor = BADGE_COLOR_MAPPINGS[userBadge.badge];
 
   const getBadgePoint = () => {
     for (let i = 0; i < BADGE_INFO.length; i++) {
@@ -76,12 +83,12 @@ function PointScoreBar({ myScore, hasQuestion = true }: IPointScoreBar) {
           </div>
           {nextBadge && (
             <div>
-              <BadgeName color={BADGE_COLOR[nextBadge]}>
+              <BadgeName color={BADGE_COLOR_MAPPINGS[nextBadge]}>
                 {nextBadgePoint}점
               </BadgeName>
               <Badge
                 fontSize="14px"
-                colorScheme={BADGE_COLOR[nextBadge]}
+                colorScheme={BADGE_COLOR_MAPPINGS[nextBadge]}
                 marginLeft="6px"
               >
                 {nextBadge}

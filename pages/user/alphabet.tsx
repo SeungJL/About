@@ -13,7 +13,8 @@ import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
-import { BADGE_COLOR } from "../../constants/settingValue/badge";
+import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
+
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useAlphabetCompletedMutation } from "../../hooks/user/sub/collection/mutations";
@@ -21,13 +22,14 @@ import {
   useCollectionAlphabetAllQuery,
   useCollectionAlphabetQuery,
 } from "../../hooks/user/sub/collection/queries";
-import { getUserBadge } from "../../libs/userEventLibs/userHelpers";
+
 import AlphabetChangeModal from "../../modals/user/collection/AlphabetChangeModal";
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
 
 import { Alphabet, ICollectionAlphabet } from "../../types2/collections";
 import { IUserSummary } from "../../types2/userTypes/userInfoTypes";
+import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];
 
@@ -122,7 +124,7 @@ function CollectionAlphabet() {
             {members?.map((who) => {
               if (!who?.user) return null;
               const user = who.user;
-              const { badge } = getUserBadge(user.score, user.uid);
+              const badge = getUserBadge(user.score, user.uid);
               const alphabets = who.collects;
               const alphabetsCnt = {
                 A: 0,
@@ -149,7 +151,7 @@ function CollectionAlphabet() {
                       <span>{user.name}</span>
                       <Badge
                         fontSize={10}
-                        colorScheme={BADGE_COLOR[badge]}
+                        colorScheme={BADGE_COLOR_MAPPINGS[badge]}
                         ml="var(--gap-2)"
                       >
                         {badge}

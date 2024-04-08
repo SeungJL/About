@@ -1,5 +1,6 @@
 import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contentsText/GroupStudyContents";
-import { LocationFilterType } from "../../types/system";
+import { LocationFilterType } from "../serviceTypes/locationTypes";
+
 import { ITimeStamps } from "../timeAndDate";
 import { IUser, IUserSummary } from "../userTypes/userInfoTypes";
 

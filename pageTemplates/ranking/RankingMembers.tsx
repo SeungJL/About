@@ -3,11 +3,12 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import Avatar from "../../components/atoms/Avatar";
-import { BADGE_COLOR } from "../../constants/settingValue/badge";
+import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
+
 import { RANKING_ANONYMOUS_USERS } from "../../constants/storage/anonymous";
-import { getUserBadge } from "../../libs/userEventLibs/userHelpers";
 import { IRankingUser } from "../../types2/page/ranking";
 import { IVoteRate } from "../../types2/study/study";
+import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 interface IRankingMembers {
   rankingUsers: IVoteRate[];
@@ -39,7 +40,7 @@ function RankingMembers({ rankingUsers, isScore }: IRankingMembers) {
         else dupCnt = 0;
         value = whoValue;
         const user = who.userSummary;
-        const { badge } = getUserBadge(who?.userSummary.score, who?.uid);
+        const badge = getUserBadge(who?.userSummary.score, who?.uid);
         return (
           <Item key={idx} id={`ranking${who.uid}`}>
             <Box mr="12px">
@@ -59,7 +60,7 @@ function RankingMembers({ rankingUsers, isScore }: IRankingMembers) {
                   ? user.name
                   : "비공개"}
               </RankingMine>
-              <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
+              <Badge colorScheme={BADGE_COLOR_MAPPINGS[badge]}>{badge}</Badge>
             </Name>
             <Score>{`${value}${isScore ? "점" : "회"}`}</Score>
           </Item>

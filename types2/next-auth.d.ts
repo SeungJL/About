@@ -9,13 +9,13 @@ declare module "next-auth/jwt" {
     accessToken: string;
     refreshToken: string;
     accessTokenExpires: number;
-    id: string;
-    uid: string;
-    name: string;
-    profileImage: string;
-    role: UserRole;
-    isActive: boolean;
-    location: ActiveLocation;
+    id?: string;
+    uid?: string;
+    name?: string;
+    profileImage?: string;
+    role?: UserRole;
+    isActive?: boolean;
+    location?: ActiveLocation;
   }
 }
 
@@ -41,12 +41,22 @@ declare module "next-auth" {
     };
   }
 
-  interface User {}
+  interface User {
+    role: Role;
+    isActive: boolean;
+    uid: string;
+    profileImage: string;
+    location?: Location;
+  }
   /**
    * Usually contains information about the provider being used
    * and also extends `TokenSet`, which is different tokens returned by OAuth Providers.
    */
-  interface Account {}
+  interface Account {
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpires: number;
+  }
   /** The OAuth profile returned from your provider */
   interface Profile {}
 

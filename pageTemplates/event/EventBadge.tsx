@@ -8,7 +8,11 @@ import IconButtonColBlock, {
 } from "../../components/atoms/blocks/IconButtonColBlock";
 import SectionBar from "../../components/molecules/bars/SectionBar";
 import BlockSlider from "../../components/organisms/sliders/BlockSlider";
-import { BADGE_INFO, EVENT_BADGE } from "../../constants/settingValue/badge";
+import {
+  BADGE_INFO,
+  USER_EVENT_BADGE_ARR,
+} from "../../constants/serviceConstants/badgeConstants";
+
 import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,
@@ -38,30 +42,32 @@ export default function EventBadge({}: IEventBadge) {
     };
   });
 
-  const eventArr: IIconButtonColBlockProps[] = EVENT_BADGE.map((badge) => {
-    const hasBadge =
-      badge === "딸기스무디"
-        ? EVENT_BADGE_딸기스무디.includes(userInfo?.uid)
-        : badge === "라벤더"
-        ? EVENT_BADGE_라벤더.includes(userInfo?.uid)
-        : badge === "민트초코"
-        ? EVENT_BADGE_민트초코.includes(userInfo?.uid)
-        : false;
+  const eventArr: IIconButtonColBlockProps[] = USER_EVENT_BADGE_ARR.map(
+    (badge) => {
+      const hasBadge =
+        badge === "딸기스무디"
+          ? EVENT_BADGE_딸기스무디.includes(userInfo?.uid)
+          : badge === "라벤더"
+          ? EVENT_BADGE_라벤더.includes(userInfo?.uid)
+          : badge === "민트초코"
+          ? EVENT_BADGE_민트초코.includes(userInfo?.uid)
+          : false;
 
-    return {
-      icon: !hasBadge ? (
-        <FontAwesomeIcon icon={faLock} color="var(--gray-3)" />
-      ) : (
-        <FontAwesomeIcon icon={faLockOpen} color="var(--color-orange)" />
-      ),
-      title: badge,
-      buttonProp: {
-        text: " 100 POINT",
-        func: () => setIsModal(true),
-      },
-      disabled: !hasBadge,
-    };
-  });
+      return {
+        icon: !hasBadge ? (
+          <FontAwesomeIcon icon={faLock} color="var(--gray-3)" />
+        ) : (
+          <FontAwesomeIcon icon={faLockOpen} color="var(--color-orange)" />
+        ),
+        title: badge,
+        buttonProp: {
+          text: " 100 POINT",
+          func: () => setIsModal(true),
+        },
+        disabled: !hasBadge,
+      };
+    }
+  );
 
   const BlocksComponents = [...blockArr, ...eventArr].map((block) => (
     <IconButtonColBlock props={block} />

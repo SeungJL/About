@@ -10,8 +10,12 @@ import {
 import { SERVER_URI } from "../../constants/system";
 
 import { QueryOptions } from "../../types2/reactTypes";
+import { Location } from "../../types2/serviceTypes/locationTypes";
 import { IUser, IUserRegisterForm } from "../../types2/userTypes/userInfoTypes";
-import { IUserRequest, UserRequestCategory } from "../../types2/userTypes/userRequestTypes";
+import {
+  IUserRequest,
+  UserRequestCategory,
+} from "../../types2/userTypes/userRequestTypes";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>

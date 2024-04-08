@@ -1,4 +1,4 @@
-import { LocationFilterType } from "../types/system";
+import { LocationFilterType } from "../types2/serviceTypes/locationTypes";
 
 export interface IReviewData {
   id: number;

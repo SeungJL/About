@@ -4,12 +4,13 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Avatar from "../../components/atoms/Avatar";
-import { BADGE_COLOR } from "../../constants/settingValue/badge";
+import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
+
 import { USER_ROLE } from "../../constants/settingValue/role";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { getUserBadge } from "../../libs/userEventLibs/userHelpers";
 import { IMyRank } from "../../types2/page/ranking";
 import { UserBadge } from "../../types2/userTypes/userInfoTypes";
+import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 interface IRankingOverview {
   myRankInfo: IMyRank;
@@ -26,7 +27,7 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
   useEffect(() => {
     if (isGuest) setUserBadge("아메리카노");
     if (!userInfo) return;
-    const { badge } = getUserBadge(userInfo.score, userInfo.uid);
+    const badge = getUserBadge(userInfo.score, userInfo.uid);
     setUserBadge(badge);
   }, [isGuest, userInfo]);
 
@@ -83,7 +84,7 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
             <BadgeWrapper>
               <ScoreText>배지:</ScoreText>
               <Badge
-                colorScheme={BADGE_COLOR[userBadge]}
+                colorScheme={BADGE_COLOR_MAPPINGS[userBadge]}
                 fontSize="14px"
                 border="1px solid var(--gray-5)"
               >

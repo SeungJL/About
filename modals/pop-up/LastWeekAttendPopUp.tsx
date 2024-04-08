@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { PopOverIcon } from "../../components/atoms/Icons/PopOverIcon";
 import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 import Skeleton from "../../components/atoms/skeleton/Skeleton";
-import { BADGE_INFO } from "../../constants/settingValue/badge";
+
 import { USER_ROLE } from "../../constants/settingValue/role";
 import {
   IStudyRecord,
@@ -13,6 +13,7 @@ import { useUserInfoQuery } from "../../hooks/user/queries";
 import PointScoreBar from "../../pageTemplates/point/pointScore/PointScoreBar";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
+import { BADGE_SCORE_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
 import { IModal } from "../../types2/reactTypes";
 import {
   getNextBadge,
@@ -52,17 +53,17 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const nextBadge = getNextBadge(badge);
 
   const getBadgePoint = () => {
-    for (let i = 0; i < BADGE_INFO.length; i++) {
-      const badgeInfo = BADGE_INFO[i];
-      if (badgeInfo.badge === nextBadge) {
+    for (const [badgeName, minScore] of Object.entries(BADGE_SCORE_MAPPINGS)) {
+      if (badgeName === nextBadge) {
         return {
-          nextBadgePoint: badgeInfo.minScore,
-          badgeGap: badgeInfo.minScore - BADGE_INFO[i - 1].minScore,
+          nextBadgePoint: minScore,
+          badgeGap: 20,
         };
       }
     }
   };
-  const { nextBadgePoint } = getBadgePoint() || {};
+
+  const nextBadgePoint = getBadgePoint();
 
   const nextAvatar = {
     10: "병아리",

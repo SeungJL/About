@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Skeleton from "../../../components/atoms/skeleton/Skeleton";
-import { Location } from "../../../types/system";
+import { Location } from "../../../types2/serviceTypes/locationTypes";
 function MemberOverviewSkeleton() {
   const router = useRouter();
   const location = router.query.location;

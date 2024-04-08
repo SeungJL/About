@@ -29,8 +29,8 @@ import Slide from "../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
-import { Location } from "../../../types/system";
 import { IGatherMemberCnt, IGatherWriting } from "../../../types2/page/gather";
+import { Location } from "../../../types2/serviceTypes/locationTypes";
 import { randomPassword } from "../../../utils/validationUtils";
 
 type ButtonType = "gender" | "age" | "pre" | "location" | "manager";

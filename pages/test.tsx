@@ -13,10 +13,10 @@ import { useImageUploadMutation } from "../hooks/image/mutations";
 import { studyDateStatusState } from "../recoils/studyRecoils";
 function Test() {
   const { data } = useAdminStudyRecordQuery(
-    dayjs("2024-03-25"),
-    dayjs("2024-03-31"),
+    dayjs("2024-04-01"),
+    dayjs("2024-04-07"),
     null,
-    "강남"
+    "인천"
   );
   console.log(data);
 
@@ -29,7 +29,7 @@ function Test() {
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
     null,
-    "양천"
+    "수원"
   );
   // const decodeByAES256 = (encodedTel: string) => {
   //   const bytes = CryptoJS.AES.decrypt(encodedTel, key);

@@ -21,12 +21,6 @@ import { UserBadge, UserRole } from "../../types2/userTypes/userInfoTypes";
 export const getUserBadge = (score: number, uid: string): UserBadge => {
   let badge: UserBadge = "아메리카노";
 
-  // for (const [badgeName, badgeArray] of Object.entries(EVENT_BADGE_USER_LIST)) {
-  //   if (badgeArray.includes(uid)) {
-  //     return { badge: badgeName as UserBadge };
-  //   }
-  // }
-
   if (MANAGER_BADGE.includes(uid)) return "바닐라";
   if (EVENT_BADGE_라벤더.includes(uid)) return "라벤더";
   else if (EVENT_BADGE_딸기스무디.includes(uid)) return "딸기스무디";
@@ -40,24 +34,9 @@ export const getUserBadge = (score: number, uid: string): UserBadge => {
   }
 
   return badge;
-
-  //   for (let i = 0; i < USER_SCORE_BADGE_ARR.length; i++) {
-  //     let item = BADGE_INFO[i];
-  //     if (score < item.minScore) {
-  //       badge = badge ?? BADGE_INFO[i - 1]?.badge;
-  //       nextBadge = item.badge;
-  //       break;
-  //     }
-  //     if (i === BADGE_INFO.length - 1) {
-  //       badge = badge ?? item.badge;
-  //       nextBadge = null;
-  //     }
-  //   }
-
-  //   return { badge };
 };
 
-export const getNextBadge = (currentBadge: UserBadge): string | null => {
+export const getNextBadge = (currentBadge: UserBadge): UserBadge => {
   const idx = USER_SCORE_BADGE_ARR.indexOf(
     currentBadge as typeof USER_SCORE_BADGE_ARR[number]
   );

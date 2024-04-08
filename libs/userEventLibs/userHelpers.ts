@@ -1,8 +1,3 @@
-import {
-  EVENT_BADGE_딸기스무디,
-  EVENT_BADGE_라벤더,
-  EVENT_BADGE_민트초코,
-} from "../../constants/storage/eventBadgeUser";
 import { ISortedUserAttends, IUserRankings } from "../../types2/page/ranking";
 import { IScore } from "../../types2/pointSystem";
 import { IVoteRate } from "../../types2/study/study";
@@ -24,28 +19,33 @@ interface IUserBadge {
   nextBadge: UserBadge;
 }
 
-export const getUserBadge = (score: number, uid: string): IUserBadge => {
-  let badge: UserBadge;
-  let nextBadge: UserBadge;
-  if (EVENT_BADGE_딸기스무디.includes(uid)) badge = "딸기스무디";
-  if (EVENT_BADGE_라벤더.includes(uid)) badge = "라벤더";
-  if (EVENT_BADGE_민트초코.includes(uid)) badge = "민트초코";
+// export const getUserBadge = (score: number, uid: string): IUserBadge => {
+//   let badge: UserBadge;
+//   let nextBadge: UserBadge;
+//   if (EVENT_BADGE_딸기스무디.includes(uid)) badge = "딸기스무디";
+//   if (EVENT_BADGE_라벤더.includes(uid)) badge = "라벤더";
+//   if (EVENT_BADGE_민트초코.includes(uid)) badge = "민트초코";
 
-  for (let i = 0; i < BADGE_INFO.length; i++) {
-    let item = BADGE_INFO[i];
-    if (score < item.minScore) {
-      badge = badge ?? BADGE_INFO[i - 1]?.badge;
-      nextBadge = item.badge;
-      break;
-    }
-    if (i === BADGE_INFO.length - 1) {
-      badge = badge ?? item.badge;
-      nextBadge = null;
-    }
-  }
+//   const BADGE_INFO = Object.entries(BADGE_SCORE_MAPPINGS).map((item) => ({
+//     minScore: item[1],
+//     badge: item[0] as UserBadge,
+//   }));
 
-  return { badge, nextBadge };
-};
+//   for (let i = 0; i < BADGE_INFO.length; i++) {
+//     let item = BADGE_INFO[i];
+//     if (score < item.minScore) {
+//       badge = badge ?? BADGE_INFO[i - 1]?.badge;
+//       nextBadge = item.badge;
+//       break;
+//     }
+//     if (i === BADGE_INFO.length - 1) {
+//       badge = badge ?? item.badge;
+//       nextBadge = null;
+//     }
+//   }
+
+//   return { badge, nextBadge };
+// };
 
 export const myScoreRank = (scoreArr: IScore[], myScore: number) => {
   let highCnt = 0;

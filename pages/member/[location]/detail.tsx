@@ -7,15 +7,15 @@ import { SECTION_NAME } from ".";
 import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
+import { BADGE_COLOR_MAPPINGS } from "../../../constants/serviceConstants/badgeConstants";
 
-import { BADGE_COLOR } from "../../../constants/settingValue/badge";
-import { getUserBadge } from "../../../libs/userEventLibs/userHelpers";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import {
   transferMemberDataState,
   transferUserSummaryState,
 } from "../../../recoils/transferRecoils";
 import { IUser, IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import { getUserBadge } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function MemberDetail() {
@@ -43,7 +43,7 @@ function MemberDetail() {
       <Slide>
         <Container>
           {memberData?.members.map((who) => {
-            const { badge } = getUserBadge(who.score, who.uid);
+            const badge = getUserBadge(who.score, who.uid);
             const rest = section === "resting" && who?.rest;
             return (
               <Item key={who.uid} onClick={() => onClickUser(who)}>
@@ -55,7 +55,7 @@ function MemberDetail() {
                     <span>{who.name}</span>
                     <Badge
                       fontSize={10}
-                      colorScheme={BADGE_COLOR[badge]}
+                      colorScheme={BADGE_COLOR_MAPPINGS[badge]}
                       ml="var(--gap-2)"
                     >
                       {badge}

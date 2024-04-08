@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Location } from "../../../types/system";
+import { Location } from "../../../types2/serviceTypes/locationTypes";
 
 interface ILocationBlockProfileEdit {
   location: Location;

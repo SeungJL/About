@@ -8,8 +8,7 @@ import clientPromise from "../../../libs/backend/mongodb";
 import { refreshAccessToken } from "../../../libs/backend/oauthUtils";
 import { Account } from "../../../models/account";
 import { User } from "../../../models/user";
-import { ActiveLocation } from "../../../types/serviceTypes/locationTypes";
-import { Role } from "../../../types2/userTypes/userInfoTypes";
+import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -30,7 +29,7 @@ export const authOptions: NextAuthOptions = {
           id: "0",
           uid: "0",
           name: "guest",
-          role: "guest" as Role,
+          role: "guest",
           profileImage: "",
           isActive: true,
         };
@@ -157,7 +156,7 @@ export const authOptions: NextAuthOptions = {
           profileImage: user.profileImage,
           role: user.role,
           isActive: user.isActive,
-          location: user.location as ActiveLocation,
+          location: user.location as unknown as ActiveLocation,
         };
         return newToken;
       }

@@ -20,7 +20,7 @@ export const transferShowDailyCheckState = atom<boolean>({
   default: true,
 });
 
-export const transferUserSummaryState = atom<IUserSummary>({
+export const transferUserSummaryState = atom<IUserSummary | IUser>({
   key: "TransferUserSummary",
   default: null,
 });

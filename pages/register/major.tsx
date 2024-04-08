@@ -15,8 +15,6 @@ import {
   setLocalStorageObj,
 } from "../../utils/storageUtils";
 
-import { IMajor } from "../../types2/userTypes/userInfoTypes";
-
 function Major() {
   const router = useRouter();
   const toast = useToast();
@@ -25,7 +23,9 @@ function Major() {
 
   const info = getLocalStorageObj(REGISTER_INFO);
 
-  const [majors, setmajors] = useState<IMajor[]>(info?.majors || []);
+  const [majors, setmajors] = useState<
+    { department: string; detail: string }[]
+  >(info?.majors || []);
 
   const onClickNext = (e) => {
     if (!majors.length) {

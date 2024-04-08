@@ -14,6 +14,7 @@ import DetailInfo from "../../pageTemplates/profile/DetailInfo";
 import ProfileOverview from "../../pageTemplates/profile/ProfileOverview";
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
+import { IUser } from "../../types2/userTypes/userInfoTypes";
 import { DeclareRequest } from "../../types2/userTypes/userRequestTypes";
 
 function ProfilePage() {
@@ -44,9 +45,9 @@ function ProfilePage() {
       <Slide>
         <Container>
           <Layout>
-            <ProfileOverview user={userData || userInfo} />
+            <ProfileOverview user={(userData as IUser) || userInfo} />
             <HrDiv />
-            <DetailInfo user={userData || userInfo} />
+            <DetailInfo user={(userData as IUser) || userInfo} />
           </Layout>
         </Container>
       </Slide>
@@ -56,7 +57,7 @@ function ProfilePage() {
         setDeclareModal={setDeclareModal}
       />
       <DeclareDrawer
-        userData={userData || userInfo}
+        userData={(userData as IUser) || userInfo}
         declareModal={declareModal}
         setDeclareModal={setDeclareModal}
       />

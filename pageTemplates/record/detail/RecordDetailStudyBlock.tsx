@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import styled from "styled-components";
 import { LOCATION_TABLE_COLOR } from "../../../constants/location";
 import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
-import { Location } from "../../../types/system";
+import { Location } from "../../../types2/serviceTypes/locationTypes";
 import { ISortedLocationStudies } from "./RecordDetail";
 
 interface IRecordDetailStudyBlock {

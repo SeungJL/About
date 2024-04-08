@@ -1,6 +1,9 @@
 import { Badge } from "@chakra-ui/react";
 import styled from "styled-components";
-import { BADGE_COLOR, BADGE_INFO } from "../../../constants/settingValue/badge";
+import {
+  BADGE_COLOR_MAPPINGS,
+  BADGE_INFO,
+} from "../../../constants/serviceConstants/badgeConstants";
 
 function BadgeInfoModalFirstInfo() {
   return (
@@ -9,7 +12,7 @@ function BadgeInfoModalFirstInfo() {
         return (
           <Item key={idx}>
             <div>
-              <Badge fontSize={12} colorScheme={BADGE_COLOR[badge]}>
+              <Badge fontSize={12} colorScheme={BADGE_COLOR_MAPPINGS[badge]}>
                 {badge}
               </Badge>
             </div>

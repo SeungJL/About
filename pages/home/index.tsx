@@ -16,7 +16,8 @@ import HomeReviewSection from "../../pageTemplates/home/HomeReviewSection";
 import HomeStudySection from "../../pageTemplates/home/HomeStudySection";
 import HomeWinRecordSection from "../../pageTemplates/home/HomeWinRecordSection";
 import StudyController from "../../pageTemplates/home/studyController/StudyController";
-import { LocationEn } from "../../types/serviceTypes/locationTypes";
+
+import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { getUrlWithLocationAndDate } from "../../utils/convertUtils/convertTypes";
 
 function Home() {

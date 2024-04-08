@@ -5,7 +5,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-
 import ScreenOverlay from "../components/atoms/ScreenOverlay";
 import VoteMap from "../components/organisms/VoteMap";
 import VoteMapController from "../components/organisms/VoteMapController";

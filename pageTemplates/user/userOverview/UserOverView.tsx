@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
 import Avatar from "../../../components/atoms/Avatar";
+import UserBadge from "../../../components/atoms/badges/UserBadge";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestChangeProfileImageModal from "../../../modals/userRequest/RequestChangeProfileImageModal/RequestChangeProfileImageModal";
-import UserOverviewBadge from "./UserOverviewBadge";
 import UserOverviewComment from "./UserOverviewComment";
 
 export default function UserOverview() {
@@ -27,7 +27,7 @@ export default function UserOverview() {
           <UserInfo>
             <UserProfile>
               <UserName>{userInfo?.name}</UserName>
-              <UserOverviewBadge />
+              <UserBadge uid={userInfo?.uid} score={userInfo?.score} />
             </UserProfile>
             <UserOverviewComment />
           </UserInfo>

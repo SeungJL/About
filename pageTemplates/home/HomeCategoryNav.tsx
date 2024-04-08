@@ -13,8 +13,9 @@ import {
 } from "../../components/atoms/Icons/CategoryIcons";
 
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import { isGatherAlertState } from "../../recoil/alertAtoms";
+
 import { slideDirectionState } from "../../recoils/navigationRecoils";
+import { isGatherAlertState } from "../../recoils/renderRecoils";
 import { LocationEn } from "../../types2/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 type HomeCategory =

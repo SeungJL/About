@@ -10,10 +10,7 @@ import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { setLocalStorageObj } from "../../utils/storageUtils";
 
-import {
-  Gender,
-  IUserRegisterFormWriting,
-} from "../../types2/userTypes/userInfoTypes";
+import { IUserRegisterFormWriting } from "../../types2/userTypes/userInfoTypes";
 
 function Gender() {
   const router = useRouter();
@@ -25,7 +22,7 @@ function Gender() {
   const isProfileEdit = !!searchParams.get("edit");
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [gender, setGender] = useState<Gender>(info?.gender);
+  const [gender, setGender] = useState(info?.gender);
 
   const onClickNext = (e) => {
     if (!gender) {

@@ -51,3 +51,10 @@ export const BADGE_COLOR_MAPPINGS: {
   딸기스무디: "badgePink",
   민트초코: "badgeMint",
 };
+
+export const BADGE_INFO = Object.entries(BADGE_SCORE_MAPPINGS).map(
+  ([badge, minScore]) => ({
+    badge,
+    minScore,
+  })
+);

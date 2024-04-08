@@ -31,7 +31,8 @@ function PromotionAllCoolTimeModal({
     (item) =>
       dayjs(item.lastDate) > dayjs(PROMOTION_WIN_DATE) &&
       item.uid !== "2259633694" &&
-      item.uid !== "2636066822"
+      item.uid !== "2636066822" &&
+      item.uid !== "3224546232"
   ).length;
 
   const footerOptions: IFooterOptions = {

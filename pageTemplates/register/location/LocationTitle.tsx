@@ -5,7 +5,7 @@ import {
   LOCATION_NOT_OPEN,
   LOCATION_RECRUITING,
 } from "../../../constants/location";
-import { Location } from "../../../types/system";
+import { Location } from "../../../types2/serviceTypes/locationTypes";
 
 function LocationTitle({ location }: { location: Location }) {
   return (
