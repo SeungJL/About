@@ -780,11 +780,65 @@ export const WIN_RECORD: {
     detail: "스토어 당첨 선물",
     present: "올리브영 10000원",
   },
+  {
+    name: "전준",
+    date: "4/8",
+    detail: "스토어 당첨",
+    present: "CU 3000원",
+  },
+  {
+    name: "권수",
+    date: "4/8",
+    detail: "스토어 당첨",
+    present: "CU 3000원",
+  },
+  {
+    name: "김재",
+    date: "4/8",
+    detail: "스토어 당첨",
+    present: "베라 싱글",
+  },
+  {
+    name: "최영",
+    date: "4/8",
+    detail: "스토어 당첨",
+    present: "베라 싱글",
+  },
+  {
+    name: "권혜",
+    date: "4/8",
+    detail: "스토어 당첨",
+    present: "올영 10000원",
+  },
+  {
+    name: "김규",
+    date: "4/8",
+    detail: "스토어 당첨",
+    present: "올영 10000원",
+  },
+  {
+    name: "최영",
+    date: "4/8",
+    detail: "스토어 당첨",
+    present: "베라 싱글",
+  },
+  {
+    name: "이효",
+    date: "4/8",
+    detail: "홍보 이벤트 당첨",
+    present: "황금올리브 치킨 세트",
+  },
 ];
 
 export const PROMOTION_WIN = [
   {
-    month: 1,
+    month: 4,
+    gift: "황금 올리브 치킨 세트",
+    winner: [{ name: "이효", location: "수원" }],
+    rate: "16%",
+  },
+  {
+    month: 2,
     gift: "황금 올리브 치킨 세트",
     winner: [
       { name: "이승", location: "수원" },
@@ -793,20 +847,11 @@ export const PROMOTION_WIN = [
     rate: "25%",
   },
   {
-    month: 11,
+    month: 12,
     gift: "황금 올리브 치킨 세트",
     winner: [
       { name: "임성", location: "수원" },
       { name: "연", location: "수원" },
-    ],
-  },
-  {
-    month: 10,
-    gift: "황금 올리브 치킨 세트",
-    winner: [
-      { name: "김소", location: "양천" },
-      { name: "이승", location: "수원" },
-      { name: "송재", location: "양천" },
     ],
   },
 ];
