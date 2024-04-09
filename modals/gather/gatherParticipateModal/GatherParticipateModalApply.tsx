@@ -6,7 +6,7 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useGatherQuery } from "../../../hooks/gather/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
-import { DispatchNumber } from "../../../types/components/modalTypes";
+import { DispatchNumber } from "../../../types/hooks/reactTypes";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 import { birthToAge } from "../../../utils/convertUtils/convertTypes";
 import { ModalBodyNavTwo } from "../../Modals";

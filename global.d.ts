@@ -1,4 +1,3 @@
-import "@fortawesome/react-fontawesome";
 import { Mongoose } from "mongoose";
 
 export declare global {
@@ -9,4 +8,3 @@ export declare global {
 
   var _mongoClientPromise: Promise<MongoClient>;
 }
-

@@ -17,7 +17,7 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
-import { DispatchType } from "../../../types/components/modalTypes";
+import { DispatchType } from "../../../types/hooks/reactTypes";
 
 import { IStudyVote } from "../../../types/models/studyTypes/studyInterActions";
 import { LocationEn } from "../../../types/services/locationTypes";

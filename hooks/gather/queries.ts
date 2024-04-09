@@ -4,7 +4,7 @@ import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
 
-import { QueryOptions } from "../../types/components/modalTypes";
+import { QueryOptions } from "../../types/hooks/reactTypes";
 import { IGather } from "../../types/models/gatherTypes/gatherTypes";
 
 export const useGatherQuery = (options?: QueryOptions<IGather[]>) =>

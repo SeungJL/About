@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import { getMonth } from "../../utils/dateTimeUtils";
 
-import { DispatchType } from "../../types/components/modalTypes";
+import { DispatchType } from "../../types/hooks/reactTypes";
 import { RankingCategory } from "../../types/models/ranking";
 
 interface IRankingCategoryBar {

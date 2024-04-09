@@ -24,7 +24,7 @@ import {
 import StudyPresetModal from "../modals/userRequest/StudyPresetModal";
 import { myStudyState, studyDateStatusState } from "../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../storage/study";
-import { IMapOptions, IMarkerOptions } from "../types/lib/naverMapTypes";
+import { IMapOptions, IMarkerOptions } from "../types/externals/naverMapTypes";
 import {
   IParticipation,
   IPlace,

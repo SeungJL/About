@@ -12,7 +12,7 @@ import {
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
-import { QueryOptions } from "../../types/components/modalTypes";
+import { QueryOptions } from "../../types/hooks/reactTypes";
 
 import {
   IParticipation,

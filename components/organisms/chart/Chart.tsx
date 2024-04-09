@@ -10,6 +10,7 @@ import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/qu
 
 import { IVoteRate } from "../../../types/models/studyTypes/studyRecords";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
+
 import { getMonth } from "../../../utils/dateTimeUtils";
 import { ChartStudyOptions } from "./ChartOptions";
 

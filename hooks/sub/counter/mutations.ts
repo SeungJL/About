@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../../libs/methodHelpers";
-import { MutationOptions } from "../../../types/components/modalTypes";
+import { MutationOptions } from "../../../types/hooks/reactTypes";
 import { ICounter } from "../../../types/models/admin";
 import { Location } from "../../../types/services/locationTypes";
 

@@ -6,7 +6,8 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useUserRegisterControlMutation } from "../../../hooks/user/mutations";
-import { IModal, IRefetch } from "../../../types/components/modalTypes";
+import { IModal } from "../../../types/components/modalTypes";
+import { IRefetch } from "../../../types/hooks/reactTypes";
 import { IUserRegisterForm } from "../../../types/models/userTypes/userInfoTypes";
 import AlertDialog from "../../AlertDialog";
 import { IFooterOptions, ModalLayout } from "../../Modals";
