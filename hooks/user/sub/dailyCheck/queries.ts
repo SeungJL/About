@@ -1,8 +1,14 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { SERVER_URI } from "../../../../constants/system";
-import { IDailyCheck } from "../../../../types/components/modal/attendCheck";
+
 import { QueryOptions } from "../../../../types/hooks/reactTypes";
+import { ITimeStamps } from "../../../../types/utils/timeAndDate";
+
+export interface IDailyCheck extends ITimeStamps {
+  uid: string;
+  name: string;
+}
 
 export const useDailyCheckQuery = (options?: QueryOptions<IDailyCheck[]>) =>
   useQuery<IDailyCheck[], AxiosError, IDailyCheck[]>(
