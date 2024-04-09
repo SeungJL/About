@@ -823,7 +823,7 @@ export const WIN_RECORD: {
     present: "베라 싱글",
   },
   {
-    name: "이효",
+    name: "신효",
     date: "4/8",
     detail: "홍보 이벤트 당첨",
     present: "황금올리브 치킨 세트",
@@ -834,7 +834,7 @@ export const PROMOTION_WIN = [
   {
     month: 4,
     gift: "황금 올리브 치킨 세트",
-    winner: [{ name: "이효", location: "수원" }],
+    winner: [{ name: "신효", location: "수원" }],
     rate: "16%",
   },
   {
