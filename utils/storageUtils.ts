@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { LIKE_HEART } from "../constants/keys/localStorage";
 import { LIKE_HEART_PERIOD } from "../constants/settingValue/localStorage";
-import { IInteractionLikeStorage } from "../types2/interaction";
+import { IInteractionLikeStorage } from "../types/interaction";
 import { dayjsToStr } from "./dateTimeUtils";
 
 export const checkAndSetLocalStorage = (key: string, gap: number) => {

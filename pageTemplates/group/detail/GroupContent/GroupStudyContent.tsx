@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TabNav, {
   ITabNavOptions,
 } from "../../../../components/molecules/navs/TabNav";
-import { IGroup } from "../../../../types2/page/group";
+import { IGroup } from "../../../../types/page/group";
 import ContentAttend from "./ContentAttendance";
 import ContentChat from "./ContentChat";
 import ContentGather from "./ContentGather";

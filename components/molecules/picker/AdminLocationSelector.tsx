@@ -2,8 +2,8 @@ import { SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 import { LOCATION_ALL, RegisterLocation } from "../../../constants/location";
 
-import { IUserRegisterForm } from "../../../types2/userTypes/userInfoTypes";
-import { IUserRequest } from "../../../types2/userTypes/userRequestTypes";
+import { IUserRegisterForm } from "../../../types/userTypes/userInfoTypes";
+import { IUserRequest } from "../../../types/userTypes/userRequestTypes";
 
 import ButtonCheckNav from "../ButtonCheckNav";
 

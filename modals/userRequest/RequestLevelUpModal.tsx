@@ -6,7 +6,7 @@ import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types2/reactTypes";
+import { IModal } from "../../types/reactTypes";
 
 function RequestLevelUpModal({ setIsModal }: IModal) {
   const { data: session } = useSession();

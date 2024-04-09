@@ -1,4 +1,4 @@
-import { IattendCheckPresent } from "../../types2/modal/attendCheck";
+import { IattendCheckPresent } from "../../types/modal/attendCheck";
 
 export const DAILY_CHECK_WIN_ITEM: IattendCheckPresent[] = [
   { item: "10 Point", percent: 3 },

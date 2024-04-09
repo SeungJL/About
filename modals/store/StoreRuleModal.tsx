@@ -1,4 +1,4 @@
-import { IModal } from "../../types2/reactTypes";
+import { IModal } from "../../types/reactTypes";
 import RuleModal, { IRuleModalContent } from "../RuleModal";
 
 function StoreRuleModal({ setIsModal }: IModal) {

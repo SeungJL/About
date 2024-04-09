@@ -17,7 +17,7 @@ import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGatherType } from "../../../types2/page/gather";
+import { IGatherType } from "../../../types/page/gather";
 
 function WritingGatherCategory() {
   const router = useRouter();

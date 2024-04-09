@@ -9,7 +9,7 @@ import { usePlazaQuery } from "../../hooks/sub/plaza/queries";
 import Category from "../../pageTemplates/plaza/main/Category";
 import PlazaBlock from "../../pageTemplates/plaza/main/PlazaBlock";
 import { PlazaLayout } from "../../pageTemplates/plaza/main/plazaStyles";
-import { category } from "../../types2/page/plaza";
+import { category } from "../../types/page/plaza";
 
 function Plaza() {
   const { data } = usePlazaQuery({

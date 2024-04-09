@@ -5,7 +5,7 @@ import UserTimeBoard, {
 import {
   IAttendance,
   StudyStatus,
-} from "../../types2/studyTypes/studyVoteTypes";
+} from "../../types/studyTypes/studyVoteTypes";
 
 interface IStudyTimeBoard {
   participants: IAttendance[];

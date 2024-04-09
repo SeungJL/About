@@ -8,7 +8,7 @@ import clientPromise from "../../../libs/backend/mongodb";
 import { refreshAccessToken } from "../../../libs/backend/oauthUtils";
 import { Account } from "../../../models/account";
 import { User } from "../../../models/user";
-import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
+import { ActiveLocation } from "../../../types/serviceTypes/locationTypes";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

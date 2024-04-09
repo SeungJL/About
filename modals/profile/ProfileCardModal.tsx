@@ -8,7 +8,7 @@ import {
 import { birthToAge } from "../../utils/convertUtils/convertTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
-import { IModal } from "../../types2/reactTypes";
+import { IModal } from "../../types/reactTypes";
 
 function ProfileCardModal({ setIsModal }: IModal) {
   const router = useRouter();

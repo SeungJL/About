@@ -3,8 +3,8 @@ import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { requestServer } from "../../libs/methodHelpers";
-import { IPointSystem } from "../../types2/pointSystem";
-import { MutationOptions } from "../../types2/reactTypes";
+import { IPointSystem } from "../../types/pointSystem";
+import { MutationOptions } from "../../types/reactTypes";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>

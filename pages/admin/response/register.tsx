@@ -8,7 +8,7 @@ import AdminLocationSelector from "../../../components/molecules/picker/AdminLoc
 
 import { useUserRegisterFormsQuery } from "../../../hooks/admin/quries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
-import { IUserRegisterForm } from "../../../types2/userTypes/userInfoTypes";
+import { IUserRegisterForm } from "../../../types/userTypes/userInfoTypes";
 
 function AdminRegister() {
   const [isModal, setIsModal] = useState(false);

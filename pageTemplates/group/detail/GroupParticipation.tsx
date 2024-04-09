@@ -8,8 +8,8 @@ import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { useToast } from "../../../hooks/custom/CustomToast";
 
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
-import { IGroup } from "../../../types2/page/group";
-import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import { IGroup } from "../../../types/page/group";
+import { IUserSummary } from "../../../types/userTypes/userInfoTypes";
 
 interface IGroupParticipation {
   data: IGroup;

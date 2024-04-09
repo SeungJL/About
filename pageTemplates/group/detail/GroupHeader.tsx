@@ -22,7 +22,7 @@ import { isGroupEditState } from "../../../recoils/checkAtoms";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGroup } from "../../../types2/page/group";
+import { IGroup } from "../../../types/page/group";
 import BottomDrawer from "../../profile/BottomDrawer";
 
 interface IGroupHeader {

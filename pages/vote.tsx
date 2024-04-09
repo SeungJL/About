@@ -24,14 +24,14 @@ import {
 import StudyPresetModal from "../modals/userRequest/StudyPresetModal";
 import { myStudyState, studyDateStatusState } from "../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../storage/study";
-import { IMapOptions, IMarkerOptions } from "../types2/lib/naverMapTypes";
-import { ActiveLocation } from "../types2/serviceTypes/locationTypes";
+import { IMapOptions, IMarkerOptions } from "../types/lib/naverMapTypes";
+import { ActiveLocation } from "../types/serviceTypes/locationTypes";
 import {
   IParticipation,
   IPlace,
   IStudyPlaces,
   IStudyVote,
-} from "../types2/studyTypes/studyVoteTypes";
+} from "../types/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../utils/convertUtils/convertDatas";
 
 export type ChoiceRank = "first" | "second" | "third";

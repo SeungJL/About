@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { LocationFilterType } from "../../types2/serviceTypes/locationTypes";
+import { LocationFilterType } from "../../types/serviceTypes/locationTypes";
 import { ITime } from "../timeAndDate";
 import { IUserSummary } from "../userTypes/userInfoTypes";
 

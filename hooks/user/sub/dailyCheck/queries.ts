@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { SERVER_URI } from "../../../../constants/system";
-import { IDailyCheck } from "../../../../types2/modal/attendCheck";
-import { QueryOptions } from "../../../../types2/reactTypes";
+import { IDailyCheck } from "../../../../types/modal/attendCheck";
+import { QueryOptions } from "../../../../types/reactTypes";
 
 export const useDailyCheckQuery = (options?: QueryOptions<IDailyCheck[]>) =>
   useQuery<IDailyCheck[], AxiosError, IDailyCheck[]>(

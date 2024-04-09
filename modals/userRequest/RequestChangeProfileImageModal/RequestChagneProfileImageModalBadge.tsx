@@ -9,7 +9,7 @@ import {
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 
-import { EventBadge } from "../../../types2/userTypes/userInfoTypes";
+import { EventBadge } from "../../../types/userTypes/userInfoTypes";
 
 function RequestChagneProfileImageModalBadge({ setIsModal }) {
   const { data: session } = useSession();

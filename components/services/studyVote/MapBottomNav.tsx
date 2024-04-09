@@ -17,9 +17,9 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
-import { DispatchType } from "../../../types2/reactTypes";
-import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
-import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
+import { DispatchType } from "../../../types/reactTypes";
+import { LocationEn } from "../../../types/serviceTypes/locationTypes";
+import { IStudyVote } from "../../../types/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 import AlertModal, { IAlertModalOptions } from "../../AlertModal";

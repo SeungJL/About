@@ -12,8 +12,8 @@ import {
 
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
-import { DispatchBoolean, IModal } from "../../../types2/reactTypes";
-import { IUserRequest } from "../../../types2/userTypes/userRequestTypes";
+import { DispatchBoolean, IModal } from "../../../types/reactTypes";
+import { IUserRequest } from "../../../types/userTypes/userRequestTypes";
 
 interface IRegularGatherModal extends IModal {
   setIsRabbitRun: DispatchBoolean;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IAvatar } from "../../../types2/userTypes/userInfoTypes";
+import { IAvatar } from "../../../types/userTypes/userInfoTypes";
 import Avatar from "../../atoms/Avatar";
 type Size = "sm";
 

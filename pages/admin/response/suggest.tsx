@@ -6,7 +6,7 @@ import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
 import Header from "../../../components/layouts/Header";
 import AdminLocationSelector from "../../../components/molecules/picker/AdminLocationSelector";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
-import { IUserRequest } from "../../../types2/userTypes/userRequestTypes";
+import { IUserRequest } from "../../../types/userTypes/userRequestTypes";
 
 function AdminSuggest() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();

@@ -7,8 +7,8 @@ import {
   LOCATION_TABLE_COLOR,
 } from "../../constants/location";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { Location } from "../../types2/serviceTypes/locationTypes";
-import { IArrivedData } from "../../types2/study/study";
+import { Location } from "../../types/serviceTypes/locationTypes";
+import { IArrivedData } from "../../types/study/study";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 interface IRecordCalendar {

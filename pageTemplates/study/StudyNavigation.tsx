@@ -25,12 +25,12 @@ import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../hooks/user/queries";
 import { myStudyState, studyDateStatusState } from "../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { IPointLog } from "../../types2/pointSystem";
-import { StudyDateStatus } from "../../types2/studyTypes/studySubTypes";
+import { IPointLog } from "../../types/pointSystem";
+import { StudyDateStatus } from "../../types/studyTypes/studySubTypes";
 import {
   IParticipation,
   StudyStatus,
-} from "../../types2/studyTypes/studyVoteTypes";
+} from "../../types/studyTypes/studyVoteTypes";
 import StudyNavModal from "./studyNavModal";
 
 interface IStudyNavigation {

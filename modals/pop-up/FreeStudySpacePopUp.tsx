@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types2/reactTypes";
+import { IModal } from "../../types/reactTypes";
 import ModalPortal from "../ModalPortal";
 import { IFooterOptions, ModalLayout } from "../Modals";
 import RequestSuggestModal from "../userRequest/RequestSuggestModal";

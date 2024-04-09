@@ -1,5 +1,5 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { IAvatar, IRest, IUser } from "../types2/userTypes/userInfoTypes";
+import { IAvatar, IRest, IUser } from "../types/userTypes/userInfoTypes";
 
 export const restSchema: Schema<IRest> = new Schema({
   type: Schema.Types.String,

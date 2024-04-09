@@ -11,8 +11,8 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
 
-import { GatherStatus } from "../../../types2/page/gather";
-import { IGroup } from "../../../types2/page/group";
+import { GatherStatus } from "../../../types/page/gather";
+import { IGroup } from "../../../types/page/group";
 
 interface IGroupBottomNav {
   data: IGroup;

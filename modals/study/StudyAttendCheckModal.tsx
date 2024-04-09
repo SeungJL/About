@@ -29,8 +29,8 @@ import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types2/reactTypes";
-import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { IModal } from "../../types/reactTypes";
+import { LocationEn } from "../../types/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 const LOCATE_GAP = 0.00008;

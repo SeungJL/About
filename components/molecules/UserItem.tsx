@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
-import { IUser, IUserSummary } from "../../types2/userTypes/userInfoTypes";
+import { IUser, IUserSummary } from "../../types/userTypes/userInfoTypes";
 import Avatar from "../atoms/Avatar";
 
 interface IUserItem {

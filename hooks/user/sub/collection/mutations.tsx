@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { COLLECTION_ALPHABET } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
 import { requestServer } from "../../../../libs/methodHelpers";
-import { Alphabet } from "../../../../types2/collections";
-import { MutationOptions } from "../../../../types2/reactTypes";
+import { Alphabet } from "../../../../types/collections";
+import { MutationOptions } from "../../../../types/reactTypes";
 import { useResetQueryData } from "../../../custom/CustomHooks";
 
 type CollectionAlphabetParam<T> = T extends "get"

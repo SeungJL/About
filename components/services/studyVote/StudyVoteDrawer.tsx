@@ -16,12 +16,12 @@ import {
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
-import { IModal } from "../../../types2/reactTypes";
+import { IModal } from "../../../types/reactTypes";
 import {
   IStudyPlaces,
   IStudyTime,
   IStudyVote,
-} from "../../../types2/studyTypes/studyVoteTypes";
+} from "../../../types/studyTypes/studyVoteTypes";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 import BottomDrawerLg, {
   IBottomDrawerLgOptions,

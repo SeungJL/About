@@ -15,10 +15,10 @@ import MemberRecommend from "../../../pageTemplates/member/MemberRecommend";
 import MemberSectionList from "../../../pageTemplates/member/MemberSectionList";
 import MemberSectionTitle from "../../../pageTemplates/member/MemberSectionTitle";
 import { transferMemberDataState } from "../../../recoils/transferRecoils";
-// import { Location } from "../../../types2/serviceTypes/locationTypes";
-import { IGroupedMembers, MemberGroup } from "../../../types2/page/member";
-import { Location } from "../../../types2/serviceTypes/locationTypes";
-import { IUser } from "../../../types2/userTypes/userInfoTypes";
+// import { Location } from "../../../types/serviceTypes/locationTypes";
+import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
+import { Location } from "../../../types/serviceTypes/locationTypes";
+import { IUser } from "../../../types/userTypes/userInfoTypes";
 
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 

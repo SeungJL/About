@@ -14,8 +14,8 @@ import DetailInfo from "../../pageTemplates/profile/DetailInfo";
 import ProfileOverview from "../../pageTemplates/profile/ProfileOverview";
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
-import { IUser } from "../../types2/userTypes/userInfoTypes";
-import { DeclareRequest } from "../../types2/userTypes/userRequestTypes";
+import { IUser } from "../../types/userTypes/userInfoTypes";
+import { DeclareRequest } from "../../types/userTypes/userRequestTypes";
 
 function ProfilePage() {
   const router = useRouter();

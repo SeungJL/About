@@ -15,7 +15,7 @@ import { useGroupCommentMutation } from "../../../hooks/groupStudy/mutations";
 
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
-import { IGatherComment } from "../../../types2/page/gather";
+import { IGatherComment } from "../../../types/page/gather";
 // import GroupCommentEditModal from "../../../modals/group/GroupCommentEditModal";
 
 export interface IGroupCommentUnit {

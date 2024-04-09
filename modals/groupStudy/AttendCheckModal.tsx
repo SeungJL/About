@@ -11,7 +11,7 @@ import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useGroupAttendMutation } from "../../hooks/groupStudy/mutations";
 import { dayjsToFormat, getDateWeek } from "../../utils/dateTimeUtils";
 
-import { IModal } from "../../types2/reactTypes";
+import { IModal } from "../../types/reactTypes";
 
 interface IAttendCheckModal extends IModal {
   id: number;

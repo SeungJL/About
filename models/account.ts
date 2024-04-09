@@ -1,5 +1,5 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { IUser } from "../types2/userTypes/userInfoTypes";
+import { IUser } from "../types/userTypes/userInfoTypes";
 
 interface IAccount extends Document {
   provider: string;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ModalSubtitle } from "../styles/layout/modal";
-import { IContentBasic } from "../types2/common";
-import { IModal } from "../types2/reactTypes";
+import { IContentBasic } from "../types/common";
+import { IModal } from "../types/reactTypes";
 
 import { IFooterOptions, ModalLayout } from "./Modals";
 
