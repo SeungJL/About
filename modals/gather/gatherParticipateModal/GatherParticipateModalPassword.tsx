@@ -7,7 +7,7 @@ import styled from "styled-components";
 import TwoButtonNav from "../../../components/layouts/TwoButtonNav";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { useGatherQuery } from "../../../hooks/gather/queries";
-import { DispatchNumber } from "../../../types/components/modalTypes";
+import { DispatchNumber } from "../../../types/hooks/reactTypes";
 
 interface IGatherParticipateModalPassword {
   setPageNum: DispatchNumber;

@@ -1,6 +1,11 @@
-import { IattendCheckPresent } from "../../types/components/modal/attendCheck";
 
-export const DAILY_CHECK_WIN_ITEM: IattendCheckPresent[] = [
+export interface IAttendCheckPresent {
+  item: string;
+  percent: number;
+}
+
+
+export const DAILY_CHECK_WIN_ITEM: IAttendCheckPresent[] = [
   { item: "10 Point", percent: 3 },
   { item: "30 Point", percent: 1 },
   { item: "100 Point", percent: 0.2 },

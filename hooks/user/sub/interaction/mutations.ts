@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../../../libs/methodHelpers";
-import { MutationOptions } from "../../../../types/components/modalTypes";
 import { IInteractionSendLike } from "../../../../types/globals/interaction";
+import { MutationOptions } from "../../../../types/hooks/reactTypes";
 import { useErrorToast } from "../../../custom/CustomToast";
 
 interface IPostUserFriendRequest {

@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { IMapOptions, IMarkerOptions } from "../../types/lib/naverMapTypes";
+import {
+  IMapOptions,
+  IMarkerOptions,
+} from "../../types/externals/naverMapTypes";
 const NEXT_PUBLIC_NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 interface IVoteMap {
   mapOptions?: IMapOptions;

@@ -5,8 +5,8 @@ import {
   NOTICE_HEART_LOG,
 } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
-import { QueryOptions } from "../../../../types/components/modalTypes";
 import { INoticeActiveLog } from "../../../../types/globals/interaction";
+import { QueryOptions } from "../../../../types/hooks/reactTypes";
 
 export const useNoticeActiveLogQuery = (
   options?: QueryOptions<INoticeActiveLog[]>

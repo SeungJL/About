@@ -4,7 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
 import VoteMap from "../../components/organisms/VoteMap";
-import { IMapOptions, IMarkerOptions } from "../../types/lib/naverMapTypes";
+import {
+  IMapOptions,
+  IMarkerOptions,
+} from "../../types/externals/naverMapTypes";
 
 interface IStudyOverview {
   title: string;

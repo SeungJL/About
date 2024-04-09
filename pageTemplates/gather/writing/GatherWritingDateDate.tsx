@@ -9,7 +9,7 @@ import {
   PickerDateAndTimeHeader,
   PICKER_DATE_AND_TIME,
 } from "../../../components/molecules/picker/DatePickerOptions";
-import { DispatchType } from "../../../types/components/modalTypes";
+import { DispatchType } from "../../../types/hooks/reactTypes";
 import { IGatherWriting } from "../../../types/models/gatherTypes/gather";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 

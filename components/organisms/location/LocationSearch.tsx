@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
-import { DispatchType } from "../../../types/components/modalTypes";
+import { DispatchType } from "../../../types/hooks/reactTypes";
+
 import { IGatherLocation } from "../../../types/models/gatherTypes/gather";
 
 interface ISearchLocation {

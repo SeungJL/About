@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { requestServer } from "../../libs/methodHelpers";
 import { IGroup, IGroupWriting } from "../../types/models/groupTypes/group";
 
-import { MutationOptions } from "../../types/components/modalTypes";
+import { MutationOptions } from "../../types/hooks/reactTypes";
 
 type GroupWritingParam<T> = T extends "post"
   ? { groupStudy: IGroupWriting }

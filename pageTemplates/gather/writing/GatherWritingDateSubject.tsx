@@ -6,7 +6,7 @@ import Input from "../../../components/atoms/Input";
 import TimeSelectorUnit from "../../../components/atoms/TimeSelectorUnit";
 
 import { TIME_SELECTOR_UNIT } from "../../../constants/util/util";
-import { DispatchType } from "../../../types/components/modalTypes";
+import { DispatchType } from "../../../types/hooks/reactTypes";
 import {
   IGatherListItem,
   IGatherWriting,

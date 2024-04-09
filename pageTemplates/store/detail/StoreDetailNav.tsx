@@ -2,7 +2,7 @@ import { Box, Button, Collapse, useDisclosure } from "@chakra-ui/react";
 import { faX } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { DispatchBoolean } from "../../../types/components/modalTypes";
+import { DispatchBoolean } from "../../../types/hooks/reactTypes";
 import { IStoreApplicant } from "../../../types/models/store";
 
 interface IStoreDetailNav {

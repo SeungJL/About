@@ -7,7 +7,7 @@ import {
   USER_FINDPARTICIPATION,
 } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
-import { QueryOptions } from "../../../../types/components/modalTypes";
+import { QueryOptions } from "../../../../types/hooks/reactTypes";
 
 import { IVoteRate } from "../../../../types/models/studyTypes/studyRecords";
 import { ActiveLocation } from "../../../../types/services/locationTypes";

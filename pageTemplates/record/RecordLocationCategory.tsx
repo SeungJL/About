@@ -6,7 +6,7 @@ import {
   LOCATION_TABLE_COLOR,
 } from "../../constants/location";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { DispatchType } from "../../types/components/modalTypes";
+import { DispatchType } from "../../types/hooks/reactTypes";
 import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
 
 import {
