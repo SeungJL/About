@@ -12,20 +12,15 @@ import {
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
-import { QueryOptions } from "../../types/hooks/reactTypes";
-
-import { IArrivedData } from "../../types/models/study/study";
-import {
-  IPlace,
-  IStudyPreferencesQuery,
-  IStudyStartTime,
-} from "../../types/models/study/studyDetail";
+import { QueryOptions } from "../../types/components/modalTypes";
 
 import {
   IParticipation,
-  IStudyPlaces,
-  IVote,
-} from "../../types/models/studyTypes/studyVoteTypes";
+  IPlace,
+  IStudy,
+} from "../../types/models/studyTypes/studyDetails";
+import { IStudyVotePlaces } from "../../types/models/studyTypes/studyInterActions";
+import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
 import { Location } from "../../types/services/locationTypes";
 
 export const useStudyPlacesQuery = (
@@ -54,7 +49,7 @@ export const useStudyVoteQuery = (
   useQuery<IParticipation[], AxiosError, IParticipation[]>(
     [STUDY_VOTE, date, location],
     async () => {
-      const res = await axios.get<IVote>(`${SERVER_URI}/vote/${date}`, {
+      const res = await axios.get<IStudy>(`${SERVER_URI}/vote/${date}`, {
         params: { location },
       });
       return res.data.participations.filter(
@@ -71,7 +66,7 @@ interface IStudyStartTimeData {
 
 export const useStudyStartTimeQuery = (
   date: Dayjs,
-  options?: QueryOptions<IStudyStartTime[]>
+  options?: QueryOptions<any>
 ) =>
   useQuery(
     [STUDY_START_TIME, dayjsToStr(date)],
@@ -129,11 +124,13 @@ export const useStudyArrivedCntQuery = (
     options
   );
 
-export const useStudyPreferenceQuery = (options?: QueryOptions<IStudyPlaces>) =>
+export const useStudyPreferenceQuery = (
+  options?: QueryOptions<IStudyVotePlaces>
+) =>
   useQuery(
     [STUDY_PREFERENCE],
     async () => {
-      const res = await axios.get<IStudyPreferencesQuery>(
+      const res = await axios.get<{ studyPreference: IStudyVotePlaces }>(
         `${SERVER_URI}/user/preference`
       );
       return res.data?.studyPreference;

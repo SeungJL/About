@@ -12,7 +12,7 @@ import {
 
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
-import { DispatchBoolean, IModal } from "../../../types/hooks/reactTypes";
+import { DispatchBoolean, IModal } from "../../../types/components/modalTypes";
 import { IUserRequest } from "../../../types/models/userTypes/userRequestTypes";
 
 interface IRegularGatherModal extends IModal {

@@ -29,7 +29,7 @@ import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { LocationEn } from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { Alphabet } from "../../types/models/collections";
 import { IFooterOptions, ModalLayout } from "../Modals";
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import BlurredPart from "../../../../components/molecules/BlurredPart";
 
-import { IGroup } from "../../../../types/models/group";
+import { IGroup } from "../../../../types/models/groupTypes/group";
 import GroupDetailInfo from "../GroupDetail";
 
 interface IContentInfo {

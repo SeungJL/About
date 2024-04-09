@@ -19,8 +19,9 @@ import { IFooterOptions, ModalLayout } from "../Modals";
 
 import TimeSelector from "../../components/molecules/picker/TimeSelector";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { IModal } from "../../types/hooks/reactTypes";
-import { IPlace } from "../../types/models/study/studyDetail";
+import { IModal } from "../../types/components/modalTypes";
+
+import { IPlace } from "../../types/models/studyTypes/studyDetails";
 import { ITimeStartToEnd } from "../../types/utils/timeAndDate";
 
 interface IStudyFreeOpenModal extends IModal {

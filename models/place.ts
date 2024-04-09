@@ -1,5 +1,5 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { IPlace } from "../types/models/study/studyDetail";
+import { IPlace } from "../types/models/studyTypes/studyDetails";
 
 export const PlaceSchema: Schema<IPlace> = new Schema({
   status: {
@@ -25,7 +25,7 @@ export const PlaceSchema: Schema<IPlace> = new Schema({
     type: Number,
     required: true,
   },
-  priority: Number,
+
   location: {
     type: String,
     enum: ["수원", "양천"],

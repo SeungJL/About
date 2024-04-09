@@ -4,16 +4,14 @@ import styled from "styled-components";
 
 import { useStudyVoteQuery } from "../../hooks/study/queries";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { DispatchType } from "../../types/hooks/reactTypes";
-import {
-  IPlace,
-  IStudyPlaces,
-} from "../../types/models/studyTypes/studyVoteTypes";
+import { DispatchType } from "../../types/components/modalTypes";
+import { IPlace } from "../../types/models/studyTypes/studyDetails";
+import { IStudyVotePlaces } from "../../types/models/studyTypes/studyInterActions";
 import PlaceSelectorSub from "../molecules/picker/PlaceSelectorSub";
 
 interface IStudyVotePlacesPicker {
   onClick: () => void;
-  setVotePlaces: DispatchType<IStudyPlaces>;
+  setVotePlaces: DispatchType<IStudyVotePlaces>;
 }
 
 function StudyVotePlacesPicker({

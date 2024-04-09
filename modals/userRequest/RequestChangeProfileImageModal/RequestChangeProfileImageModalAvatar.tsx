@@ -20,7 +20,7 @@ import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 
-import { IModal } from "../../../types/hooks/reactTypes";
+import { IModal } from "../../../types/components/modalTypes";
 import { IAvatar } from "../../../types/models/userTypes/userInfoTypes";
 
 interface IRequestChangeProfileImageModalAvatar extends IModal {

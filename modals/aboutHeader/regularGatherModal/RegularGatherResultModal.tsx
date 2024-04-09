@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
-import { DispatchBoolean, IModal } from "../../../types/hooks/reactTypes";
+import { DispatchBoolean, IModal } from "../../../types/components/modalTypes";
 
 interface IRegularGatherResultModal extends IModal {
   setIsRabbitRun: DispatchBoolean;

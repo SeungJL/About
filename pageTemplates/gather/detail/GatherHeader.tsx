@@ -14,7 +14,7 @@ import { isGatherEditState } from "../../../recoils/checkAtoms";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGather } from "../../../types/models/gatherTypes";
+import { IGather } from "../../../types/models/gatherTypes/gatherTypes";
 
 interface IGatherHeader {
   gatherData: IGather;

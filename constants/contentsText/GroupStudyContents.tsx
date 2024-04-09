@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IRuleModalContent } from "../../modals/RuleModal";
 
 import { TABLE_COLORS } from "../../constants/styles";
-import { GroupCategory } from "../../types/models/group";
+import { GroupCategory } from "../../types/models/groupTypes/group";
 
 export const GROUP_STUDY_CATEGORY_ARR = [
   "전체",

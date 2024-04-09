@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { IPostThumbnailCard } from "../components/molecules/cards/PostThumbnailCard";
-import { StudyDateStatus } from "../types/models/studyTypes/studySubTypes";
-import { IParticipation } from "../types/models/studyTypes/studyVoteTypes";
+import { IParticipation } from "../types/models/studyTypes/studyDetails";
+import { StudyDateStatus } from "../types/models/studyTypes/studyInterActions";
 
 export const studyDateStatusState = atom<StudyDateStatus>({
   key: "StudyDateStatus",

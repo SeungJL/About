@@ -13,7 +13,7 @@ import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutatio
 import { useGroupQuery } from "../../../hooks/groupStudy/queries";
 import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
 import GroupAdminInvitation from "../../../pageTemplates/group/admin/GroupAdminInvitation";
-import { IGroup } from "../../../types/models/group";
+import { IGroup } from "../../../types/models/groupTypes/group";
 
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 

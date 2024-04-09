@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { IGiftEntry } from "../../pages/store";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { selectRandomWinners } from "../../utils/validationUtils";
 interface IStoreGiftWinModal extends IModal {
   applicants: IGiftEntry;

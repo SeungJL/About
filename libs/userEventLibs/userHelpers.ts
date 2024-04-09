@@ -1,5 +1,6 @@
 import { ISortedUserAttends, IUserRankings } from "../../types/models/ranking";
-import { IVoteRate } from "../../types/models/study/study";
+import { IVoteRate } from "../../types/models/studyTypes/studyRecords";
+
 import { IUser, UserBadge } from "../../types/models/userTypes/userInfoTypes";
 import { IScore } from "../../types/services/pointSystem";
 

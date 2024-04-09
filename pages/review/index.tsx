@@ -22,7 +22,10 @@ import ReviewGatherSummary from "../../pageTemplates/review/ReviewGatherSummary"
 import ReviewItemHeader from "../../pageTemplates/review/ReviewItemHeader";
 import ReviewStatus from "../../pageTemplates/review/ReviewStatus";
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
-import { IGatherLocation, IGatherType } from "../../types/models/gather";
+import {
+  IGatherLocation,
+  IGatherType,
+} from "../../types/models/gatherTypes/gather";
 import {
   ActiveLocation,
   ActiveLocationAll,

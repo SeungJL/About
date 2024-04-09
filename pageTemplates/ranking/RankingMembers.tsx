@@ -7,7 +7,8 @@ import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeCons
 
 import { RANKING_ANONYMOUS_USERS } from "../../constants/storage/anonymous";
 import { IRankingUser } from "../../types/models/ranking";
-import { IVoteRate } from "../../types/models/study/study";
+import { IVoteRate } from "../../types/models/studyTypes/studyRecords";
+
 import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 interface IRankingMembers {

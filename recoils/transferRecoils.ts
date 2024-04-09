@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { IDailyCheckWinList } from "../constants/serviceConstants/dailyCheckConstatns";
 import { IGiftEntry } from "../pages/store";
-import { IGroup } from "../types/models/group";
+import { IGroup } from "../types/models/groupTypes/group";
 import { MemberGroup } from "../types/models/member";
 import { IUser, IUserSummary } from "../types/models/userTypes/userInfoTypes";
 import { Alphabet } from "../types/services/alphabetTypes";

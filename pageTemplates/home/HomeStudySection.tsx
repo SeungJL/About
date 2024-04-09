@@ -24,11 +24,11 @@ import {
 } from "../../recoils/studyRecoils";
 
 import { ITextAndColorSchemes } from "../../types/components/propTypes";
-
 import {
   IParticipation,
   StudyStatus,
-} from "../../types/models/studyTypes/studyVoteTypes";
+} from "../../types/models/studyTypes/studyDetails";
+
 import { LocationEn } from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../utils/dateTimeUtils";

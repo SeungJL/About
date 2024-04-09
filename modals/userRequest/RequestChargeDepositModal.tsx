@@ -12,7 +12,7 @@ import {
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemQuery } from "../../hooks/user/queries";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IUserRequest } from "../../types/models/userTypes/userRequestTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 

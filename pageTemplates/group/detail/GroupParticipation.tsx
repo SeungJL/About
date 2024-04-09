@@ -8,7 +8,7 @@ import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { useToast } from "../../../hooks/custom/CustomToast";
 
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
-import { IGroup } from "../../../types/models/group";
+import { IGroup } from "../../../types/models/groupTypes/group";
 import { IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
 
 interface IGroupParticipation {

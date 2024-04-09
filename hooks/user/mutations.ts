@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { requestServer } from "../../libs/methodHelpers";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
-import { MutationOptions } from "../../types/hooks/reactTypes";
+import { MutationOptions } from "../../types/components/modalTypes";
 import {
   IAvatar,
   IUser,

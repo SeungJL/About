@@ -1,10 +1,10 @@
-import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contentsText/GroupStudyContents";
-import { LocationFilterType } from "../services/locationTypes";
+import { GROUP_STUDY_CATEGORY_ARR } from "../../../constants/contentsText/GroupStudyContents";
+import { LocationFilterType } from "../../services/locationTypes";
 
-import { ITimeStamps } from "../utils/timeAndDate";
-import { IUser, IUserSummary } from "./userTypes/userInfoTypes";
+import { ITimeStamps } from "../../utils/timeAndDate";
+import { IUser, IUserSummary } from "../userTypes/userInfoTypes";
 
-import { GatherStatus, IGatherComment } from "./gather";
+import { GatherStatus, IGatherComment } from "../gatherTypes/gather";
 
 export type GroupCategory = typeof GROUP_STUDY_CATEGORY_ARR[number];
 

@@ -8,7 +8,7 @@ import {
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { PLACE_TO_NAME } from "../../storage/study";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 function StudyLightAbsentModal({ setIsModal }: IModal) {

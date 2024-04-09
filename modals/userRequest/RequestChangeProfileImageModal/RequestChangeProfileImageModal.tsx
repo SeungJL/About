@@ -13,7 +13,7 @@ import {
   useUserInfoFieldMutation,
   useUserUpdateProfileImageMutation,
 } from "../../../hooks/user/mutations";
-import { IModal } from "../../../types/hooks/reactTypes";
+import { IModal } from "../../../types/components/modalTypes";
 import { ModalLayout } from "../../Modals";
 import RequestChagneProfileImageModalBadge from "./RequestChagneProfileImageModalBadge";
 import RequestChangeProfileImageModalAvatar from "./RequestChangeProfileImageModalAvatar";

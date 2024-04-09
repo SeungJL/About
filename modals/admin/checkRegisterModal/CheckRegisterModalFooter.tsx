@@ -4,7 +4,7 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useUserRegisterControlMutation } from "../../../hooks/user/mutations";
-import { IModal, IRefetch } from "../../../types/hooks/reactTypes";
+import { IModal, IRefetch } from "../../../types/components/modalTypes";
 import AlertDialog from "../../AlertDialog";
 import { ModalFooterTwo } from "../../Modals";
 

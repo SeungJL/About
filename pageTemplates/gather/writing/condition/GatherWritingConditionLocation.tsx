@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { CombinedLocation } from "../../../../pages/gather/writing/condition";
-import { DispatchType } from "../../../../types/hooks/reactTypes";
+import { DispatchType } from "../../../../types/components/modalTypes";
 import { Location } from "../../../../types/services/locationTypes";
 
 interface IGatherWritingConditionLocation {

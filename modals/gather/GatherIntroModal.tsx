@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 function GatherIntroModal({ setIsModal }: IModal) {

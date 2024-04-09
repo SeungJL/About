@@ -13,8 +13,7 @@ import RecordLocationCategory from "../../pageTemplates/record/RecordLocationCat
 import RecordNavigation from "../../pageTemplates/record/RecordNavigation";
 import RecordOverview from "../../pageTemplates/record/RecordOverview";
 import RecordSkeleton from "../../pageTemplates/record/RecordSkeleton";
-
-import { IArrivedData } from "../../types/models/study/study";
+import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
 
 export interface IDateRange {
   startDate: Dayjs;

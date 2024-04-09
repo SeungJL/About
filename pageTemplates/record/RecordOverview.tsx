@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-import { IArrivedData } from "../../types/models/study/study";
+import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
+
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 interface IRecordOverview {
   arrivedCalendar: IArrivedData[];

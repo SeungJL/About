@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import styled from "styled-components";
 import { ModalSubtitle } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/hooks/reactTypes";
+import { IModal } from "../../../types/components/modalTypes";
 import { IHeaderOptions, ModalLayout } from "../../Modals";
 
 function UserCollectionAlphabetModal({ setIsModal }: IModal) {

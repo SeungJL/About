@@ -7,7 +7,7 @@ import {
   USER_POINT_SYSTEM,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { QueryOptions } from "../../types/hooks/reactTypes";
+import { QueryOptions } from "../../types/components/modalTypes";
 import { IUser } from "../../types/models/userTypes/userInfoTypes";
 import { IPointLog } from "../../types/services/pointSystem";
 

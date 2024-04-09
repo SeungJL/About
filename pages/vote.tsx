@@ -28,9 +28,11 @@ import { IMapOptions, IMarkerOptions } from "../types/lib/naverMapTypes";
 import {
   IParticipation,
   IPlace,
-  IStudyPlaces,
+} from "../types/models/studyTypes/studyDetails";
+import {
   IStudyVote,
-} from "../types/models/studyTypes/studyVoteTypes";
+  IStudyVotePlaces,
+} from "../types/models/studyTypes/studyInterActions";
 import { ActiveLocation } from "../types/services/locationTypes";
 import { convertLocationLangTo } from "../utils/convertUtils/convertDatas";
 
@@ -59,7 +61,7 @@ export default function StudyVoteMap() {
 
   const [preferInfo, setPreferInfo] = useState<{
     preset: "first" | "second" | null;
-    prefer: IStudyPlaces;
+    prefer: IStudyVotePlaces;
   }>();
   const [myVote, setMyVote] = useState<IStudyVote>();
   const [precision, setPrecision] = useState<0 | 1 | 2>(1);

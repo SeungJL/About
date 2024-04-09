@@ -11,9 +11,10 @@ import {
   myStudyState,
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
-import { DispatchType } from "../../../types/hooks/reactTypes";
-import { StudyDateStatus } from "../../../types/models/studyTypes/studySubTypes";
-import { IParticipation } from "../../../types/models/studyTypes/studyVoteTypes";
+import { DispatchType } from "../../../types/components/modalTypes";
+import { IParticipation } from "../../../types/models/studyTypes/studyDetails";
+import { StudyDateStatus } from "../../../types/models/studyTypes/studyInterActions";
+
 import { VoteType } from "./StudyController";
 
 export type StudyVoteActionType =

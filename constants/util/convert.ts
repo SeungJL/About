@@ -1,4 +1,4 @@
-import { GatherStatus } from "../../types/models/gather";
+import { GatherStatus } from "../../types/models/gatherTypes/gather";
 
 export const STATUS_TO_TEXT: Record<GatherStatus, string> = {
   open: "오픈",

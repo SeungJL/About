@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { COLLECTION_ALPHABET } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
 import { requestServer } from "../../../../libs/methodHelpers";
-import { MutationOptions } from "../../../../types/hooks/reactTypes";
+import { MutationOptions } from "../../../../types/components/modalTypes";
 import { Alphabet } from "../../../../types/models/collections";
 import { useResetQueryData } from "../../../custom/CustomHooks";
 

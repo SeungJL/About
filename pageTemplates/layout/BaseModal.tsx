@@ -10,7 +10,7 @@ import {
   transferAlphabetState,
   transferDailyCheckWinState,
 } from "../../recoils/transferRecoils";
-import { DispatchBoolean } from "../../types/hooks/reactTypes";
+import { DispatchBoolean } from "../../types/components/modalTypes";
 interface IBaseModal {
   isGuest: boolean;
   isError: boolean;

@@ -19,7 +19,7 @@ import GroupCover from "../../../pageTemplates/group/detail/GroupCover";
 import GroupHeader from "../../../pageTemplates/group/detail/GroupHeader";
 import GroupParticipation from "../../../pageTemplates/group/detail/GroupParticipation";
 import GroupTitle from "../../../pageTemplates/group/detail/GroupTitle";
-import { IGroup } from "../../../types/models/group";
+import { IGroup } from "../../../types/models/groupTypes/group";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 function GroupDetail() {

@@ -11,7 +11,7 @@ import TwoButtonNav from "../../../components/layouts/TwoButtonNav";
 import {
   DispatchBoolean,
   DispatchString,
-} from "../../../types/hooks/reactTypes";
+} from "../../../types/components/modalTypes";
 
 interface IQuestionBottomDrawer {
   isModal: boolean;

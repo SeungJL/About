@@ -16,8 +16,8 @@ import { usePointSystemLogQuery } from "../../hooks/user/queries";
 import { getMyStudyVoteInfo } from "../../libs/study/getMyStudy";
 import { myStudyState } from "../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import { IModal } from "../../types/hooks/reactTypes";
-import { IStudyTime } from "../../types/models/studyTypes/studyVoteTypes";
+import { IModal } from "../../types/components/modalTypes";
+import { IStudyVoteTime } from "../../types/models/studyTypes/studyInterActions";
 import { createTimeArr, parseTimeToDayjs } from "../../utils/dateTimeUtils";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
@@ -50,7 +50,7 @@ function StudyChangeTimeModal({ setIsModal }: IStudyChangeTimeModal) {
     session?.user.uid
   );
 
-  const [time, setTime] = useState<IStudyTime>({
+  const [time, setTime] = useState<IStudyVoteTime>({
     start,
     end,
   });

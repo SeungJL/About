@@ -1,5 +1,5 @@
 import { IScore } from "../services/pointSystem";
-import { IVoteRate } from "./study/study";
+import { IVoteRate } from "./studyTypes/studyRecords";
 
 import { IUser, IUserSummary } from "./userTypes/userInfoTypes";
 

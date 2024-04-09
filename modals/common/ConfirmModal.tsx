@@ -1,4 +1,4 @@
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions } from "../Modals";
 
 interface IConfirmModal extends IModal {

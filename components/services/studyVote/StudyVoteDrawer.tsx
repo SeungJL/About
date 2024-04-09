@@ -16,12 +16,12 @@ import {
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
-import { IModal } from "../../../types/hooks/reactTypes";
+import { IModal } from "../../../types/components/modalTypes";
 import {
-  IStudyPlaces,
-  IStudyTime,
   IStudyVote,
-} from "../../../types/models/studyTypes/studyVoteTypes";
+  IStudyVotePlaces,
+  IStudyVoteTime,
+} from "../../../types/models/studyTypes/studyInterActions";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 import BottomDrawerLg, {
   IBottomDrawerLgOptions,
@@ -44,9 +44,12 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
   const [myVote, setMyVote] = useState<IStudyVote>({
     place: id,
     subPlace: [],
+    start: null,
+    end: null,
   });
-  const [voteTime, setVoteTime] = useState<IStudyTime>();
-  const [votePlaces, setVotePlaces] = useState<IStudyPlaces>();
+
+  const [voteTime, setVoteTime] = useState<IStudyVoteTime>();
+  const [votePlaces, setVotePlaces] = useState<IStudyVotePlaces>();
 
   useEffect(() => {
     setMyVote((old) => ({ ...old, ...voteTime, ...votePlaces }));

@@ -3,7 +3,7 @@ import { faCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { PROMOTION_WIN } from "../../storage/winRecord";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IPromotionApply } from "../../types/models/promotion";
 import { IFooterOptions, ModalLayout } from "../Modals";
 

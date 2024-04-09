@@ -32,8 +32,8 @@ import GatherWritingConditionLocation from "../../../pageTemplates/gather/writin
 import QuestionBottomDrawer from "../../../pageTemplates/group/writing/QuestionBottomDrawer";
 import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGatherMemberCnt } from "../../../types/models/gather";
-import { IGroupWriting } from "../../../types/models/group";
+import { IGatherMemberCnt } from "../../../types/models/gatherTypes/gather";
+import { IGroupWriting } from "../../../types/models/groupTypes/group";
 import {
   Location,
   LocationFilterType,

@@ -5,7 +5,7 @@ import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/hooks/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IRest } from "../../types/models/userTypes/userInfoTypes";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 import { IFooterOptions, ModalLayout } from "../Modals";

@@ -21,7 +21,10 @@ import {
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { DispatchString, DispatchType } from "../../types/hooks/reactTypes";
+import {
+  DispatchString,
+  DispatchType,
+} from "../../types/components/modalTypes";
 import { IUser } from "../../types/models/userTypes/userInfoTypes";
 import {
   DeclareRequest,
