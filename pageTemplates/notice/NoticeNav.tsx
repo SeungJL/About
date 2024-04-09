@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NewAlertIcon } from "../../components/atoms/Icons/AlertIcon";
 import { NOTICE_ACTIVE_CNT } from "../../constants/keys/localStorage";
-import { DispatchBoolean } from "../../types2/reactTypes";
+import { DispatchBoolean } from "../../types/reactTypes";
 
 interface INoticeNav {
   isNotice: boolean;

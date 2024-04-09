@@ -26,8 +26,8 @@ import { dayjsToStr } from "../../../utils/dateTimeUtils";
 import {
   IInteractionLikeStorage,
   IInteractionSendLike,
-} from "../../../types2/interaction";
-import { IUser } from "../../../types2/userTypes/userInfoTypes";
+} from "../../../types/interaction";
+import { IUser } from "../../../types/userTypes/userInfoTypes";
 import { getUserBadge } from "../../../utils/convertUtils/convertDatas";
 
 interface IProfileInfo {

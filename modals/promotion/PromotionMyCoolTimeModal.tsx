@@ -3,8 +3,8 @@ import { faCircle } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { PROMOTION_WIN } from "../../storage/winRecord";
-import { IPromotionApply } from "../../types2/page/promotion";
-import { IModal } from "../../types2/reactTypes";
+import { IPromotionApply } from "../../types/page/promotion";
+import { IModal } from "../../types/reactTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IPromotionMyCoolTimeModal extends IModal {

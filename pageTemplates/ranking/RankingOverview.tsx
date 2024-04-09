@@ -8,8 +8,8 @@ import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeCons
 
 import { USER_ROLE } from "../../constants/settingValue/role";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import { IMyRank } from "../../types2/page/ranking";
-import { UserBadge } from "../../types2/userTypes/userInfoTypes";
+import { IMyRank } from "../../types/page/ranking";
+import { UserBadge } from "../../types/userTypes/userInfoTypes";
 import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 interface IRankingOverview {

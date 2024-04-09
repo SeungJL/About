@@ -5,7 +5,7 @@ import ButtonGroups from "../../components/molecules/groups/ButtonGroups";
 import {
   ActiveLocation,
   LocationEn,
-} from "../../types2/serviceTypes/locationTypes";
+} from "../../types/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { createUrlWithLocation } from "../../utils/convertUtils/convertTypes";
 

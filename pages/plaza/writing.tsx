@@ -11,7 +11,7 @@ import WritingCategory from "../../pageTemplates/plaza/writing/WritingCategory";
 import WritingContent from "../../pageTemplates/plaza/writing/WritingContent";
 import WritingHeader from "../../pageTemplates/plaza/writing/WritingHeader";
 import WritingType from "../../pageTemplates/plaza/writing/WritingType";
-import { IPlazaData } from "../../types2/page/plaza";
+import { IPlazaData } from "../../types/page/plaza";
 
 function WritingPlaza() {
   const router = useRouter();

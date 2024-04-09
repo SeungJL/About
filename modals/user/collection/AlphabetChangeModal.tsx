@@ -9,8 +9,8 @@ import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 
-import { Alphabet } from "../../../types2/collections";
-import { IModal } from "../../../types2/reactTypes";
+import { Alphabet } from "../../../types/collections";
+import { IModal } from "../../../types/reactTypes";
 
 interface IAlphabetChangeModal extends IModal {
   myAlphabets: Alphabet[];

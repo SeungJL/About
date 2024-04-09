@@ -2,8 +2,8 @@ import { Box, Button, Collapse, useDisclosure } from "@chakra-ui/react";
 import { faX } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { IStoreApplicant } from "../../../types2/page/store";
-import { DispatchBoolean } from "../../../types2/reactTypes";
+import { IStoreApplicant } from "../../../types/page/store";
+import { DispatchBoolean } from "../../../types/reactTypes";
 
 interface IStoreDetailNav {
   applyUsers: IStoreApplicant[];

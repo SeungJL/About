@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { Badge } from "../../../components/atoms/badges/Badges";
 import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
-import { IUser } from "../../../types2/userTypes/userInfoTypes";
+import { IUser } from "../../../types/userTypes/userInfoTypes";
 import { getDateDiff } from "../../../utils/dateTimeUtils";
 
 interface IGroupOrganizer {

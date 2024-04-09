@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { IUserSummary } from "../../../types2/userTypes/userInfoTypes";
+import { IUserSummary } from "../../../types/userTypes/userInfoTypes";
 import Avatar from "../../atoms/Avatar";
 import UserBadge from "../../atoms/badges/UserBadge";
 

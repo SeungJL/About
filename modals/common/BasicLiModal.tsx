@@ -18,8 +18,8 @@ import {
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
-import { IModal } from "../../types2/reactTypes";
-import { IUserRequest } from "../../types2/userTypes/userRequestTypes";
+import { IModal } from "../../types/reactTypes";
+import { IUserRequest } from "../../types/userTypes/userRequestTypes";
 
 function ManagerPopUp({ setIsModal }: IModal) {
   const { isOpen, onOpen, onClose } = useDisclosure();

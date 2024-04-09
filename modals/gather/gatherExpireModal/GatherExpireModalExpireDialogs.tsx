@@ -16,7 +16,7 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGatherStatusMutation } from "../../../hooks/gather/mutations";
-import { DispatchBoolean } from "../../../types2/reactTypes";
+import { DispatchBoolean } from "../../../types/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
 interface IGatherExpireModalExpireDialog {

@@ -2,15 +2,15 @@ import { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
 import { requestServer } from "../../libs/methodHelpers";
-import { MutationOptions } from "../../types2/reactTypes";
-import { IStudyParticipate } from "../../types2/study/study";
+import { MutationOptions } from "../../types/reactTypes";
+import { IStudyParticipate } from "../../types/study/study";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 import {
   IStudyPlaces,
   IStudyTime,
   IStudyVote,
-} from "../../types2/studyTypes/studyVoteTypes";
+} from "../../types/studyTypes/studyVoteTypes";
 
 type StudyParticipationParam<T> = T extends "post"
   ? IStudyVote

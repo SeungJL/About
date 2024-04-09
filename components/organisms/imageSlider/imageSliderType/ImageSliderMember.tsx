@@ -5,10 +5,7 @@ import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { prevPageUrlState } from "../../../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../../../recoils/transferRecoils";
-import {
-  IUser,
-  IUserSummary,
-} from "../../../../types2/userTypes/userInfoTypes";
+import { IUser, IUserSummary } from "../../../../types/userTypes/userInfoTypes";
 import { dayjsToFormat } from "../../../../utils/dateTimeUtils";
 import Avatar from "../../../atoms/Avatar";
 import HeartLikeIcon from "../../../atoms/Icons/HeartLikeIcon";

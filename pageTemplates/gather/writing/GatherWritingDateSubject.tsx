@@ -6,9 +6,9 @@ import Input from "../../../components/atoms/Input";
 import TimeSelectorUnit from "../../../components/atoms/TimeSelectorUnit";
 
 import { TIME_SELECTOR_UNIT } from "../../../constants/util/util";
-import { IGatherListItem, IGatherWriting } from "../../../types2/page/gather";
-import { DispatchType } from "../../../types2/reactTypes";
-import { ITime } from "../../../types2/timeAndDate";
+import { IGatherListItem, IGatherWriting } from "../../../types/page/gather";
+import { DispatchType } from "../../../types/reactTypes";
+import { ITime } from "../../../types/timeAndDate";
 
 interface IGatherWritingDateSubject {
   gatherWriting: IGatherWriting;

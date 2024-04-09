@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import { IParticipation } from "../../types2/studyTypes/studyVoteTypes";
+import { IParticipation } from "../../types/studyTypes/studyVoteTypes";
 
 export const getMyStudy = (
   participations: IParticipation[],

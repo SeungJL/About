@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import React from "react";
-import { IModal } from "../types2/reactTypes";
+import { IModal } from "../types/reactTypes";
 
 export interface IAlertModalOptions {
   title: string;

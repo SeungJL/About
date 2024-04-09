@@ -18,8 +18,8 @@ import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { useInteractionMutation } from "../../hooks/user/sub/interaction/mutations";
 import { getDateDiff } from "../../utils/dateTimeUtils";
 
-import { Alphabet } from "../../types2/collections";
-import { INoticeActiveLog } from "../../types2/interaction";
+import { Alphabet } from "../../types/collections";
+import { INoticeActiveLog } from "../../types/interaction";
 
 interface INoticeActive {
   activeLogs: INoticeActiveLog[];

@@ -2,8 +2,8 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { COLLECTION_ALPHABET } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
-import { ICollectionAlphabet } from "../../../../types2/collections";
-import { QueryOptions } from "../../../../types2/reactTypes";
+import { ICollectionAlphabet } from "../../../../types/collections";
+import { QueryOptions } from "../../../../types/reactTypes";
 
 export const useCollectionAlphabetQuery = (
   options?: QueryOptions<ICollectionAlphabet>

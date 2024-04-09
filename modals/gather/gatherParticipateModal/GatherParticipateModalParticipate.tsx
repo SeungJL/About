@@ -6,7 +6,7 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
-import { IModal } from "../../../types2/reactTypes";
+import { IModal } from "../../../types/reactTypes";
 import { ModalBodyNavTwo } from "../../Modals";
 
 function GatherParticipateModalParticipate({ setIsModal }: IModal) {

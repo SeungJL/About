@@ -18,9 +18,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import { useFailToast } from "../../hooks/custom/CustomToast";
-import { DispatchNumber, DispatchType } from "../../types2/reactTypes";
-import { LocationEn } from "../../types2/serviceTypes/locationTypes";
-import { IStudyVote } from "../../types2/studyTypes/studyVoteTypes";
+import { DispatchNumber, DispatchType } from "../../types/reactTypes";
+import { LocationEn } from "../../types/serviceTypes/locationTypes";
+import { IStudyVote } from "../../types/studyTypes/studyVoteTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 type ReturnDot = "중앙" | "동쪽" | "서쪽" | "남쪽" | "북쪽";

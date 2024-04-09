@@ -1,4 +1,4 @@
-import { IModal } from "../types2/reactTypes";
+import { IModal } from "../types/reactTypes";
 import { IAlertModalOptions } from "./AlertModal";
 import AlertSimpleModal from "./AlertSimpleModal";
 

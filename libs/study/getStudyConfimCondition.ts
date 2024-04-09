@@ -1,5 +1,5 @@
-import { StudyDateStatus } from "../../types2/studyTypes/studySubTypes";
-import { StudyStatus } from "../../types2/studyTypes/studyVoteTypes";
+import { StudyDateStatus } from "../../types/studyTypes/studySubTypes";
+import { StudyStatus } from "../../types/studyTypes/studyVoteTypes";
 import { getHour } from "../../utils/dateTimeUtils";
 
 export const getStudyConfimCondition = (

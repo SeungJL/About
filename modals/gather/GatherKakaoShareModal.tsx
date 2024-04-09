@@ -11,8 +11,8 @@ import { WEB_URL } from "../../constants/system";
 import { ModalLayout } from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGatherHeader } from "../../types2/page/gather";
-import { IModal } from "../../types2/reactTypes";
+import { IGatherHeader } from "../../types/page/gather";
+import { IModal } from "../../types/reactTypes";
 
 interface IGatherKakaoShareModal extends IModal, IGatherHeader {}
 

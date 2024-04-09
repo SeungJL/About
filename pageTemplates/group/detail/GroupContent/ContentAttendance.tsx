@@ -12,7 +12,7 @@ import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import AttendCheckModal from "../../../../modals/groupStudy/AttendCheckModal";
 import { dayjsToFormat } from "../../../../utils/dateTimeUtils";
 
-import { IWeekRecord } from "../../../../types2/page/group";
+import { IWeekRecord } from "../../../../types/page/group";
 
 function ContentAttend({ group }) {
   const { data: session } = useSession();

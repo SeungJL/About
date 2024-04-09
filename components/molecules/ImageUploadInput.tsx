@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { DispatchType } from "../../types2/reactTypes";
+import { DispatchType } from "../../types/reactTypes";
 interface IImageUploadInput {
   setImageUrl: DispatchType<any>;
 }
@@ -57,7 +57,6 @@ export default function ImageUploadInput({
   const handleBtnClick = () => {
     fileInputRef.current.click();
   };
-
 
   // useEffect(() => {
   //   changeImage(imageUrl);

@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../libs/methodHelpers";
-import { MutationOptions } from "../../types2/reactTypes";
+import { MutationOptions } from "../../types/reactTypes";
 
 export const useImageUploadMutation = (options?: MutationOptions<FormData>) =>
   useMutation<void, AxiosError, FormData>(

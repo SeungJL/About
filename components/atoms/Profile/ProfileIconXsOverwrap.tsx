@@ -8,7 +8,7 @@ import {
 } from "../../../constants/settingValue/avatar";
 import Avatar from "../Avatar";
 
-import { IAvatar } from "../../../types2/userTypes/userInfoTypes";
+import { IAvatar } from "../../../types/userTypes/userInfoTypes";
 
 interface IProfileIconXsOVerwrap {
   user: {

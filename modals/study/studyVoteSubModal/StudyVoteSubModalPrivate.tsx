@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { InputLg } from "../../../styles/layout/input";
-import { DispatchType } from "../../../types2/reactTypes";
-import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
+import { DispatchType } from "../../../types/reactTypes";
+import { IStudyVote } from "../../../types/studyTypes/studyVoteTypes";
 
 interface IStudyVoteSubModalPrivate {
   setVoteInfo: DispatchType<IStudyVote>;

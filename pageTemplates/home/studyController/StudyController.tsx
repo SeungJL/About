@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Slide from "../../../components/layouts/PageSlide";
 import BetweenTextSwitcher from "../../../components/molecules/navs/BetweenTextSwitcher";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
-import { LocationEn } from "../../../types2/serviceTypes/locationTypes";
+import { LocationEn } from "../../../types/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToFormat, dayjsToStr } from "../../../utils/dateTimeUtils";
 import StudyControllerDate from "./StudyControllerDates";

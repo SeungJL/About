@@ -32,12 +32,12 @@ import GatherWritingConditionLocation from "../../../pageTemplates/gather/writin
 import QuestionBottomDrawer from "../../../pageTemplates/group/writing/QuestionBottomDrawer";
 import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
 
-import { IGatherMemberCnt } from "../../../types2/page/gather";
-import { IGroupWriting } from "../../../types2/page/group";
+import { IGatherMemberCnt } from "../../../types/page/gather";
+import { IGroupWriting } from "../../../types/page/group";
 import {
   Location,
   LocationFilterType,
-} from "../../../types2/serviceTypes/locationTypes";
+} from "../../../types/serviceTypes/locationTypes";
 
 type ButtonType =
   | "gender"

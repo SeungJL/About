@@ -9,7 +9,7 @@ import {
   YANG_목동점,
   YANG_발산역,
 } from "../../../storage/study";
-import { ActiveLocation } from "../../../types2/serviceTypes/locationTypes";
+import { ActiveLocation } from "../../../types/serviceTypes/locationTypes";
 import {
   ANYANG_범계학원가,
   ANYANG_숨맑은집,

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Size } from "../../types2/assetTypes";
+import { Size } from "../../types/assetTypes";
 import IconLinkTile, { IIconLinkTile } from "../atoms/IconLinkTile";
 
 interface IIconTileRowLayout {
@@ -29,5 +29,4 @@ export default function IconTileRowLayout({
 const Layout = styled.div`
   display: flex;
   justify-content: space-between;
-
 `;

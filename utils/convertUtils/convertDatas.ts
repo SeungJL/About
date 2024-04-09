@@ -15,8 +15,8 @@ import {
 import {
   ActiveLocation,
   LocationEn,
-} from "../../types2/serviceTypes/locationTypes";
-import { UserBadge, UserRole } from "../../types2/userTypes/userInfoTypes";
+} from "../../types/serviceTypes/locationTypes";
+import { UserBadge, UserRole } from "../../types/userTypes/userInfoTypes";
 
 export const getUserBadge = (score: number, uid: string): UserBadge => {
   let badge: UserBadge = "아메리카노";

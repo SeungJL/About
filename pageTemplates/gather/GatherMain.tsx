@@ -7,7 +7,7 @@ import {
   PostThumbnailCard,
 } from "../../components/molecules/cards/PostThumbnailCard";
 import { useGatherQuery } from "../../hooks/gather/queries";
-import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { LocationEn } from "../../types/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { setGatherDataToCardCol } from "../home/HomeGatherSection";
 

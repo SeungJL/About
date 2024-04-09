@@ -15,8 +15,8 @@ import { IFooterOptions, ModalLayout } from "../Modals";
 import SuccessScreen from "../../components/layouts/SuccessScreen";
 import { transferGroupDataState } from "../../recoils/transferRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGroup, IGroupWriting } from "../../types2/page/group";
-import { DispatchType, IModal } from "../../types2/reactTypes";
+import { IGroup, IGroupWriting } from "../../types/page/group";
+import { DispatchType, IModal } from "../../types/reactTypes";
 
 interface IGroupConfirmModal extends IModal {
   groupWriting: IGroupWriting;

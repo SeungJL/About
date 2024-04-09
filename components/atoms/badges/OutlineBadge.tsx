@@ -1,5 +1,5 @@
 import { Badge } from "@chakra-ui/react";
-import { ITextAndColorSchemes } from "../../../types2/propTypes";
+import { ITextAndColorSchemes } from "../../../types/propTypes";
 
 interface IOutlineBadge extends ITextAndColorSchemes {
   size?: "md" | "sm";
@@ -10,7 +10,6 @@ export default function OutlineBadge({
   colorScheme,
   size = "md",
 }: IOutlineBadge) {
-  
   return (
     <Badge
       p={size === "md" ? "3px 6px" : "2px 4px"}

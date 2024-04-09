@@ -1,13 +1,12 @@
 import {
   IParticipation,
   StudyStatus,
-} from "../../types2/studyTypes/studyVoteTypes";
+} from "../../types/studyTypes/studyVoteTypes";
 
 export const sortStudyVoteData = (
   participations: IParticipation[],
   isConfirmed?: boolean
 ) => {
-  
   const getCount = (participation: IParticipation) => {
     if (!isConfirmed) return participation.attendences.length;
     return participation.attendences.filter((who) => who.firstChoice).length;

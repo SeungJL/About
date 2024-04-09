@@ -3,7 +3,7 @@ import { getStudyStandardDate } from "../../libs/study/date/getStudyStandardDate
 import {
   ActiveLocation,
   LocationEn,
-} from "../../types2/serviceTypes/locationTypes";
+} from "../../types/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "./convertDatas";
 
 export const createUrlWithLocation = (url: string, locationParam: LocationEn) =>

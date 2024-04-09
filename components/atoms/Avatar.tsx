@@ -7,7 +7,7 @@ import styled, { css } from "styled-components";
 import { COLOR_TABLE_LIGHT } from "../../constants/colorConstants";
 
 import { AVATAR_IMAGE_ARR } from "../../storage/avatarStorage";
-import { IAvatar as IAvatarProp } from "../../types2/userTypes/userInfoTypes";
+import { IAvatar as IAvatarProp } from "../../types/userTypes/userInfoTypes";
 type Size = "sm" | "smd" | "md" | "lg" | "xl";
 
 interface IAvatar {

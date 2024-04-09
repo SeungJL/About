@@ -16,7 +16,7 @@ import NotCompletedModal from "../../modals/system/NotCompletedModal";
 
 import { slideDirectionState } from "../../recoils/navigationRecoils";
 import { isGatherAlertState } from "../../recoils/renderRecoils";
-import { LocationEn } from "../../types2/serviceTypes/locationTypes";
+import { LocationEn } from "../../types/serviceTypes/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 type HomeCategory =
   | "record"

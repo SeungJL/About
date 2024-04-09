@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { prevPageUrlState } from "../../recoils/navigationRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types2/reactTypes";
+import { IModal } from "../../types/reactTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 function FAQPopUp({ setIsModal }: IModal) {

@@ -1,10 +1,14 @@
 import { Dayjs } from "dayjs";
+<<<<<<< HEAD:types2/page/gather.ts
 <<<<<<< HEAD:types/page/gather.ts
 import { CombinedLocation } from "../../pages/gather/writing/condition";
 import { LocationFilterType } from "../system";
 =======
 import { LocationFilterType } from "../../types2/serviceTypes/locationTypes";
 >>>>>>> main:types2/page/gather.ts
+=======
+import { LocationFilterType } from "../../types/serviceTypes/locationTypes";
+>>>>>>> main:types/page/gather.ts
 import { ITime } from "../timeAndDate";
 import { IUserSummary } from "../userTypes/userInfoTypes";
 

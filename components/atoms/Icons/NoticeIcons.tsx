@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { COLOR_SCHEME_BG, TABLE_COLORS } from "../../../constants/styles";
 import { NoticeCategory } from "../../../storage/notice";
-import { InteractionType } from "../../../types2/interaction";
+import { InteractionType } from "../../../types/interaction";
 
 interface INoticeIcon {
   type: NoticeCategory;

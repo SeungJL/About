@@ -5,10 +5,10 @@ import styled from "styled-components";
 import TimeRullet from "../../../components/molecules/picker/TimeRullet";
 
 import { STUDY_START_VOTETIME_HOUR } from "../../../constants/settingValue/study/study";
-import { DispatchType } from "../../../types2/reactTypes";
+import { DispatchType } from "../../../types/reactTypes";
 
-import { IStudyVote } from "../../../types2/studyTypes/studyVoteTypes";
-import { IDayjsStartToEnd } from "../../../types2/timeAndDate";
+import { IStudyVote } from "../../../types/studyTypes/studyVoteTypes";
+import { IDayjsStartToEnd } from "../../../types/timeAndDate";
 
 interface IStudyVoteSubModalTime {
   setMyVote: DispatchType<IStudyVote>;

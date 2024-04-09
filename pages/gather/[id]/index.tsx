@@ -14,7 +14,7 @@ import GatherHeader from "../../../pageTemplates/gather/detail/GatherHeader";
 import GatherOrganizer from "../../../pageTemplates/gather/detail/GatherOrganizer";
 import GatherParticipation from "../../../pageTemplates/gather/detail/GatherParticipation";
 import GatherTitle from "../../../pageTemplates/gather/detail/GatherTitle";
-import { IGather } from "../../../types2/gatherTypes/gatherTypes";
+import { IGather } from "../../../types/gatherTypes/gatherTypes";
 
 function GatherDetail() {
   const { data: session } = useSession();
@@ -28,7 +28,6 @@ function GatherDetail() {
   useEffect(() => {
     if (gathers) setGatherData(gathers.find((item) => item.id + "" === id));
   }, [gathers]);
-
 
   return (
     <>
