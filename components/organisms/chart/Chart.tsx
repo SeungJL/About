@@ -8,8 +8,8 @@ import { MONTH_LIST } from "../../../constants/util/util";
 import { useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/queries";
 
-import { IVoteRate } from "../../../types/study/study";
-import { IUser } from "../../../types/userTypes/userInfoTypes";
+import { IVoteRate } from "../../../types/models/study/study";
+import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 import { getMonth } from "../../../utils/dateTimeUtils";
 import { ChartStudyOptions } from "./ChartOptions";
 

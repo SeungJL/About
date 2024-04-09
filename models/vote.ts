@@ -4,8 +4,8 @@ import {
   IAttendance,
   IParticipation,
   IVote,
-} from "../types/study/studyDetail";
-import { IDayjsStartToEnd } from "../types/timeAndDate";
+} from "../types/models/study/studyDetail";
+import { IDayjsStartToEnd } from "../types/utils/timeAndDate";
 
 const ParticipantTimeSchema: Schema<IDayjsStartToEnd> = new Schema(
   {

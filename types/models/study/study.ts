@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs";
-import { IUserSummary } from "../userTypes/userInfoTypes";
 import { IPlace } from "./studyDetail";
+
+import { IUserSummary } from "../userTypes/userInfoTypes";
 
 /** arrived */
 export interface IArrivedInfo {

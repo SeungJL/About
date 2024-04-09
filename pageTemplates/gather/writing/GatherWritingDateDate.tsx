@@ -9,8 +9,8 @@ import {
   PickerDateAndTimeHeader,
   PICKER_DATE_AND_TIME,
 } from "../../../components/molecules/picker/DatePickerOptions";
-import { IGatherWriting } from "../../../types/page/gather";
-import { DispatchType } from "../../../types/reactTypes";
+import { DispatchType } from "../../../types/hooks/reactTypes";
+import { IGatherWriting } from "../../../types/models/gather";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 const TIME_RANGE_MIN = new Date();

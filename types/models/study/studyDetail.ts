@@ -2,7 +2,11 @@ import { Dayjs } from "dayjs";
 import { Document } from "mongoose";
 import { IStudyPlaces } from "../studyTypes/studyVoteTypes";
 
-import { IDayjsStartToEnd, ITimeStamps, ITimeStartToEnd } from "../timeAndDate";
+import {
+  IDayjsStartToEnd,
+  ITimeStamps,
+  ITimeStartToEnd,
+} from "../../utils/timeAndDate";
 import { IUser } from "../userTypes/userInfoTypes";
 
 export interface IVote extends Document {

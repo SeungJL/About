@@ -35,8 +35,8 @@ import {
   transferDailyCheckWinState,
   transferShowDailyCheckState,
 } from "../../../recoils/transferRecoils";
-import { IModal } from "../../../types/reactTypes";
-import { IUserRequest } from "../../../types/userTypes/userRequestTypes";
+import { IModal } from "../../../types/hooks/reactTypes";
+import { IUserRequest } from "../../../types/models/userTypes/userRequestTypes";
 import { getDistributionArr } from "../../../utils/mathUtils";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 

@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
-import { Location } from "../serviceTypes/locationTypes";
-import { ITimeStamps } from "../timeAndDate";
+import { Location } from "../../services/locationTypes";
+import { ITimeStamps } from "../../utils/timeAndDate";
 
 export type UserRequestCategory =
   | "건의"

@@ -1,11 +1,14 @@
-import { IArrivedData, IArrivedInfoList } from "../../../types/study/study";
+import {
+  IArrivedData,
+  IArrivedInfoList,
+} from "../../../types/models/study/study";
 
 import { Dayjs } from "dayjs";
 import { Fragment } from "react";
 import styled from "styled-components";
 import { LOCATION_OPEN } from "../../../constants/location";
 import { PLACE_TO_LOCATION } from "../../../storage/study";
-import { Location } from "../../../types/serviceTypes/locationTypes";
+import { Location } from "../../../types/services/locationTypes";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 import RecordDetailStudyBlock from "./RecordDetailStudyBlock";
 

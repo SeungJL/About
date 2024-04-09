@@ -1,8 +1,8 @@
 import { GROUP_STUDY_CATEGORY_ARR } from "../../constants/contentsText/GroupStudyContents";
-import { LocationFilterType } from "../serviceTypes/locationTypes";
+import { LocationFilterType } from "../services/locationTypes";
 
-import { ITimeStamps } from "../timeAndDate";
-import { IUser, IUserSummary } from "../userTypes/userInfoTypes";
+import { ITimeStamps } from "../utils/timeAndDate";
+import { IUser, IUserSummary } from "./userTypes/userInfoTypes";
 
 import { GatherStatus, IGatherComment } from "./gather";
 

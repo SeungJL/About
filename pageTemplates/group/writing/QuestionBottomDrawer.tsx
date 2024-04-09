@@ -8,7 +8,10 @@ import {
 import { useEffect } from "react";
 import styled from "styled-components";
 import TwoButtonNav from "../../../components/layouts/TwoButtonNav";
-import { DispatchBoolean, DispatchString } from "../../../types/reactTypes";
+import {
+  DispatchBoolean,
+  DispatchString,
+} from "../../../types/hooks/reactTypes";
 
 interface IQuestionBottomDrawer {
   isModal: boolean;

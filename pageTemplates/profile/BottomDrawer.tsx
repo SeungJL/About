@@ -7,8 +7,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { DispatchBoolean, DispatchType } from "../../types/reactTypes";
-import { DeclareRequest } from "../../types/userTypes/userRequestTypes";
+import { DispatchBoolean, DispatchType } from "../../types/hooks/reactTypes";
+import { DeclareRequest } from "../../types/models/userTypes/userRequestTypes";
 
 interface IBottomDrawer {
   isModal: boolean;

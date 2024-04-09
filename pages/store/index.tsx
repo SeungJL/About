@@ -7,7 +7,7 @@ import RuleIcon from "../../components/atoms/Icons/RuleIcon";
 import { useStoreGiftEntryQuery } from "../../hooks/sub/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
-import { IStoreApplicant } from "../../types/page/store";
+import { IStoreApplicant } from "../../types/models/store";
 
 import { Button } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -18,7 +18,7 @@ import Image from "next/image";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { isPrevBooleanState } from "../../recoils/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoils/transferRecoils";
-import { IStoreGift } from "../../types/page/store";
+import { IStoreGift } from "../../types/models/store";
 
 export interface IGiftEntry extends IStoreGift {
   users: IStoreApplicant[];

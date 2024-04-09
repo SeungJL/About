@@ -1,5 +1,5 @@
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/hooks/reactTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IGuestLoginModal extends IModal {

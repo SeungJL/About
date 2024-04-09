@@ -1,9 +1,7 @@
 import { ThemeTypings } from "@chakra-ui/react";
-import { LocationEn } from "./serviceTypes/locationTypes";
+import { LocationEn } from "../services/locationTypes";
 
-export interface ChildrenProps {
-  children: React.ReactNode;
-}
+
 
 export interface ILocationParam {
   locationParam: LocationEn;

@@ -18,7 +18,7 @@ import {
   useStudyPreferenceQuery,
 } from "../../hooks/study/queries";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
-import { IStudyPlaces } from "../../types/studyTypes/studyVoteTypes";
+import { IStudyPlaces } from "../../types/models/studyTypes/studyVoteTypes";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 import { IConfirmContent } from "../common/ConfirmModal";
 import ConfirmModal2 from "../common/ConfirmModal2";

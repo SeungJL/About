@@ -16,9 +16,9 @@ import MemberSectionList from "../../../pageTemplates/member/MemberSectionList";
 import MemberSectionTitle from "../../../pageTemplates/member/MemberSectionTitle";
 import { transferMemberDataState } from "../../../recoils/transferRecoils";
 // import { Location } from "../../../types/serviceTypes/locationTypes";
-import { IGroupedMembers, MemberGroup } from "../../../types/page/member";
-import { Location } from "../../../types/serviceTypes/locationTypes";
-import { IUser } from "../../../types/userTypes/userInfoTypes";
+import { IGroupedMembers, MemberGroup } from "../../../types/models/member";
+import { IUser } from "../../../types/models/userTypes/userInfoTypes";
+import { Location } from "../../../types/services/locationTypes";
 
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 

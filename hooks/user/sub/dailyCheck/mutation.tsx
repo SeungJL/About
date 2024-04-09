@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { SERVER_URI } from "../../../../constants/system";
-import { MutationOptions } from "../../../../types/reactTypes";
+import { MutationOptions } from "../../../../types/hooks/reactTypes";
 
 export const useDailyCheckMutation = (options?: MutationOptions) =>
   useMutation<void, AxiosError, void>(async () => {

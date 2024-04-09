@@ -12,21 +12,21 @@ import {
 import { SERVER_URI } from "../../constants/system";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
-import { QueryOptions } from "../../types/reactTypes";
+import { QueryOptions } from "../../types/hooks/reactTypes";
 
-import { IArrivedData } from "../../types/study/study";
+import { IArrivedData } from "../../types/models/study/study";
 import {
   IPlace,
   IStudyPreferencesQuery,
   IStudyStartTime,
-} from "../../types/study/studyDetail";
+} from "../../types/models/study/studyDetail";
 
-import { Location } from "../../types/serviceTypes/locationTypes";
 import {
   IParticipation,
   IStudyPlaces,
   IVote,
-} from "../../types/studyTypes/studyVoteTypes";
+} from "../../types/models/studyTypes/studyVoteTypes";
+import { Location } from "../../types/services/locationTypes";
 
 export const useStudyPlacesQuery = (
   location: Location | "all",

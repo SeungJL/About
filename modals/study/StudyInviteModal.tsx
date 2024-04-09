@@ -6,8 +6,8 @@ import styled from "styled-components";
 import { SQUARE_RANDOM_IMAGE } from "../../assets/images/imageUrl";
 import { WEB_URL } from "../../constants/system";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
-import { IPlace } from "../../types/study/studyDetail";
+import { IModal } from "../../types/hooks/reactTypes";
+import { IPlace } from "../../types/models/study/studyDetail";
 import { IFooterOptions, ModalLayout } from "../Modals";
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 

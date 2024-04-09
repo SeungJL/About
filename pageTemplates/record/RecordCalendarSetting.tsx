@@ -2,8 +2,8 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect } from "react";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../hooks/study/queries";
-import { DispatchBoolean, DispatchType } from "../../types/reactTypes";
-import { IArrivedData } from "../../types/study/study";
+import { DispatchBoolean, DispatchType } from "../../types/hooks/reactTypes";
+import { IArrivedData } from "../../types/models/study/study";
 
 interface IRecordSetting {
   navMonth: Dayjs;

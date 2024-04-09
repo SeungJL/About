@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../../libs/methodHelpers";
-import { ICounter } from "../../../types/page/admin";
-import { MutationOptions } from "../../../types/reactTypes";
-import { Location } from "../../../types/serviceTypes/locationTypes";
+import { MutationOptions } from "../../../types/hooks/reactTypes";
+import { ICounter } from "../../../types/models/admin";
+import { Location } from "../../../types/services/locationTypes";
 
 export const useCounterMutation = (
   key: "enthusiasticMember",

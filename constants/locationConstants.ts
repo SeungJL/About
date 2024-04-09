@@ -3,7 +3,7 @@ import {
   InactiveLocation,
   Location,
   LocationEn,
-} from "../types/serviceTypes/locationTypes";
+} from "../types/services/locationTypes";
 
 export const ACTIVE_LOCATIONS: ActiveLocation[] = [
   "수원",

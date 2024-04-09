@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../../libs/backend/dbConnect";
 import { Place } from "../../../models/place";
 
-import { IPlace } from "../../../types/study/studyDetail";
+import { IPlace } from "../../../types/models/study/studyDetail";
 
 export default async function handler(
   req: NextApiRequest,

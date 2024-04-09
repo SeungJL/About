@@ -4,8 +4,8 @@ import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
 
-import { IGather } from "../../types/gatherTypes/gatherTypes";
-import { QueryOptions } from "../../types/reactTypes";
+import { QueryOptions } from "../../types/hooks/reactTypes";
+import { IGather } from "../../types/models/gatherTypes";
 
 export const useGatherQuery = (options?: QueryOptions<IGather[]>) =>
   useQuery<IGather[], AxiosError, IGather[]>(

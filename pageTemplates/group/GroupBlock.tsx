@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { Badge } from "../../components/atoms/badges/Badges";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import { transferGroupDataState } from "../../recoils/transferRecoils";
-import { IGroup } from "../../types/page/group";
+import { IGroup } from "../../types/models/group";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
 interface IGroupBlock {

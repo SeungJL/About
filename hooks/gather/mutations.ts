@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { requestServer } from "../../libs/methodHelpers";
-import { IGather, IGatherWriting } from "../../types/page/gather";
-import { MutationOptions } from "../../types/reactTypes";
+import { MutationOptions } from "../../types/hooks/reactTypes";
+import { IGather, IGatherWriting } from "../../types/models/gather";
 
 type GatherWritingParam<T> = T extends "post"
   ? { gather: IGatherWriting }

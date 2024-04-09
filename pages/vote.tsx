@@ -25,13 +25,13 @@ import StudyPresetModal from "../modals/userRequest/StudyPresetModal";
 import { myStudyState, studyDateStatusState } from "../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../storage/study";
 import { IMapOptions, IMarkerOptions } from "../types/lib/naverMapTypes";
-import { ActiveLocation } from "../types/serviceTypes/locationTypes";
 import {
   IParticipation,
   IPlace,
   IStudyPlaces,
   IStudyVote,
-} from "../types/studyTypes/studyVoteTypes";
+} from "../types/models/studyTypes/studyVoteTypes";
+import { ActiveLocation } from "../types/services/locationTypes";
 import { convertLocationLangTo } from "../utils/convertUtils/convertDatas";
 
 export type ChoiceRank = "first" | "second" | "third";

@@ -1,4 +1,4 @@
-import { ITimeStamps } from "./timeAndDate";
+import { ITimeStamps } from "../utils/timeAndDate";
 
 export type InteractionType = "like" | "friend" | "alphabet";
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IUser } from "../../types/userTypes/userInfoTypes";
+import { IUser } from "../../types/models/userTypes/userInfoTypes";
 import ProfileInfo from "./profileOverview/ProfileInfo";
 
 import ProfileRelation from "./profileOverview/ProfileRelation";

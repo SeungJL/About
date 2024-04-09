@@ -10,7 +10,7 @@ import StudyAbsentModal from "../../../modals/study/StudyAbsentModal";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
 import StudyChangeTimeModal from "../../../modals/study/StudyChangeTimeModal";
 import StudyFreeOpenModal from "../../../modals/study/StudyFreeOpenModal";
-import { DispatchType } from "../../../types/reactTypes";
+import { DispatchType } from "../../../types/hooks/reactTypes";
 import { studyModalType } from "../StudyNavigation";
 import VoteSuccessScreen from "../VoteSuccessScreen";
 

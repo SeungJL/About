@@ -5,7 +5,7 @@ import Header from "../../../components/layouts/Header";
 
 import { useUpdateProfileMutation } from "../../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../../hooks/admin/quries";
-import { IUser } from "../../../types/userTypes/userInfoTypes";
+import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 
 function AdminUserInfo() {
   const [users, setUsers] = useState<IUser[]>([]);

@@ -6,7 +6,10 @@ import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
 import AttendanceBadge from "../../components/molecules/badge/AttendanceBadge";
 import { IProfileCommentCard } from "../../components/molecules/cards/ProfileCommentCard";
 import ProfileCardColumn from "../../components/organisms/ProfileCardColumn";
-import { IAbsence, IAttendance } from "../../types/studyTypes/studyVoteTypes";
+import {
+  IAbsence,
+  IAttendance,
+} from "../../types/models/studyTypes/studyVoteTypes";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
 interface IStudyParticipants {

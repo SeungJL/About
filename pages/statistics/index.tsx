@@ -20,8 +20,8 @@ import RankingOverview from "../../pageTemplates/ranking/RankingOverview";
 import StatisticsFilterBar from "../../pageTemplates/ranking/StatisticsFilterBar";
 import StatisticsMine from "../../pageTemplates/ranking/StatisticsMine";
 import StatisticsTabNav from "../../pageTemplates/ranking/StatisticsTabNav";
-import { IUserRankings } from "../../types/page/ranking";
-import { LocationEn } from "../../types/serviceTypes/locationTypes";
+import { IUserRankings } from "../../types/models/ranking";
+import { LocationEn } from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 const categoryArr = [

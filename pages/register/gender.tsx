@@ -10,7 +10,7 @@ import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { setLocalStorageObj } from "../../utils/storageUtils";
 
-import { IUserRegisterFormWriting } from "../../types/userTypes/userInfoTypes";
+import { IUserRegisterFormWriting } from "../../types/models/userTypes/userInfoTypes";
 
 function Gender() {
   const router = useRouter();

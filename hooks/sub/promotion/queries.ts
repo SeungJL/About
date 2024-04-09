@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
 import { SERVER_URI } from "../../../constants/system";
-import { IPromotionApply } from "../../../types/page/promotion";
+import { IPromotionApply } from "../../../types/models/promotion";
 
 export const usePromotionQuery = (
   options?: Omit<

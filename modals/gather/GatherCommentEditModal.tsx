@@ -11,7 +11,7 @@ import { useGatherCommentMutation } from "../../hooks/gather/mutations";
 import { useGroupCommentMutation } from "../../hooks/groupStudy/mutations";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/hooks/reactTypes";
 
 interface IGatherCommentEditModal extends IModal {
   commentText: string;

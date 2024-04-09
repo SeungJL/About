@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
-import { Location } from "../serviceTypes/locationTypes";
+import { Location } from "../../services/locationTypes";
+import { ITimeStamps } from "../../utils/dateTimeTypes";
 import { IUserSummary } from "../userTypes/userInfoTypes";
-import { ITimeStamps } from "../utilityTypes/dateTimeTypes";
 
 export interface IVote {
   date: Date;

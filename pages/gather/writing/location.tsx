@@ -11,7 +11,7 @@ import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
-import { IGatherLocation } from "../../../types/page/gather";
+import { IGatherLocation } from "../../../types/models/gather";
 
 function WritingGahterLocation() {
   const router = useRouter();

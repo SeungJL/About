@@ -1,7 +1,7 @@
 import {
   IParticipation,
   StudyStatus,
-} from "../../types/studyTypes/studyVoteTypes";
+} from "../../types/models/studyTypes/studyVoteTypes";
 
 export const sortStudyVoteData = (
   participations: IParticipation[],

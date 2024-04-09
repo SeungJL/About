@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { Size } from "../../types/assetTypes";
+import { Size } from "../../types/components/assetTypes";
 export interface IIconLinkTile {
   text: string;
   icon: React.ReactNode;

@@ -1,9 +1,9 @@
 import {
   USER_BADGE_ARR,
   USER_EVENT_BADGE_ARR,
-} from "../../constants/serviceConstants/badgeConstants";
-import { USER_ROLE } from "../../constants/serviceConstants/userConstants";
-import { ActiveLocation, Location } from "../serviceTypes/locationTypes";
+} from "../../../constants/serviceConstants/badgeConstants";
+import { USER_ROLE } from "../../../constants/serviceConstants/userConstants";
+import { ActiveLocation, Location } from "../../services/locationTypes";
 
 export interface IUser
   extends Omit<IUserRegisterForm, "location">,

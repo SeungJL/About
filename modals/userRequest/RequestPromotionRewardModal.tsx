@@ -18,7 +18,7 @@ import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/hooks/reactTypes";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
   const { data: session } = useSession();

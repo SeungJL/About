@@ -14,7 +14,7 @@ import GatherHeader from "../../../pageTemplates/gather/detail/GatherHeader";
 import GatherOrganizer from "../../../pageTemplates/gather/detail/GatherOrganizer";
 import GatherParticipation from "../../../pageTemplates/gather/detail/GatherParticipation";
 import GatherTitle from "../../../pageTemplates/gather/detail/GatherTitle";
-import { IGather } from "../../../types/gatherTypes/gatherTypes";
+import { IGather } from "../../../types/models/gatherTypes";
 
 function GatherDetail() {
   const { data: session } = useSession();

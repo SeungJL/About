@@ -1,7 +1,7 @@
-import { ISortedUserAttends, IUserRankings } from "../../types/page/ranking";
-import { IScore } from "../../types/pointSystem";
-import { IVoteRate } from "../../types/study/study";
-import { IUser, UserBadge } from "../../types/userTypes/userInfoTypes";
+import { ISortedUserAttends, IUserRankings } from "../../types/models/ranking";
+import { IVoteRate } from "../../types/models/study/study";
+import { IUser, UserBadge } from "../../types/models/userTypes/userInfoTypes";
+import { IScore } from "../../types/services/pointSystem";
 
 type DataArrMap = {
   score: IScore[];

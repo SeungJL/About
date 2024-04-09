@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { IStoreApplicant } from "../../../types/page/store";
-import { MutationOptions } from "../../../types/reactTypes";
+import { MutationOptions } from "../../../types/hooks/reactTypes";
+import { IStoreApplicant } from "../../../types/models/store";
 
 export const useStoreMutation = (options?: MutationOptions<IStoreApplicant>) =>
   useMutation<void, AxiosError, IStoreApplicant>(async (applyInfo) => {

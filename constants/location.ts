@@ -1,4 +1,4 @@
-import { Location } from "../types/serviceTypes/locationTypes";
+import { Location } from "../types/services/locationTypes";
 import { TABLE_COLORS } from "./styles";
 
 export const LOCATION_OPEN: Location[] = [

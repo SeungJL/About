@@ -9,8 +9,8 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import { PROMOTION_WIN_DATE } from "../../constants/settingValue/dateSettingValue";
 import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
-import { IPromotionApply } from "../../types/page/promotion";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/hooks/reactTypes";
+import { IPromotionApply } from "../../types/models/promotion";
 import {
   IFooterOptions,
   IHeaderOptions,

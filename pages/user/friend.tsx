@@ -12,7 +12,7 @@ import {
 } from "../../hooks/user/queries";
 import { prevPageUrlState } from "../../recoils/navigationRecoils";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
-import { IUserSummary } from "../../types/userTypes/userInfoTypes";
+import { IUserSummary } from "../../types/models/userTypes/userInfoTypes";
 
 function ProfileFriend() {
   const router = useRouter();

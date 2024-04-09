@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import dbConnect from "../../../libs/backend/dbConnect";
 import { getProfile } from "../../../libs/backend/oauthUtils";
 import { User } from "../../../models/user";
-import { IUser } from "../../../types/userTypes/userInfoTypes";
+import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

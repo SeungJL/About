@@ -13,7 +13,7 @@ import { useAdminUsersLocationControlQuery } from "../../../hooks/admin/quries";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
-import { IUserSummary } from "../../../types/userTypes/userInfoTypes";
+import { IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
 
 type UserType = "신규 가입자" | "전체";
 

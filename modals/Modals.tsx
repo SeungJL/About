@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import styled from "styled-components";
 import TwoButtonNav from "../components/layouts/TwoButtonNav";
-import { IModal } from "../types/reactTypes";
+import { IModal } from "../types/hooks/reactTypes";
 
 export interface IHeaderOptions {
   subTitle?: string;

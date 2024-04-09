@@ -13,8 +13,8 @@ import {
 import { useGatherParticipationMutation } from "../../../hooks/gather/mutations";
 import GatherExpireModal from "../../../modals/gather/gatherExpireModal/GatherExpireModal";
 import GatherParticipateModal from "../../../modals/gather/gatherParticipateModal/GatherParticipateModal";
-import { IGather } from "../../../types/gatherTypes/gatherTypes";
-import { GatherStatus } from "../../../types/page/gather";
+import { GatherStatus } from "../../../types/models/gather";
+import { IGather } from "../../../types/models/gatherTypes";
 
 interface IGatherBottomNav {
   data: IGather;

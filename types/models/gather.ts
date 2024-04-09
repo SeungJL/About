@@ -1,7 +1,8 @@
 import { Dayjs } from "dayjs";
-import { LocationFilterType } from "../../types/serviceTypes/locationTypes";
-import { ITime } from "../timeAndDate";
-import { IUserSummary } from "../userTypes/userInfoTypes";
+import { LocationFilterType } from "../services/locationTypes";
+import { ITime } from "../utils/timeAndDate";
+
+import { IUserSummary } from "./userTypes/userInfoTypes";
 
 export interface IGather extends Omit<IGatherWriting, "date"> {
   date: string;

@@ -5,7 +5,7 @@ import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/hooks/reactTypes";
 
 interface ICheckAbsentModal extends IModal {
   uid: string;
