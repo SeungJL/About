@@ -27,8 +27,12 @@ import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import { IAttendance, StudyStatus } from "../../../types/study/studyDetail";
-import { IUser } from "../../../types/userTypes/userInfoTypes";
+import {
+  IAttendance,
+  StudyStatus,
+} from "../../../types/models/studyTypes/studyDetails";
+
+import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 const LOCATION = ["SUWAN", "YANG"];

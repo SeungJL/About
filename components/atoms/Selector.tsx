@@ -2,8 +2,8 @@
 
 import { Select } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
-import { DispatchType } from "../../types/reactTypes";
-import { ActiveLocation } from "../../types/serviceTypes/locationTypes";
+import { DispatchType } from "../../types/components/modalTypes";
+import { ActiveLocation } from "../../types/services/locationTypes";
 import { isLocationType } from "../../utils/validationUtils";
 
 interface ISelector {

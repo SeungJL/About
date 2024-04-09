@@ -18,7 +18,10 @@ import {
   transferMemberDataState,
   transferUserSummaryState,
 } from "../../../recoils/transferRecoils";
-import { IUser, IUserSummary } from "../../../types/userTypes/userInfoTypes";
+import {
+  IUser,
+  IUserSummary,
+} from "../../../types/models/userTypes/userInfoTypes";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function FriendCategory() {

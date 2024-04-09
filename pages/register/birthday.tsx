@@ -13,7 +13,7 @@ import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { IUserRegisterFormWriting } from "../../types/userTypes/userInfoTypes";
+import { IUserRegisterFormWriting } from "../../types/models/userTypes/userInfoTypes";
 import { birthToAge } from "../../utils/convertUtils/convertTypes";
 import {
   getLocalStorageObj,

@@ -13,8 +13,8 @@ import { useGatherWritingMutation } from "../../hooks/gather/mutations";
 import { isGatherEditState } from "../../recoils/checkAtoms";
 import { sharedGatherWritingState } from "../../recoils/sharedDataAtoms";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IGather, IGatherWriting } from "../../types/page/gather";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
+import { IGather, IGatherWriting } from "../../types/models/gatherTypes/gather";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IGatherWritingConfirmModal extends IModal {

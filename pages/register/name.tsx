@@ -10,7 +10,7 @@ import { REGISTER_INFO } from "../../constants/keys/localStorage";
 
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { IUserRegisterFormWriting } from "../../types/userTypes/userInfoTypes";
+import { IUserRegisterFormWriting } from "../../types/models/userTypes/userInfoTypes";
 import {
   getLocalStorageObj,
   setLocalStorageObj,

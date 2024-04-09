@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { DispatchType } from "../../types/reactTypes";
+import { DispatchType } from "../../types/components/modalTypes";
 interface IImageUploadInput {
   setImageUrl: DispatchType<any>;
 }

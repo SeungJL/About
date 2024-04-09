@@ -4,7 +4,7 @@ import CheckList from "../../../components/atoms/CheckList";
 import TabNav, {
   ITabNavOptions,
 } from "../../../components/molecules/navs/TabNav";
-import { IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types/components/modalTypes";
 import { IFooterOptions, IHeaderOptions, ModalLayout } from "../../Modals";
 
 function StudyRuleModal({ setIsModal }: IModal) {

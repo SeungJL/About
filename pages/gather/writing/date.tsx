@@ -14,7 +14,7 @@ import GatherWritingDateSubject from "../../../pageTemplates/gather/writing/Gath
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
-import { IGatherListItem } from "../../../types/page/gather";
+import { IGatherListItem } from "../../../types/models/gatherTypes/gather";
 
 function WritingDate() {
   const failToast = useFailToast();

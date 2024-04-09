@@ -9,13 +9,16 @@ import {
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 
-import { QueryOptions } from "../../types/reactTypes";
-import { Location } from "../../types/serviceTypes/locationTypes";
-import { IUser, IUserRegisterForm } from "../../types/userTypes/userInfoTypes";
+import { QueryOptions } from "../../types/components/modalTypes";
+import {
+  IUser,
+  IUserRegisterForm,
+} from "../../types/models/userTypes/userInfoTypes";
 import {
   IUserRequest,
   UserRequestCategory,
-} from "../../types/userTypes/userRequestTypes";
+} from "../../types/models/userTypes/userRequestTypes";
+import { Location } from "../../types/services/locationTypes";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useAdminUsersControlQuery = (options?: QueryOptions<IUser[]>) =>

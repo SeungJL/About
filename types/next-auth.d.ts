@@ -1,8 +1,8 @@
 import "next-auth";
 
 import { DefaultSession } from "next-auth";
-import { ActiveLocation } from "./serviceTypes/locationTypes";
-import { UserRole } from "./userTypes/userInfoTypes";
+import { UserRole } from "../userTypes/userInfoTypes";
+import { ActiveLocation } from "./services/locationTypes";
 declare module "next-auth/jwt" {
   // JWT 토큰의 타입을 확장합니다.
   interface JWT {

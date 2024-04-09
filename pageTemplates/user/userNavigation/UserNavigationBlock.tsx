@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
-import { DispatchString } from "../../../types/reactTypes";
+import { DispatchString } from "../../../types/components/modalTypes";
 import { UserOverviewModal } from "./UserNavigation";
 
 interface IUserNavigationBlock {

@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Selector from "../../components/atoms/Selector";
-import { DispatchType } from "../../types/reactTypes";
+import { DispatchType } from "../../types/components/modalTypes";
 
 interface IStatisticsFilterBar {
   setFilterOptions: DispatchType<{

@@ -23,13 +23,13 @@ import {
   studyDateStatusState,
 } from "../../recoils/studyRecoils";
 
-import { ITextAndColorSchemes } from "../../types/propTypes";
-
-import { LocationEn } from "../../types/serviceTypes/locationTypes";
+import { ITextAndColorSchemes } from "../../types/components/propTypes";
 import {
   IParticipation,
   StudyStatus,
-} from "../../types/studyTypes/studyVoteTypes";
+} from "../../types/models/studyTypes/studyDetails";
+
+import { LocationEn } from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 

@@ -27,8 +27,8 @@ import AlphabetChangeModal from "../../modals/user/collection/AlphabetChangeModa
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
 
-import { Alphabet, ICollectionAlphabet } from "../../types/collections";
-import { IUserSummary } from "../../types/userTypes/userInfoTypes";
+import { Alphabet, ICollectionAlphabet } from "../../types/models/collections";
+import { IUserSummary } from "../../types/models/userTypes/userInfoTypes";
 import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 const ALPHABET_COLLECTION: Alphabet[] = ["A", "B", "O", "U", "T"];

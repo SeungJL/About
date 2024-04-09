@@ -12,7 +12,7 @@ import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GatherCommentEditModal from "../../../modals/gather/GatherCommentEditModal";
-import { IGatherComment } from "../../../types/gatherTypes/gatherTypes";
+import { IGatherComment } from "../../../types/models/gatherTypes/gatherTypes";
 import { getDateDiff } from "../../../utils/dateTimeUtils";
 export interface IGatherCommentUnit {
   gatherId: number;
@@ -61,7 +61,7 @@ function GatherComments({ comment }: IGatherComments) {
     setCommentText(text);
     setIsEditModal(true);
   };
-
+  console.log(comment);
   return (
     <>
       <Layout>

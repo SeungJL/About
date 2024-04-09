@@ -12,7 +12,7 @@ import {
 import { SCHEME_TO_COLOR } from "../../../constants/styles";
 
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
-import { UserBadge } from "../../../types/userTypes/userInfoTypes";
+import { UserBadge } from "../../../types/models/userTypes/userInfoTypes";
 import {
   getNextBadge,
   getUserBadge,

@@ -18,7 +18,7 @@ import {
   IUser,
   IUserRegisterForm,
   IUserSummary,
-} from "../../../types/userTypes/userInfoTypes";
+} from "../../../types/models/userTypes/userInfoTypes";
 
 interface IProfileIcon {
   user: IUser | IUserRegisterForm | "guest" | "ABOUT";

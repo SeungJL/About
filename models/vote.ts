@@ -1,11 +1,12 @@
 import mongoose, { model, Model, Schema } from "mongoose";
 import {
-  IAbsence,
   IAttendance,
   IParticipation,
-  IVote,
-} from "../types/study/studyDetail";
-import { IDayjsStartToEnd } from "../types/timeAndDate";
+  IStudy,
+} from "../types/models/studyTypes/studyDetails";
+import { IAbsence } from "../types/models/studyTypes/studyInterActions";
+
+import { IDayjsStartToEnd } from "../types/utils/timeAndDate";
 
 const ParticipantTimeSchema: Schema<IDayjsStartToEnd> = new Schema(
   {
@@ -65,7 +66,6 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
     attendences: [AttendenceSchema],
     absences: [AbsenceSchema],
     startTime: Date,
-    endTime: Date,
 
     status: {
       type: Schema.Types.String,
@@ -76,11 +76,11 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
   { _id: false }
 );
 
-const VoteSchema: Schema<IVote> = new Schema({
+const VoteSchema: Schema<IStudy> = new Schema({
   date: Date,
   participations: [ParticipationSchema],
 });
 
 export const Vote =
-  (mongoose.models.Vote as Model<IVote, {}, {}, {}>) ||
-  model<IVote>("Vote", VoteSchema);
+  (mongoose.models.Vote as Model<IStudy, {}, {}, {}>) ||
+  model<IStudy>("Vote", VoteSchema);

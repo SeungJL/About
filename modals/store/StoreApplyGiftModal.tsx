@@ -14,8 +14,8 @@ import {
 import { useStoreMutation } from "../../hooks/sub/store/mutation";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemQuery } from "../../hooks/user/queries";
-import { IStoreApplicant, IStoreGift } from "../../types/page/store";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
+import { IStoreApplicant, IStoreGift } from "../../types/models/store";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IStoreApplyGiftModal extends IModal {

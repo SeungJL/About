@@ -13,10 +13,10 @@ import {
   MANAGER_BADGE,
 } from "../../constants/storage/eventBadgeUser";
 import {
-  ActiveLocation,
-  LocationEn,
-} from "../../types/serviceTypes/locationTypes";
-import { UserBadge, UserRole } from "../../types/userTypes/userInfoTypes";
+  UserBadge,
+  UserRole,
+} from "../../types/models/userTypes/userInfoTypes";
+import { ActiveLocation, LocationEn } from "../../types/services/locationTypes";
 
 export const getUserBadge = (score: number, uid: string): UserBadge => {
   let badge: UserBadge = "아메리카노";

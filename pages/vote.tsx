@@ -25,13 +25,15 @@ import StudyPresetModal from "../modals/userRequest/StudyPresetModal";
 import { myStudyState, studyDateStatusState } from "../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../storage/study";
 import { IMapOptions, IMarkerOptions } from "../types/lib/naverMapTypes";
-import { ActiveLocation } from "../types/serviceTypes/locationTypes";
 import {
   IParticipation,
   IPlace,
-  IStudyPlaces,
+} from "../types/models/studyTypes/studyDetails";
+import {
   IStudyVote,
-} from "../types/studyTypes/studyVoteTypes";
+  IStudyVotePlaces,
+} from "../types/models/studyTypes/studyInterActions";
+import { ActiveLocation } from "../types/services/locationTypes";
 import { convertLocationLangTo } from "../utils/convertUtils/convertDatas";
 
 export type ChoiceRank = "first" | "second" | "third";
@@ -59,7 +61,7 @@ export default function StudyVoteMap() {
 
   const [preferInfo, setPreferInfo] = useState<{
     preset: "first" | "second" | null;
-    prefer: IStudyPlaces;
+    prefer: IStudyVotePlaces;
   }>();
   const [myVote, setMyVote] = useState<IStudyVote>();
   const [precision, setPrecision] = useState<0 | 1 | 2>(1);

@@ -1,10 +1,8 @@
 import { Dayjs } from "dayjs";
-import {
-  ActiveLocation,
-  CombinedLocation,
-} from "../serviceTypes/locationTypes";
+import { ActiveLocation, CombinedLocation } from "../../services/locationTypes";
+import { ITimeStamps } from "../../utils/timeAndDate";
+
 import { IUserSummary } from "../userTypes/userInfoTypes";
-import { ITimeStamps } from "../utilityTypes/dateTimeTypes";
 
 export interface IGather extends Omit<IGatherWriting, "date">, ITimeStamps {
   date: string;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Header from "../../../components/layouts/Header";
 
 import { useStudyPlacesQuery } from "../../../hooks/study/queries";
-import { ISpaceControl } from "../../../types/page/admin";
+import { ISpaceControl } from "../../../types/models/admin";
 
 function Adminstudy() {
   const { data } = useStudyPlacesQuery("all");

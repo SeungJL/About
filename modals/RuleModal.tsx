@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { ModalSubtitle } from "../styles/layout/modal";
-import { IContentBasic } from "../types/common";
-import { IModal } from "../types/reactTypes";
+
+import { IModal } from "../types/components/modalTypes";
 
 import { IFooterOptions, ModalLayout } from "./Modals";
 
+export interface IContentBasic {
+  title: string;
+  text?: string;
+  texts?: string[];
+}
 export interface IRuleModalContent {
   headerContent: IContentBasic;
   mainContent: IContentBasic[];

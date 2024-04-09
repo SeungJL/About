@@ -7,7 +7,7 @@ import Header from "../../../components/layouts/Header";
 import AdminLocationSelector from "../../../components/molecules/picker/AdminLocationSelector";
 
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
-import { IUserRequest } from "../../../types/userTypes/userRequestTypes";
+import { IUserRequest } from "../../../types/models/userTypes/userRequestTypes";
 import { getRestInfo } from "../../../utils/convertUtils/convertDatas";
 
 function AdminRest() {

@@ -3,14 +3,14 @@ import { useMutation } from "react-query";
 import { SERVER_URI } from "../../constants/system";
 import { requestServer } from "../../libs/methodHelpers";
 import { IApplyRest } from "../../modals/userRequest/RequestRestModal/RequestRestModal";
-import { IPointSystem } from "../../types/pointSystem";
-import { MutationOptions } from "../../types/reactTypes";
+import { MutationOptions } from "../../types/components/modalTypes";
 import {
   IAvatar,
   IUser,
   IUserRegisterFormWriting,
   UserRole,
-} from "../../types/userTypes/userInfoTypes";
+} from "../../types/models/userTypes/userInfoTypes";
+import { IPointSystem } from "../../types/services/pointSystem";
 
 export const useUserRegisterMutation = (
   options?: MutationOptions<IUserRegisterFormWriting>

@@ -39,8 +39,11 @@ import Slide from "../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
-import { IGatherMemberCnt, IGatherWriting } from "../../../types/page/gather";
-import { Location } from "../../../types/serviceTypes/locationTypes";
+import {
+  IGatherMemberCnt,
+  IGatherWriting,
+} from "../../../types/models/gatherTypes/gather";
+import { Location } from "../../../types/services/locationTypes";
 import { randomPassword } from "../../../utils/validationUtils";
 
 type ButtonType = "gender" | "age" | "pre" | "location" | "manager";

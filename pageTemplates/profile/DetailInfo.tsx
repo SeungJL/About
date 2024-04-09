@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import BlurredPart from "../../components/molecules/BlurredPart";
 import Chart from "../../components/organisms/chart/Chart";
-import { IUser } from "../../types/userTypes/userInfoTypes";
+import { IUser } from "../../types/models/userTypes/userInfoTypes";
 import { birthToAge } from "../../utils/convertUtils/convertTypes";
 
 function DetailInfo({ user }: { user: IUser }) {

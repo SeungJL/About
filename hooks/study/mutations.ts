@@ -2,20 +2,19 @@ import { AxiosError } from "axios";
 import { Dayjs } from "dayjs";
 import { useMutation } from "react-query";
 import { requestServer } from "../../libs/methodHelpers";
-import { MutationOptions } from "../../types/reactTypes";
-import { IStudyParticipate } from "../../types/study/study";
+import { MutationOptions } from "../../types/components/modalTypes";
+import { IStudyVote } from "../../types/models/studyTypes/studyInterActions";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 import {
-  IStudyPlaces,
-  IStudyTime,
-  IStudyVote,
-} from "../../types/studyTypes/studyVoteTypes";
+  IStudyVotePlaces,
+  IStudyVoteTime,
+} from "../../types/models/studyTypes/studyInterActions";
 
 type StudyParticipationParam<T> = T extends "post"
   ? IStudyVote
   : T extends "patch"
-  ? IStudyTime
+  ? IStudyVoteTime
   : void;
 
 export const useStudyParticipationMutation = <
@@ -28,7 +27,7 @@ export const useStudyParticipationMutation = <
   useMutation<void, AxiosError, StudyParticipationParam<T>>((param) => {
     const voteInfo = param;
     if (method !== "delete") {
-      const updatedVoteInfo = voteInfo as IStudyParticipate | IStudyTime;
+      const updatedVoteInfo = voteInfo as IStudyVote | IStudyVoteTime;
       const { start, end } = updatedVoteInfo;
       updatedVoteInfo.start = voteDate
         .hour(start.hour())
@@ -117,11 +116,11 @@ export const useStudyResultDecideMutation = (
   );
 
 export const useStudyPreferenceMutation = (
-  options?: MutationOptions<IStudyPlaces>
+  options?: MutationOptions<IStudyVotePlaces>
 ) =>
-  useMutation<void, AxiosError, IStudyPlaces>(
+  useMutation<void, AxiosError, IStudyVotePlaces>(
     (votePlaces) =>
-      requestServer<IStudyPlaces>({
+      requestServer<IStudyVotePlaces>({
         method: "post",
         url: `user/preference`,
         body: votePlaces,

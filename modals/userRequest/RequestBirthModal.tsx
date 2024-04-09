@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 function RequestBirthModal({ setIsModal }: IModal) {

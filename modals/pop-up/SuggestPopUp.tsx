@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 import RequestSuggestModal from "../userRequest/RequestSuggestModal";
 

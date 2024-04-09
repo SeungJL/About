@@ -15,8 +15,11 @@ import {
   prevPageUrlState,
   slideDirectionState,
 } from "../../recoils/navigationRecoils";
-import { GatherStatus, IGather } from "../../types/gatherTypes/gatherTypes";
-import { ITextAndColorSchemes } from "../../types/propTypes";
+import { ITextAndColorSchemes } from "../../types/components/propTypes";
+import {
+  GatherStatus,
+  IGather,
+} from "../../types/models/gatherTypes/gatherTypes";
 import { getRandomImage } from "../../utils/imageUtils";
 
 export default function HomeGatherSection() {

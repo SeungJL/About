@@ -8,7 +8,7 @@ import AdminLocationSelector from "../../../components/molecules/picker/AdminLoc
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
 import { birthToAge } from "../../../utils/convertUtils/convertTypes";
 
-import { IUserRequest } from "../../../types/userTypes/userRequestTypes";
+import { IUserRequest } from "../../../types/models/userTypes/userRequestTypes";
 
 function AdminGroupGather() {
   const [initialData, setInitialData] = useState<IUserRequest[]>();

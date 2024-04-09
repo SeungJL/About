@@ -12,7 +12,7 @@ import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 
 import { ModalSubtitle } from "../../../styles/layout/modal";
-import { IModal } from "../../../types/reactTypes";
+import { IModal } from "../../../types/components/modalTypes";
 import { IConfirmContent } from "../../common/ConfirmModal";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 

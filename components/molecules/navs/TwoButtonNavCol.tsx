@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { Size } from "../../../types/assetTypes";
+import { Size } from "../../../types/components/assetTypes";
 
 export interface ITwoButtonNavColProps {
   size?: Size;

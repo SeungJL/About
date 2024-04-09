@@ -72,7 +72,6 @@ export const confirm = async (dateStr: string) => {
       if (result) {
         participation.status = "open";
         participation.startTime = result.start;
-        participation.endTime = result.end;
       } else {
         participation.status = "dismissed";
       }
@@ -129,7 +128,7 @@ export const confirm = async (dateStr: string) => {
         if (timeObj.length && result) {
           participation.status = "open";
           participation.startTime = result.start as Date;
-          participation.endTime = result.end as Date;
+
           participation.attendences.forEach((attendance) => {
             attendance.firstChoice = true;
             failure.delete(attendance.user.toString());

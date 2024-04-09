@@ -1,6 +1,6 @@
 import { Button, Flex } from "@chakra-ui/react";
 import styled from "styled-components";
-import { ButtonSize } from "../../../types/assetTypes";
+import { ButtonSize } from "../../../types/components/assetTypes";
 export interface IButtonOpions {
   text: string;
   func: () => void;

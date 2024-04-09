@@ -17,7 +17,7 @@ import {
 } from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 
 interface IPromotionApplyModal extends IModal {
   uniName: string;

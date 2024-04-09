@@ -8,7 +8,7 @@ import {
   INC_인하대,
   SUWAN_워터쿨러,
 } from "../../../storage/study";
-import { ActiveLocation } from "../../../types/serviceTypes/locationTypes";
+import { ActiveLocation } from "../../../types/services/locationTypes";
 import {
   ANYANG_숨맑은집,
   ANYANG_인뎃커피,

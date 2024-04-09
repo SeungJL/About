@@ -1,4 +1,4 @@
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 import { IConfirmContent } from "./ConfirmModal";
 

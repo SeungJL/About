@@ -18,7 +18,7 @@ import {
   useStudyPreferenceQuery,
 } from "../../hooks/study/queries";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
-import { IStudyPlaces } from "../../types/studyTypes/studyVoteTypes";
+import { IStudyVotePlaces } from "../../types/models/studyTypes/studyInterActions";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 import { IConfirmContent } from "../common/ConfirmModal";
 import ConfirmModal2 from "../common/ConfirmModal2";
@@ -35,8 +35,8 @@ function StudyPresetModal() {
   const [page, setPage] = useState(0);
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
-  const [presetPlaces, setPresetPlaces] = useState<IStudyPlaces>({
-    place: undefined,
+  const [presetPlaces, setPresetPlaces] = useState<IStudyVotePlaces>({
+    place: null,
     subPlace: [],
   });
 
@@ -98,7 +98,7 @@ function StudyPresetModal() {
   };
 
   const onSubmit = async () => {
-    const savedPlaces: IStudyPlaces = {
+    const savedPlaces: IStudyVotePlaces = {
       place: presetPlaces.place,
       subPlace: presetPlaces.subPlace.filter((place) =>
         studyPlaces.map((par) => par._id).includes(place)
@@ -124,7 +124,8 @@ function StudyPresetModal() {
     imageUrl: place.image,
     text: place.branch,
     func: () => {
-      if (!presetPlaces?.place) setPresetPlaces({ place: place._id });
+      if (!presetPlaces?.place)
+        setPresetPlaces({ place: place._id, subPlace: [] });
       else {
         if (place._id === presetPlaces.place) {
           setPresetPlaces({ place: null, subPlace: [] });

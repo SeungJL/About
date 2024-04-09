@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
-import { CombinedLocation } from "../../pages/gather/writing/condition";
-import { LocationFilterType } from "../serviceTypes/locationTypes";
-import { ITime } from "../timeAndDate";
+import { CombinedLocation } from "../../../pages/gather/writing/condition";
+import { LocationFilterType } from "../../services/locationTypes";
+import { ITime } from "../../utils/timeAndDate";
 import { IUserSummary } from "../userTypes/userInfoTypes";
 
 export interface IGather extends Omit<IGatherWriting, "date"> {

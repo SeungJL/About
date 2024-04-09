@@ -7,11 +7,11 @@ import styled from "styled-components";
 import { UserIcon } from "../../atoms/Icons/icons";
 
 import { SingleLineText } from "../../../styles/layout/components";
-import { IImageProps } from "../../../types/assetTypes";
-import { ITextAndColorSchemes } from "../../../types/propTypes";
+import { IImageProps } from "../../../types/components/assetTypes";
+import { ITextAndColorSchemes } from "../../../types/components/propTypes";
 import Skeleton from "../../atoms/skeleton/Skeleton";
 
-import { IUserSummary } from "../../../types/userTypes/userInfoTypes";
+import { IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
 import OutlineBadge from "../../atoms/badges/OutlineBadge";
 import AvatarGroupsOverwrap from "../groups/AvatarGroupsOverwrap";
 export interface IPostThumbnailCard {

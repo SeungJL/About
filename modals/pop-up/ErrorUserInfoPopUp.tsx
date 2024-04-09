@@ -4,7 +4,7 @@ import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { ModalSubtitle } from "../../styles/layout/modal";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 
 function ErrorUserInfoPopUp({ setIsModal }: IModal) {
   const { data: session } = useSession();

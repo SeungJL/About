@@ -7,9 +7,9 @@ import {
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
-import { IGather } from "../../types/page/gather";
-import { IGroup, IGroupAttendance } from "../../types/page/group";
-import { QueryOptions } from "../../types/reactTypes";
+import { QueryOptions } from "../../types/components/modalTypes";
+import { IGather } from "../../types/models/gatherTypes/gather";
+import { IGroup, IGroupAttendance } from "../../types/models/groupTypes/group";
 
 export const useGroupQuery = (options?: QueryOptions<IGroup[]>) =>
   useQuery<IGroup[], AxiosError, IGroup[]>(

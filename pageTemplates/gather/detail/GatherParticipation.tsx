@@ -11,8 +11,8 @@ import styled from "styled-components";
 import Avatar from "../../../components/atoms/Avatar";
 import { prevPageUrlState } from "../../../recoils/navigationRecoils";
 import { transferUserSummaryState } from "../../../recoils/transferRecoils";
-import { IGather } from "../../../types/gatherTypes/gatherTypes";
-import { IUserSummary } from "../../../types/userTypes/userInfoTypes";
+import { IGather } from "../../../types/models/gatherTypes/gatherTypes";
+import { IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
 
 interface IGatherParticipation {
   data: IGather;

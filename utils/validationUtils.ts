@@ -1,5 +1,5 @@
 import { ACTIVE_LOCATIONS } from "../constants/locationConstants";
-import { ActiveLocation } from "../types/serviceTypes/locationTypes";
+import { ActiveLocation } from "../types/services/locationTypes";
 
 export function isLocationType(value: string): value is ActiveLocation {
   return ACTIVE_LOCATIONS.includes(value as ActiveLocation);

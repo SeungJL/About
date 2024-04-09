@@ -6,7 +6,7 @@ import {
   LOCATION_OPEN,
   LOCATION_TABLE_COLOR,
 } from "../../constants/location";
-import { Location } from "../../types/serviceTypes/locationTypes";
+import { Location } from "../../types/services/locationTypes";
 
 interface IRecordSkeleton {
   isCalendar: boolean;

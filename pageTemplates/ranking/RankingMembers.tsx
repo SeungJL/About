@@ -6,8 +6,9 @@ import Avatar from "../../components/atoms/Avatar";
 import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
 
 import { RANKING_ANONYMOUS_USERS } from "../../constants/storage/anonymous";
-import { IRankingUser } from "../../types/page/ranking";
-import { IVoteRate } from "../../types/study/study";
+import { IRankingUser } from "../../types/models/ranking";
+import { IVoteRate } from "../../types/models/studyTypes/studyRecords";
+
 import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 interface IRankingMembers {

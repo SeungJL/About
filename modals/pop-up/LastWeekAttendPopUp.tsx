@@ -14,7 +14,7 @@ import PointScoreBar from "../../pageTemplates/point/pointScore/PointScoreBar";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { BADGE_SCORE_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
-import { IModal } from "../../types/reactTypes";
+import { IModal } from "../../types/components/modalTypes";
 import {
   getNextBadge,
   getUserBadge,

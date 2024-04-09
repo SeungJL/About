@@ -22,13 +22,16 @@ import ReviewGatherSummary from "../../pageTemplates/review/ReviewGatherSummary"
 import ReviewItemHeader from "../../pageTemplates/review/ReviewItemHeader";
 import ReviewStatus from "../../pageTemplates/review/ReviewStatus";
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
-import { IGatherLocation, IGatherType } from "../../types/page/gather";
+import {
+  IGatherLocation,
+  IGatherType,
+} from "../../types/models/gatherTypes/gather";
 import {
   ActiveLocation,
   ActiveLocationAll,
   LocationEn,
   LocationFilterType,
-} from "../../types/serviceTypes/locationTypes";
+} from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 export interface IGatherSummary {

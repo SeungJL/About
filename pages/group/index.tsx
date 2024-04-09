@@ -24,7 +24,7 @@ import GroupBlock from "../../pageTemplates/group/GroupBlock";
 import GroupMine from "../../pageTemplates/group/GroupMine";
 import GroupSkeletonMain from "../../pageTemplates/group/GroupSkeletonMain";
 import GroupSkeletonMine from "../../pageTemplates/group/GroupSkeletonMine";
-import { GroupCategory, IGroup } from "../../types/page/group";
+import { GroupCategory, IGroup } from "../../types/models/groupTypes/group";
 import { shuffleArray } from "../../utils/convertUtils/convertDatas";
 
 interface ICategory {

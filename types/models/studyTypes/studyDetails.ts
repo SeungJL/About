@@ -1,9 +1,10 @@
 import { Dayjs } from "dayjs";
-import { Location } from "../serviceTypes/locationTypes";
-import { IUserSummary } from "../userTypes/userInfoTypes";
-import { ITimeStamps } from "../utilityTypes/dateTimeTypes";
+import { Location } from "../../services/locationTypes";
 
-export interface IVote {
+import { IUserSummary } from "../userTypes/userInfoTypes";
+import { IAbsence } from "./studyInterActions";
+
+export interface IStudy {
   date: Date;
   participations: IParticipation[];
 }
@@ -44,25 +45,4 @@ export interface IPlace {
   time: string;
 }
 
-export interface IAbsence extends ITimeStamps {
-  user: IUserSummary;
-  noShow: boolean;
-  message: string;
-}
-
 export type StudyStatus = "pending" | "open" | "dismissed" | "free";
-
-// export type StudyDateStatus = "passed" | "today" | "not passed";
-
-export interface IStudyPlaces {
-  place?: string;
-  subPlace?: string[];
-}
-
-export interface IStudyTime {
-  start?: Dayjs;
-  end?: Dayjs;
-}
-export interface IStudyVote extends IStudyPlaces {
-  memo?: string;
-}

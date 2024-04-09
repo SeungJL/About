@@ -5,7 +5,8 @@ import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
 
 import Header from "../../components/layouts/Header";
 import { WEB_URL } from "../../constants/system";
-import { IPlace } from "../../types/studyTypes/studyVoteTypes";
+import { IPlace } from "../../types/models/studyTypes/studyDetails";
+
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
 const STUDY_RANDOM_IMGAGE_LENGTH = 6;

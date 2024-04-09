@@ -1,4 +1,4 @@
-import { ActiveLocation } from "../../../types/serviceTypes/locationTypes";
+import { ActiveLocation } from "../../../types/services/locationTypes";
 
 export const VOTE_LOCATION_CENTER_DOT: {
   [key in ActiveLocation]: any;

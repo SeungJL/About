@@ -1,4 +1,4 @@
-import { Location } from "../../types/serviceTypes/locationTypes";
+import { Location } from "../services/locationTypes";
 
 export interface ISpaceControl {
   branch?: string;

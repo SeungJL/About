@@ -18,8 +18,8 @@ import LocationMember from "../../pageTemplates/register/location/LocationMember
 import LocationTitle from "../../pageTemplates/register/location/LocationTitle";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import { Location } from "../../types/serviceTypes/locationTypes";
-import { IUserRegisterFormWriting } from "../../types/userTypes/userInfoTypes";
+import { IUserRegisterFormWriting } from "../../types/models/userTypes/userInfoTypes";
+import { Location } from "../../types/services/locationTypes";
 import { setLocalStorageObj } from "../../utils/storageUtils";
 
 function RegisterLocation() {

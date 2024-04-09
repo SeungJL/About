@@ -2,10 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import ButtonGroups from "../../components/molecules/groups/ButtonGroups";
-import {
-  ActiveLocation,
-  LocationEn,
-} from "../../types/serviceTypes/locationTypes";
+import { ActiveLocation, LocationEn } from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { createUrlWithLocation } from "../../utils/convertUtils/convertTypes";
 
