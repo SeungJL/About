@@ -16,17 +16,12 @@ function AdminSuggest() {
   const { data: data2, isLoading } = useUserRequestQuery("신고");
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (isLoading) return;
-    setInitialData([...data1, ...data2]);
-=======
     if (isLoading || !data1) return;
     const sortedData = [...data1, ...data2].sort((a, b) =>
       dayjs(a.createdAt) > dayjs(b.createdAt) ? 1 : -1
     );
 
     setInitialData(sortedData);
->>>>>>> main
   }, [data1, data2, isLoading]);
 
   return (
