@@ -6,7 +6,6 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Avatar from "../../../components/atoms/Avatar";
-import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
 import { GATHER_CONTENT } from "../../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../../hooks/gather/mutations";
@@ -61,15 +60,20 @@ function GatherComments({ comment }: IGatherComments) {
     setCommentText(text);
     setIsEditModal(true);
   };
-  console.log(comment);
+
   return (
     <>
       <Layout>
         <span>할 얘기가 있다면 댓글을 남겨보세요</span>
         <Comment>
-          {!isGuest && (
+          {!isGuest && userInfo && (
             <MyCommnet>
-              <ProfileIcon user={userInfo && userInfo} size="xs" />
+              <Avatar
+                size="sm"
+                uid={userInfo.uid}
+                avatar={userInfo.avatar}
+                image={userInfo.profileImage}
+              />
               <MyText
                 ref={textareaRef}
                 value={value}
