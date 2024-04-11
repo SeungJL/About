@@ -24,6 +24,7 @@ interface IHeartLikeIcon {
 }
 
 function HeartLikeIcon({ toUid, size = "sm" }: IHeartLikeIcon) {
+  console.log("heart", toUid);
   const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
