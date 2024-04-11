@@ -44,7 +44,7 @@ export default function HomeGatherSection() {
 
     setCardDataArr(setGatherDataToCardCol(gathers, handleNavigate).slice(0, 3));
   }, [gathers]);
-  console.log(3, cardDataArr);
+
   return (
     <>
       <SectionBar

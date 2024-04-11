@@ -16,7 +16,7 @@ export default function ImageZoomModal({
   setIsModal,
 }: IImageZoommodal) {
   const [isHeart, setIsHeart] = useState(true);
-
+  console.log("imageZoomToUid", toUid);
   return (
     <>
       <ScreenOverlay onClick={() => setIsModal(null)} zIndex={190} />
