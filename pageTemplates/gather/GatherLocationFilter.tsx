@@ -55,10 +55,14 @@ export default function GatherLocationFilter() {
       text: "동대문",
       func: () => onClickButton("동대문"),
     },
+    {
+      text: "인천",
+      func: () => onClickButton("인천"),
+    },
   ];
 
   return (
-    <Box>
+    <Box p="12px 16px">
       <ButtonGroups buttonDataArr={buttonDataArr} currentValue={location} />
     </Box>
   );

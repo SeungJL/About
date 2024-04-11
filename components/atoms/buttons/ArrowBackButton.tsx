@@ -17,7 +17,6 @@ export default function ArrowBackButton({ url }: IArrowBackButton) {
   const setSlideDirection = useSetRecoilState(slideDirectionState);
 
   const handleGoBack = () => {
-
     setSlideDirection("left");
     if (prevPageUrl) {
       router.push(prevPageUrl);
@@ -26,12 +25,14 @@ export default function ArrowBackButton({ url }: IArrowBackButton) {
     else router.back();
   };
 
-  return (
-    <Button onClick={handleGoBack}>
-      <FontAwesomeIcon icon={faChevronLeft} />
-    </Button>
-  );
+  return <ArrowBackButtonUI onClick={handleGoBack} />;
 }
+
+export const ArrowBackButtonUI = ({ onClick }: { onClick: () => void }) => (
+  <Button onClick={onClick}>
+    <FontAwesomeIcon icon={faChevronLeft} />
+  </Button>
+);
 
 const Button = styled.button`
   padding: 16px;

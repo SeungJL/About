@@ -88,11 +88,11 @@ export default function Page() {
                 studyStatus={study.status}
               />
             )}
+          </Slide>
             <StudyParticipants
               participants={attendances}
               absences={study.absences}
             />
-          </Slide>
           <StudyNavigation
             voteCnt={attendances?.length}
             studyStatus={study.status}

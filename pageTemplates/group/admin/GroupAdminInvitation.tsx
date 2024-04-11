@@ -1,12 +1,12 @@
-import { Box, Button, Flex, Grid } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
-import Avatar from "../../../components/atoms/Avatar";
 import { MainLoadingAbsolute } from "../../../components/atoms/loaders/MainLoading";
 import Selector from "../../../components/atoms/Selector";
+import InviteUserGroups from "../../../components/molecules/groups/InviteUserGroups";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
 import { LOCATION_USE_ALL } from "../../../constants/location";
 import { useAdminUsersLocationControlQuery } from "../../../hooks/admin/quries";
@@ -100,28 +100,7 @@ export default function GroupAdminInvitation({
               <MainLoadingAbsolute />
             </Box>
           ) : (
-            <Grid mt="20px" templateColumns="repeat(3,1fr)" gap="12px">
-              {filterUsers?.map((who, idx) => (
-                <Flex key={idx} justify="center" align="center">
-                  <Avatar
-                    image={who.profileImage}
-                    avatar={who.avatar}
-                    uid={who.uid}
-                    size="md"
-                  />
-                  <Flex direction="column" ml="8px">
-                    <Box>{who.name}</Box>
-                    <Button
-                      colorScheme="mintTheme"
-                      size="xs"
-                      onClick={() => setInviteUser(who)}
-                    >
-                      초대
-                    </Button>
-                  </Flex>
-                </Flex>
-              ))}
-            </Grid>
+            <InviteUserGroups users={filterUsers} inviteUser={setInviteUser} />
           )}
         </Box>
       </Box>

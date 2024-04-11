@@ -18,7 +18,7 @@ const IconContainer = styled.div`
   margin-left: ${({ dir }) => (dir === "right" ? "4px" : "0")};
 `;
 
-interface IArrowTextButton {
+export interface IArrowTextButton {
   dir: "right" | "left";
   text: string;
   onClick?: () => void;

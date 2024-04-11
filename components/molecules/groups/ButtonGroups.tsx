@@ -40,7 +40,7 @@ const Layout = styled.div`
     display: none;
   }
   display: flex;
-  padding: 12px 16px;
+  /* padding: 12px 16px; */
   flex-wrap: nowrap;
   overflow-x: auto;
 `;
