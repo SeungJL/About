@@ -23,7 +23,7 @@ export default function StudyParticipants({
     image: string;
     toUid: string;
   }>();
-  console.log(2, hasImageProps);
+
   const userCardArr: IProfileCommentCard[] = participants.map((par) => {
     const obj = composeUserCardArr(par, absences);
 
@@ -50,6 +50,7 @@ export default function StudyParticipants({
                   width={50}
                   height={50}
                   alt="studyAttend"
+                  priority={true}
                 />
               </Box>
             )}

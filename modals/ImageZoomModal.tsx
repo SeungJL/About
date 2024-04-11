@@ -16,7 +16,7 @@ export default function ImageZoomModal({
   setIsModal,
 }: IImageZoommodal) {
   const [isHeart, setIsHeart] = useState(true);
-  console.log("imageZoomToUid", toUid);
+
   return (
     <>
       <ScreenOverlay onClick={() => setIsModal(null)} zIndex={190} />
@@ -33,7 +33,13 @@ export default function ImageZoomModal({
         onClick={() => setIsModal(null)}
       >
         <Box position="relative" width="320px" maxHeight="400px">
-          <Image src={imageUrl} width={320} height={400} alt="test" />
+          <Image
+            src={imageUrl}
+            width={320}
+            height={400}
+            alt="studyPrivateImage"
+            priority={true}
+          />
           {isHeart && (
             <Button
               position="absolute"

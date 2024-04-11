@@ -24,7 +24,7 @@ function Test() {
 
   let AA = "te";
   let BB = "te ";
-  if (AA === BB) console.log(444);
+
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),
     dayjs("2023-12-10"),
