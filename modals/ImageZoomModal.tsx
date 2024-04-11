@@ -32,7 +32,7 @@ export default function ImageZoomModal({
         overflow="hidden"
         onClick={() => setIsModal(null)}
       >
-        <Box position="relative" width="320px" height="400px">
+        <Box position="relative" width="320px" maxHeight="400px">
           <Image src={imageUrl} width={320} height={400} alt="test" />
           {isHeart && (
             <Button

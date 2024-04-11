@@ -44,7 +44,7 @@ export default function HomeGatherSection() {
 
     setCardDataArr(setGatherDataToCardCol(gathers, handleNavigate).slice(0, 3));
   }, [gathers]);
-
+  console.log(3, cardDataArr);
   return (
     <>
       <SectionBar
@@ -57,7 +57,7 @@ export default function HomeGatherSection() {
         }
       />
       <Layout>
-        {cardDataArr ? (
+        {cardDataArr.length ? (
           <CardColumnLayout
             cardDataArr={cardDataArr}
             url={`/gather?location=${location}`}

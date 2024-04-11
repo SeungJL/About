@@ -89,7 +89,7 @@ export default function StudyParticipants({
           </Flex>
         )}
       </Slide>
-      {hasImageProps && (
+      {hasImageProps?.image && hasImageProps?.toUid && (
         <ImageZoomModal
           imageUrl={hasImageProps.image}
           toUid={hasImageProps.toUid}
