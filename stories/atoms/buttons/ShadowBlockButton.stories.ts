@@ -1,21 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ArrowBackButtonUI } from "../../../components/atoms/buttons/ArrowBackButton";
+import ShadowBlockButton from "../../../components/atoms/buttons/ShadowBlockButton";
 
 const meta = {
-  title: "ATOMS/Button/ArrowBackButton",
-  component: ArrowBackButtonUI,
+  title: "ATOMS/Button/ShadowBlockButton",
+  component: ShadowBlockButton,
   parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 
   args: {},
-} satisfies Meta<typeof ArrowBackButtonUI>;
+} satisfies Meta<typeof ShadowBlockButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    onClick: () => {},
+    text: "테스트",
   },
 };

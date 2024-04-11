@@ -1,3 +1,4 @@
+import { Box, Button } from "@chakra-ui/react";
 import {
   fa1,
   fa2,
@@ -6,9 +7,11 @@ import {
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Avatar from "../../../components/atoms/Avatar";
+import InviteUserModal from "../../../modals/InviteUserModal";
 import { prevPageUrlState } from "../../../recoils/navigationRecoils";
 import { transferUserSummaryState } from "../../../recoils/transferRecoils";
 import { IGather } from "../../../types/models/gatherTypes/gatherTypes";
@@ -27,6 +30,8 @@ function GatherParticipation({ data }: IGatherParticipation) {
   const status = data.status;
   const participantsCnt = data.participants.length;
 
+  const [isModal, setIsModal] = useState(false);
+
   const isAdminOpen = data.isAdminOpen;
 
   const onClickProfile = (user: IUserSummary) => {
@@ -36,77 +41,90 @@ function GatherParticipation({ data }: IGatherParticipation) {
   };
 
   return (
-    <Layout>
-      <Header>
-        <span>{status === "open" ? "확정 인원" : "참여중인 인원"}</span>
-        <span>{isAdminOpen ? participantsCnt : participantsCnt + 1}</span>
-        <span>/</span>
-        {data?.memberCnt.max ? (
-          <span>{data?.memberCnt.max}</span>
-        ) : (
-          <>
-            <span style={{ marginLeft: "4px" }} />
-            <FontAwesomeIcon icon={faInfinity} color="var(--gray-2)" />
-          </>
-        )}
-      </Header>
-      <Members>
-        {!isAdminOpen ? (
-          <MemberItem
-            key={organizer?.uid}
-            onClick={() => onClickProfile(organizer)}
+    <>
+      <Layout>
+        <Header>
+          <Box>
+            <span>{status === "open" ? "확정 인원" : "참여중인 인원"}</span>
+            <span>{isAdminOpen ? participantsCnt : participantsCnt + 1}</span>
+            <span>/</span>
+            {data?.memberCnt.max ? (
+              <span>{data?.memberCnt.max}</span>
+            ) : (
+              <>
+                <span style={{ marginLeft: "4px" }} />
+                <FontAwesomeIcon icon={faInfinity} color="var(--gray-2)" />
+              </>
+            )}
+          </Box>
+          <Button
+            size="sm"
+            ml="auto"
+            colorScheme="mintTheme"
+            onClick={() => setIsModal(true)}
           >
-            <Organizer>
-              <Avatar
-                image={organizer.profileImage}
-                avatar={organizer.avatar}
-                uid={organizer.uid}
-                size="md"
-              />
-              <CrownWrapper>
-                <FontAwesomeIcon icon={faCrown} color="var(--color-orange)" />
-              </CrownWrapper>
-            </Organizer>
-            <UserOverview>
-              <span>{organizer?.name}</span>
-              <div>{organizer?.comment}</div>
-            </UserOverview>
-          </MemberItem>
-        ) : data.participants.length ? null : (
-          <Empty>
-            <span>참여자를 모집중입니다.</span>
-          </Empty>
-        )}
-        {data?.participants.map(
-          (who) =>
-            who?.user && (
-              <MemberItem
-                key={who?.user.uid}
-                onClick={() => onClickProfile(who.user)}
-              >
+            인원초대
+          </Button>
+        </Header>
+        <Members>
+          {!isAdminOpen ? (
+            <MemberItem
+              key={organizer?.uid}
+              onClick={() => onClickProfile(organizer)}
+            >
+              <Organizer>
                 <Avatar
-                  image={who.user.profileImage}
-                  avatar={who.user.avatar}
-                  uid={who.user.uid}
+                  image={organizer.profileImage}
+                  avatar={organizer.avatar}
+                  uid={organizer.uid}
                   size="md"
                 />
-                <UserOverview>
-                  <span>{who?.user?.name}</span>
-                  <div>{who?.user.comment}</div>
-                </UserOverview>
-                <ParticipateTime isFirst={who?.phase === "first"}>
-                  {who?.phase === "first" ? (
-                    <FontAwesomeIcon icon={fa1} size="sm" />
-                  ) : (
-                    <FontAwesomeIcon icon={fa2} size="sm" />
-                  )}
-                  <span>차</span>
-                </ParticipateTime>
-              </MemberItem>
-            )
-        )}
-      </Members>
-    </Layout>
+                <CrownWrapper>
+                  <FontAwesomeIcon icon={faCrown} color="var(--color-orange)" />
+                </CrownWrapper>
+              </Organizer>
+              <UserOverview>
+                <span>{organizer?.name}</span>
+                <div>{organizer?.comment}</div>
+              </UserOverview>
+            </MemberItem>
+          ) : data.participants.length ? null : (
+            <Empty>
+              <span>참여자를 모집중입니다.</span>
+            </Empty>
+          )}
+          {data?.participants.map(
+            (who) =>
+              who?.user && (
+                <MemberItem
+                  key={who?.user.uid}
+                  onClick={() => onClickProfile(who.user)}
+                >
+                  <Avatar
+                    image={who.user.profileImage}
+                    avatar={who.user.avatar}
+                    uid={who.user.uid}
+                    size="md"
+                  />
+                  <UserOverview>
+                    <span>{who?.user?.name}</span>
+                    <div>{who?.user.comment}</div>
+                  </UserOverview>
+                  <ParticipateTime isFirst={who?.phase === "first"}>
+                    {who?.phase === "first" ? (
+                      <FontAwesomeIcon icon={fa1} size="sm" />
+                    ) : (
+                      <FontAwesomeIcon icon={fa2} size="sm" />
+                    )}
+                    <span>차</span>
+                  </ParticipateTime>
+                </MemberItem>
+              )
+          )}
+        </Members>
+      </Layout>
+      {isModal && <InviteUserModal setIsModal={setIsModal} />}
+    </>
   );
 }
 const MemberItem = styled.div`
@@ -122,15 +140,20 @@ const Header = styled.header`
   padding: var(--gap-4);
   font-weight: 600;
   border-bottom: var(--border);
-  > span:first-child {
-    margin-right: var(--gap-3);
-  }
-  > span:nth-child(2) {
-    font-weight: 700;
-    color: var(--color-mint);
-  }
-  > span:nth-child(3) {
-    margin: 0 var(--gap-1);
+  display: flex;
+  align-items: center;
+
+  > div:first-child {
+    > span:first-child {
+      margin-right: var(--gap-3);
+    }
+    > span:nth-child(2) {
+      font-weight: 700;
+      color: var(--color-mint);
+    }
+    > span:nth-child(3) {
+      margin: 0 var(--gap-1);
+    }
   }
 `;
 

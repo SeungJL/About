@@ -189,12 +189,15 @@ function Review() {
         <Slide>
           <Layout>
             <>
-              <ButtonGroups
-                buttonDataArr={buttonArr}
-                currentValue={
-                  convertLocationLangTo(location as LocationEn, "kr") || "전체"
-                }
-              />
+              <Box p="12px 16px">
+                <ButtonGroups
+                  buttonDataArr={buttonArr}
+                  currentValue={
+                    convertLocationLangTo(location as LocationEn, "kr") ||
+                    "전체"
+                  }
+                />
+              </Box>
 
               <Main>
                 {reviewData.slice(0, visibleCnt).map((item) => (

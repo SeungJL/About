@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-
+import "../styles/variable.css";
 import theme from "../theme";
 
 const preview: Preview = {
@@ -11,11 +11,9 @@ const preview: Preview = {
       },
     },
     chakra: {
-    theme,
-  },
+      theme,
+    },
   },
 };
-
-
 
 export default preview;

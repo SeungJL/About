@@ -31,7 +31,7 @@ function GatherParticipateModalParticipate({ setIsModal }: IModal) {
   );
 
   const selectGatherTime = (phase: "first" | "second") => {
-    participate(phase);
+    participate({ phase });
     setIsModal(false);
   };
 

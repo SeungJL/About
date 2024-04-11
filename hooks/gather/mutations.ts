@@ -7,8 +7,8 @@ import { IGather, IGatherWriting } from "../../types/models/gatherTypes/gather";
 type GatherWritingParam<T> = T extends "post"
   ? { gather: IGatherWriting }
   : T extends "patch"
-  ? { gather: IGather }
-  : { gatherId: number };
+    ? { gather: IGather }
+    : { gatherId: number };
 
 /** gather info */
 export const useGatherWritingMutation = <T extends "post" | "patch" | "delete">(
@@ -25,11 +25,14 @@ export const useGatherWritingMutation = <T extends "post" | "patch" | "delete">(
     options
   );
 
-type GatherParticipationParam<T> = T extends "post" ? "first" | "second" : void;
+type GatherParticipationParam<T> = T extends "post"
+  ? { phase: "first" | "second"; userId?: string }
+  : void;
 
 interface IGatherParticipationRequest<T> {
   gatherId: number;
-  phase?: GatherParticipationParam<T>;
+  phase?: "first" | "second";
+  userId?: string;
 }
 
 export const useGatherParticipationMutation = <T extends "post" | "delete">(
@@ -42,7 +45,7 @@ export const useGatherParticipationMutation = <T extends "post" | "delete">(
       requestServer<IGatherParticipationRequest<T>>({
         method,
         url: "gather/participate",
-        body: { gatherId, phase: param },
+        body: { gatherId, ...param },
       }),
     options
   );
@@ -53,14 +56,14 @@ type GatherCommentParam<T> = T extends "post"
       commentId?: string;
     }
   : T extends "patch"
-  ? {
-      comment: string;
-      commentId: string;
-    }
-  : {
-      comment?: never;
-      commentId: string;
-    };
+    ? {
+        comment: string;
+        commentId: string;
+      }
+    : {
+        comment?: never;
+        commentId: string;
+      };
 interface IGatherCommentRequest<T> {
   gatherId: number;
   comment?: string;
