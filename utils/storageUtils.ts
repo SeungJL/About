@@ -29,7 +29,7 @@ export const pushArrToLocalStorage = (key: string, uid: string) => {
 export const isHeartCheckLocalStorage = (toUid: string) => {
   const isLikeRecord = (
     JSON.parse(localStorage.getItem(LIKE_HEART)) as IInteractionLikeStorage[]
-  )?.find((who) => who.uid === toUid);
+  )?.find((who) => who?.uid === toUid);
   const isOverlap =
     isLikeRecord !== undefined &&
     dayjs().diff(dayjs(isLikeRecord?.date), "day") < LIKE_HEART_PERIOD;

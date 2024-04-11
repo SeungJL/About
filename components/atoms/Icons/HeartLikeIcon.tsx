@@ -54,6 +54,8 @@ function HeartLikeIcon({ toUid, size = "sm" }: IHeartLikeIcon) {
     setIsShow(false);
   };
 
+  console.log("success");
+
   return (
     <Layout
       onClick={onClick}
