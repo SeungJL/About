@@ -2,10 +2,11 @@ import { Box, Flex } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useState } from "react";
-import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
+import Slide from "../../components/layouts/PageSlide";
 import AttendanceBadge from "../../components/molecules/badge/AttendanceBadge";
 import { IProfileCommentCard } from "../../components/molecules/cards/ProfileCommentCard";
 import ProfileCardColumn from "../../components/organisms/ProfileCardColumn";
+import ImageZoomModal from "../../modals/ImageZoomModal";
 import { IAttendance } from "../../types/models/studyTypes/studyDetails";
 import { IAbsence } from "../../types/models/studyTypes/studyInterActions";
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
@@ -18,7 +19,10 @@ export default function StudyParticipants({
   participants,
   absences,
 }: IStudyParticipants) {
-  const [isModal, setIsModal] = useState(false);
+  const [hasImageProps, setHasImageProps] = useState<{
+    image: string;
+    toUid: string;
+  }>();
 
   const userCardArr: IProfileCommentCard[] = participants.map((par) => {
     const obj = composeUserCardArr(par, absences);
@@ -35,7 +39,9 @@ export default function StudyParticipants({
                 mr="12px"
                 rounded="md"
                 overflow="hidden"
-                onClick={() => setIsModal(true)}
+                onClick={() =>
+                  setHasImageProps({ image: par.imageUrl, toUid: par.user.uid })
+                }
                 w="50px"
                 h="50px"
               >
@@ -59,29 +65,37 @@ export default function StudyParticipants({
 
   return (
     <>
-      {userCardArr.length ? (
-        <ProfileCardColumn userCardArr={userCardArr} />
-      ) : (
-        <Flex
-          align="center"
-          justify="center"
-          h="200"
-          color="var(--gray-3)"
-          fontSize="16px"
-          textAlign="center"
-        >
-          <Box as="p" lineHeight="1.8">
-            현재 참여중인 멤버가 없습니다.
-            <br />
-            지금 신청하면{" "}
-            <Box as="b" color="var(--color-mint)">
-              10 POINT
-            </Box>{" "}
-            추가 획득!
-          </Box>
-        </Flex>
+      <Slide>
+        {userCardArr.length ? (
+          <ProfileCardColumn userCardArr={userCardArr} />
+        ) : (
+          <Flex
+            align="center"
+            justify="center"
+            h="200"
+            color="var(--gray-3)"
+            fontSize="16px"
+            textAlign="center"
+          >
+            <Box as="p" lineHeight="1.8">
+              현재 참여중인 멤버가 없습니다.
+              <br />
+              지금 신청하면{" "}
+              <Box as="b" color="var(--color-mint)">
+                10 POINT
+              </Box>{" "}
+              추가 획득!
+            </Box>
+          </Flex>
+        )}
+      </Slide>
+      {hasImageProps && (
+        <ImageZoomModal
+          imageUrl={hasImageProps.image}
+          toUid={hasImageProps.toUid}
+          setIsModal={() => setHasImageProps(null)}
+        />
       )}
-      {isModal && <AlertNotCompletedModal setIsModal={setIsModal} />}
     </>
   );
 }

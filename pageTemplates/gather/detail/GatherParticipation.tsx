@@ -6,6 +6,7 @@ import {
   faInfinity,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -22,6 +23,7 @@ interface IGatherParticipation {
 }
 
 function GatherParticipation({ data }: IGatherParticipation) {
+  const { data: session } = useSession();
   const router = useRouter();
   const setTransferUserSummary = useSetRecoilState(transferUserSummaryState);
   const setPrevPageUrl = useSetRecoilState(prevPageUrlState);
@@ -57,14 +59,16 @@ function GatherParticipation({ data }: IGatherParticipation) {
               </>
             )}
           </Box>
-          <Button
-            size="sm"
-            ml="auto"
-            colorScheme="mintTheme"
-            onClick={() => setIsModal(true)}
-          >
-            인원초대
-          </Button>
+          {session?.user.uid === organizer.uid && (
+            <Button
+              size="sm"
+              ml="auto"
+              colorScheme="mintTheme"
+              onClick={() => setIsModal(true)}
+            >
+              인원초대
+            </Button>
+          )}
         </Header>
         <Members>
           {!isAdminOpen ? (

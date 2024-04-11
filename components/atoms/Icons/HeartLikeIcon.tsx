@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 
-import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
+import { useAdminPointMutation } from "../../../hooks/admin/mutation";
 import {
   useCompleteToast,
   useErrorToast,
@@ -20,16 +20,17 @@ import {
 
 interface IHeartLikeIcon {
   toUid: string;
+  size?: "sm" | "lg";
 }
 
-function HeartLikeIcon({ toUid }: IHeartLikeIcon) {
+function HeartLikeIcon({ toUid, size = "sm" }: IHeartLikeIcon) {
   const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
 
   const [isShow, setIsShow] = useState(true);
 
-  const { mutate: sendAboutPoint } = useAdminAboutPointMutation(toUid);
+  const { mutate: sendAboutPoint } = useAdminPointMutation(toUid);
   const { mutate: sendHeart } = useInteractionMutation("like", "post", {
     onSuccess() {
       completeToast("free", "전송 완료!");
@@ -62,7 +63,7 @@ function HeartLikeIcon({ toUid }: IHeartLikeIcon) {
     >
       <FontAwesomeIcon
         icon={faCircleHeart}
-        size="sm"
+        size={size === "sm" ? "sm" : "2x"}
         color="var(--color-red)"
       />
     </Layout>

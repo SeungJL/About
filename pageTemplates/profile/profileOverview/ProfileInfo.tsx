@@ -11,7 +11,7 @@ import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { NOTICE_HEART_LOG } from "../../../constants/keys/queryKeys";
 import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { USER_ROLE } from "../../../constants/settingValue/role";
-import { useAdminAboutPointMutation } from "../../../hooks/admin/mutation";
+import { useAdminPointMutation } from "../../../hooks/admin/mutation";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
@@ -69,7 +69,7 @@ function ProfileInfo({ user }: IProfileInfo) {
     onError: errorToast,
   });
 
-  const { mutate: sendAboutPoint } = useAdminAboutPointMutation(user?.uid);
+  const { mutate: sendAboutPoint } = useAdminPointMutation(user?.uid);
 
   useStudyAttendRecordQuery(dayjs().subtract(4, "day"), dayjs().add(1, "day"), {
     enabled: !isGuest,
