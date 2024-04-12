@@ -24,7 +24,7 @@ function PointLog() {
     log.message,
     log.meta.value + "",
   ]);
-
+  console.log(pointLog);
   return (
     <>
       <Header title="포인트 기록" />

@@ -8,7 +8,7 @@ export type ActiveLocation =
   | "동대문"
   | "인천";
 
-export type InactiveLocation = "마포";
+export type InactiveLocation = "마포" | "성남";
 
 export type LocationEn = "suw" | "yan" | "any" | "gan" | "don" | "inc";
 

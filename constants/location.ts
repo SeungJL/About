@@ -9,7 +9,7 @@ export const LOCATION_OPEN: Location[] = [
   "동대문",
   "인천",
 ];
-export const LOCATION_RECRUITING: Location[] = ["마포"];
+export const LOCATION_RECRUITING: Location[] = ["마포", "성남"];
 export const LOCATION_NOT_OPEN: Location[] = [];
 
 //모집중을 포함한 지역
@@ -29,6 +29,7 @@ export const LOCATION_CONVERT = {
   동대문: "동대문/성북",
   마포: "마포/서대문",
   인천: "인천",
+  성남: "성남",
 };
 
 export const LOCATION_PLACE_SMALL: Location[] = ["안양"];
@@ -47,13 +48,14 @@ export const RegisterLocation = [...LOCATION_ALL, "기타"];
 export const LOCATION_MEMBER_CNT: {
   [key in Location]: { member: number; new: number };
 } = {
-  수원: { member: 187, new: 4 },
+  수원: { member: 137, new: 4 },
   양천: { member: 61, new: 2 },
   안양: { member: 23, new: 3 },
   강남: { member: 53, new: 2 },
-  동대문: { member: 43, new: 2 },
-  마포: { member: 31, new: 2 },
-  인천: { member: 37, new: 3 },
+  동대문: { member: 56, new: 2 },
+  마포: { member: 38, new: 2 },
+  인천: { member: 45, new: 3 },
+  성남: { member: 3, new: 3 },
 };
 
 export const LOCATION_TABLE_COLOR = {
