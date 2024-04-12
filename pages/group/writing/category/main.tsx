@@ -46,7 +46,7 @@ function WritingStudyCategoryMain() {
     <>
       <Slide isFixed={true}>
         <ProgressStatus value={14} />
-        <Header isSlide={false} title="" />
+        <Header isSlide={false} title="" url="/group" />
       </Slide>
 
       <RegisterLayout>

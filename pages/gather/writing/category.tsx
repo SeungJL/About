@@ -45,7 +45,7 @@ function WritingGatherCategory() {
     <>
       <Slide isFixed={true}>
         <ProgressStatus value={20} />
-        <Header isSlide={false} title="" />
+        <Header isSlide={false} title="" url="/gather" />
       </Slide>
       <RegisterLayout>
         <RegisterOverview>
