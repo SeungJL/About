@@ -27,3 +27,9 @@ export const Secondary: Story = {
     text: "Button",
   },
 };
+export const Test: Story = {
+  args: {
+    colorScheme: "red",
+    text: "Button",
+  },
+};
