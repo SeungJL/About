@@ -64,6 +64,8 @@ export const STUDY_CAFE_LOGO = {
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%95%84%EB%9D%A0%EC%BB%A4%ED%94%BC.png",
   카페어바웃:
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%96%B4%EB%B0%94%EC%9B%83.jpg",
+  에이바우트:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%96%B4%EB%B0%94%EC%9B%83.jpg",
   카페_뮬:
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%AE%AC.jpg",
   빵쌤: "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%B9%B5%EC%83%98.png",
@@ -71,5 +73,7 @@ export const STUDY_CAFE_LOGO = {
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/D%EC%B9%B4%ED%8E%98.jpg",
   카페디졸브:
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%94%94%EC%A1%B8%EB%B8%8C.jpg",
+  카페칸나:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%B9%B8%EB%82%98.webp",
     
 };
