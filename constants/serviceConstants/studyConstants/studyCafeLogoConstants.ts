@@ -86,4 +86,6 @@ export const STUDY_CAFE_LOGO: { [key in string]: string } = {
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%96%B4%EB%B0%94%EC%9B%83.jpg",
   READSTREET:
     "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EC%8A%A4%ED%8A%B8%EB%A6%AC%ED%8A%B8+%EB%A1%9C%EA%B3%A0.png",
+  마르티:
+    "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EC%B9%B4%ED%8E%98+%EB%A1%9C%EA%B3%A0/%EB%A7%88%EB%A5%B4%ED%8B%B0+%EB%A1%9C%EA%B3%A0.png",
 };
