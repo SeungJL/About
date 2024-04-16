@@ -2,8 +2,8 @@ import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";

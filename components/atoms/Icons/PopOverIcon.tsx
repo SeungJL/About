@@ -16,8 +16,8 @@ interface IPopoverIcon {
   text: string;
 }
 
-export const PopOverIcon = ({ title, text }: IPopoverIcon) => (
-  <Popover>
+export function PopOverIcon({ title, text }: IPopoverIcon) {
+  return <Popover>
     <PopoverTrigger>
       <IconWrapper>
         <FontAwesomeIcon icon={faQuestionCircle} color="var(--gray-3)" />
@@ -34,7 +34,7 @@ export const PopOverIcon = ({ title, text }: IPopoverIcon) => (
       <PopoverBody>{text}</PopoverBody>
     </PopoverContent>
   </Popover>
-);
+}
 
 const IconWrapper = styled.div`
   margin-left: var(--gap-2);

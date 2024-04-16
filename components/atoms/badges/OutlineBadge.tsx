@@ -1,4 +1,5 @@
 import { Badge } from "@chakra-ui/react";
+
 import { ITextAndColorSchemes } from "../../../types/components/propTypes";
 
 interface IOutlineBadge extends ITextAndColorSchemes {

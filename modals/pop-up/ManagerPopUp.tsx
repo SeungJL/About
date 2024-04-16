@@ -11,15 +11,15 @@ import {
 import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import styled from "styled-components";
+
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
 import { IModal } from "../../types/components/modalTypes";
 import { IUserRequest } from "../../types/models/userTypes/userRequestTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function ManagerPopUp({ setIsModal }: IModal) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,7 +63,7 @@ interface IDialog extends IModal {
   onClose: () => void;
 }
 
-const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
+function Dialog({ isOpen, onClose, setIsModal }: IDialog) {
   const { data: session } = useSession();
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
@@ -113,7 +113,7 @@ const Dialog = ({ isOpen, onClose, setIsModal }: IDialog) => {
       </AlertDialogOverlay>
     </AlertDialog>
   );
-};
+}
 
 const Subtitile = styled.div`
   color: var(--gray-2);

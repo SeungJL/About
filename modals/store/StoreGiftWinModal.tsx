@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { IFooterOptions, ModalLayout } from "../Modals";
 
 import { IGiftEntry } from "../../pages/store";
 import { IModal } from "../../types/components/modalTypes";
 import { selectRandomWinners } from "../../utils/validationUtils";
+import { IFooterOptions, ModalLayout } from "../Modals";
 interface IStoreGiftWinModal extends IModal {
   applicants: IGiftEntry;
   winCnt: number;

@@ -15,10 +15,11 @@ import {
   faCloudBolt,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 
 export default function WriteDrawer() {
@@ -93,7 +94,7 @@ interface ISocialButton {
   color: string;
 }
 
-const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
+function SocialButton({ title, subTitle, icon, color, url }: ISocialButton) {
   const router = useRouter();
   const toast = useToast();
   const typeToast = useTypeToast();
@@ -136,4 +137,4 @@ const SocialButton = ({ title, subTitle, icon, color, url }: ISocialButton) => {
       </Button>
     </Link>
   );
-};
+}

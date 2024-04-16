@@ -1,7 +1,7 @@
-import styled from "styled-components";
-
 import { faUserGroup } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+
 import HighlightedText, {
   IHighlightedText,
 } from "../../../../atoms/HighlightedText";

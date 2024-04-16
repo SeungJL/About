@@ -1,6 +1,10 @@
+import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+
+import "dayjs/locale/ko";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";
@@ -11,9 +15,6 @@ import StoreDetailNav from "../../../pageTemplates/store/detail/StoreDetailNav";
 import StoreDetailOverview from "../../../pageTemplates/store/detail/StoreDetailOverview";
 import { transferStoreGiftDataState } from "../../../recoils/transferRecoils";
 
-const dayjs = require("dayjs");
-require("dayjs/locale/ko");
-const localizedFormat = require("dayjs/plugin/localizedFormat");
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
 

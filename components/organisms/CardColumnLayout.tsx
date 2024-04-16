@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import ShadowBlockButton from "../atoms/buttons/ShadowBlockButton";
 import {
   IPostThumbnailCard,
@@ -28,16 +29,12 @@ export function CardColumnLayout({
   );
 }
 
-export function CardColumnLayoutSkeleton({
-  type,
-}: {
-  type: "study" | "gather";
-}) {
+export function CardColumnLayoutSkeleton() {
   return (
     <Layout>
       {[1, 2, 3].map((item) => (
         <Item key={item}>
-          <PostThumbnailCardSkeleton type={type} />
+          <PostThumbnailCardSkeleton />
         </Item>
       ))}
       <ShadowBlockButton text="더보기" />

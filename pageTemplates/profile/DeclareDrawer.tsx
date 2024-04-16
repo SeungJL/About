@@ -13,12 +13,12 @@ import { faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { DECLARE_LIST } from "../../constants/contentsText/requestContents";
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../hooks/custom/CustomToast";
-
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { DispatchString, DispatchType } from "../../types/hooks/reactTypes";
@@ -129,7 +129,7 @@ function DeclareDrawer({
   );
 }
 
-const DistanceContent = ({ name }: { name: string }) => {
+function DistanceContent({ name }: { name: string }) {
   return (
     <>
       <DistanceHeader>
@@ -154,13 +154,13 @@ const DistanceContent = ({ name }: { name: string }) => {
       </DistanceText>
     </>
   );
-};
+}
 
-const DeclareContent = ({
+function DeclareContent({
   name,
   declareIdx,
   setDeclareIdx,
-}: IDeclareContent) => {
+}: IDeclareContent) {
   return (
     <>
       <DistanceHeader>
@@ -187,7 +187,7 @@ const DeclareContent = ({
       </RadioGroup>
     </>
   );
-};
+}
 
 const Title = styled.span``;
 

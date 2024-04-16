@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
+
 import { PopOverIcon } from "../../components/atoms/Icons/PopOverIcon";
 import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 import Skeleton from "../../components/atoms/skeleton/Skeleton";
-
+import { BADGE_SCORE_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
 import { USER_ROLE } from "../../constants/settingValue/role";
 import {
   IStudyRecord,
@@ -11,14 +12,12 @@ import {
 } from "../../hooks/admin/quries";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import PointScoreBar from "../../pageTemplates/point/pointScore/PointScoreBar";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
-import { BADGE_SCORE_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
 import { IModal } from "../../types/components/modalTypes";
 import {
   getNextBadge,
   getUserBadge,
 } from "../../utils/convertUtils/convertDatas";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function LastWeekAttendPopUp({ setIsModal }: IModal) {
   const lastWeekFirstDay = dayjs().day(1).subtract(1, "week").startOf("date");
@@ -80,8 +79,8 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
     230: "샤크",
   };
 
-  const LayoutSkeleton = () => (
-    <Info>
+  function LayoutSkeleton() {
+  return <Info>
       <Item>
         <span>{weekNumber}주차 스터디 투표</span>
 
@@ -114,7 +113,7 @@ function LastWeekAttendPopUp({ setIsModal }: IModal) {
         </SkeletonText>
       </Item>
     </Info>
-  );
+}
 
   const footerOptions: IFooterOptions = {
     main: {},

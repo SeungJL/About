@@ -10,7 +10,6 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
-
 import { ModalSubtitle } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/components/modalTypes";
 import { IConfirmContent } from "../../common/ConfirmModal";

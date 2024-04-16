@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import SuccessScreen from "../../components/layouts/SuccessScreen";
 
+import SuccessScreen from "../../components/layouts/SuccessScreen";
 import ImageUploadInput from "../../components/molecules/ImageUploadInput";
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
@@ -111,7 +111,7 @@ function GatherWritingConfirmModal({
         </ModalLayout>
       )}
       {isSuccessScreen && (
-        <SuccessScreen url={`/gather`}>
+        <SuccessScreen url="/gather">
           <>
             <span>모임 개최 성공</span>
             <div>모임 게시글을 단톡방에 공유해 주세요!</div>

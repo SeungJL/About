@@ -1,10 +1,11 @@
 import { Flex, ListItem, UnorderedList } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+
 import ScreenOverlay from "../components/atoms/ScreenOverlay";
 import VoteMap from "../components/organisms/VoteMap";
 import VoteMapController from "../components/organisms/VoteMapController";
@@ -290,7 +291,7 @@ const getRecommendations = (
   placeId: string,
   targetDistance: number
 ): string[] => {
-  let placesAtDistance = new Set<string>();
+  const placesAtDistance = new Set<string>();
   const location = PLACE_TO_LOCATION[placeId];
   const targets = STUDY_DISTANCE[location][targetDistance];
   if (targets) {

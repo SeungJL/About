@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+
 import { slideDirectionState } from "../../recoils/navigationRecoils";
 interface IPageLayout {
   isFixed?: boolean;

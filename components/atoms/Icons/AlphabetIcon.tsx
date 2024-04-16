@@ -15,6 +15,7 @@ import {
 import { faA, faB, faO, faT, faU } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+
 import {
   TABLE_STRING_COLORS_BG,
   TABLE_STRONG_COLORS,
@@ -30,14 +31,14 @@ interface IAlphabetIcon {
   size?: "md";
 }
 
-export const AlphabetIcon = ({
+export function AlphabetIcon({
   alphabet,
   isDuotone,
   isBeat,
   isCircle,
   size,
   isBg = false,
-}: IAlphabetIcon) => {
+}: IAlphabetIcon) {
   const icons = {
     A: { duotone: A, solid: faA, circle: faCircleA },
     B: { duotone: B, solid: faB, circle: faCircleB },
@@ -65,7 +66,7 @@ export const AlphabetIcon = ({
       />
     </IconWrapper>
   );
-};
+}
 
 const IconWrapper = styled.div<{ size: "md"; bg: string }>`
   width: ${(props) => (props.size === "md" ? "44px" : null)};

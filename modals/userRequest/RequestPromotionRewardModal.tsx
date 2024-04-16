@@ -1,13 +1,13 @@
 import { Button } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { CopyBtn } from "../../components/atoms/Icons/CopyIcon";
 
+import { CopyBtn } from "../../components/atoms/Icons/CopyIcon";
 import {
-  PromotionComponent,
   PROMOTION_TEXT,
+  PromotionComponent,
 } from "../../constants/contentsText/Private";
 import { POINT_SYSTEM_PLUS } from "../../constants/settingValue/pointSystem";
 import {
@@ -16,9 +16,8 @@ import {
 } from "../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
 import { IModal } from "../../types/components/modalTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function RequestPromotionRewardModal({ setIsModal }: IModal) {
   const { data: session } = useSession();

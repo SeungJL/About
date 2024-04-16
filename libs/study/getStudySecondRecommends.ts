@@ -6,7 +6,7 @@ export const getStudySecondRecommendation = (
   startPlace: string,
   targetDistance: number
 ) => {
-  let placesAtDistance = new Set();
+  const placesAtDistance = new Set();
 
   const targets = STUDY_DISTANCE[location][targetDistance];
   if (targets) {

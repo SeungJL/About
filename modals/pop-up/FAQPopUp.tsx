@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import { prevPageUrlState } from "../../recoils/navigationRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
@@ -80,8 +81,8 @@ const RightWrapper = styled.div`
   top: 0;
 `;
 
-export const GuideBook = () => (
-  <svg
+export function GuideBook() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="58"
@@ -123,10 +124,10 @@ export const GuideBook = () => (
       fill="#343943"
     />
   </svg>
-);
+}
 
-export const LeftThunder = () => (
-  <svg
+export function LeftThunder() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="12"
     height="16"
@@ -150,10 +151,10 @@ export const LeftThunder = () => (
       fill="#343943"
     />
   </svg>
-);
+}
 
-export const RightThunder = () => (
-  <svg
+export function RightThunder() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="22"
@@ -177,6 +178,6 @@ export const RightThunder = () => (
       fill="#343943"
     />
   </svg>
-);
+}
 
 export default FAQPopUp;

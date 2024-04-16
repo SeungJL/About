@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 
+import TimeSelector from "../../components/molecules/picker/TimeSelector";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import {
   useCompleteToast,
@@ -15,14 +16,11 @@ import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,
 } from "../../hooks/study/mutations";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
-import TimeSelector from "../../components/molecules/picker/TimeSelector";
 import { PLACE_TO_LOCATION } from "../../storage/study";
 import { IModal } from "../../types/components/modalTypes";
-
 import { IPlace } from "../../types/models/studyTypes/studyDetails";
 import { ITimeStartToEnd } from "../../types/utils/timeAndDate";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IStudyFreeOpenModal extends IModal {
   place?: IPlace;

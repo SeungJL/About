@@ -8,12 +8,12 @@ interface IBadge {
   colorScheme: ThemeTypings["colorSchemes"];
 }
 
-export const Badge = ({
+export function Badge({
   text,
   colorScheme,
   size = "sm",
   type = "solid",
-}: IBadge) => {
+}: IBadge) {
   return (
     <ChakraBadge
       p="2px 4px"
@@ -24,4 +24,4 @@ export const Badge = ({
       {text}
     </ChakraBadge>
   );
-};
+}

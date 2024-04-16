@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Skeleton from "../../components/atoms/skeleton/Skeleton";
 
 function GroupSkeletonMain() {
@@ -12,8 +13,8 @@ function GroupSkeletonMain() {
   );
 }
 
-const ItemBlock = () => (
-  <ItemBlockLayout>
+function ItemBlock() {
+  return <ItemBlockLayout>
     <Header>
       <div>
         <Skeleton>temp</Skeleton>
@@ -36,7 +37,7 @@ const ItemBlock = () => (
       <Skeleton>temp</Skeleton>
     </Content>
   </ItemBlockLayout>
-);
+}
 
 const Layout = styled.div`
   margin: var(--gap-4);

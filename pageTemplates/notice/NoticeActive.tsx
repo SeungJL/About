@@ -3,6 +3,7 @@ import { faArrowRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+
 import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 import { ActiveIcon } from "../../components/atoms/Icons/NoticeIcons";
 import { NOTICE_ACTIVE_LOG } from "../../constants/keys/queryKeys";
@@ -16,10 +17,9 @@ import { useUserFriendMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { useInteractionMutation } from "../../hooks/user/sub/interaction/mutations";
-import { getDateDiff } from "../../utils/dateTimeUtils";
-
 import { INoticeActiveLog } from "../../types/globals/interaction";
 import { Alphabet } from "../../types/models/collections";
+import { getDateDiff } from "../../utils/dateTimeUtils";
 
 interface INoticeActive {
   activeLogs: INoticeActiveLog[];

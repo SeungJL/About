@@ -1,24 +1,23 @@
+import { Button } from "@chakra-ui/react";
 import { faTrophy } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import RuleIcon from "../../components/atoms/Icons/RuleIcon";
-import { useStoreGiftEntryQuery } from "../../hooks/sub/store/queries";
-import StoreRuleModal from "../../modals/store/StoreRuleModal";
-import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
-import { IStoreApplicant } from "../../types/models/store";
-
-import { Button } from "@chakra-ui/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import styled from "styled-components";
+
+import RuleIcon from "../../components/atoms/Icons/RuleIcon";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
-
-import Image from "next/image";
 import { useErrorToast } from "../../hooks/custom/CustomToast";
+import { useStoreGiftEntryQuery } from "../../hooks/sub/store/queries";
+import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { isPrevBooleanState } from "../../recoils/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoils/transferRecoils";
-import { IStoreGift } from "../../types/models/store";
+import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
+import { IStoreApplicant , IStoreGift } from "../../types/models/store";
+
 
 export interface IGiftEntry extends IStoreGift {
   users: IStoreApplicant[];

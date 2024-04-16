@@ -8,11 +8,12 @@ import {
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import Slide from "../../../components/layouts/PageSlide";
 import IconButtonNav, {
   IIconButtonNavBtn,
@@ -71,7 +72,7 @@ function HomeHeader() {
   }, [data]);
 
   const generateIconBtnArr = () => {
-    let arr = [
+    const arr = [
       {
         icon: <FontAwesomeIcon icon={faBooks} />,
         func: () => setModalType("rule"),

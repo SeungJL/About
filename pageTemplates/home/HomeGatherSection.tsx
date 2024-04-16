@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import HighlightedTextButton from "../../components/atoms/buttons/HighlightedTextButton";
 import SectionBar from "../../components/molecules/bars/SectionBar";
 import { IPostThumbnailCard } from "../../components/molecules/cards/PostThumbnailCard";
@@ -64,7 +65,7 @@ export default function HomeGatherSection() {
             func={() => setSlideDirection("right")}
           />
         ) : (
-          <CardColumnLayoutSkeleton type="gather" />
+          <CardColumnLayoutSkeleton />
         )}
       </Layout>
     </>

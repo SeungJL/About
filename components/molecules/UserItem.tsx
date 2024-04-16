@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
 import {
@@ -15,7 +16,7 @@ interface IUserItem {
   children: React.ReactNode;
 }
 
-export const UserItem = ({ user, children }: IUserItem) => {
+export function UserItem({ user, children }: IUserItem) {
   const router = useRouter();
   const setUserData = useSetRecoilState(transferUserSummaryState);
   const setBeforePage = useSetRecoilState(prevPageUrlState);
@@ -39,7 +40,7 @@ export const UserItem = ({ user, children }: IUserItem) => {
       <ChildrenWrapper>{children}</ChildrenWrapper>
     </MemberItem>
   );
-};
+}
 
 const MemberItem = styled.div`
   padding: var(--gap-2) 0;

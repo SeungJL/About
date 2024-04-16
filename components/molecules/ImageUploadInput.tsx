@@ -1,13 +1,14 @@
 import { Input } from "@chakra-ui/react";
 import { faCameraViewfinder } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styled from "styled-components";
+
 import { DispatchType } from "../../types/hooks/reactTypes";
 
 interface IImageUploadInput {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setImageUrl: DispatchType<any>;
 }
 

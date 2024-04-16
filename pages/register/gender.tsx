@@ -1,19 +1,16 @@
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import BottomNav from "../../components/layouts/BottomNav";
 
+import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
+import { IUserRegisterFormWriting } from "../../types/models/userTypes/userInfoTypes";
 import { setLocalStorageObj } from "../../utils/storageUtils";
 
-import { IUserRegisterFormWriting } from "../../types/models/userTypes/userInfoTypes";
-
 function Gender() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const info: IUserRegisterFormWriting = JSON.parse(
     localStorage.getItem(REGISTER_INFO)

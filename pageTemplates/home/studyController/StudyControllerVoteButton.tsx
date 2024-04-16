@@ -1,12 +1,12 @@
-import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+
 import ShadowCircleButton, {
   IShadowCircleProps,
 } from "../../../components/atoms/buttons/ShadowCircleButton";
 import { useTypeToast } from "../../../hooks/custom/CustomToast";
-
 import {
   myStudyState,
   studyDateStatusState,
@@ -14,7 +14,6 @@ import {
 import { DispatchType } from "../../../types/hooks/reactTypes";
 import { IParticipation } from "../../../types/models/studyTypes/studyDetails";
 import { StudyDateStatus } from "../../../types/models/studyTypes/studyInterActions";
-
 import { VoteType } from "./StudyController";
 
 export type StudyVoteActionType =

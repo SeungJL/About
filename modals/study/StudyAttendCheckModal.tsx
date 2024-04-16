@@ -1,11 +1,12 @@
 import { Box, Textarea } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useParams, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 // import { RotatingLines } from "react-loader-spinner";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+
 import ScreenOverlay from "../../components/atoms/ScreenOverlay";
 import Spinner from "../../components/atoms/Spinner";
 import ImageUploadInput from "../../components/molecules/ImageUploadInput";
@@ -22,9 +23,6 @@ import {
 import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { getMyStudyVoteInfo } from "../../libs/study/getMyStudy";
 import { getRandomAlphabet } from "../../libs/userEventLibs/collection";
-import { now } from "../../utils/dateTimeUtils";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
 import { myStudyState } from "../../recoils/studyRecoils";
 import { transferAlphabetState } from "../../recoils/transferRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
@@ -32,6 +30,8 @@ import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
 import { LocationEn } from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
+import { now } from "../../utils/dateTimeUtils";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 const LOCATE_GAP = 0.00008;
 

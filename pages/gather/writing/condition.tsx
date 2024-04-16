@@ -1,18 +1,9 @@
-import {
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  Switch,
-} from "@chakra-ui/react";
-import { faQuestionCircle } from "@fortawesome/pro-light-svg-icons";
+import { Switch } from "@chakra-ui/react";
 import {
   faLocationCrosshairs,
   faUser,
   faUserGroup,
+  faUserPolice,
   faUserSecret,
   faVenusMars,
 } from "@fortawesome/pro-solid-svg-icons";
@@ -20,24 +11,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layouts/BottomNav";
 
-import { useErrorToast } from "../../../hooks/custom/CustomToast";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
-import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
-import GatherWritingConditionCnt from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionCnt";
-import GatherWritingConditionPre from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionPre";
-import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
-import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-
-import { faUserPolice } from "@fortawesome/pro-solid-svg-icons";
 import { PopOverIcon } from "../../../components/atoms/Icons/PopOverIcon";
-import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
-
+import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../components/molecules/ProgressStatus";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
+import GatherWritingConfirmModal from "../../../modals/gather/GatherWritingConfirmModal";
+import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
+import GatherWritingConditionCnt from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionCnt";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
+import GatherWritingConditionPre from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionPre";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
 import {
   IGatherMemberCnt,
@@ -51,8 +38,6 @@ type ButtonType = "gender" | "age" | "pre" | "location" | "manager";
 export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 
 function WritingCondition() {
-  const errorToast = useErrorToast();
-
   const [gatherContent, setGatherContent] = useRecoilState(
     sharedGatherWritingState
   );
@@ -269,49 +254,6 @@ const Item = styled.div`
   padding: var(--gap-4) 0;
   align-items: center;
   border-bottom: var(--border);
-`;
-
-const GenderPopOver = () => (
-  <Popover>
-    <PopoverTrigger>
-      <PopOverWrapper>
-        <FontAwesomeIcon icon={faQuestionCircle} color="var(--font-h2)" />
-      </PopOverWrapper>
-    </PopoverTrigger>
-    <PopoverContent ml="var(--margin-md)">
-      <PopoverArrow />
-      <PopoverCloseButton />
-      <PopoverHeader fontSize="11px" fontWeight="600">
-        네비게이션 기능
-      </PopoverHeader>
-      <PopoverBody fontSize="11px">
-        성별 비율을 최대 2대1까지 제한합니다.
-      </PopoverBody>
-    </PopoverContent>
-  </Popover>
-);
-
-// const PopOverIcon = () => (
-//   <Popover>
-//     <PopoverTrigger>
-//       <PopOverWrapper>
-//         <FontAwesomeIcon icon={faQuestionCircle} color="var(--font-h3)" />
-//       </PopOverWrapper>
-//     </PopoverTrigger>
-//     <PopoverContent>
-//       <PopoverArrow />
-//       <PopoverCloseButton />
-//       <PopoverHeader fontSize="11px">사전 섭외</PopoverHeader>
-//       <PopoverBody fontSize="11px">
-//         모집 인원에서 사전 섭외 인원 자리가 먼저 고정됩니다. 필요하다면 암호키를
-//         복사해서 전달해주세요!
-//       </PopoverBody>
-//     </PopoverContent>
-//   </Popover>
-// );
-
-const PopOverWrapper = styled.span`
-  padding: 2px;
 `;
 
 export default WritingCondition;

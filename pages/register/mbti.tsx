@@ -1,9 +1,8 @@
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import BottomNav from "../../components/layouts/BottomNav";
 
+import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { MBTI } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
@@ -16,7 +15,6 @@ import {
 } from "../../utils/storageUtils";
 
 function Mbti() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 

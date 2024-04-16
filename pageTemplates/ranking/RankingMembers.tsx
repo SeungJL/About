@@ -2,13 +2,12 @@ import { Badge, Box } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import styled from "styled-components";
+
 import Avatar from "../../components/atoms/Avatar";
 import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
-
 import { RANKING_ANONYMOUS_USERS } from "../../constants/storage/anonymous";
 import { IRankingUser } from "../../types/models/ranking";
 import { IVoteRate } from "../../types/models/studyTypes/studyRecords";
-
 import { getUserBadge } from "../../utils/convertUtils/convertDatas";
 
 interface IRankingMembers {

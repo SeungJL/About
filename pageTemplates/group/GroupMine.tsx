@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import ImageTileSlider, {
   IImageTile,
 } from "../../components/organisms/sliders/ImageTileSlider";

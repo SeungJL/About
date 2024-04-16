@@ -1,6 +1,7 @@
-import { signOut } from "next-auth/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { useRecoilState, useRecoilValue } from "recoil";
+
 import AlertModal, { IAlertModalOptions } from "../../components/AlertModal";
 import DailyCheckWinModal from "../../modals/aboutHeader/dailyCheckModal/DailyCheckWinModal";
 import AlphabetModal from "../../modals/common/AlphabetModal";

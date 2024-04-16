@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import {
   BADGE_COLOR_MAPPINGS,
   BADGE_INFO,
 } from "../../../constants/serviceConstants/badgeConstants";
-
 import { SCHEME_TO_COLOR } from "../../../constants/styles";
-
 import BadgeInfoModal from "../../../modals/store/badgeInfoModal/BadgeInfoModal";
 import { UserBadge } from "../../../types/models/userTypes/userInfoTypes";
 import {

@@ -3,16 +3,12 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
-import {
-  birthToAge,
-  birthToDayjs,
-} from "../../../utils/convertUtils/convertTypes";
 
 import Avatar from "../../../components/atoms/Avatar";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import { FRIEND_RECOMMEND_CATEGORY } from "../../../constants/contentsText/friend";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import {
   transferMemberDataState,
@@ -22,11 +18,15 @@ import {
   IUser,
   IUserSummary,
 } from "../../../types/models/userTypes/userInfoTypes";
+import {
+  birthToAge,
+  birthToDayjs,
+} from "../../../utils/convertUtils/convertTypes";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function FriendCategory() {
   const router = useRouter();
-  const locationUrl = router.query?.location;
+
   const idx = Number(router.query?.category);
 
   const membersData = useRecoilValue(transferMemberDataState);
@@ -48,9 +48,10 @@ function FriendCategory() {
           return birthToAge(who.birth) === birthToAge(userInfo.birth);
         case 1:
           return who.mbti === userInfo.mbti;
-        case 2:
+        case 2: {
           const birthDayjs = birthToDayjs(who.birth);
           return birthDayjs.month() === dayjs().month();
+        }
         case 3:
           return (
             who?.majors &&

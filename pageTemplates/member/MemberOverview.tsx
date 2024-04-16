@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+
 import { LOCATION_OPEN_DATE } from "../../constants/location";
 import { MemberGroup } from "../../types/models/member";
+import { IUser } from "../../types/models/userTypes/userInfoTypes";
 import { Location } from "../../types/services/locationTypes";
 import { birthToAge } from "../../utils/convertUtils/convertTypes";
-
-import { IUser } from "../../types/models/userTypes/userInfoTypes";
 interface IMemberOverview {
   onClickSection: (section: MemberGroup) => void;
   groups: IUser[][];
@@ -77,10 +77,7 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
                 {item?.map((user, idx2) =>
                   idx2 < 13 ? (
                     <ProfileContainer key={user.uid} zIndex={idx2}>
-                      {/* <ProfileIconXsOverwrap
-                        user={user}
-                        isOverlap={idx2 > 11}
-                      /> */}
+                    
                       temp
                     </ProfileContainer>
                   ) : null

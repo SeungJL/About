@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import styled from "styled-components";
+
 import { category, IPlazaData } from "../../../types/models/plaza";
 
 export default function PlazaBlock({
@@ -73,9 +74,9 @@ export default function PlazaBlock({
   );
 }
 
-const IconCategory = ({ category }: { category: category }) => {
+function IconCategory({ category }: { category: category }) {
   return <IconLayout>{category}</IconLayout>;
-};
+}
 
 const Layout = styled.div`
   display: flex;

@@ -1,29 +1,26 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layouts/BottomNav";
-import Slide from "../../../components/layouts/PageSlide";
 
+import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import {
-  GatherCategoryIcons,
   GATHER_TYPES,
+  GatherCategoryIcons,
 } from "../../../constants/contentsText/GatherContents";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
-import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
-
 import { IGatherType } from "../../../types/models/gatherTypes/gather";
 
 function WritingGatherCategory() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [gatherWriting, setGatherWriting] = useRecoilState(
     sharedGatherWritingState
   );

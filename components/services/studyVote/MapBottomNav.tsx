@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
@@ -18,7 +19,6 @@ import {
   studyDateStatusState,
 } from "../../../recoils/studyRecoils";
 import { DispatchType } from "../../../types/hooks/reactTypes";
-
 import { IStudyVote } from "../../../types/models/studyTypes/studyInterActions";
 import { LocationEn } from "../../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";

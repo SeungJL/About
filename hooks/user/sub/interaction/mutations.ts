@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
+
 import { requestServer } from "../../../../libs/methodHelpers";
 import { IInteractionSendLike } from "../../../../types/globals/interaction";
 import { MutationOptions } from "../../../../types/hooks/reactTypes";

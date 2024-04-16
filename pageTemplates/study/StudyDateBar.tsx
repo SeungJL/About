@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
+
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 
 interface IStudyDateBar {

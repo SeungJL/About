@@ -1,4 +1,5 @@
-import mongoose, { model, Model, Schema } from "mongoose";
+import mongoose, { Model, model, Schema } from "mongoose";
+
 import { IAvatar, IRest, IUser } from "../types/models/userTypes/userInfoTypes";
 
 export const restSchema: Schema<IRest> = new Schema({

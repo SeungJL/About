@@ -1,13 +1,13 @@
 import { faStars } from "@fortawesome/pro-duotone-svg-icons";
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
-import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 
+import { AlphabetIcon } from "../../components/atoms/Icons/AlphabetIcon";
 import { useCollectionAlphabetQuery } from "../../hooks/user/sub/collection/queries";
 import UserCollectionAlphabetModal from "../../modals/user/collection/UserCollectionAlphabetModal";
 

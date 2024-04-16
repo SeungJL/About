@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
+
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import PromotionAllCoolTimeModal from "../../modals/promotion/PromotionAllCoolTimeModal";

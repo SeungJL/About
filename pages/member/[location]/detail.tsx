@@ -3,12 +3,11 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { SECTION_NAME } from ".";
+
 import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import { BADGE_COLOR_MAPPINGS } from "../../../constants/serviceConstants/badgeConstants";
-
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import {
   transferMemberDataState,
@@ -20,6 +19,7 @@ import {
 } from "../../../types/models/userTypes/userInfoTypes";
 import { getUserBadge } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
+import { SECTION_NAME } from ".";
 
 function MemberDetail() {
   const router = useRouter();

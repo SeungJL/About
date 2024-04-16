@@ -3,6 +3,7 @@ import { faClock, faLocationDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
+
 import VoteMap from "../../components/organisms/VoteMap";
 import {
   IMapOptions,

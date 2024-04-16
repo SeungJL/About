@@ -1,11 +1,11 @@
-import mongoose, { model, Model, Schema } from "mongoose";
+import mongoose, { Model, model, Schema } from "mongoose";
+
 import {
   IAttendance,
   IParticipation,
   IStudy,
 } from "../types/models/studyTypes/studyDetails";
 import { IAbsence } from "../types/models/studyTypes/studyInterActions";
-
 import { IDayjsStartToEnd } from "../types/utils/timeAndDate";
 
 const ParticipantTimeSchema: Schema<IDayjsStartToEnd> = new Schema(

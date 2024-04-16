@@ -1,8 +1,9 @@
 import { Box } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
+
 import { MainLoadingAbsolute } from "../components/atoms/loaders/MainLoading";
 import ButtonGroups from "../components/molecules/groups/ButtonGroups";
 import InviteUserGroups from "../components/molecules/groups/InviteUserGroups";

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { IAvatar } from "../../../types/models/userTypes/userInfoTypes";
 import Avatar from "../../atoms/Avatar";
 type Size = "sm";
@@ -14,13 +15,13 @@ interface IAvatarGroupsOverwrap {
 }
 const VOTER_SHOW_MAX = 6;
 
-const VIEW_CNT = 5;
+
 
 export default function AvatarGroupsOverwrap({
   userAvatarArr,
-  size,
+
 }: IAvatarGroupsOverwrap) {
-  const length = userAvatarArr.length;
+
 
   return (
     <Participants>

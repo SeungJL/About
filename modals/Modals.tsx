@@ -11,6 +11,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import styled from "styled-components";
+
 import TwoButtonNav from "../components/layouts/TwoButtonNav";
 import { IModal } from "../types/components/modalTypes";
 
@@ -50,7 +51,7 @@ export interface IPaddingOptions {
   footer?: number;
 }
 
-export const ModalLayout = ({
+export function ModalLayout({
   title,
   setIsModal,
   footerOptions,
@@ -58,7 +59,7 @@ export const ModalLayout = ({
   initialRef,
   children,
   paddingOptions,
-}: IModalLayout) => {
+}: IModalLayout) {
   const onClose = () => setIsModal(false);
 
   const { main, sub, isFull = true } = footerOptions || {};
@@ -200,7 +201,7 @@ export const ModalLayout = ({
       </ModalContent>
     </Modal>
   );
-};
+}
 
 interface IModalHeader {
   text: string;
@@ -208,12 +209,12 @@ interface IModalHeader {
   isLine?: boolean;
 }
 
-export const ModalHeader = ({
+export function ModalHeader({
   text,
   isCloseBtn = true,
   isLine = true,
-}: IModalHeader) => (
-  <>
+}: IModalHeader) {
+  return <>
     <ChakraModalHeader
       display="flex"
       alignItems="center"
@@ -229,10 +230,10 @@ export const ModalHeader = ({
       <ModalCloseButton size="lg" pb="2px" _focus={{ outline: "none" }} />
     )}
   </>
-);
+}
 
-export const ModalHeaderCenter = ({ text }) => (
-  <ChakraModalHeader
+export function ModalHeaderCenter({ text }) {
+  return <ChakraModalHeader
     display="flex"
     alignItems="center"
     px="var(--gap-5)"
@@ -242,10 +243,10 @@ export const ModalHeaderCenter = ({ text }) => (
   >
     {text}
   </ChakraModalHeader>
-);
+}
 
-export const ModalBody = ({ children }) => (
-  <ChakraModalBody
+export function ModalBody({ children }) {
+  return <ChakraModalBody
     px=" var(--gap-5)"
     pt="var(--gap-4)"
     pb="0"
@@ -255,7 +256,7 @@ export const ModalBody = ({ children }) => (
   >
     {children}
   </ChakraModalBody>
-);
+}
 
 interface IModalFooterTwo {
   onClickLeft: () => void;
@@ -267,7 +268,7 @@ interface IModalFooterTwo {
   isLoading?: boolean;
 }
 
-export const ModalFooterTwo3 = ({
+export function ModalFooterTwo3({
   onClickLeft,
   onClickRight,
   leftText = "닫기",
@@ -275,8 +276,8 @@ export const ModalFooterTwo3 = ({
   isFull = true,
   isLoading,
   isSmall,
-}: IModalFooterTwo) => (
-  <ModalFooterLayout p="var(--gap-4) var(--gap-5)">
+}: IModalFooterTwo) {
+  return <ModalFooterLayout p="var(--gap-4) var(--gap-5)">
     <>
       <TwoButtonNav
         leftText={leftText}
@@ -287,9 +288,9 @@ export const ModalFooterTwo3 = ({
       />
     </>
   </ModalFooterLayout>
-);
+}
 
-export const ModalFooterTwo = ({
+export function ModalFooterTwo({
   onClickLeft,
   onClickRight,
   leftText = "닫기",
@@ -297,9 +298,8 @@ export const ModalFooterTwo = ({
   isFull = true,
   isLoading,
   isSmall,
-}: IModalFooterTwo) => (
-  // <ChakraModalFooter mt="auto" p="var(--gap-3) var(--gap-5)">
-  <ModalFooterLayout p="var(--gap-4) var(--gap-5)">
+}: IModalFooterTwo) {
+  return <ModalFooterLayout p="var(--gap-4) var(--gap-5)">
     <>
       <TwoButtonNav
         leftText={leftText}
@@ -330,8 +330,7 @@ export const ModalFooterTwo = ({
       {rightText || "다음"}
     </Button> */}
   </ModalFooterLayout>
-  // </ChakraModalFooter>
-);
+}
 
 const ModalFooterLayout = styled(ChakraModalFooter)`
   margin-top: auto;
@@ -348,15 +347,15 @@ interface IModalFooterOne {
   isOutline?: boolean;
 }
 
-export const ModalFooterOne = ({
+export function ModalFooterOne({
   onClick,
   text,
   isFull,
   isRed,
   isLoading,
   isOutline,
-}: IModalFooterOne) => (
-  <ChakraModalFooter p="var(--gap-4) var(--gap-5)">
+}: IModalFooterOne) {
+  return <ChakraModalFooter p="var(--gap-4) var(--gap-5)">
     <Button
       size={isFull ? "lg" : "md"}
       variant={isFull ? "solid" : isOutline ? "outline" : "ghost"}
@@ -377,7 +376,7 @@ export const ModalFooterOne = ({
       {text || "확인"}
     </Button>
   </ChakraModalFooter>
-);
+}
 
 interface IModalBodyNavTwo {
   topText: string;
@@ -386,13 +385,13 @@ interface IModalBodyNavTwo {
   onClickBottom: () => void;
 }
 
-export const ModalBodyNavTwo = ({
+export function ModalBodyNavTwo({
   topText,
   bottomText,
   onClickBottom,
   onClickTop,
-}: IModalBodyNavTwo) => (
-  <Flex
+}: IModalBodyNavTwo) {
+  return <Flex
     direction="column"
     h="100%"
     mb="var(--gap-4)"
@@ -412,7 +411,7 @@ export const ModalBodyNavTwo = ({
       {bottomText}
     </Button>
   </Flex>
-);
+}
 
 const SIZE_HEIGHT_MAP = {
   xxl: "530px",

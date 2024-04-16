@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import styled from "styled-components";
+
 import {
   GATHER_CONTENT,
   GROUP_STUDY_ALL,
@@ -9,9 +10,8 @@ import {
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useGatherCommentMutation } from "../../hooks/gather/mutations";
 import { useGroupCommentMutation } from "../../hooks/groupStudy/mutations";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
 import { IModal } from "../../types/components/modalTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IGatherCommentEditModal extends IModal {
   commentText: string;

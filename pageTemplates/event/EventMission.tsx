@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
 import HighlightedTextButton from "../../components/atoms/buttons/HighlightedTextButton";
 import Accordion, {

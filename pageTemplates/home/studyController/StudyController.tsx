@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import Slide from "../../../components/layouts/PageSlide";
 import BetweenTextSwitcher from "../../../components/molecules/navs/BetweenTextSwitcher";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";

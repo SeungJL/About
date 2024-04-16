@@ -1,6 +1,7 @@
 import { Switch } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+
 import CountNum from "../../../../components/atoms/CountNum";
 import { DispatchType } from "../../../../types/hooks/reactTypes";
 import { IGatherMemberCnt } from "../../../../types/models/gatherTypes/gather";

@@ -1,6 +1,5 @@
-import "next-auth";
-
 import { DefaultSession } from "next-auth";
+
 import { UserRole } from "../userTypes/userInfoTypes";
 import { ActiveLocation } from "./services/locationTypes";
 declare module "next-auth/jwt" {

@@ -1,9 +1,12 @@
+/* eslint-disable */
+
 import { Box, Button } from "@chakra-ui/react";
 import { faEllipsis } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { DEFAULT_IMAGE_URL } from "../../assets/images/imageUrl";
 import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
 import { MainLoading } from "../../components/atoms/loaders/MainLoading";
@@ -52,7 +55,7 @@ function Review() {
   const searchParams = useSearchParams();
 
   const location = searchParams.get("location");
-  const locationKr = convertLocationLangTo(location as LocationEn, "kr");
+
   const errorToast = useErrorToast();
   const [initialData, setInitialData] = useState<IReview[]>();
   const [reviewData, setReviewData] = useState<IReview[]>();

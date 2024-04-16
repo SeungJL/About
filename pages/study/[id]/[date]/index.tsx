@@ -1,8 +1,9 @@
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import Divider from "../../../../components/atoms/Divider";
 import Slide from "../../../../components/layouts/PageSlide";
 import { PLACE_TO_LOCATION } from "../../../../constants/serviceConstants/studyConstants/studyLocationConstants";

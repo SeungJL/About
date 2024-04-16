@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { AspectRatio, Button, Link } from "@chakra-ui/react";
 import { faUser } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -94,7 +96,7 @@ const Login: NextPage<{
               alt="aboutPoster"
               fill={true}
               sizes="400px"
-              src={`https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/%EB%A1%9C%EA%B3%A0+short.webp`}
+              src="https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%8F%99%EC%95%84%EB%A6%AC/%EB%A1%9C%EA%B3%A0+short.webp"
               priority
             />
           </AspectRatio>
@@ -160,7 +162,7 @@ const Login: NextPage<{
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const providers = await getProviders();
 
   return {

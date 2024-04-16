@@ -1,11 +1,12 @@
 import { Flex } from "@chakra-ui/react";
 import { faGear, faPenCircle } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import KakaoShareBtn from "../../../components/atoms/Icons/KakaoShareBtn";
 import Header from "../../../components/layouts/Header";
 import { GROUP_STUDY_ALL } from "../../../constants/keys/queryKeys";
@@ -16,12 +17,9 @@ import {
   useFailToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
-
 import { isGroupEditState } from "../../../recoils/checkAtoms";
-
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
-
 import { IGroup } from "../../../types/models/groupTypes/group";
 import BottomDrawer from "../../profile/BottomDrawer";
 

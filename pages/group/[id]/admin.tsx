@@ -1,12 +1,11 @@
 import { Button } from "@chakra-ui/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
 import styled from "styled-components";
+
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import { UserItem } from "../../../components/molecules/UserItem";
-
 import { useAdminPointSystemMutation } from "../../../hooks/admin/mutation";
 import { useCompleteToast } from "../../../hooks/custom/CustomToast";
 import { useGroupWaitingStatusMutation } from "../../../hooks/groupStudy/mutations";
@@ -14,7 +13,6 @@ import { useGroupQuery } from "../../../hooks/groupStudy/queries";
 import { checkGroupGathering } from "../../../libs/group/checkGroupGathering";
 import GroupAdminInvitation from "../../../pageTemplates/group/admin/GroupAdminInvitation";
 import { IGroup } from "../../../types/models/groupTypes/group";
-
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 
 function Admin() {

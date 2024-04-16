@@ -16,7 +16,7 @@ function ButtonCheckNav({
   isLineBtn,
   isWrap,
 }: IButtonCheckNav) {
-  const filtered = buttonList.filter((item) => true);
+  const filtered = buttonList.filter(() => true);
   return (
     <Layout>
       <ButtonGroup

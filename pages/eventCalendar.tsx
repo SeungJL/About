@@ -1,11 +1,10 @@
 import dayjs from "dayjs";
 import { Fragment, useState } from "react";
-
-import Slide from "../components/layouts/PageSlide";
-
 import styled from "styled-components";
+
 import MonthNav from "../components/atoms/MonthNav";
 import Header from "../components/layouts/Header";
+import Slide from "../components/layouts/PageSlide";
 import Accordion from "../components/molecules/Accordion";
 import { ACCORDION_CONTENT_EVENT } from "../constants/contentsText/accordionContents";
 import { EVENT_CONTENT_2023 } from "../constants/settingValue/eventContents";
@@ -27,8 +26,6 @@ interface IEventContent {
   isLast: boolean;
   blockIdx?: number;
 }
-
-const BLOCK_WIDTH = 52;
 
 function EventCalendar() {
   const [navMonth, setNavMonth] = useState(dayjs().startOf("month"));
@@ -85,7 +82,7 @@ function EventCalendar() {
   };
 
   const deleteEventDate = (content: string) => {
-    for (let key in eventBlocks) {
+    for (const key in eventBlocks) {
       if (eventBlocks[key] === content) eventBlocks[key] = null;
     }
   };
@@ -237,10 +234,10 @@ const Date = styled.div<{ day: "sun" | "sat"; isToday: boolean }>`
     props.isToday
       ? "white"
       : props.day === "sun"
-      ? "var(--color-red)"
-      : props.day === "sat"
-      ? "var(--color-blue)"
-      : null};
+        ? "var(--color-red)"
+        : props.day === "sat"
+          ? "var(--color-blue)"
+          : null};
 `;
 
 const DateContent = styled.div``;

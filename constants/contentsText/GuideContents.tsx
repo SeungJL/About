@@ -31,7 +31,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
 
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           보여주세요!
         </Button>
       ),
@@ -56,7 +56,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -68,7 +68,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -89,7 +89,7 @@ export const STEPS_CONTENTS: Step[] = [
 
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -111,7 +111,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -123,7 +123,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -146,7 +146,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -159,7 +159,7 @@ export const STEPS_CONTENTS: Step[] = [
       skip: null,
 
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -178,7 +178,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -190,7 +190,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -214,7 +214,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -226,7 +226,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -250,7 +250,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -262,7 +262,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -286,7 +286,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -298,7 +298,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -317,7 +317,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -329,7 +329,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -350,7 +350,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -362,7 +362,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -385,7 +385,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -397,7 +397,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -420,7 +420,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -432,7 +432,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -455,7 +455,7 @@ export const STEPS_CONTENTS: Step[] = [
     locale: {
       back: (
         <Button
-          as={"div"}
+          as="div"
           color="var(--color-mint)"
           borderColor="var(--color-mint)"
           variant="outline"
@@ -467,7 +467,7 @@ export const STEPS_CONTENTS: Step[] = [
       close: "닫기",
       skip: null,
       next: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           다음
         </Button>
       ),
@@ -493,7 +493,7 @@ export const STEPS_CONTENTS: Step[] = [
       back: null,
       skip: null,
       last: (
-        <Button as={"div"} colorScheme="mintTheme">
+        <Button as="div" colorScheme="mintTheme">
           확인
         </Button>
       ),

@@ -2,13 +2,13 @@ import { faEllipsisStroke } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs, { Dayjs } from "dayjs";
 import styled from "styled-components";
+
 import {
   LOCATION_OPEN_DATE,
   LOCATION_TABLE_COLOR,
 } from "../../constants/location";
 import { PLACE_TO_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
-
 import { Location } from "../../types/services/locationTypes";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
@@ -27,7 +27,7 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
           const date = item?.date;
           const dayjsDate = date && dayjsToStr(navMonth.date(date));
           let openLocation = null;
-          for (let key in LOCATION_OPEN_DATE) {
+          for (const key in LOCATION_OPEN_DATE) {
             if (LOCATION_OPEN_DATE[key] === dayjsDate) openLocation = key;
           }
           const openStudyLocation: Set<{
@@ -70,8 +70,8 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
     </Layout>
   );
 }
-const DayOfWeek = () => (
-  <DayLine>
+function DayOfWeek() {
+  return <DayLine>
     <span>일</span>
     <span>월</span>
     <span>화</span>
@@ -80,7 +80,7 @@ const DayOfWeek = () => (
     <span>금</span>
     <span>토</span>
   </DayLine>
-);
+}
 
 const Layout = styled.div``;
 

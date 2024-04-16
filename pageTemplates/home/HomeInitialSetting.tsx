@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
 import { useSetRecoilState } from "recoil";
 import { createGlobalStyle } from "styled-components";
+
 import { STEPS_CONTENTS } from "../../constants/contentsText/GuideContents";
 import { USER_GUIDE } from "../../constants/keys/localStorage";
 import { useGroupQuery } from "../../hooks/groupStudy/queries";
@@ -69,7 +70,7 @@ function HomeInitialSetting() {
     run: false,
     steps: STEPS_CONTENTS,
   });
-  let a = 4;
+  const a = 4;
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     if (data.step.target === ".about_navigation1") {

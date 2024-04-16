@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+
 import { PopOverIcon } from "../../components/atoms/Icons/PopOverIcon";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
@@ -10,7 +11,6 @@ import {
   useGroupParticipationMutation,
   useGroupWaitingMutation,
 } from "../../hooks/groupStudy/mutations";
-
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import {
@@ -18,7 +18,6 @@ import {
   ModalFooterTwo,
   ModalLayout,
 } from "../../modals/Modals";
-
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
 

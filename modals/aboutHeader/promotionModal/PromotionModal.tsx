@@ -1,8 +1,8 @@
 import { faCoins, faGift } from "@fortawesome/pro-duotone-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+
 import { IModal } from "../../../types/components/modalTypes";
 import { IFooterOptions, IHeaderOptions, ModalLayout } from "../../Modals";
 import PromotionModalOverview from "./PromotionModalOverview";

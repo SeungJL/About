@@ -23,7 +23,9 @@ export default function ShadowBlockButton({
   );
 }
 
-const ButtonComponent = ({ text }: { text: string }) => <Button>{text}</Button>;
+function ButtonComponent({ text }: { text: string }) {
+  return <Button>{text}</Button>
+}
 
 const Button = styled.button`
   width: 100%;

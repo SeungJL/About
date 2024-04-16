@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+
 import { AlphabetIcon } from "../../../components/atoms/Icons/AlphabetIcon";
 import {
   useCompleteToast,
@@ -7,10 +8,9 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import { IFooterOptions, ModalLayout } from "../../Modals";
-
 import { IModal } from "../../../types/components/modalTypes";
 import { Alphabet } from "../../../types/models/collections";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 interface IAlphabetChangeModal extends IModal {
   myAlphabets: Alphabet[];

@@ -1,6 +1,7 @@
 import { Button, Flex } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+
 import Slide from "../../components/layouts/PageSlide";
 
 interface IRecordNavigation {

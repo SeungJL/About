@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { COLOR_SCHEME_BG, TABLE_COLORS } from "../../../constants/styles";
 import { NoticeCategory } from "../../../storage/notice";
 import { InteractionType } from "../../../types/globals/interaction";
@@ -6,7 +7,7 @@ import { InteractionType } from "../../../types/globals/interaction";
 interface INoticeIcon {
   type: NoticeCategory;
 }
-export const NoticeIcon = ({ type }: INoticeIcon) => {
+export function NoticeIcon({ type }: INoticeIcon) {
   const getColor = (type: NoticeCategory) => {
     switch (type) {
       case "main":
@@ -52,7 +53,7 @@ export const NoticeIcon = ({ type }: INoticeIcon) => {
       </svg>
     </NoticeIconWrapper>
   );
-};
+}
 
 const NoticeIconWrapper = styled.div<{ bg: string }>`
   width: 44px;
@@ -68,8 +69,8 @@ interface IActiveIcon {
   type: InteractionType;
 }
 
-export const ActiveIcon = ({ type }: IActiveIcon) => (
-  <NoticeActiveIconWrapper>
+export function ActiveIcon({ type }: IActiveIcon) {
+  return <NoticeActiveIconWrapper>
     {type === "alphabet" ? (
       <div
         style={{
@@ -160,6 +161,6 @@ export const ActiveIcon = ({ type }: IActiveIcon) => (
       </svg>
     )}
   </NoticeActiveIconWrapper>
-);
+}
 
 const NoticeActiveIconWrapper = styled.div``;

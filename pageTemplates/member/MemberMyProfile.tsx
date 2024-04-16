@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
+
 import UserBadge from "../../components/atoms/badges/UserBadge";
 import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 import { USER_ROLE } from "../../constants/settingValue/role";

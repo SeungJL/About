@@ -11,6 +11,7 @@ import {
   faUserAstronaut,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { TABLE_COLORS } from "../../constants/styles";
 
 //모임 카테고리

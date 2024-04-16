@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import {
   TIME_SELECTOR_END,
   TIME_SELECTOR_START,
@@ -6,7 +7,7 @@ import {
 import { ITimeSelector } from "../../../types/utils/timeAndDate";
 import TimeSelectorDual from "../../atoms/TimeSelectorDual";
 
-const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
+function TimeSelector({ times, setTimes }: ITimeSelector) {
   const onChangeTimeStart = (startTime) => {
     setTimes({ start: startTime, end: null });
   };
@@ -36,7 +37,7 @@ const TimeSelector = ({ times, setTimes }: ITimeSelector) => {
       </Layout>
     </>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;

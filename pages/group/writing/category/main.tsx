@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../../components/layouts/BottomNav";
 
+import BottomNav from "../../../../components/layouts/BottomNav";
 import Header from "../../../../components/layouts/Header";
 import Slide from "../../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../../components/molecules/ProgressStatus";
@@ -11,17 +11,14 @@ import {
   GROUP_STUDY_CATEGORY_ARR,
   GROUP_STUDY_CATEGORY_ARR_ICONS,
 } from "../../../../constants/contentsText/GroupStudyContents";
-
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../../pageTemplates/register/RegisterOverview";
-import { prevPageUrlState } from "../../../../recoils/previousAtoms";
 import { sharedGroupWritingState } from "../../../../recoils/sharedDataAtoms";
 function WritingStudyCategoryMain() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [groupWriting, setgroupWriting] = useRecoilState(
     sharedGroupWritingState
   );

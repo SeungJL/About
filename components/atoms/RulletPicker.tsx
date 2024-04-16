@@ -1,7 +1,6 @@
-import styled from "styled-components";
-
 import { motion, useMotionValue } from "framer-motion";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const ITEM_HEIGHT = 34;
 

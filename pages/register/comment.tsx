@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import BottomNav from "../../components/layouts/BottomNav";
-import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-
 import { Input } from "@chakra-ui/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
+import styled from "styled-components";
+
+import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { MESSAGE_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
@@ -14,6 +13,7 @@ import { useCompleteToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import {
   getLocalStorageObj,
   setLocalStorageObj,

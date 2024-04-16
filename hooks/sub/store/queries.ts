@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
+
 import { STORE_GIFT } from "../../../constants/keys/queryKeys";
 import { QueryOptions } from "../../../types/hooks/reactTypes";
 import { IStoreQuery } from "../../../types/models/store";

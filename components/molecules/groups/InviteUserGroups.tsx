@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
+
 import Avatar from "../../../components/atoms/Avatar";
 import { IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
 

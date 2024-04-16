@@ -1,6 +1,7 @@
 import { Box, Button } from "@chakra-ui/react";
 import Image from "next/image";
 import { useState } from "react";
+
 import HeartLikeIcon from "../components/atoms/Icons/HeartLikeIcon";
 import ScreenOverlay from "../components/atoms/ScreenOverlay";
 import { IModal } from "../types/components/modalTypes";

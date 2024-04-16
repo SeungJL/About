@@ -2,6 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+
 import SectionBar from "../../components/molecules/bars/SectionBar";
 import ImageTileSlider, {
   IImageTile,

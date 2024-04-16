@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import {
   DAILY_CHECK_POP_UP,
   NOTICE_ACTIVE_CNT,

@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
-import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import BlurredPart from "../../components/molecules/BlurredPart";
 import { IPostThumbnailCard } from "../../components/molecules/cards/PostThumbnailCard";
 import {
@@ -22,13 +23,11 @@ import {
   sortedStudyCardListState,
   studyDateStatusState,
 } from "../../recoils/studyRecoils";
-
 import { ITextAndColorSchemes } from "../../types/components/propTypes";
 import {
   IParticipation,
   StudyStatus,
 } from "../../types/models/studyTypes/studyDetails";
-
 import { LocationEn } from "../../types/services/locationTypes";
 import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
@@ -91,7 +90,6 @@ export default function HomeStudySection() {
         }
       }
     }
-
     if (getStudyConfimCondition(studyDateStatus, studyVoteData[1].status)) {
       decideStudyResult();
     }
@@ -122,8 +120,8 @@ export default function HomeStudySection() {
               location === "안양"
                 ? "안양 지역은 톡방에서 별도 운영중입니다!"
                 : location === null
-                ? "스터디 장소 확정중입니다."
-                : null
+                  ? "스터디 장소 확정중입니다."
+                  : null
             }
           >
             {!isLoading && studyCardColData ? (
@@ -132,7 +130,7 @@ export default function HomeStudySection() {
                 url={`/studyList/?${newSearchParams.toString()}`}
               />
             ) : (
-              <CardColumnLayoutSkeleton type="study" />
+              <CardColumnLayoutSkeleton />
             )}
           </BlurredPart>
         </>

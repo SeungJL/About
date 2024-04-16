@@ -6,9 +6,9 @@ interface IScreenOverlay {
   darken?: boolean;
 }
 
-const ScreenOverlay = ({ onClick, zIndex, darken = false }: IScreenOverlay) => {
+function ScreenOverlay({ onClick, zIndex, darken = false }: IScreenOverlay) {
   return <StyledOverlay darken={darken} onClick={onClick} zIndex={zIndex} />;
-};
+}
 
 const StyledOverlay = styled.div<{ zIndex: number; darken: boolean }>`
   position: fixed;

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
+
 import TwoButtonNav from "../../../components/layouts/TwoButtonNav";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { useGatherQuery } from "../../../hooks/gather/queries";

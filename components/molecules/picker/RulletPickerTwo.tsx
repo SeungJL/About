@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
+
 import RulletPicker from "../../atoms/RulletPicker";
 interface IRulletPickerTwo {
   leftDefaultIdx: number;

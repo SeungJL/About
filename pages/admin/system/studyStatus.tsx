@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import {
   Accordion,
   AccordionButton,
@@ -24,14 +26,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
+
 import Header from "../../../components/layouts/Header";
-
 import { useStudyVoteQuery } from "../../../hooks/study/queries";
-import {
-  IAttendance,
-  StudyStatus,
-} from "../../../types/models/studyTypes/studyDetails";
-
+import { StudyStatus } from "../../../types/models/studyTypes/studyDetails";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
@@ -43,8 +41,6 @@ function AdminStudyStatus() {
   const { data: YANG } = useStudyVoteQuery(dayjsToStr(date), "양천");
 
   const handleStatus = (type: StudyStatus) => {};
-
-  const handleDeleteUser = (who: IAttendance) => {};
 
   return (
     <>

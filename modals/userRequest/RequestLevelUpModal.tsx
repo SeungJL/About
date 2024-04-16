@@ -1,12 +1,12 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
+
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
 import { useUserInfoFieldMutation } from "../../hooks/user/mutations";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function RequestLevelUpModal({ setIsModal }: IModal) {
   const { data: session } = useSession();

@@ -1,8 +1,9 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
+
 import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";

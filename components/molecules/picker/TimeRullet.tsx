@@ -1,9 +1,8 @@
+import dayjs, { Dayjs } from "dayjs";
 import { motion, useMotionValue } from "framer-motion";
+import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
-import dayjs, { Dayjs } from "dayjs";
-import { useRouter } from "next/dist/client/router";
 
 const ITEM_HEIGHT = 34;
 interface ITimeRullet {
@@ -65,7 +64,7 @@ function TimeRullet({
   const handleDrag = () => {
     const Y = y.get();
 
-    let moveValue = -(Y + 28) / ITEM_HEIGHT;
+    const moveValue = -(Y + 28) / ITEM_HEIGHT;
 
     if (moveValue > 0) Math.ceil(moveValue);
     else if (moveValue < -500) Math.floor(moveValue);

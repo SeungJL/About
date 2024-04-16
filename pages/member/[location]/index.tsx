@@ -1,10 +1,11 @@
 import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
 import Slide from "../../../components/layouts/PageSlide";
 import SectionBar from "../../../components/molecules/bars/SectionBar";
@@ -19,7 +20,6 @@ import { transferMemberDataState } from "../../../recoils/transferRecoils";
 import { IGroupedMembers, MemberGroup } from "../../../types/models/member";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 import { Location } from "../../../types/services/locationTypes";
-
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 const MEMBER_SECTIONS: MemberGroup[] = [

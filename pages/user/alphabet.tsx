@@ -2,8 +2,8 @@ import { Badge, Button } from "@chakra-ui/react";
 import { faX } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -14,7 +14,6 @@ import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
 import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
-
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { useAlphabetCompletedMutation } from "../../hooks/user/sub/collection/mutations";
@@ -22,11 +21,9 @@ import {
   useCollectionAlphabetAllQuery,
   useCollectionAlphabetQuery,
 } from "../../hooks/user/sub/collection/queries";
-
 import AlphabetChangeModal from "../../modals/user/collection/AlphabetChangeModal";
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
-
 import { Alphabet, ICollectionAlphabet } from "../../types/models/collections";
 import { IUserSummary } from "../../types/models/userTypes/userInfoTypes";
 import { getUserBadge } from "../../utils/convertUtils/convertDatas";
@@ -54,6 +51,7 @@ function CollectionAlphabet() {
           "교환이 완료되었어요! 상품은 확인하는대로 보내드려요!"
         );
       },
+      /* eslint-disable @typescript-eslint/no-explicit-any */
       onError(err: AxiosError<{ message: string }, any>) {
         const res = err.response.data;
         if (res.message === "not completed") {

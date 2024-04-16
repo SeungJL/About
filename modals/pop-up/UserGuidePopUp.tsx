@@ -1,6 +1,7 @@
 import { faThumbTack } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+
 import { USER_GUIDE_POP_UP } from "../../constants/keys/localStorage";
 import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions, IHeaderOptions, ModalLayout } from "../Modals";

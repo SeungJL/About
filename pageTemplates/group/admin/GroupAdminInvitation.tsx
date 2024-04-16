@@ -1,8 +1,9 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
+
 import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 import { MainLoadingAbsolute } from "../../../components/atoms/loaders/MainLoading";
 import Selector from "../../../components/atoms/Selector";

@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import styled from "styled-components";
+
 import TwoButtonNav from "../../../components/layouts/TwoButtonNav";
 import {
   DispatchBoolean,

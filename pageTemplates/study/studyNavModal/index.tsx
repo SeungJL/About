@@ -1,8 +1,8 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
-import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 
+import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 import StudyVoteDrawer from "../../../components/services/studyVote/StudyVoteDrawer";
 import { useToast } from "../../../hooks/custom/CustomToast";
 import ModalPortal from "../../../modals/ModalPortal";

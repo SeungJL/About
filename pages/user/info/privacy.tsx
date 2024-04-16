@@ -8,10 +8,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 
-const Privacy = () => {
+function Privacy() {
   return (
     <>
       <Header title="개인정보 취급방침" />
@@ -272,6 +273,6 @@ const Privacy = () => {
       </Slide>
     </>
   );
-};
+}
 
 export default Privacy;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { IStoreGift } from "../../../types/models/store";
 
 interface IStoreDetailOverview {

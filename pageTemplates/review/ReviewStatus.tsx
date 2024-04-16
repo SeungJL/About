@@ -22,11 +22,7 @@ function ReviewStatus({ temp }: { temp?: any }) {
           <FontAwesomeIcon icon={faMessage} size="xl" />
           <span>10</span>
         </Item>
-        {/* <Profile>
-          <ProfileContainer zIndex={0}>
-            <ProfileIconXsOverwrap user={temp} isOverlap={false} />
-          </ProfileContainer>
-        </Profile> */}
+   
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>

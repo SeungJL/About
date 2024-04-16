@@ -1,13 +1,11 @@
-import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { ChangeEvent, useRef, useState } from "react";
+
 import Input from "../../components/atoms/Input";
 import BottomNav from "../../components/layouts/BottomNav";
-
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
-
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
 import { IUserRegisterFormWriting } from "../../types/models/userTypes/userInfoTypes";
@@ -20,7 +18,6 @@ import { checkIsKorean } from "../../utils/validationUtils";
 function Name() {
   const searchParams = useSearchParams();
 
-  const router = useRouter();
   const { data: session } = useSession();
 
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);

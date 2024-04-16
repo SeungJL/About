@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
-import { Badge } from "../../../components/atoms/badges/Badges";
-import { AboutIcon } from "../../../components/atoms/Icons/AboutIcon";
 
 import Avatar from "../../../components/atoms/Avatar";
+import { Badge } from "../../../components/atoms/badges/Badges";
+import { AboutIcon } from "../../../components/atoms/Icons/AboutIcon";
 import { ABOUT_UID } from "../../../constants/system";
 import { IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
 import { getDateDiff } from "../../../utils/dateTimeUtils";

@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -10,7 +10,6 @@ import {
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
-
 import { GatherStatus } from "../../../types/models/gatherTypes/gather";
 import { IGroup } from "../../../types/models/groupTypes/group";
 

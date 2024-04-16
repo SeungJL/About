@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+
 import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 import {
   useUidsToUsersInfoQuery,
   useUserInfoQuery,
 } from "../../hooks/user/queries";
+import { IModal } from "../../types/components/modalTypes";
 import { birthToAge } from "../../utils/convertUtils/convertTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
-
-import { IModal } from "../../types/components/modalTypes";
 
 function ProfileCardModal({ setIsModal }: IModal) {
   const router = useRouter();

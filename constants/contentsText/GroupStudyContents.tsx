@@ -10,9 +10,9 @@ import {
   faUserGraduate,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IRuleModalContent } from "../../modals/RuleModal";
 
 import { TABLE_COLORS } from "../../constants/styles";
+import { IRuleModalContent } from "../../modals/RuleModal";
 import { GroupCategory } from "../../types/models/groupTypes/group";
 
 export const GROUP_STUDY_CATEGORY_ARR = [

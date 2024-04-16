@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
+
 import { GATHER_CONTENT } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
 import { IGatherSummary } from "../../pages/review";
-
 import { QueryOptions } from "../../types/hooks/reactTypes";
 import { IGather } from "../../types/models/gatherTypes/gatherTypes";
 

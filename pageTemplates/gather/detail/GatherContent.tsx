@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { IGatherListItem } from "../../../types/models/gatherTypes/gather";
 
 interface IGather {

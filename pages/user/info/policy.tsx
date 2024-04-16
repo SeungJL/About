@@ -7,13 +7,11 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 
-const Policy = () => {
-  const router = useRouter();
-
+function Policy() {
   return (
     <>
       <Header title="About 이용약관" />
@@ -427,6 +425,6 @@ const Policy = () => {
       </Slide>
     </>
   );
-};
+}
 
 export default Policy;

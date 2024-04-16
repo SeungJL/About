@@ -25,7 +25,7 @@ export interface IArrowTextButton {
   size: "md" | "sm";
 }
 
-const ArrowTextButton = ({ dir, text, onClick, size }: IArrowTextButton) => {
+function ArrowTextButton({ dir, text, onClick, size }: IArrowTextButton) {
   return (
     <StyledButton onClick={onClick}>
       {dir === "left" && (
@@ -47,6 +47,6 @@ const ArrowTextButton = ({ dir, text, onClick, size }: IArrowTextButton) => {
       )}
     </StyledButton>
   );
-};
+}
 
 export default ArrowTextButton;

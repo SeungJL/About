@@ -1,14 +1,14 @@
+import "react-datepicker/dist/react-datepicker.css";
+
 import { Button } from "@chakra-ui/react";
 import ko from "date-fns/locale/ko";
 import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
-import BottomNav from "../../components/layouts/BottomNav";
 
+import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
@@ -22,7 +22,6 @@ import {
 
 dayjs.locale("ko");
 function Birthday() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const info: IUserRegisterFormWriting = getLocalStorageObj(REGISTER_INFO);
 
@@ -36,8 +35,8 @@ function Birthday() {
     birth && Number(birth?.slice(0, 2)) < 50
       ? "20" + birth
       : birth
-      ? "19" + birth
-      : null;
+        ? "19" + birth
+        : null;
 
   const defaultBirthDate =
     defaultBirth &&

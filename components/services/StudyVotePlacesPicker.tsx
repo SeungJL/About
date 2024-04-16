@@ -10,14 +10,10 @@ import { IStudyVotePlaces } from "../../types/models/studyTypes/studyInterAction
 import PlaceSelectorSub from "../molecules/picker/PlaceSelectorSub";
 
 interface IStudyVotePlacesPicker {
-  onClick: () => void;
   setVotePlaces: DispatchType<IStudyVotePlaces>;
 }
 
-function StudyVotePlacesPicker({
-  onClick,
-  setVotePlaces,
-}: IStudyVotePlacesPicker) {
+function StudyVotePlacesPicker({ setVotePlaces }: IStudyVotePlacesPicker) {
   const { id, date } = useParams<{ id: string; date: string }>();
 
   const location = PLACE_TO_LOCATION[id];

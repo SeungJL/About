@@ -3,6 +3,7 @@ import {
   faBellOn,
   faDollarSign,
   faLocationCrosshairs,
+  faPersonToDoor,
   faUser,
   faUserGroup,
   faVenusMars,
@@ -11,27 +12,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layouts/BottomNav";
-import Header from "../../../components/layouts/Header";
-
-import ProgressStatus from "../../../components/molecules/ProgressStatus";
-import { useErrorToast } from "../../../hooks/custom/CustomToast";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
-import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
-import GatherWritingConditionCnt from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionCnt";
-import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
-import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 
 import { PopOverIcon } from "../../../components/atoms/Icons/PopOverIcon";
-
-import { faPersonToDoor } from "@fortawesome/pro-regular-svg-icons";
-
+import BottomNav from "../../../components/layouts/BottomNav";
+import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
+import ProgressStatus from "../../../components/molecules/ProgressStatus";
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import GroupConfirmModal from "../../../modals/groupStudy/WritingConfirmModal";
+import GatherWritingConditionAgeRange from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionAgeRange";
+import GatherWritingConditionCnt from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionCnt";
 import GatherWritingConditionLocation from "../../../pageTemplates/gather/writing/condition/GatherWritingConditionLocation";
 import QuestionBottomDrawer from "../../../pageTemplates/group/writing/QuestionBottomDrawer";
+import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
+import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
-
 import { IGatherMemberCnt } from "../../../types/models/gatherTypes/gather";
 import { IGroupWriting } from "../../../types/models/groupTypes/group";
 import {
@@ -51,8 +46,6 @@ type ButtonType =
 export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 
 function WritingCondition() {
-  const errorToast = useErrorToast();
-
   const [groupWriting, setGroupWriting] = useRecoilState(
     sharedGroupWritingState
   );
@@ -371,10 +364,6 @@ const Item = styled.div`
   padding: var(--gap-4) 0;
   align-items: center;
   border-bottom: var(--border);
-`;
-
-const PopOverWrapper = styled.span`
-  padding: 2px;
 `;
 
 export default WritingCondition;

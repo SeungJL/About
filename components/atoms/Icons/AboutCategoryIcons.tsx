@@ -1,5 +1,5 @@
-export const CalendarIcon = () => (
-  <svg
+export function CalendarIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="46"
@@ -69,10 +69,10 @@ export const CalendarIcon = () => (
       />
     </g>
   </svg>
-);
+}
 
-export const StoreIcon = () => (
-  <svg
+export function StoreIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="46"
@@ -106,10 +106,10 @@ export const StoreIcon = () => (
       fill="#1C1C1E"
     />
   </svg>
-);
+}
 
-export const MemberIcon = () => (
-  <svg
+export function MemberIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="46"
@@ -235,10 +235,10 @@ export const MemberIcon = () => (
       />
     </g>
   </svg>
-);
+}
 
-export const GatherIcon = () => (
-  <svg
+export function GatherIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="46"
@@ -275,10 +275,10 @@ export const GatherIcon = () => (
       fill="#1C1C1E"
     />
   </svg>
-);
+}
 
-export const PlazaIcon = () => (
-  <svg
+export function PlazaIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="46"
@@ -365,10 +365,10 @@ export const PlazaIcon = () => (
       fill="#1C1C1E"
     />
   </svg>
-);
+}
 
-export const GroupIcon = () => (
-  <svg
+export function GroupIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="46"
@@ -421,10 +421,10 @@ export const GroupIcon = () => (
       strokeWidth="0.7"
     />
   </svg>
-);
+}
 
-export const CampfireIcon = () => (
-  <svg
+export function CampfireIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="46"
     height="46"
@@ -457,4 +457,4 @@ export const CampfireIcon = () => (
       fill="black"
     />
   </svg>
-);
+}

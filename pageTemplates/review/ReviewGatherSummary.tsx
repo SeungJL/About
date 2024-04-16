@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+
 import { IGatherSummary } from "../../pages/review";
 import { SingleLineText } from "../../styles/layout/components";
 

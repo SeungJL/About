@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { IModal } from "../../types/components/modalTypes";
 import { IFooterOptions, ModalLayout } from "../Modals";
 

@@ -6,16 +6,16 @@ import {
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { IAlertModalOptions } from "../../components/AlertModal";
-import Slide from "../../components/layouts/PageSlide";
 
+import { IAlertModalOptions } from "../../components/AlertModal";
 import { IIconLinkTile } from "../../components/atoms/IconLinkTile";
+import Slide from "../../components/layouts/PageSlide";
 import IconTileRowLayout from "../../components/organisms/IconTileRowLayout";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { MAX_USER_PER_PLACE } from "../../constants/settingValue/study/study";

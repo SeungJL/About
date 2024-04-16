@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
+
 import Avatar from "../../../components/atoms/Avatar";
 import UserBadge from "../../../components/atoms/badges/UserBadge";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
@@ -113,8 +114,8 @@ const UserName = styled.div`
   margin-right: var(--gap-3);
 `;
 
-const CameraIcon = () => (
-  <svg
+function CameraIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="15"
     height="13"
@@ -142,4 +143,4 @@ const CameraIcon = () => (
       fill="#343943"
     />
   </svg>
-);
+}

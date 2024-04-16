@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
+
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
-
 import { SERVER_URI } from "../../constants/system";
 import { useFailToast } from "../../hooks/custom/CustomToast";
 

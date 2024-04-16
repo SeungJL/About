@@ -1,14 +1,13 @@
 import { useToast } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Header from "../../../components/layouts/Header";
 
+import Header from "../../../components/layouts/Header";
 import { useUpdateProfileMutation } from "../../../hooks/admin/mutation";
 import { useAdminUsersControlQuery } from "../../../hooks/admin/quries";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 
 function AdminUserInfo() {
-  const [users, setUsers] = useState<IUser[]>([]);
   const [admins, setAdmins] = useState<IUser[]>([]);
   const [members, setMembers] = useState<IUser[]>([]);
   const [filtered, setFiltered] = useState<IUser[]>([]);
@@ -110,7 +109,7 @@ const Section = styled.section`
   flex-direction: column;
 `;
 
-const UserSection = ({ user }: { user: IUser }) => {
+function UserSection({ user }: { user: IUser }) {
   const toast = useToast();
   const { mutate: updateProfile } = useUpdateProfileMutation({
     onSuccess() {
@@ -200,7 +199,7 @@ const UserSection = ({ user }: { user: IUser }) => {
       />
     </SectionItem>
   );
-};
+}
 
 const SectionItem = styled.div`
   width: 100%;

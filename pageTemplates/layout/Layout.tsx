@@ -2,10 +2,11 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import axios from "axios";
-import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+
 import BottomNav from "../../components/BottomNav";
 import GuestBottomNav from "../../components/layouts/atoms/GuestBottomNav";
 import { useToken } from "../../hooks/custom/CustomHooks";

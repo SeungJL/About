@@ -1,14 +1,16 @@
-import dayjs from "dayjs";
-import styled from "styled-components";
-import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
+/* eslint-disable */
 
 import { Box } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+
 import {
   useGroupBelongMatchMutation,
   useMonthCalcMutation,
 } from "../hooks/admin/mutation";
+import { useAdminStudyRecordQuery } from "../hooks/admin/quries";
 import { useImageUploadMutation } from "../hooks/image/mutations";
 import { studyDateStatusState } from "../recoils/studyRecoils";
 function Test() {
@@ -22,8 +24,8 @@ function Test() {
 
   const a = useRecoilValue(studyDateStatusState);
 
-  let AA = "te";
-  let BB = "te ";
+  const AA = "te";
+  const BB = "te ";
 
   const { data: data2 } = useAdminStudyRecordQuery(
     dayjs("2023-12-04"),

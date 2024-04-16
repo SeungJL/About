@@ -1,11 +1,12 @@
 import { Textarea } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { PLACE_TO_LOCATION } from "../../constants/serviceConstants/studyConstants/studyLocationConstants";
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";

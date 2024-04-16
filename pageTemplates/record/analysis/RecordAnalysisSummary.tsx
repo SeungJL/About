@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { useUserAttendRateQueries } from "../../../hooks/user/sub/studyRecord/queries";
 import { DispatchBoolean } from "../../../types/hooks/reactTypes";
 import { IDayjsStartToEnd } from "../../../types/utils/timeAndDate";

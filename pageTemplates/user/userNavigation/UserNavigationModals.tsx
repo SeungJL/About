@@ -1,8 +1,8 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useUserInfoQuery } from "../../../hooks/user/queries";
 
+import { useUserInfoQuery } from "../../../hooks/user/queries";
 import RequestBirthModal from "../../../modals/userRequest/RequestBirthModal";
 import RequestChargeDepositModal from "../../../modals/userRequest/RequestChargeDepositModal";
 import RequestLevelUpModal from "../../../modals/userRequest/RequestLevelUpModal";
@@ -12,7 +12,6 @@ import RequestRestModal from "../../../modals/userRequest/RequestRestModal/Reque
 import RequestSecedeModal from "../../../modals/userRequest/RequestSecedeModal";
 import RequestSuggestModal from "../../../modals/userRequest/RequestSuggestModal";
 import StudyPresetModal from "../../../modals/userRequest/StudyPresetModal";
-
 import { UserOverviewModal } from "./UserNavigation";
 
 interface IUserNavigationModals {

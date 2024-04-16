@@ -1,4 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
+
 import { Vote } from "../models/vote";
 import { strToDate } from "../utils/dateTimeUtils";
 
@@ -13,7 +14,7 @@ type voteTimeArr = { start: Dayjs | Date; end: Dayjs | Date }[];
 
 const checkTimeOverlap = (timeArr: voteTimeArr) => {
   timeArr.sort((a, b) => (a.end.toString() > b.end.toString() ? -1 : 1));
-  let endTime = timeArr[0].end;
+  const endTime = timeArr[0].end;
   timeArr.sort((a, b) => (a.start.toString() > b.start.toString() ? 1 : -1));
   let startTime = timeArr[0].start;
 

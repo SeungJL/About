@@ -2,6 +2,7 @@ import { faEllipsis } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment } from "react";
 import styled from "styled-components";
+
 import { LOCATION_TABLE_COLOR } from "../../../constants/location";
 import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
 import { Location } from "../../../types/services/locationTypes";
@@ -11,10 +12,10 @@ interface IRecordDetailStudyBlock {
   locationStudies: ISortedLocationStudies;
 }
 
-const RecordDetailStudyBlock = ({
+function RecordDetailStudyBlock({
   locationStudies,
-}: IRecordDetailStudyBlock) => (
-  <Container>
+}: IRecordDetailStudyBlock) {
+  return <Container>
     {locationStudies.places.map((arrivedInfoList, idx) => {
       const placeId = arrivedInfoList.placeId;
       const location = PLACE_TO_LOCATION[placeId];
@@ -44,7 +45,7 @@ const RecordDetailStudyBlock = ({
       );
     })}
   </Container>
-);
+}
 
 const Container = styled.div`
   width: 100%;

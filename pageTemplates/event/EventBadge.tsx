@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { faLock, faLockOpen } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+
 import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
 import IconButtonColBlock, {
   IIconButtonColBlockProps,
@@ -12,7 +13,6 @@ import {
   BADGE_INFO,
   USER_EVENT_BADGE_ARR,
 } from "../../constants/serviceConstants/badgeConstants";
-
 import {
   EVENT_BADGE_딸기스무디,
   EVENT_BADGE_라벤더,

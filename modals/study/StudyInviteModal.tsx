@@ -1,14 +1,14 @@
 import { Button, ModalFooter } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { SQUARE_RANDOM_IMAGE } from "../../assets/images/imageUrl";
 import { WEB_URL } from "../../constants/system";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
 import { IPlace } from "../../types/models/studyTypes/studyDetails";
-
 import { IFooterOptions, ModalLayout } from "../Modals";
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
 

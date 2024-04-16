@@ -3,6 +3,7 @@ import { faMeteor, faStarShooting } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+
 import { EVENT_BANNER_PROMOTION } from "../../assets/images/imageUrl";
 import ArrowTextButton from "../../components/atoms/buttons/ArrowTextButton";
 import SectionBar from "../../components/molecules/bars/SectionBar";

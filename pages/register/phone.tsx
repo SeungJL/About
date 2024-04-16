@@ -1,10 +1,7 @@
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+
 import Input from "../../components/atoms/Input";
 import BottomNav from "../../components/layouts/BottomNav";
-
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
@@ -15,8 +12,6 @@ import {
 } from "../../utils/storageUtils";
 
 function Phone() {
-  const router = useRouter();
-
   const info = getLocalStorageObj(REGISTER_INFO);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -60,35 +55,10 @@ function Phone() {
           placeholder="전화번호를 입력해 주세요."
           inputRef={inputRef}
         />
-        {/* <NameInput
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="전화번호를 입력해 주세요."
-        /> */}
       </RegisterLayout>
       <BottomNav onClick={onClickNext} url="/register/fee" />
     </>
   );
 }
-
-const Layout = styled(motion.div)`
-  height: 100vh;
-`;
-
-const NameInput = styled.input`
-  margin-top: 40px;
-  border: var(--border);
-  height: 40px;
-  width: 100%;
-  border-radius: var(--rounded-lg);
-  padding: var(--gap-3);
-  ::placeholder {
-    font-size: 12px;
-    color: var(--gray-4);
-  }
-  :focus {
-    outline-color: var(--gray-1);
-  }
-`;
 
 export default Phone;

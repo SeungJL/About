@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import { NewAlertIcon } from "../../components/atoms/Icons/AlertIcon";
 import {
   CalendarIcon,
@@ -11,9 +12,7 @@ import {
   MemberIcon,
   StoreIcon,
 } from "../../components/atoms/Icons/CategoryIcons";
-
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-
 import { slideDirectionState } from "../../recoils/navigationRecoils";
 import { isGatherAlertState } from "../../recoils/renderRecoils";
 import { LocationEn } from "../../types/services/locationTypes";

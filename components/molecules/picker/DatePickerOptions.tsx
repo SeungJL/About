@@ -5,6 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 export const PICKER_DATE_AND_TIME = {
@@ -16,12 +17,12 @@ export const PICKER_DATE_AND_TIME = {
   showTimeSelect: true,
 };
 
-export const PickerDateAndTimeHeader = ({
+export function PickerDateAndTimeHeader({
   date,
   decreaseMonth,
   increaseMonth,
-}) => (
-  <CalendarCustomHeader>
+}) {
+  return <CalendarCustomHeader>
     <button onClick={decreaseMonth}>
       <FontAwesomeIcon icon={faChevronLeft} />
     </button>
@@ -30,7 +31,7 @@ export const PickerDateAndTimeHeader = ({
       <FontAwesomeIcon icon={faChevronRight} />
     </button>
   </CalendarCustomHeader>
-);
+}
 const CalendarCustomHeader = styled.div`
   margin: 10px;
   display: flex;

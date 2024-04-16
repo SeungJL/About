@@ -1,11 +1,9 @@
 import { SetStateAction, useEffect, useState } from "react";
-import styled from "styled-components";
-import { LOCATION_ALL, RegisterLocation } from "../../../constants/location";
 
+import { LOCATION_ALL, RegisterLocation } from "../../../constants/location";
 import { IUserRegisterForm } from "../../../types/models/userTypes/userInfoTypes";
 // import { IUserRequest } from "../../../types/models/userTypes/userRequestTypes";
 import { IUserRequest } from "../../../types/models/userTypes/userRequestTypes";
-
 import ButtonCheckNav from "../ButtonCheckNav";
 
 interface IAdminLocationSelector {
@@ -52,6 +50,6 @@ function AdminLocationSelector({
   );
 }
 
-const Layout = styled.div``;
+
 
 export default AdminLocationSelector;

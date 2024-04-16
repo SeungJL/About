@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
 import {
   useCompleteToast,
@@ -9,7 +10,6 @@ import {
 } from "../../../hooks/custom/CustomToast";
 import { useUserFriendMutation } from "../../../hooks/user/mutations";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 

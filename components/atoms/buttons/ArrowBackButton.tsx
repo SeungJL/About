@@ -1,9 +1,9 @@
-import styled from "styled-components";
-
 import { faChevronLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import styled from "styled-components";
+
 import {
   prevPageUrlState,
   slideDirectionState,
@@ -28,11 +28,11 @@ export default function ArrowBackButton({ url }: IArrowBackButton) {
   return <ArrowBackButtonUI onClick={handleGoBack} />;
 }
 
-export const ArrowBackButtonUI = ({ onClick }: { onClick: () => void }) => (
-  <Button onClick={onClick}>
+export function ArrowBackButtonUI({ onClick }: { onClick: () => void }) {
+  return <Button onClick={onClick}>
     <FontAwesomeIcon icon={faChevronLeft} />
   </Button>
-);
+}
 
 const Button = styled.button`
   padding: 16px;

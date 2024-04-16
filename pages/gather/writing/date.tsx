@@ -1,12 +1,13 @@
+import "react-datepicker/dist/react-datepicker.css";
+
 import dayjs from "dayjs";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilState } from "recoil";
-import BottomNav from "../../../components/layouts/BottomNav";
-import Slide from "../../../components/layouts/PageSlide";
 
+import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherWritingDateDate from "../../../pageTemplates/gather/writing/GatherWritingDateDate";

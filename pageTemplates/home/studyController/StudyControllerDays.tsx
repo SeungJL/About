@@ -1,13 +1,14 @@
 import dayjs from "dayjs";
 import { Fragment } from "react";
 import styled from "styled-components";
+
 import { getDateArr } from "./StudyController";
 
 interface IStudyControllerDays {
   selectedDate: string;
 }
 
-const StudyControllerDays = ({ selectedDate }: IStudyControllerDays) => {
+function StudyControllerDays({ selectedDate }: IStudyControllerDays) {
   const dayArr = getDateArr(dayjs(selectedDate)).map((dateObj) => dateObj.day);
 
   return (
@@ -23,7 +24,7 @@ const StudyControllerDays = ({ selectedDate }: IStudyControllerDays) => {
       ))}
     </Container>
   );
-};
+}
 
 // Styled component for the container
 const Container = styled.div`

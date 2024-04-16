@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import Avatar from "../../../components/atoms/Avatar";
 import { GROUP_STUDY_ROLE } from "../../../constants/settingValue/groupStudy";
 import { useToast } from "../../../hooks/custom/CustomToast";
-
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { IGroup } from "../../../types/models/groupTypes/group";
 import { IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
@@ -88,7 +88,7 @@ function GroupParticipation({ data }: IGroupParticipation) {
           <MemberItem key={idx}>
             <ProfileWrapper onClick={onClickOutMember}>
               <Avatar
-                image={""}
+                image=""
                 avatar={{ type: 0, bg: 0 }}
                 size="md"
                 isLink={false}

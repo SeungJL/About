@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import BottomNav from "../../../components/layouts/BottomNav";
-import Slide from "../../../components/layouts/PageSlide";
 
 import Input from "../../../components/atoms/Input";
 import Textarea from "../../../components/atoms/Textarea";
+import BottomNav from "../../../components/layouts/BottomNav";
 import Header from "../../../components/layouts/Header";
+import Slide from "../../../components/layouts/PageSlide";
 import ProgressStatus from "../../../components/molecules/ProgressStatus";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
@@ -72,34 +72,5 @@ function WritingGatherContent() {
 }
 
 const Container = styled.div``;
-
-const TitleInput = styled.input`
-  margin-top: var(--gap-5);
-  border-bottom: var(--border-thick);
-  width: 100%;
-  padding-left: var(--gap-1);
-  height: 40px;
-  background-color: inherit;
-  outline: none;
-  font-size: 15px;
-  font-weight: 600;
-  ::placeholder {
-    color: var(--gray-4);
-  }
-`;
-
-const Content = styled.textarea`
-  margin-top: 40px;
-  border: var(--border);
-  border-radius: var(--rounded-lg);
-  height: 200px;
-  width: 100%;
-  padding: var(--gap-3);
-  font-size: 12px;
-  :focus {
-    outline: none;
-    border: var(--border-thick);
-  }
-`;
 
 export default WritingGatherContent;

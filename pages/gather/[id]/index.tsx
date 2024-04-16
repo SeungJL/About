@@ -1,8 +1,10 @@
 import "dayjs/locale/ko"; // 로케일 플러그인 로드
-import { useSession } from "next-auth/react";
+
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { MainLoading } from "../../../components/atoms/loaders/MainLoading";
 import Slide from "../../../components/layouts/PageSlide";
 import { useGatherQuery } from "../../../hooks/gather/queries";

@@ -2,16 +2,15 @@ import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
+
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/groupStudy";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useGroupAttendMutation } from "../../hooks/groupStudy/mutations";
-import { dayjsToFormat, getDateWeek } from "../../utils/dateTimeUtils";
-
 import { IModal } from "../../types/components/modalTypes";
+import { dayjsToFormat, getDateWeek } from "../../utils/dateTimeUtils";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 interface IAttendCheckModal extends IModal {
   id: number;

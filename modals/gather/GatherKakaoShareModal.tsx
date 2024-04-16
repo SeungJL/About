@@ -1,18 +1,18 @@
 import { ModalFooter } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
+
 import { GATHER_SHARE_IMAGES } from "../../assets/images/imageUrl";
 import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
 import { WEB_URL } from "../../constants/system";
-import { ModalLayout } from "../Modals";
-
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
 import { IGatherHeader } from "../../types/models/gatherTypes/gather";
+import { ModalLayout } from "../Modals";
 
 interface IGatherKakaoShareModal extends IModal, IGatherHeader {}
 

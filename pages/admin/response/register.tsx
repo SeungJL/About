@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -5,7 +7,6 @@ import styled from "styled-components";
 import ProfileIcon from "../../../components/atoms/Profile/ProfileIcon";
 import Header from "../../../components/layouts/Header";
 import AdminLocationSelector from "../../../components/molecules/picker/AdminLocationSelector";
-
 import { useUserRegisterFormsQuery } from "../../../hooks/admin/quries";
 import CheckRegisterModal from "../../../modals/admin/checkRegisterModal/CheckRegisterModal";
 import { IUserRegisterForm } from "../../../types/models/userTypes/userInfoTypes";

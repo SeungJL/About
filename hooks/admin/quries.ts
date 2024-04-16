@@ -8,7 +8,6 @@ import {
   USER_REQUEST,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-
 import { QueryOptions } from "../../types/hooks/reactTypes";
 import {
   IUser,
@@ -89,7 +88,7 @@ export interface IStudyRecord {
 export const useAdminStudyRecordQuery = (
   startDay: Dayjs,
   endDay: Dayjs,
-  isAttend: Boolean,
+  isAttend: boolean,
   location: Location,
   uid?: string,
   options?: QueryOptions<IAdminStudyRecordReturn>

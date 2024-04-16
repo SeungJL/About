@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
-import { ITimeBoardParticipant } from "../UserTimeBoard";
+
 import { IUserTimeBlock } from "../_component/BoardUserBlocks";
+import { ITimeBoardParticipant } from "../UserTimeBoard";
 
 export const transformToUserBlocks = (
   participants: ITimeBoardParticipant[]

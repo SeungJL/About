@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
+
 import Avatar from "../../../components/atoms/Avatar";
 import UserBadge from "../../../components/atoms/badges/UserBadge";
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
@@ -21,14 +22,13 @@ import {
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import { dayjsToStr } from "../../../utils/dateTimeUtils";
-
 import {
   IInteractionLikeStorage,
   IInteractionSendLike,
 } from "../../../types/globals/interaction";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 import { getUserBadge } from "../../../utils/convertUtils/convertDatas";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 interface IProfileInfo {
   user: IUser;

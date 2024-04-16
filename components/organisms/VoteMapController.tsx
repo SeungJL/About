@@ -17,6 +17,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
+
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import { DispatchNumber, DispatchType } from "../../types/hooks/reactTypes";
 import { IStudyVote } from "../../types/models/studyTypes/studyInterActions";
@@ -201,8 +202,8 @@ interface IPrecisionPopOver {
   setPrecision: DispatchNumber;
 }
 
-export const PrecisionPopOver = ({ precision, setPrecision }) => (
-  <Popover>
+export function PrecisionPopOver({ precision, setPrecision }) {
+  return <Popover>
     <PopoverTrigger>
       <TargetIcon>
         <Button
@@ -256,7 +257,7 @@ export const PrecisionPopOver = ({ precision, setPrecision }) => (
       </PopoverBody>
     </PopoverContent>
   </Popover>
-);
+}
 
 const Layout = styled.div``;
 

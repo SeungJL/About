@@ -1,9 +1,10 @@
+/* eslint-disable */
 import { Button } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useState } from "react";
 import styled from "styled-components";
-import Header from "../../../components/layouts/Header";
 
+import Header from "../../../components/layouts/Header";
 import { useVoteStatusResetMutation } from "../../../hooks/admin/mutation";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 

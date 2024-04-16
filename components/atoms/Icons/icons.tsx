@@ -1,5 +1,5 @@
-export const UserIcon = () => (
-  <svg
+export function UserIcon() {
+  return <svg
     xmlns="http://www.w3.org/2000/svg"
     width="12"
     height="12"
@@ -13,10 +13,10 @@ export const UserIcon = () => (
       fill="#767D8A"
     />
   </svg>
-);
+}
 
-export const KakaoChatIcon = () => (
-  <svg
+export function KakaoChatIcon() {
+  return <svg
     width="18"
     height="16"
     viewBox="0 0 348 317"
@@ -32,4 +32,4 @@ export const KakaoChatIcon = () => (
       fill="#000000"
     />
   </svg>
-);
+}

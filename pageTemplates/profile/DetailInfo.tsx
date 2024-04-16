@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
+
 import BlurredPart from "../../components/molecules/BlurredPart";
 import Chart from "../../components/organisms/chart/Chart";
 import { IUser } from "../../types/models/userTypes/userInfoTypes";

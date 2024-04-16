@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import { useQuery } from "react-query";
+
 import {
   STUDY_ARRIVED_CNT,
   STUDY_ATTEND_RECORD,
@@ -10,10 +11,7 @@ import {
   STUDY_VOTE,
 } from "../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../constants/system";
-import { dayjsToStr } from "../../utils/dateTimeUtils";
-
 import { QueryOptions } from "../../types/hooks/reactTypes";
-
 import {
   IParticipation,
   IPlace,
@@ -22,6 +20,7 @@ import {
 import { IStudyVotePlaces } from "../../types/models/studyTypes/studyInterActions";
 import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
 import { Location } from "../../types/services/locationTypes";
+import { dayjsToStr } from "../../utils/dateTimeUtils";
 
 export const useStudyPlacesQuery = (
   location: Location | "all",

@@ -11,6 +11,7 @@ import {
 import { signOut } from "next-auth/react";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+
 import { IModal } from "../../types/components/modalTypes";
 
 interface IRequestLogoutModal extends IModal {

@@ -20,10 +20,7 @@ import { DAILY_CHECK_POP_UP } from "../../../constants/keys/localStorage";
 import { DAILY_CHECK_WIN_LIST } from "../../../constants/serviceConstants/dailyCheckConstatns";
 import { POINT_SYSTEM_PLUS } from "../../../constants/serviceConstants/pointSystemConstants";
 import { DAILY_CHECK_WIN_ITEM } from "../../../constants/settingValue/dailyCheck";
-
 import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
-import { dayjsToStr } from "../../../utils/dateTimeUtils";
-
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { useAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
 import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
@@ -37,6 +34,7 @@ import {
 } from "../../../recoils/transferRecoils";
 import { IModal } from "../../../types/components/modalTypes";
 import { IUserRequest } from "../../../types/models/userTypes/userRequestTypes";
+import { dayjsToStr } from "../../../utils/dateTimeUtils";
 import { getDistributionArr } from "../../../utils/mathUtils";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 
@@ -145,8 +143,8 @@ function DailyCheckModal({ setIsModal }: IModal) {
   );
 }
 
-const PresentListPopOver = () => (
-  <Popover placement="top-start">
+function PresentListPopOver() {
+  return <Popover placement="top-start">
     <PopoverTrigger>
       <Button fontSize="11px" size="xs" colorScheme="yellowTheme">
         선물 목록
@@ -168,10 +166,10 @@ const PresentListPopOver = () => (
       </PopoverBody>
     </PopoverContent>
   </Popover>
-);
+}
 
-const PresentPercentPopOver = () => (
-  <Popover placement="top-start">
+function PresentPercentPopOver() {
+  return <Popover placement="top-start">
     <PopoverTrigger>
       <Button size="xs" fontSize="11px" colorScheme="yellowTheme">
         당첨 확률
@@ -194,7 +192,7 @@ const PresentPercentPopOver = () => (
       </PopoverBody>
     </PopoverContent>
   </Popover>
-);
+}
 
 const Container = styled.div`
   margin-top: var(--gap-2);

@@ -1,8 +1,7 @@
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import BottomNav from "../../components/layouts/BottomNav";
 
+import BottomNav from "../../components/layouts/BottomNav";
 import Accordion from "../../components/molecules/Accordion";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { ACCORDION_CONTENT_FEE } from "../../constants/contentsText/accordionContents";
@@ -22,7 +21,6 @@ import {
 } from "../../utils/storageUtils";
 
 function Fee() {
-  const { data: session, update } = useSession();
   const errorToast = useErrorToast();
   const toast = useToast();
   const router = useRouter();

@@ -1,12 +1,12 @@
-import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+
 import RuleIcon from "../../components/atoms/Icons/RuleIcon";
 import WritingIcon from "../../components/atoms/Icons/WritingIcon";
 import Selector from "../../components/atoms/Selector";
 import Header from "../../components/layouts/Header";
-
 import Slide from "../../components/layouts/PageSlide";
 // import RuleModal from "../../components/modals/RuleModal";
 import SectionBar from "../../components/molecules/bars/SectionBar";
@@ -17,7 +17,6 @@ import {
   GROUP_STUDY_RULE_CONTENT,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../constants/contentsText/GroupStudyContents";
-
 import { useGroupQuery } from "../../hooks/groupStudy/queries";
 import RuleModal from "../../modals/RuleModal";
 import GroupBlock from "../../pageTemplates/group/GroupBlock";
@@ -96,7 +95,7 @@ function Index() {
     if (!isGuest) {
       setMyGroups(
         groups.filter((item) =>
-          item.participants.some((who, idx) => {
+          item.participants.some((who) => {
             if (!who?.user?.uid) {
               return;
             }
@@ -110,21 +109,21 @@ function Index() {
       category.main === "전체"
         ? groups
         : category.main === "소그룹"
-        ? groups.filter((item) => item.status === "gathering")
-        : groups.filter(
-            (item) =>
-              (item.category.main === category.main && !category.sub) ||
-              item.category.sub === category.sub
-          );
+          ? groups.filter((item) => item.status === "gathering")
+          : groups.filter(
+              (item) =>
+                (item.category.main === category.main && !category.sub) ||
+                item.category.sub === category.sub
+            );
 
     const filtered2 =
       status === "모집중" && category.main !== "소그룹"
         ? filtered.filter((item) => item.status === "open")
         : status === "종료"
-        ? filtered.filter((item) => item.status === "end")
-        : category.main === "소그룹"
-        ? filtered.filter((item) => item.status === "gathering")
-        : filtered;
+          ? filtered.filter((item) => item.status === "end")
+          : category.main === "소그룹"
+            ? filtered.filter((item) => item.status === "gathering")
+            : filtered;
 
     setGroupStudies(shuffleArray(filtered2));
   }, [category, groups, isGuest, status]);
@@ -145,13 +144,15 @@ function Index() {
     })
   );
 
-  const StatusSelector = () => (
-    <Selector
-      defaultValue={status}
-      setValue={setStatus}
-      options={["모집중", "종료"]}
-    />
-  );
+  function StatusSelector() {
+    return (
+      <Selector
+        defaultValue={status}
+        setValue={setStatus}
+        options={["모집중", "종료"]}
+      />
+    );
+  }
 
   return (
     <>
@@ -191,9 +192,7 @@ function Index() {
                 {groupStudies
                   ?.slice()
                   ?.reverse()
-                  ?.map((group) => (
-                    <GroupBlock group={group} key={group.id} />
-                  ))}
+                  ?.map((group) => <GroupBlock group={group} key={group.id} />)}
               </Main>
             )}
           </>
@@ -210,12 +209,7 @@ function Index() {
     </>
   );
 }
-const Title = styled.div`
-  background-color: white;
-  padding: var(--gap-4);
-  font-weight: 600;
-  font-size: 18px;
-`;
+
 const Layout = styled.div`
   min-height: 100vh;
   background-color: var(--gray-8);

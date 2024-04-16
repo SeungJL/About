@@ -5,11 +5,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { UseMutateFunction } from "react-query";
 import styled from "styled-components";
+
 import ImageSlider from "../../../components/organisms/imageSlider/ImageSlider";
 import { COLOR_TABLE_LIGHT } from "../../../constants/colorConstants";
 import {
@@ -18,10 +19,9 @@ import {
 } from "../../../constants/settingValue/avatar";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
-import { IFooterOptions, ModalLayout } from "../../Modals";
-
 import { IModal } from "../../../types/components/modalTypes";
 import { IAvatar } from "../../../types/models/userTypes/userInfoTypes";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 interface IRequestChangeProfileImageModalAvatar extends IModal {
   setUserAvatar: UseMutateFunction<

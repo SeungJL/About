@@ -1,27 +1,24 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+
 import BottomNav from "../../../../components/layouts/BottomNav";
 import Header from "../../../../components/layouts/Header";
 import Slide from "../../../../components/layouts/PageSlide";
-
 import ProgressStatus from "../../../../components/molecules/ProgressStatus";
 import {
   GROUP_STUDY_CATEGORY_ARR_ICONS,
   GROUP_STUDY_SUB_CATEGORY,
 } from "../../../../constants/contentsText/GroupStudyContents";
-
 import { useFailToast } from "../../../../hooks/custom/CustomToast";
 import RegisterLayout from "../../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../../pageTemplates/register/RegisterOverview";
-import { prevPageUrlState } from "../../../../recoils/previousAtoms";
 import { sharedGroupWritingState } from "../../../../recoils/sharedDataAtoms";
 function WritingStudyCategorySub() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const prevPageUrl = useRecoilValue(prevPageUrlState);
   const [GroupWriting, setGroupWriting] = useRecoilState(
     sharedGroupWritingState
   );
@@ -51,7 +48,7 @@ function WritingStudyCategorySub() {
     <>
       <Slide isFixed={true}>
         <ProgressStatus value={28} />
-        <Header isSlide={false} title="" url={"/group/writing/category/main"} />
+        <Header isSlide={false} title="" url="/group/writing/category/main" />
       </Slide>
 
       <RegisterLayout>

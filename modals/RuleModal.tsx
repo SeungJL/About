@@ -1,8 +1,7 @@
 import styled from "styled-components";
+
 import { ModalSubtitle } from "../styles/layout/modal";
-
 import { IModal } from "../types/components/modalTypes";
-
 import { IFooterOptions, ModalLayout } from "./Modals";
 
 export interface IContentBasic {
@@ -24,8 +23,8 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
   const header = content.headerContent;
   const main = content.mainContent;
 
-  const ContentItem = ({ title, texts }: IContentBasic) => (
-    <Item>
+  function ContentItem({ title, texts }: IContentBasic) {
+  return <Item>
       <RuleTitle>{title}</RuleTitle>
       <ItemContent>
         {texts.map((text, idx) => (
@@ -33,7 +32,7 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
         ))}
       </ItemContent>
     </Item>
-  );
+}
 
   const footerOptions: IFooterOptions = {
     main: {},

@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { MainLoadingAbsolute } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
@@ -21,8 +21,6 @@ import StatisticsFilterBar from "../../pageTemplates/ranking/StatisticsFilterBar
 import StatisticsMine from "../../pageTemplates/ranking/StatisticsMine";
 import StatisticsTabNav from "../../pageTemplates/ranking/StatisticsTabNav";
 import { IUserRankings } from "../../types/models/ranking";
-import { LocationEn } from "../../types/services/locationTypes";
-import { convertLocationLangTo } from "../../utils/convertUtils/convertDatas";
 
 const categoryArr = [
   `${dayjs().month()}월 랭킹`,
@@ -33,11 +31,6 @@ const categoryArr = [
 function Ranking() {
   const typeToast = useTypeToast();
   const { data: session } = useSession();
-  const searchParams = useSearchParams();
-  const location = convertLocationLangTo(
-    searchParams.get("location") as LocationEn,
-    "kr"
-  );
 
   const [usersRanking, setUsersRanking] = useState<IUserRankings>();
   const [tabValue, setTabValue] = useState<"전체 랭킹" | "내 통계">(
@@ -71,10 +64,9 @@ function Ranking() {
     }
   );
 
-  const { data: usersAll, isLoading: isLoading2 } =
-    useAdminUsersLocationControlQuery(
-      filterOptions.isSwitchOn ? null : session.user.location
-    );
+  const { data: usersAll } = useAdminUsersLocationControlQuery(
+    filterOptions.isSwitchOn ? null : session.user.location
+  );
 
   useEffect(() => {
     if (!attendRecords) return;

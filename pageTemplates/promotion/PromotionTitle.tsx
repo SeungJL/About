@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import styled from "styled-components";
+
 import EveryTimeLogo from "../../components/atoms/Icons/CustomIcons";
 
 function PromotionTitle() {

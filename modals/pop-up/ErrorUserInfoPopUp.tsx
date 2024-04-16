@@ -1,10 +1,10 @@
 import { signOut, useSession } from "next-auth/react";
+
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
-import { IFooterOptions, ModalLayout } from "../Modals";
-
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
+import { IFooterOptions, ModalLayout } from "../Modals";
 
 function ErrorUserInfoPopUp({ setIsModal }: IModal) {
   const { data: session } = useSession();

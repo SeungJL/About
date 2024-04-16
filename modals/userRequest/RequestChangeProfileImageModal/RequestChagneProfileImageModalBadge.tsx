@@ -2,14 +2,14 @@ import { Badge } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
+
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
-import { IFooterOptions, ModalLayout } from "../../Modals";
-
 import { EventBadge } from "../../../types/models/userTypes/userInfoTypes";
+import { IFooterOptions, ModalLayout } from "../../Modals";
 
 function RequestChagneProfileImageModalBadge({ setIsModal }) {
   const { data: session } = useSession();
@@ -37,7 +37,7 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
     sendRequest({
       category: "배지",
       writer: session?.user.name as string,
-      title: !!selectBadge ? `${selectBadge}로 변경 신청` : "배지 해제 신청",
+      title: selectBadge ? `${selectBadge}로 변경 신청` : "배지 해제 신청",
       content: session?.user?.uid as string,
     });
     setIsModal(false);

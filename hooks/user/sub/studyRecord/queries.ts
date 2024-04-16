@@ -8,7 +8,6 @@ import {
 } from "../../../../constants/keys/queryKeys";
 import { SERVER_URI } from "../../../../constants/system";
 import { QueryOptions } from "../../../../types/hooks/reactTypes";
-
 import { IVoteRate } from "../../../../types/models/studyTypes/studyRecords";
 import { ActiveLocation } from "../../../../types/services/locationTypes";
 import { IDayjsStartToEnd } from "../../../../types/utils/timeAndDate";

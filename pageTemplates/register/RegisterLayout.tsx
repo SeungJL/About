@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+
 import Slide from "../../components/layouts/PageSlide";
 
 function RegisterLayout({

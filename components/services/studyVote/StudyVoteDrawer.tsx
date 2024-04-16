@@ -1,16 +1,17 @@
-import dayjs from "dayjs";
 import "dayjs/locale/ko";
+
+import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
+
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { useToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 import StudyVoteSubModalPrivate from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalPrivate";
-
 import {
   myStudyState,
   studyDateStatusState,
@@ -137,10 +138,7 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
           isAnimation={false}
         >
           {!isPrivateStudy ? (
-            <StudyVotePlacesPicker
-              setVotePlaces={setVotePlaces}
-              onClick={onSubmit}
-            />
+            <StudyVotePlacesPicker setVotePlaces={setVotePlaces} />
           ) : (
             <StudyVoteSubModalPrivate setVoteInfo={setMyVote} />
           )}

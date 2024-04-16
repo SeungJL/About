@@ -3,9 +3,9 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import Avatar from "../../components/atoms/Avatar";
 import { BADGE_COLOR_MAPPINGS } from "../../constants/serviceConstants/badgeConstants";
-
 import { USER_ROLE } from "../../constants/settingValue/role";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import { IMyRank } from "../../types/models/ranking";

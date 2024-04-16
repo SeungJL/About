@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { useFailToast } from "../../hooks/custom/CustomToast";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
 import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
-
 import { dayjsToFormat } from "../../utils/dateTimeUtils";
 interface IRecordOverview {
   arrivedCalendar: IArrivedData[];

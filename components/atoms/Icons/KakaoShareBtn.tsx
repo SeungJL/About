@@ -3,6 +3,7 @@ import { faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import styled from "styled-components";
+
 import { REVIEW_DATA } from "../../../storage/Review";
 
 const kakaoAppKey = process.env.NEXT_PUBLIC_KAKAO_JS;
@@ -26,8 +27,6 @@ function KakaoShareBtn({
   url,
   isBig,
 }: IKakaoShareBtn) {
-  const random_num = Math.floor(Math.random() * 3);
-
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -59,43 +58,43 @@ function KakaoShareBtn({
               },
             }
           : type === "study2"
-          ? {
-              container: "#kakao-share-button",
-              objectType: "location",
-              content: {
-                title,
-                description: subtitle,
-                imageUrl: img,
-                link: {
-                  mobileWebUrl: url,
-                  webUrl: url,
-                },
-              },
-              address: location,
-              // addressTitle: "카카오 본사",
-              buttons: [
-                {
-                  title: "웹으로 이동",
+            ? {
+                container: "#kakao-share-button",
+                objectType: "location",
+                content: {
+                  title,
+                  description: subtitle,
+                  imageUrl: img,
                   link: {
                     mobileWebUrl: url,
                     webUrl: url,
                   },
                 },
-              ],
-            }
-          : {
-              container: "#kakao-share-button",
-              objectType: "feed",
-              content: {
-                title,
-                description: subtitle,
-                imageUrl: REVIEW_DATA[0]?.images[0],
-                link: {
-                  mobileWebUrl: url,
-                  webUrl: url,
+                address: location,
+                // addressTitle: "카카오 본사",
+                buttons: [
+                  {
+                    title: "웹으로 이동",
+                    link: {
+                      mobileWebUrl: url,
+                      webUrl: url,
+                    },
+                  },
+                ],
+              }
+            : {
+                container: "#kakao-share-button",
+                objectType: "feed",
+                content: {
+                  title,
+                  description: subtitle,
+                  imageUrl: REVIEW_DATA[0]?.images[0],
+                  link: {
+                    mobileWebUrl: url,
+                    webUrl: url,
+                  },
                 },
-              },
-            };
+              };
 
       window.Kakao.Link.createDefaultButton(options);
     }

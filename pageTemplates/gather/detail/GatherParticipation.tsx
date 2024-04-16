@@ -6,11 +6,12 @@ import {
   faInfinity,
 } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import Avatar from "../../../components/atoms/Avatar";
 import InviteUserModal from "../../../modals/InviteUserModal";
 import { prevPageUrlState } from "../../../recoils/navigationRecoils";

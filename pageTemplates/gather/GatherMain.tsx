@@ -1,7 +1,8 @@
 import { Box } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+
 import {
   IPostThumbnailCard,
   PostThumbnailCard,

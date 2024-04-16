@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { NewAlertIcon } from "../../components/atoms/Icons/AlertIcon";
 import { NOTICE_ACTIVE_CNT } from "../../constants/keys/localStorage";
 import { DispatchBoolean } from "../../types/hooks/reactTypes";

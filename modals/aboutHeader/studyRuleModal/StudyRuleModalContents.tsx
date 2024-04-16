@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const StudyRuleModalContentSecondTip = () => (
-  <Content>
+export function StudyRuleModalContentSecondTip() {
+  return <Content>
     <ul>
       <li>
         날짜를 이동할 때 좌우 <b>스와이핑</b>으로 이동이 가능합니다.
@@ -19,9 +19,9 @@ export const StudyRuleModalContentSecondTip = () => (
       </li>
     </ul>
   </Content>
-);
-export const StudyRuleModalContentSecondFee = () => (
-  <Content>
+}
+export function StudyRuleModalContentSecondFee() {
+  return <Content>
     <ul>
       <li>
         지각(1시간 이상)/늦은 시간 변경:<b> -100원</b>
@@ -41,10 +41,10 @@ export const StudyRuleModalContentSecondFee = () => (
       <li>벌금 기록은 마이페이지에서 확인할 수 있습니다.</li>
     </ul>
   </Content>
-);
+}
 
-export const StudyRuleModalContentFirstOne = () => (
-  <Content>
+export function StudyRuleModalContentFirstOne() {
+  return <Content>
     <ul>
       <li>
         매일 <b>오후 11시</b>에 스터디 결과 발표 !
@@ -58,10 +58,10 @@ export const StudyRuleModalContentFirstOne = () => (
       </li>
     </ul>
   </Content>
-);
+}
 
-export const StudyRuleModalContentFirstTwo = () => (
-  <Content>
+export function StudyRuleModalContentFirstTwo() {
+  return <Content>
     <ul>
       <li>
         스터디에 참여하면 <b>출석체크</b>를 통해 자리나 인상착의 기록
@@ -73,10 +73,10 @@ export const StudyRuleModalContentFirstTwo = () => (
       </li>
     </ul>
   </Content>
-);
+}
 
-export const StudyRuleModalContentFirstThree = () => (
-  <Content>
+export function StudyRuleModalContentFirstThree() {
+  return <Content>
     <ul>
       <li>
         <b>
@@ -86,7 +86,7 @@ export const StudyRuleModalContentFirstThree = () => (
       </li>
     </ul>
   </Content>
-);
+}
 
 const Content = styled.div`
   font-size: 11px;

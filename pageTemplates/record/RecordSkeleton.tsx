@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
+
 import Skeleton from "../../components/atoms/skeleton/Skeleton";
 import {
   LOCATION_CONVERT,
@@ -124,8 +125,8 @@ function RecordSkeleton({ isCalendar }: IRecordSkeleton) {
     </Layout>
   );
 }
-const DayOfWeek = () => (
-  <DayLine>
+function DayOfWeek() {
+  return <DayLine>
     <span>일</span>
     <span>월</span>
     <span>화</span>
@@ -134,7 +135,7 @@ const DayOfWeek = () => (
     <span>금</span>
     <span>토</span>
   </DayLine>
-);
+}
 
 const Layout = styled.div``;
 

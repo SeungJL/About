@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+
 import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
 import {
   useCompleteToast,
@@ -23,7 +24,7 @@ function StudyLightAbsentModal({ setIsModal }: IModal) {
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
   const { mutate: absentStudy } = useStudyAbsentMutation(voteDate, {
     onSuccess: () => {
-      let fee = POINT_SYSTEM_Deposit.STUDY_PRIVATE_ABSENT;
+      const fee = POINT_SYSTEM_Deposit.STUDY_PRIVATE_ABSENT;
       if (isPrivate) getDeposit(fee);
       completeToast("success");
     },

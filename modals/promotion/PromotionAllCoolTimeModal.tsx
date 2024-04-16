@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
+
 import { PROMOTION_WIN_DATE } from "../../constants/settingValue/dateSettingValue";
 import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import { IModal } from "../../types/components/modalTypes";
