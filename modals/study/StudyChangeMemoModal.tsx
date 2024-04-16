@@ -1,6 +1,7 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
+
 import Textarea from "../../components/atoms/Textarea";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { PLACE_TO_LOCATION } from "../../constants/serviceConstants/studyConstants/studyLocationConstants";
