@@ -53,7 +53,8 @@ export default function HomeStudySection() {
   useEffect(() => {
     if (!studyVoteData || !studyVoteData.length || !session?.user) return;
 
-    const sortedData = sortStudyVoteData(studyVoteData, studyVoteData[0].status !== "pending");
+    const sortedData = sortStudyVoteData(studyVoteData, studyDateStatus !== "not passed");
+
     const cardList = setStudyDataToCardCol(sortedData, date as string, session?.user.uid);
     setStudyCardColData(cardList.slice(0, 3));
     setSortedStudyCardList(cardList);
