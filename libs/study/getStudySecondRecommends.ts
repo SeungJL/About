@@ -4,7 +4,7 @@ import { ActiveLocation } from "../../types/services/locationTypes";
 export const getStudySecondRecommendation = (
   location: ActiveLocation,
   startPlace: string,
-  targetDistance: number
+  targetDistance: number,
 ) => {
   const placesAtDistance = new Set();
 

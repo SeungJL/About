@@ -17,5 +17,5 @@ export const useDailyCheckQuery = (options?: QueryOptions<IDailyCheck[]>) =>
       const res = await axios.get<IDailyCheck[]>(`${SERVER_URI}/dailyCheck`);
       return res.data;
     },
-    { ...options, staleTime: 0, cacheTime: 0 }
+    { ...options, staleTime: 0, cacheTime: 0 },
   );

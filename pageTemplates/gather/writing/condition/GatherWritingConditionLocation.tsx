@@ -10,9 +10,7 @@ interface IGatherWritingConditionLocation {
   setLocation: DispatchType<Location | CombinedLocation>;
 }
 
-function GatherWritingConditionLocation({
-  setLocation,
-}: IGatherWritingConditionLocation) {
+function GatherWritingConditionLocation({ setLocation }: IGatherWritingConditionLocation) {
   const [buttonType, setButtonType] = useState<CombinedLocation>("전체");
 
   const arr: CombinedLocation[] = ["전체", "수원/안양", "양천/강남"];

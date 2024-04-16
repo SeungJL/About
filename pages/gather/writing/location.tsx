@@ -18,11 +18,9 @@ function WritingGahterLocation() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [gatherWriting, setGatherWriting] = useRecoilState(
-    sharedGatherWritingState
-  );
+  const [gatherWriting, setGatherWriting] = useRecoilState(sharedGatherWritingState);
   const [location, setLocation] = useState<IGatherLocation>(
-    gatherWriting?.location || { main: "", sub: "" }
+    gatherWriting?.location || { main: "", sub: "" },
   );
 
   const onClickNext = () => {
@@ -52,9 +50,7 @@ function WritingGahterLocation() {
           <LocationDetailInput
             placeholder="상세 주소"
             value={location.sub}
-            onChange={(e) =>
-              setLocation((old) => ({ ...old, sub: e.target.value }))
-            }
+            onChange={(e) => setLocation((old) => ({ ...old, sub: e.target.value }))}
           />
         </Location>
       </RegisterLayout>

@@ -16,10 +16,7 @@ import { faA, faB, faO, faT, faU } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
-import {
-  TABLE_STRING_COLORS_BG,
-  TABLE_STRONG_COLORS,
-} from "../../../constants/styles";
+import { TABLE_STRING_COLORS_BG, TABLE_STRONG_COLORS } from "../../../constants/styles";
 import { Alphabet } from "../../../types/models/collections";
 
 interface IAlphabetIcon {
@@ -49,8 +46,8 @@ export function AlphabetIcon({
   const selectedIcon = isCircle
     ? icons[alphabet].circle
     : isDuotone
-    ? icons[alphabet].duotone
-    : icons[alphabet].solid;
+      ? icons[alphabet].duotone
+      : icons[alphabet].solid;
 
   const colorIndex = ["A", "B", "O", "U", "T"].indexOf(alphabet);
   const color = TABLE_STRONG_COLORS[colorIndex];

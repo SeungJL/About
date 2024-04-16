@@ -12,11 +12,7 @@ interface ICardColumnLayout {
   url: string;
   func?: () => void;
 }
-export function CardColumnLayout({
-  cardDataArr,
-  url,
-  func,
-}: ICardColumnLayout) {
+export function CardColumnLayout({ cardDataArr, url, func }: ICardColumnLayout) {
   return (
     <Layout>
       {cardDataArr.map((cardData, idx) => (

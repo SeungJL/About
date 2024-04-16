@@ -49,9 +49,7 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
           </Box>
           <Box color="var(--gray-2)">
             {isScore ? "내 점수" : `${dayjs().month() + 1}월 참여`}:{" "}
-            {myRankInfo.value
-              ? `${myRankInfo.value}${isScore ? "점" : "회"}`
-              : "기록없음"}
+            {myRankInfo.value ? `${myRankInfo.value}${isScore ? "점" : "회"}` : "기록없음"}
           </Box>
         </Flex>
         <ProfileContainer isGuest={isGuest}>
@@ -68,13 +66,7 @@ function RankingOverview({ myRankInfo, isScore = false }: IRankingOverview) {
             </ProfileWrapper>
           ) : isGuest ? (
             <ProfileWrapper>
-              <Avatar
-                image=""
-                avatar={{ type: 0, bg: 1 }}
-                uid=""
-                size="lg"
-                isPriority={true}
-              />
+              <Avatar image="" avatar={{ type: 0, bg: 1 }} uid="" size="lg" isPriority={true} />
               <ProfileUserName>게스트</ProfileUserName>
             </ProfileWrapper>
           ) : null}

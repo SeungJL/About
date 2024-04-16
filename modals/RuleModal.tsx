@@ -24,15 +24,17 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
   const main = content.mainContent;
 
   function ContentItem({ title, texts }: IContentBasic) {
-  return <Item>
-      <RuleTitle>{title}</RuleTitle>
-      <ItemContent>
-        {texts.map((text, idx) => (
-          <li key={idx}>{text}</li>
-        ))}
-      </ItemContent>
-    </Item>
-}
+    return (
+      <Item>
+        <RuleTitle>{title}</RuleTitle>
+        <ItemContent>
+          {texts.map((text, idx) => (
+            <li key={idx}>{text}</li>
+          ))}
+        </ItemContent>
+      </Item>
+    );
+  }
 
   const footerOptions: IFooterOptions = {
     main: {},
@@ -40,11 +42,7 @@ function RuleModal({ setIsModal, content }: IRuleModal) {
   };
 
   return (
-    <ModalLayout
-      title={header.title}
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-    >
+    <ModalLayout title={header.title} footerOptions={footerOptions} setIsModal={setIsModal}>
       <ModalSubtitle isLight={true}>{header.text}</ModalSubtitle>
       {main.map((item, idx) => (
         <ContentItem title={item.title} texts={item.texts} key={idx} />

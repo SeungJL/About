@@ -12,11 +12,7 @@ interface IButtonGroups {
   currentValue: string;
   size?: ButtonSize;
 }
-export default function ButtonGroups({
-  buttonDataArr,
-  currentValue,
- 
-}: IButtonGroups) {
+export default function ButtonGroups({ buttonDataArr, currentValue }: IButtonGroups) {
   return (
     <Layout>
       {buttonDataArr.map((buttonData, idx) => (

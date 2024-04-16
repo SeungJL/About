@@ -9,10 +9,7 @@ import { INTEREST_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import {
-  getLocalStorageObj,
-  setLocalStorageObj,
-} from "../../utils/storageUtils";
+import { getLocalStorageObj, setLocalStorageObj } from "../../utils/storageUtils";
 
 function Interest() {
   const searchParams = useSearchParams();
@@ -45,10 +42,7 @@ function Interest() {
 
   return (
     <>
-      <ProgressHeader
-        value={70}
-        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-      />
+      <ProgressHeader value={70} title={!isProfileEdit ? "회원가입" : "프로필 수정"} />
 
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -58,17 +52,11 @@ function Interest() {
         <Container>
           <Example>
             <span>예시</span>
-            <div>
-              {INTEREST_DATA?.map((item, idx) => <span key={idx}>{item}</span>)}
-            </div>
+            <div>{INTEREST_DATA?.map((item, idx) => <span key={idx}>{item}</span>)}</div>
           </Example>
           <Item>
             <span>첫번째 관심사</span>
-            <Input
-              placeholder="1번 입력"
-              value={firstValue}
-              onChange={(e) => onChange(e, true)}
-            />
+            <Input placeholder="1번 입력" value={firstValue} onChange={(e) => onChange(e, true)} />
           </Item>
           <Item>
             <span>두번째 관심사 (선택)</span>

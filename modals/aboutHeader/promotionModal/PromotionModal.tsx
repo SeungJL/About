@@ -49,11 +49,7 @@ function PromotionModal({ setIsModal }: IModal) {
             />
           </div>
           <div>
-            <FontAwesomeIcon
-              icon={faCoins}
-              size="3x"
-              color="var(--color-red)"
-            />
+            <FontAwesomeIcon icon={faCoins} size="3x" color="var(--color-red)" />
           </div>
         </IconWrapper>
         <Info>

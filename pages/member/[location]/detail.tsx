@@ -13,10 +13,7 @@ import {
   transferMemberDataState,
   transferUserSummaryState,
 } from "../../../recoils/transferRecoils";
-import {
-  IUser,
-  IUserSummary,
-} from "../../../types/models/userTypes/userInfoTypes";
+import { IUser, IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
 import { getUserBadge } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 import { SECTION_NAME } from ".";
@@ -38,10 +35,7 @@ function MemberDetail() {
 
   return (
     <>
-      <Header
-        title={SECTION_NAME[section]}
-        url={`/member/${router.query?.location}`}
-      />
+      <Header title={SECTION_NAME[section]} url={`/member/${router.query?.location}`} />
 
       <Slide>
         <Container>
@@ -68,9 +62,7 @@ function MemberDetail() {
                     {section === "member" || section?.includes("group") ? (
                       who.comment
                     ) : section === "human" ? (
-                      `가입일: ${dayjs(who.registerDate).format(
-                        "YYYY년 M월 D일"
-                      )}`
+                      `가입일: ${dayjs(who.registerDate).format("YYYY년 M월 D일")}`
                     ) : (
                       <>
                         <RestInfo>
@@ -78,11 +70,7 @@ function MemberDetail() {
                           {rest.type === "일반" ? (
                             <>
                               <span>
-                                {dayjsToFormat(
-                                  dayjs(rest.startDate),
-                                  "YY-MM-DD"
-                                )}{" "}
-                                ~{" "}
+                                {dayjsToFormat(dayjs(rest.startDate), "YY-MM-DD")} ~{" "}
                                 {dayjsToFormat(dayjs(rest.endDate), "YY-MM-DD")}
                               </span>
                               <DDay>

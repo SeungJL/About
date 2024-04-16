@@ -33,11 +33,7 @@ function Notice() {
       <Slide>
         <Layout>
           <Container>
-            {isNotice ? (
-              <NoticeItem />
-            ) : (
-              <NoticeActive activeLogs={activeLogs} />
-            )}
+            {isNotice ? <NoticeItem /> : <NoticeActive activeLogs={activeLogs} />}
           </Container>
         </Layout>
       </Slide>

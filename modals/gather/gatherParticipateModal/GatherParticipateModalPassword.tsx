@@ -14,9 +14,7 @@ interface IGatherParticipateModalPassword {
   setPageNum: DispatchNumber;
 }
 
-function GatherParticipateModalPassword({
-  setPageNum,
-}: IGatherParticipateModalPassword) {
+function GatherParticipateModalPassword({ setPageNum }: IGatherParticipateModalPassword) {
   const failToast = useFailToast();
   const { id } = useParams<{ id: string }>() || {};
 

@@ -9,7 +9,7 @@ import { Location } from "../../../types/services/locationTypes";
 export const useCounterMutation = (
   key: "enthusiasticMember",
   location: Location,
-  options?: MutationOptions<void>
+  options?: MutationOptions<void>,
 ) =>
   useMutation<void, AxiosError, void>(
     () =>
@@ -18,5 +18,5 @@ export const useCounterMutation = (
         url: `admin/counter`,
         body: { key, location },
       }),
-    options
+    options,
   );

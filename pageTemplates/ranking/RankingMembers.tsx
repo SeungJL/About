@@ -56,9 +56,7 @@ function RankingMembers({ rankingUsers, isScore }: IRankingMembers) {
               />
 
               <RankingMine isMine={who.uid === session?.user?.uid}>
-                {!RANKING_ANONYMOUS_USERS.includes(who?.uid)
-                  ? user.name
-                  : "비공개"}
+                {!RANKING_ANONYMOUS_USERS.includes(who?.uid) ? user.name : "비공개"}
               </RankingMine>
               <Badge colorScheme={BADGE_COLOR_MAPPINGS[badge]}>{badge}</Badge>
             </Name>

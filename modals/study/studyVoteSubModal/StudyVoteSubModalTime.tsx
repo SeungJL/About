@@ -36,15 +36,8 @@ function StudyVoteSubModalTime({ setMyVote }: IStudyVoteSubModalTime) {
     return timeArr;
   };
 
-  const startTimeArr = createTimeArr(
-    STUDY_START_VOTETIME_HOUR,
-    STUDY_START_VOTETIME_HOUR + 10
-  );
-  const endTimeArr = createTimeArr(
-    STUDY_START_VOTETIME_HOUR,
-    STUDY_START_VOTETIME_HOUR + 10,
-    2
-  );
+  const startTimeArr = createTimeArr(STUDY_START_VOTETIME_HOUR, STUDY_START_VOTETIME_HOUR + 10);
+  const endTimeArr = createTimeArr(STUDY_START_VOTETIME_HOUR, STUDY_START_VOTETIME_HOUR + 10, 2);
 
   return (
     <Layout>
@@ -53,9 +46,7 @@ function StudyVoteSubModalTime({ setMyVote }: IStudyVoteSubModalTime) {
           <span>시작 시간</span>
           <TimeRullet
             timeArr={startTimeArr}
-            setTime={(time: Dayjs) =>
-              setSelectTime((old) => ({ ...old, start: time }))
-            }
+            setTime={(time: Dayjs) => setSelectTime((old) => ({ ...old, start: time }))}
           />
         </TimeWrapper>
         <Spacer />

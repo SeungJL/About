@@ -7,10 +7,7 @@ import Input from "../../../components/atoms/Input";
 import TimeSelectorUnit from "../../../components/atoms/TimeSelectorUnit";
 import { TIME_SELECTOR_UNIT } from "../../../constants/util/util";
 import { DispatchType } from "../../../types/hooks/reactTypes";
-import {
-  IGatherListItem,
-  IGatherWriting,
-} from "../../../types/models/gatherTypes/gather";
+import { IGatherListItem, IGatherWriting } from "../../../types/models/gatherTypes/gather";
 import { ITime } from "../../../types/utils/timeAndDate";
 
 interface IGatherWritingDateSubject {
@@ -54,17 +51,9 @@ function GatherWritingDateSubject({
       gatherList.push({ text: secondGather.text, time: secondGather.time });
     setGatherList(gatherList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    firstGather.text,
-    firstGather.time,
-    secondGather.text,
-    secondGather.time,
-  ]);
+  }, [firstGather.text, firstGather.time, secondGather.text, secondGather.time]);
 
-  const onChangeInput = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: "first" | "second"
-  ) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>, type: "first" | "second") => {
     const value = e.target.value;
     if (type === "first") setFirstGather((old) => ({ ...old, text: value }));
     if (type === "second") setSecondGather((old) => ({ ...old, text: value }));
@@ -106,9 +95,7 @@ function GatherWritingDateSubject({
           disabled={secondGather?.text === ""}
         />
       </TimeContent>
-      <Message>
-        2차 모임이 없는 경우 &lsquo;늦참&rsquo;으로 설정해주세요!
-      </Message>
+      <Message>2차 모임이 없는 경우 &lsquo;늦참&rsquo;으로 설정해주세요!</Message>
     </Layout>
   );
 }

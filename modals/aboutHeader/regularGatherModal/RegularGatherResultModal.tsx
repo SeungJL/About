@@ -12,10 +12,7 @@ interface IRegularGatherResultModal extends IModal {
   setIsRabbitRun: DispatchBoolean;
 }
 
-function RegularGatherResultModal({
-  setIsModal,
-  setIsRabbitRun,
-}: IRegularGatherResultModal) {
+function RegularGatherResultModal({ setIsModal, setIsRabbitRun }: IRegularGatherResultModal) {
   const router = useRouter();
 
   useEffect(() => {

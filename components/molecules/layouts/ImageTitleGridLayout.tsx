@@ -31,13 +31,15 @@ export default function ImageTileGridLayout({
   const { row = 2, col = 2 } = grid || {};
 
   function ImageTileLayout({ url, text }: { url: string; text: string }) {
-  return <Flex direction="column" textAlign="center">
-      <ImageContainer>
-        <Image src={url} sizes="180px" fill={true} alt="reviewThumbnailImage" />
-      </ImageContainer>
-      <TextContainer>{text}</TextContainer>
-    </Flex>
-}
+    return (
+      <Flex direction="column" textAlign="center">
+        <ImageContainer>
+          <Image src={url} sizes="180px" fill={true} alt="reviewThumbnailImage" />
+        </ImageContainer>
+        <TextContainer>{text}</TextContainer>
+      </Flex>
+    );
+  }
 
   return (
     <GridContainer row={row} col={col}>
@@ -53,14 +55,14 @@ export default function ImageTileGridLayout({
               selectedId?.includes(imageData?.id)
                 ? "main"
                 : selectedSubId?.includes(imageData?.id)
-                ? "sub"
-                : null
+                  ? "sub"
+                  : null
             }
             onClick={imageData.func}
           >
             <ImageTileLayout url={imageData.imageUrl} text={imageData.text} />
           </Button>
-        )
+        ),
       )}
     </GridContainer>
   );
@@ -88,8 +90,8 @@ const Button = styled.button<{ $isSelected: "main" | "sub" | null }>`
     props.$isSelected === "main"
       ? "var(--color-mint)"
       : props.$isSelected === "sub"
-      ? "var(--color-orange)"
-      : null};
+        ? "var(--color-orange)"
+        : null};
   color: ${(props) => (props.$isSelected ? "white" : "inherit")};
   border-radius: var(--rounded);
 `;

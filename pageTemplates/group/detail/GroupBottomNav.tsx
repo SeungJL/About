@@ -3,10 +3,7 @@ import { useRouter } from "next/dist/client/router";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
-import {
-  useCompleteToast,
-  useErrorToast,
-} from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
 import { IGroup } from "../../../types/models/groupTypes/group";
 

@@ -32,7 +32,7 @@ function ModalPortal({ children, setIsModal, opacity = 0.4 }: IModalPortal) {
         <FullScreen onClick={closeModal} opacity={opacity} />
         {children}
       </div>,
-      ref.current
+      ref.current,
     );
   }
   return null;

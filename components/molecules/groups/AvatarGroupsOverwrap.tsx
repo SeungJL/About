@@ -15,14 +15,7 @@ interface IAvatarGroupsOverwrap {
 }
 const VOTER_SHOW_MAX = 6;
 
-
-
-export default function AvatarGroupsOverwrap({
-  userAvatarArr,
-
-}: IAvatarGroupsOverwrap) {
-
-
+export default function AvatarGroupsOverwrap({ userAvatarArr }: IAvatarGroupsOverwrap) {
   return (
     <Participants>
       {userAvatarArr.map((att, idx) => {
@@ -33,9 +26,7 @@ export default function AvatarGroupsOverwrap({
               image={att.image}
               avatar={att.avatar}
               size="sm"
-              shadowAvatar={
-                idx === VOTER_SHOW_MAX - 1 && userAvatarArr.length - idx
-              }
+              shadowAvatar={idx === VOTER_SHOW_MAX - 1 && userAvatarArr.length - idx}
             />
           )
         );

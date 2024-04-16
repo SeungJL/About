@@ -14,10 +14,7 @@ import { useUserInfoMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import {
-  getLocalStorageObj,
-  setLocalStorageObj,
-} from "../../utils/storageUtils";
+import { getLocalStorageObj, setLocalStorageObj } from "../../utils/storageUtils";
 
 function Comment() {
   const searchParams = useSearchParams();
@@ -80,10 +77,7 @@ function Comment() {
 
   return (
     <>
-      <ProgressHeader
-        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        value={80}
-      />
+      <ProgressHeader title={!isProfileEdit ? "회원가입" : "프로필 수정"} value={80} />
 
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -92,11 +86,7 @@ function Comment() {
         </RegisterOverview>
         <Container>
           {MESSAGE_DATA?.map((item, idx) => (
-            <Item
-              key={idx}
-              onClick={() => setIndex(idx)}
-              $isSelected={idx === index}
-            >
+            <Item key={idx} onClick={() => setIndex(idx)} $isSelected={idx === index}>
               {item}
             </Item>
           ))}
@@ -145,8 +135,7 @@ const Item = styled.div<{ $isSelected: boolean }>`
   height: 48px;
   margin-bottom: var(--gap-3);
   color: ${(props) => (props.$isSelected ? "var(--gray-1)" : "var(--gray-4)")};
-  border: ${(props) =>
-    props.$isSelected ? "var(--border-thick)" : "1.5px solid var(--gray-6)"};
+  border: ${(props) => (props.$isSelected ? "var(--border-thick)" : "1.5px solid var(--gray-6)")};
 `;
 
 export default Comment;

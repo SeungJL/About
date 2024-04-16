@@ -4,14 +4,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ImageTileGridLayout, {
-  IImageTileData
+  IImageTileData,
 } from "../../../components/molecules/layouts/ImageTitleGridLayout";
 import { MAX_USER_PER_PLACE } from "../../../constants/settingValue/study/study";
 import { useToast } from "../../../hooks/custom/CustomToast";
-import {
-  IParticipation,
-  IPlace
-} from "../../../types/models/studyTypes/studyDetails";
+import { IParticipation, IPlace } from "../../../types/models/studyTypes/studyDetails";
 
 interface IPlaceSelectorSub {
   places: IParticipation[];
@@ -19,11 +16,7 @@ interface IPlaceSelectorSub {
   setSelectPlaces: Dispatch<SetStateAction<IPlace[]>>;
 }
 
-function PlaceSelectorSub({
-  places,
-  selectPlaces,
-  setSelectPlaces,
-}: IPlaceSelectorSub) {
+function PlaceSelectorSub({ places, selectPlaces, setSelectPlaces }: IPlaceSelectorSub) {
   const toast = useToast();
   const isTwoPage = places?.length > 8;
 
@@ -59,14 +52,14 @@ function PlaceSelectorSub({
     if (type === "right") setIsFirst(false);
   };
 
-  const imageDataArr: IImageTileData[] = (
-    isFirst ? pagePlaces?.first : pagePlaces?.second
-  )?.map((par) => ({
-    imageUrl: par.place.image,
-    text: par.place.brand,
-    func: () => onClick(par),
-    id: par.place._id,
-  }));
+  const imageDataArr: IImageTileData[] = (isFirst ? pagePlaces?.first : pagePlaces?.second)?.map(
+    (par) => ({
+      imageUrl: par.place.image,
+      text: par.place.brand,
+      func: () => onClick(par),
+      id: par.place._id,
+    }),
+  );
 
   return (
     <Layout isTwoPage={isTwoPage}>
@@ -97,8 +90,6 @@ const Layout = styled.div<{ isTwoPage: boolean }>`
   height: 100%;
   padding: 12px 20px;
 `;
-
-
 
 const LeftArrow = styled.div`
   padding: 8px;

@@ -4,19 +4,15 @@ import { IParticipation } from "../../types/models/studyTypes/studyDetails";
 
 export const getMyStudy = (
   participations: IParticipation[],
-  myUid: string
+  myUid: string,
 ): IParticipation | null => {
   let myStudy: IParticipation | null = null;
   participations.forEach((par) =>
     par.attendences.forEach((who) => {
-      if (
-        who.user.uid === myUid &&
-        who.firstChoice &&
-        par.status !== "dismissed"
-      ) {
+      if (who.user.uid === myUid && who.firstChoice && par.status !== "dismissed") {
         myStudy = par;
       }
-    })
+    }),
   );
 
   return myStudy;
@@ -30,10 +26,7 @@ interface IMyStudyVoteInfo {
   startTime?: Dayjs;
 }
 
-export const getMyStudyVoteInfo = (
-  myStudy: IParticipation,
-  myUid: string
-): IMyStudyVoteInfo => {
+export const getMyStudyVoteInfo = (myStudy: IParticipation, myUid: string): IMyStudyVoteInfo => {
   if (!myStudy) return null;
   const {
     time: { start, end },

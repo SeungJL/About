@@ -18,21 +18,9 @@ interface IKakaoShareBtn {
   isBig?: boolean;
 }
 
-function KakaoShareBtn({
-  type,
-  title,
-  subtitle,
-  img,
-  location,
-  url,
-  isBig,
-}: IKakaoShareBtn) {
+function KakaoShareBtn({ type, title, subtitle, img, location, url, isBig }: IKakaoShareBtn) {
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.Kakao &&
-      !window.Kakao.isInitialized()
-    ) {
+    if (typeof window !== "undefined" && window.Kakao && !window.Kakao.isInitialized()) {
       window.Kakao.init(kakaoAppKey);
     }
   }, []);

@@ -5,7 +5,7 @@ export const ACCOUNT_SHORT = "1002-364-221277 우리은행 어바웃";
 export const REGISTER_AGE_MIN = 12;
 
 export function PromotionComponent() {
-  return <P>{PROMOTION_TEXT}</P>
+  return <P>{PROMOTION_TEXT}</P>;
 }
 
 const P = styled.p`

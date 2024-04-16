@@ -15,11 +15,7 @@ function StudyControllerDays({ selectedDate }: IStudyControllerDays) {
     <Container>
       {dayArr.map((day, idx) => (
         <Fragment key={idx}>
-          {idx !== 3 ? (
-            <Day key={idx}>{day}</Day>
-          ) : (
-            <Spacer key={`spacer-${idx}`} />
-          )}
+          {idx !== 3 ? <Day key={idx}>{day}</Day> : <Spacer key={`spacer-${idx}`} />}
         </Fragment>
       ))}
     </Container>
@@ -37,9 +33,7 @@ const Container = styled.div`
 const Day = styled.div`
   flex: 1;
   text-align: center;
-  color: var(
-    --gray-2
-  ); /* Assuming text-gray-2 maps to this color, adjust as necessary */
+  color: var(--gray-2); /* Assuming text-gray-2 maps to this color, adjust as necessary */
 `;
 
 // Styled component for the spacer

@@ -51,10 +51,7 @@ function Record() {
         {!isLoading ? (
           <>
             <RecordOverview arrivedCalendar={arrivedCalendar} />
-            <RecordLocationCategory
-              initialData={arrivedCalendar}
-              setFilterData={setFilterData}
-            />
+            <RecordLocationCategory initialData={arrivedCalendar} setFilterData={setFilterData} />
             {isCalendar ? (
               <RecordCalendar filterData={filterData} navMonth={navMonth} />
             ) : (

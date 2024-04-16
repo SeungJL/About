@@ -3,9 +3,7 @@ import dayjs from "dayjs";
 import { IUserTimeBlock } from "../_component/BoardUserBlocks";
 import { ITimeBoardParticipant } from "../UserTimeBoard";
 
-export const transformToUserBlocks = (
-  participants: ITimeBoardParticipant[]
-): IUserTimeBlock[] => {
+export const transformToUserBlocks = (participants: ITimeBoardParticipant[]): IUserTimeBlock[] => {
   return participants.map((par) => {
     const start = dayjs(par.time.start);
     const end = dayjs(par.time.end);

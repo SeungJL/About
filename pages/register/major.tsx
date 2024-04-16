@@ -9,10 +9,7 @@ import { MAJORS_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
-import {
-  getLocalStorageObj,
-  setLocalStorageObj,
-} from "../../utils/storageUtils";
+import { getLocalStorageObj, setLocalStorageObj } from "../../utils/storageUtils";
 
 function Major() {
   const toast = useToast();
@@ -21,9 +18,9 @@ function Major() {
 
   const info = getLocalStorageObj(REGISTER_INFO);
 
-  const [majors, setmajors] = useState<
-    { department: string; detail: string }[]
-  >(info?.majors || []);
+  const [majors, setmajors] = useState<{ department: string; detail: string }[]>(
+    info?.majors || [],
+  );
 
   const onClickNext = (e) => {
     if (!majors.length) {
@@ -63,10 +60,7 @@ function Major() {
 
   return (
     <>
-      <ProgressHeader
-        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        value={60}
-      />
+      <ProgressHeader title={!isProfileEdit ? "회원가입" : "프로필 수정"} value={60} />
 
       <RegisterLayout>
         <RegisterOverview>
@@ -83,10 +77,8 @@ function Major() {
                   key={idx}
                   $isSelected={Boolean(
                     majors?.find(
-                      (majors) =>
-                        majors.detail === detail &&
-                        majors.department === item.department
-                    )
+                      (majors) => majors.detail === detail && majors.department === item.department,
+                    ),
                   )}
                   onClick={() => onClickBtn(item.department, detail)}
                 >

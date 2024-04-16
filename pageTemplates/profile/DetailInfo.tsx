@@ -31,11 +31,7 @@ function DetailInfo({ user }: { user: IUser }) {
           </ProfileItem>
           <ProfileItem>
             <span>전공</span>
-            {user?.majors?.length ? (
-              <span>{user?.majors[0]?.detail}</span>
-            ) : (
-              <span>--</span>
-            )}
+            {user?.majors?.length ? <span>{user?.majors[0]?.detail}</span> : <span>--</span>}
           </ProfileItem>
           <ProfileItem>
             <span>관심사</span>

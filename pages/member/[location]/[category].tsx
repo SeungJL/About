@@ -14,14 +14,8 @@ import {
   transferMemberDataState,
   transferUserSummaryState,
 } from "../../../recoils/transferRecoils";
-import {
-  IUser,
-  IUserSummary,
-} from "../../../types/models/userTypes/userInfoTypes";
-import {
-  birthToAge,
-  birthToDayjs,
-} from "../../../utils/convertUtils/convertTypes";
+import { IUser, IUserSummary } from "../../../types/models/userTypes/userInfoTypes";
+import { birthToAge, birthToDayjs } from "../../../utils/convertUtils/convertTypes";
 import { dayjsToFormat } from "../../../utils/dateTimeUtils";
 
 function FriendCategory() {
@@ -53,10 +47,7 @@ function FriendCategory() {
           return birthDayjs.month() === dayjs().month();
         }
         case 3:
-          return (
-            who?.majors &&
-            who?.majors[0]?.department === userInfo?.majors[0]?.department
-          );
+          return who?.majors && who?.majors[0]?.department === userInfo?.majors[0]?.department;
       }
     });
     setFilterMember(filtered);
@@ -77,12 +68,7 @@ function FriendCategory() {
           {filterMember?.map((who) => (
             <Item key={who.uid} onClick={() => onClickProfile(who)}>
               <ProfileHeader>
-                <Avatar
-                  image={who.profileImage}
-                  avatar={who.avatar}
-                  uid={who.uid}
-                  size="md"
-                />
+                <Avatar image={who.profileImage} avatar={who.avatar} uid={who.uid} size="md" />
                 <span>{who.name}</span>
               </ProfileHeader>
               <Info>
@@ -90,9 +76,7 @@ function FriendCategory() {
                   <span>나이</span>
                   <span>{birthToAge(who.birth)}</span>
                   {idx === 2 && (
-                    <Birthday>
-                      / {dayjsToFormat(birthToDayjs(who.birth), "M월 D일")}
-                    </Birthday>
+                    <Birthday>/ {dayjsToFormat(birthToDayjs(who.birth), "M월 D일")}</Birthday>
                   )}
                 </Detail>
                 <Detail>

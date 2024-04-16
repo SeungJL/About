@@ -19,8 +19,7 @@ export const checkAndSetLocalStorage = (key: string, gap: number) => {
 
 export const pushArrToLocalStorage = (key: string, uid: string) => {
   const currentDateStr = dayjsToStr(dayjs());
-  const stored: IInteractionLikeStorage[] =
-    JSON.parse(localStorage.getItem(key)) || [];
+  const stored: IInteractionLikeStorage[] = JSON.parse(localStorage.getItem(key)) || [];
   const foundItem = stored?.find((item) => item.uid === uid);
   if (foundItem) foundItem.date = currentDateStr;
   else stored.push({ uid, date: currentDateStr });
@@ -42,5 +41,4 @@ export const isHeartCheckLocalStorage = (toUid: string) => {
 export const setLocalStorageObj = (key: string, obj: any) => {
   localStorage.setItem(key, JSON.stringify(obj));
 };
-export const getLocalStorageObj = (key: string) =>
-  JSON.parse(localStorage.getItem(key));
+export const getLocalStorageObj = (key: string) => JSON.parse(localStorage.getItem(key));

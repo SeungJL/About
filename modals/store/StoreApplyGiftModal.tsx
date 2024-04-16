@@ -7,11 +7,7 @@ import styled from "styled-components";
 import CountNum from "../../components/atoms/CountNum";
 import { MainLoadingAbsolute } from "../../components/atoms/loaders/MainLoading";
 import { STORE_GIFT } from "../../constants/keys/queryKeys";
-import {
-  useCompleteToast,
-  useErrorToast,
-  useFailToast,
-} from "../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStoreMutation } from "../../hooks/sub/store/mutation";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemQuery } from "../../hooks/user/queries";
@@ -78,11 +74,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
   };
 
   return (
-    <ModalLayout
-      title="상품 응모"
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-    >
+    <ModalLayout title="상품 응모" footerOptions={footerOptions} setIsModal={setIsModal}>
       {!isLoading ? (
         <>
           <Item>
@@ -95,9 +87,7 @@ function StoreApplyGiftModal({ setIsModal, giftInfo }: IStoreApplyGiftModal) {
           </Item>
           <Item>
             <span>필요 포인트</span>
-            <NeedPoint overMax={totalCost > myPoint}>
-              {totalCost} point
-            </NeedPoint>
+            <NeedPoint overMax={totalCost > myPoint}>{totalCost} point</NeedPoint>
           </Item>
           <CountNav>
             <CountNum value={value} setValue={setValue} />

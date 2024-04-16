@@ -26,16 +26,10 @@ function Like() {
 
                 return (
                   <ItemContainer key={idx}>
-                    <span>
-                      {dayjsToFormat(dayjs(item.createdAt), "YYYY년 M월 D일")}
-                    </span>
+                    <span>{dayjsToFormat(dayjs(item.createdAt), "YYYY년 M월 D일")}</span>
                     <Item>
                       <IconWrapper>
-                        <FontAwesomeIcon
-                          color="var(--color-red)"
-                          icon={faCircleHeart}
-                          size="xl"
-                        />
+                        <FontAwesomeIcon color="var(--color-red)" icon={faCircleHeart} size="xl" />
                       </IconWrapper>
                       <Name>{name}</Name>
                       <Content>

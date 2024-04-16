@@ -47,9 +47,7 @@ function Accordion({ contentArr, isFull, isQ = true }: IAccordion) {
                 ) : (
                   <p>
                     {content}
-                    {content === "" && (
-                      <a href={OPEN_KAKAO_LINK}>{OPEN_KAKAO_LINK}</a>
-                    )}
+                    {content === "" && <a href={OPEN_KAKAO_LINK}>{OPEN_KAKAO_LINK}</a>}
                   </p>
                 )}
               </Content>

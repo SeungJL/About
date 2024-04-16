@@ -42,14 +42,13 @@ function Admin() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     status: "agree" | "refuse",
     user: IUser,
-    pointType?: "point" | "deposit"
+    pointType?: "point" | "deposit",
   ) => {
     const chargeFee = {
       uid: user.uid,
       type: pointType,
       message: "동아리 가입",
-      value:
-        pointType === "deposit" ? -group.fee || -200 : -group.fee * 0.15 || -30,
+      value: pointType === "deposit" ? -group.fee || -200 : -group.fee * 0.15 || -30,
     };
 
     e.stopPropagation();
@@ -71,9 +70,7 @@ function Admin() {
                 <Item key={idx}>
                   <UserItem user={who.user}>
                     <Button
-                      onClick={(e) =>
-                        onClick(e, "agree", who.user, who.pointType)
-                      }
+                      onClick={(e) => onClick(e, "agree", who.user, who.pointType)}
                       size="sm"
                       colorScheme="mintTheme"
                       mr="var(--gap-2)"
@@ -92,7 +89,7 @@ function Admin() {
                   </UserItem>
                   {who?.answer && <Content>{who.answer}</Content>}
                 </Item>
-              )
+              ),
             )}
           </Container>
           <Title>유저 초대</Title>

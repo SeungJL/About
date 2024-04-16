@@ -7,10 +7,7 @@ import { Location } from "../../../types/services/locationTypes";
 export const useCounterQuery = (
   key: "enthusiasticMember",
   location: Location,
-  options?: Omit<
-    UseQueryOptions<number, AxiosError, number>,
-    "queryKey" | "queryFn"
-  >
+  options?: Omit<UseQueryOptions<number, AxiosError, number>, "queryKey" | "queryFn">,
 ) =>
   useQuery<number, AxiosError, number>(
     ["counter", key, location],
@@ -20,5 +17,5 @@ export const useCounterQuery = (
       });
       return res.data;
     },
-    options
+    options,
   );

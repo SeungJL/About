@@ -4,10 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
-import {
-  useCompleteToast,
-  useFailToast,
-} from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useFailToast } from "../../../hooks/custom/CustomToast";
 import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { ModalSubtitle } from "../../../styles/layout/modal";
@@ -30,13 +27,9 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
   const location = session?.user.location;
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
-  const { data: memberCnt, isLoading } = useCounterQuery(
-    "enthusiasticMember",
-    location,
-    {
-      enabled: !!location,
-    }
-  );
+  const { data: memberCnt, isLoading } = useCounterQuery("enthusiasticMember", location, {
+    enabled: !!location,
+  });
 
   const { mutate } = useUserInfoFieldMutation("role", {
     onSuccess() {
@@ -77,15 +70,10 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
         footerOptions={footerOptions}
         setIsModal={setIsModal}
       >
-        <ModalSubtitle>
-          매 달마다 선착순으로 열공멤버 신청을 받습니다!
-        </ModalSubtitle>
+        <ModalSubtitle>매 달마다 선착순으로 열공멤버 신청을 받습니다!</ModalSubtitle>
         <CurrentMember>
           현재 인원:
-          <span>
-            {!isLoading &&
-              (isExpired ? "모집 마감" : `${memberCnt + 1 || 1}명`)}
-          </span>
+          <span>{!isLoading && (isExpired ? "모집 마감" : `${memberCnt + 1 || 1}명`)}</span>
         </CurrentMember>
         <Container>
           <li>
@@ -110,9 +98,7 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
           </Win>
         </Container>
       </ModalLayout>
-      {isConfirmModal && (
-        <AlertModal options={alertOptions} setIsModal={setIsConfirmModal} />
-      )}
+      {isConfirmModal && <AlertModal options={alertOptions} setIsModal={setIsConfirmModal} />}
     </>
   );
 }

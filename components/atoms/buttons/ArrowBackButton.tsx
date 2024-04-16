@@ -4,10 +4,7 @@ import { useRouter } from "next/navigation";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-import {
-  prevPageUrlState,
-  slideDirectionState,
-} from "../../../recoils/navigationRecoils";
+import { prevPageUrlState, slideDirectionState } from "../../../recoils/navigationRecoils";
 interface IArrowBackButton {
   url?: string;
 }
@@ -29,9 +26,11 @@ export default function ArrowBackButton({ url }: IArrowBackButton) {
 }
 
 export function ArrowBackButtonUI({ onClick }: { onClick: () => void }) {
-  return <Button onClick={onClick}>
-    <FontAwesomeIcon icon={faChevronLeft} />
-  </Button>
+  return (
+    <Button onClick={onClick}>
+      <FontAwesomeIcon icon={faChevronLeft} />
+    </Button>
+  );
 }
 
 const Button = styled.button`

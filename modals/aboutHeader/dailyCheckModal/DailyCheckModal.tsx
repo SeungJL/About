@@ -61,10 +61,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
   const { mutate: getPoint } = usePointSystemMutation("point");
   const { mutate: sendRequest } = useUserRequestMutation();
 
-  const winDistribution = getDistributionArr(
-    DAILY_CHECK_WIN_LIST,
-    DISTRIBUTION_SIZE
-  );
+  const winDistribution = getDistributionArr(DAILY_CHECK_WIN_LIST, DISTRIBUTION_SIZE);
 
   const onClickCheck = () => {
     localStorage.setItem(DAILY_CHECK_POP_UP, dayjsToStr(dayjs()));
@@ -110,11 +107,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout
-      title="매일매일 출석체크!"
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-    >
+    <ModalLayout title="매일매일 출석체크!" footerOptions={footerOptions} setIsModal={setIsModal}>
       <PresentMessage>
         매일 출석체크로 <b>5 point</b>를 얻을 수 있고, 운이 좋으면
         <b> 랜덤 이벤트 선물</b>도 받을 수 있어요!
@@ -125,11 +118,7 @@ function DailyCheckModal({ setIsModal }: IModal) {
           <Badge text="+랜덤 선물" colorScheme="redTheme" />
         </Detail>
         <CheckWrapper>
-          <FontAwesomeIcon
-            icon={faCheckCircle}
-            color="var(--color-mint)"
-            size="4x"
-          />
+          <FontAwesomeIcon icon={faCheckCircle} color="var(--color-mint)" size="4x" />
         </CheckWrapper>
         <Detail>
           <PresentListPopOver />

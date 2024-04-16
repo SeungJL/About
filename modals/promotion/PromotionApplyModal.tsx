@@ -12,12 +12,7 @@ import { usePromotionQuery } from "../../hooks/sub/promotion/queries";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
-import {
-  IFooterOptions,
-  ModalFooterOne,
-  ModalFooterTwo,
-  ModalLayout,
-} from "../Modals";
+import { IFooterOptions, ModalFooterOne, ModalFooterTwo, ModalLayout } from "../Modals";
 
 interface IPromotionApplyModal extends IModal {
   uniName: string;
@@ -47,10 +42,7 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
     const findUni = data?.find((item) => item.name === uniName);
     if (!findUni) setContentType("none");
     else {
-      const diff = dayjs(findUni.lastDate)
-        .add(3, "day")
-        .subtract(9, "hours")
-        .diff(dayjs(), "hour");
+      const diff = dayjs(findUni.lastDate).add(3, "day").subtract(9, "hours").diff(dayjs(), "hour");
 
       if (diff <= 0) mutate(uniName);
       else {
@@ -117,16 +109,11 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
   };
 
   return (
-    <ModalLayout
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-      title="이벤트 보상 신청"
-    >
+    <ModalLayout footerOptions={footerOptions} setIsModal={setIsModal} title="이벤트 보상 신청">
       <ModalSubtitle>
         {!contentType ? (
           <>
-            홍보글을 작성해 주셨나요? <b> +100 Point</b>와 추첨을 통해 치킨
-            기프티콘을 드려요!
+            홍보글을 작성해 주셨나요? <b> +100 Point</b>와 추첨을 통해 치킨 기프티콘을 드려요!
           </>
         ) : contentType === "cool" ? (
           <>
@@ -136,8 +123,8 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
           </>
         ) : (
           <>
-            처음 홍보를 진행하는 대학교예요! 대학교 목록에 {uniName}를 추가 후
-            진행할게요! 최초 등록시 +300 point가 지급됩니다.
+            처음 홍보를 진행하는 대학교예요! 대학교 목록에 {uniName}를 추가 후 진행할게요! 최초
+            등록시 +300 point가 지급됩니다.
           </>
         )}
       </ModalSubtitle>

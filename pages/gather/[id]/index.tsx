@@ -47,14 +47,8 @@ function GatherDetail() {
                   category={gatherData.type.title}
                 />
                 <GatherDetailInfo data={gatherData} />
-                <GatherTitle
-                  title={gatherData.title}
-                  status={gatherData.status}
-                />
-                <GatherContent
-                  content={gatherData.content}
-                  gatherList={gatherData.gatherList}
-                />
+                <GatherTitle title={gatherData.title} status={gatherData.status} />
+                <GatherContent content={gatherData.content} gatherList={gatherData.gatherList} />
                 <GatherParticipation data={gatherData} />
                 <GatherComments comment={gatherData.comment} />
               </Layout>

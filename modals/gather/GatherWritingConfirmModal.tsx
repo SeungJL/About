@@ -23,10 +23,7 @@ interface IGatherWritingConfirmModal extends IModal {
   gatherData: IGatherWriting | IGather;
 }
 
-function GatherWritingConfirmModal({
-  setIsModal,
-  gatherData,
-}: IGatherWritingConfirmModal) {
+function GatherWritingConfirmModal({ setIsModal, gatherData }: IGatherWritingConfirmModal) {
   const router = useRouter();
   const errorToast = useErrorToast();
 
@@ -83,9 +80,7 @@ function GatherWritingConfirmModal({
         >
           <>
             <ModalSubtitle>
-              {isFirst
-                ? "개설 내용을 확인해 주세요!"
-                : "선택사항. 기본 랜덤 이미지로 설정됩니다."}
+              {isFirst ? "개설 내용을 확인해 주세요!" : "선택사항. 기본 랜덤 이미지로 설정됩니다."}
             </ModalSubtitle>
             {isFirst ? (
               <Container>
@@ -95,9 +90,7 @@ function GatherWritingConfirmModal({
                 </Item>
                 <Item>
                   <span>날짜:</span>
-                  <span>
-                    {dayjs(gatherData.date).format("M월 D일, H시 m분")}
-                  </span>
+                  <span>{dayjs(gatherData.date).format("M월 D일, H시 m분")}</span>
                 </Item>
                 <Item>
                   <span>주제:</span>

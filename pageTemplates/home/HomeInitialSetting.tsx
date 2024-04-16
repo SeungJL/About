@@ -58,8 +58,7 @@ function HomeInitialSetting() {
       const useragt = navigator.userAgent.toLowerCase();
       const targetUrl = location.href;
       if (useragt.match(/kakaotalk/i)) {
-        location.href =
-          "kakaotalk://web/openExternal?url=" + encodeURIComponent(targetUrl);
+        location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(targetUrl);
       }
     });
   }, []);
@@ -92,13 +91,7 @@ function HomeInitialSetting() {
     }
   };
 
-  useUserAttendRateQuery(
-    dayjs().subtract(1, "month").date(0),
-    dayjs(),
-    false,
-    true,
-    null
-  );
+  useUserAttendRateQuery(dayjs().subtract(1, "month").date(0), dayjs(), false, true, null);
   useGroupQuery();
 
   return (

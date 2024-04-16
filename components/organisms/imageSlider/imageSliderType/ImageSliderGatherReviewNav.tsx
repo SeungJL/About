@@ -13,9 +13,7 @@ interface IImageSliderGatherReviewNav {
   imageContainer: ImageContainer;
 }
 
-function ImageSliderGatherReviewNav({
-  imageContainer,
-}: IImageSliderGatherReviewNav) {
+function ImageSliderGatherReviewNav({ imageContainer }: IImageSliderGatherReviewNav) {
   const router = useRouter();
   const setReviewContentId = useSetRecoilState(reviewContentIdState);
   const onClickReviewItem = (id: number) => {
@@ -36,11 +34,7 @@ function ImageSliderGatherReviewNav({
       <SwiperSlide onClick={() => onClickReviewItem(0)}>
         <ReviewItem>
           <ReviewIcon>
-            <FontAwesomeIcon
-              icon={faEyes}
-              size="2x"
-              color="var(--color-mint)"
-            />
+            <FontAwesomeIcon icon={faEyes} size="2x" color="var(--color-mint)" />
           </ReviewIcon>
           <Text>리뷰 둘러보기</Text>
         </ReviewItem>

@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export function XAlertIcon() {
-  return <XAlertIconLayout>
-    <FontAwesomeIcon icon={faXmark} color="white" size="3x" />
-  </XAlertIconLayout>
+  return (
+    <XAlertIconLayout>
+      <FontAwesomeIcon icon={faXmark} color="white" size="3x" />
+    </XAlertIconLayout>
+  );
 }
 
 const XAlertIconLayout = styled.div`
@@ -24,7 +26,9 @@ interface INewAlertIcon {
 }
 
 export function NewAlertIcon({ size }: INewAlertIcon) {
-  return <>
-    <FontAwesomeIcon icon={faCircleN} color="var(--color-red)" size={size} />
-  </>
+  return (
+    <>
+      <FontAwesomeIcon icon={faCircleN} color="var(--color-red)" size={size} />
+    </>
+  );
 }

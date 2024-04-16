@@ -5,9 +5,11 @@ interface ISeo {
 }
 
 function Seo({ title }: ISeo) {
-  return <Head>
-    <title>{title}</title>
-  </Head>
+  return (
+    <Head>
+      <title>{title}</title>
+    </Head>
+  );
 }
 
 export default Seo;

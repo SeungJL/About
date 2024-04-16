@@ -32,12 +32,7 @@ interface IImageTileSlider {
   aspect?: number;
 }
 
-function ImageTileSlider({
-  imageTileArr,
-  size,
-  aspect = 1,
-  slidesPerView,
-}: IImageTileSlider) {
+function ImageTileSlider({ imageTileArr, size, aspect = 1, slidesPerView }: IImageTileSlider) {
   return (
     <Swiper slidesPerView={slidesPerView} spaceBetween={12}>
       {imageTileArr.map((imageTile, index) => (

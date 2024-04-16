@@ -43,22 +43,18 @@ function CollectionAlphabet() {
 
   const { data: alphabets } = useCollectionAlphabetQuery();
 
-  const { mutate: mutate2, isLoading: completeLoading } =
-    useAlphabetCompletedMutation({
-      onSuccess() {
-        completeToast(
-          "free",
-          "교환이 완료되었어요! 상품은 확인하는대로 보내드려요!"
-        );
-      },
-      /* eslint-disable @typescript-eslint/no-explicit-any */
-      onError(err: AxiosError<{ message: string }, any>) {
-        const res = err.response.data;
-        if (res.message === "not completed") {
-          failToast("free", "알파벳이 모두 있지 않습니다.");
-        }
-      },
-    });
+  const { mutate: mutate2, isLoading: completeLoading } = useAlphabetCompletedMutation({
+    onSuccess() {
+      completeToast("free", "교환이 완료되었어요! 상품은 확인하는대로 보내드려요!");
+    },
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    onError(err: AxiosError<{ message: string }, any>) {
+      const res = err.response.data;
+      if (res.message === "not completed") {
+        failToast("free", "알파벳이 모두 있지 않습니다.");
+      }
+    },
+  });
 
   const { data: userAlphabetAll, isLoading } = useCollectionAlphabetAllQuery();
 
@@ -72,13 +68,9 @@ function CollectionAlphabet() {
 
   useEffect(() => {
     if (isLoading) return;
-    const findItem = userAlphabetAll.find(
-      (who) => who?.user?.uid === session?.user.uid
-    );
+    const findItem = userAlphabetAll.find((who) => who?.user?.uid === session?.user.uid);
 
-    if (
-      ALPHABET_COLLECTION.every((item) => findItem?.collects.includes(item))
-    ) {
+    if (ALPHABET_COLLECTION.every((item) => findItem?.collects.includes(item))) {
       setHasAlphabetAll(true);
     }
 
@@ -157,50 +149,35 @@ function CollectionAlphabet() {
                     </Name>
                     <UserAlphabets>
                       <div>
-                        <AlphabetIcon
-                          alphabet="A"
-                          isDuotone={!alphabets?.includes("A")}
-                        />
+                        <AlphabetIcon alphabet="A" isDuotone={!alphabets?.includes("A")} />
                         <FontAwesomeIcon icon={faX} />
                         <AlphabetCnt hasAlphabet={alphabetsCnt.A !== 0}>
                           {alphabetsCnt.A}
                         </AlphabetCnt>
                       </div>
                       <div>
-                        <AlphabetIcon
-                          alphabet="B"
-                          isDuotone={!alphabets?.includes("B")}
-                        />{" "}
+                        <AlphabetIcon alphabet="B" isDuotone={!alphabets?.includes("B")} />{" "}
                         <FontAwesomeIcon icon={faX} />
                         <AlphabetCnt hasAlphabet={alphabetsCnt.B !== 0}>
                           {alphabetsCnt.B}
                         </AlphabetCnt>
                       </div>
                       <div>
-                        <AlphabetIcon
-                          alphabet="O"
-                          isDuotone={!alphabets?.includes("O")}
-                        />{" "}
+                        <AlphabetIcon alphabet="O" isDuotone={!alphabets?.includes("O")} />{" "}
                         <FontAwesomeIcon icon={faX} />
                         <AlphabetCnt hasAlphabet={alphabetsCnt.O !== 0}>
                           {alphabetsCnt.O}
                         </AlphabetCnt>
                       </div>
                       <div>
-                        <AlphabetIcon
-                          alphabet="U"
-                          isDuotone={!alphabets?.includes("U")}
-                        />{" "}
+                        <AlphabetIcon alphabet="U" isDuotone={!alphabets?.includes("U")} />{" "}
                         <FontAwesomeIcon icon={faX} />
                         <AlphabetCnt hasAlphabet={alphabetsCnt.U !== 0}>
                           {alphabetsCnt.U}
                         </AlphabetCnt>
                       </div>
                       <div>
-                        <AlphabetIcon
-                          alphabet="T"
-                          isDuotone={!alphabets?.includes("T")}
-                        />{" "}
+                        <AlphabetIcon alphabet="T" isDuotone={!alphabets?.includes("T")} />{" "}
                         <FontAwesomeIcon icon={faX} />
                         <AlphabetCnt hasAlphabet={alphabetsCnt.T !== 0}>
                           {alphabetsCnt.T}

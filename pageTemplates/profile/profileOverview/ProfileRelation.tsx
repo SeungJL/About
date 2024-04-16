@@ -4,10 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import AlertModal, { IAlertModalOptions } from "../../../components/AlertModal";
-import {
-  useCompleteToast,
-  useFailToast,
-} from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useFailToast } from "../../../hooks/custom/CustomToast";
 import { useUserFriendMutation } from "../../../hooks/user/mutations";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
 import ProfileCardModal from "../../../modals/profile/ProfileCardModal";
@@ -23,9 +20,7 @@ function ProfileRelation({ user }: IProfileRelation) {
   const { data: session } = useSession();
 
   const isGuest = session?.user.name === "guest";
-  const [modalType, setModalType] = useState<
-    "requestFriend" | "cancelFriend" | "isMyProfile"
-  >();
+  const [modalType, setModalType] = useState<"requestFriend" | "cancelFriend" | "isMyProfile">();
   const [isMyFriend, setIsMyFriend] = useState(false);
 
   const { mutate: requestFriend } = useInteractionMutation("friend", "post", {
@@ -119,20 +114,12 @@ function ProfileRelation({ user }: IProfileRelation) {
           </Button>
         )}
       </Layout>
-      {modalType === "isMyProfile" && (
-        <ProfileCardModal setIsModal={() => setModalType(null)} />
-      )}
+      {modalType === "isMyProfile" && <ProfileCardModal setIsModal={() => setModalType(null)} />}
       {modalType === "requestFriend" && (
-        <AlertModal
-          options={alertModalOptions}
-          setIsModal={() => setModalType(null)}
-        />
+        <AlertModal options={alertModalOptions} setIsModal={() => setModalType(null)} />
       )}
       {modalType === "cancelFriend" && (
-        <AlertModal
-          options={cancelAlertModalOptions}
-          setIsModal={() => setModalType(null)}
-        />
+        <AlertModal options={cancelAlertModalOptions} setIsModal={() => setModalType(null)} />
       )}
     </>
   );

@@ -44,10 +44,7 @@ function ImageSlider({ type, imageContainer, onClick }: IImageSlider) {
           ) : type === "member" ? (
             <ImageSliderMember imageContainer={imageContainer} />
           ) : type === "avatarColor" ? (
-            <ImageSliderAvatarColor
-              imageContainer={imageContainer}
-              onClick={onClick}
-            />
+            <ImageSliderAvatarColor imageContainer={imageContainer} onClick={onClick} />
           ) : type === "eventBanner" ? (
             <ImageSliderEventBanner imageContainer={imageContainer} />
           ) : null}

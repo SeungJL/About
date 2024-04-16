@@ -1,9 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import {
-  faBan,
-  faCircleXmark,
-  faClock,
-} from "@fortawesome/pro-light-svg-icons";
+import { faBan, faCircleXmark, faClock } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
@@ -25,10 +21,7 @@ import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../hooks/user/queries";
 import { myStudyState, studyDateStatusState } from "../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION } from "../../storage/study";
-import {
-  IParticipation,
-  StudyStatus,
-} from "../../types/models/studyTypes/studyDetails";
+import { IParticipation, StudyStatus } from "../../types/models/studyTypes/studyDetails";
 import { StudyDateStatus } from "../../types/models/studyTypes/studyInterActions";
 import { IPointLog } from "../../types/services/pointSystem";
 import StudyNavModal from "./studyNavModal";
@@ -72,30 +65,26 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
     enabled: !!isSubNav,
   });
   const myPrevVotePoint = getMyPrevVotePoint(pointLog, date);
-  const { mutate: handleAbsent } = useStudyParticipationMutation(
-    dayjs(date),
-    "delete",
-    {
-      onSuccess() {
-        queryClient.invalidateQueries([STUDY_VOTE, date, location]);
-        if (myPrevVotePoint) {
-          getPoint({
-            message: "스터디 투표 취소",
-            value: -myPrevVotePoint,
-          });
-        }
-        toast("success", "취소되었습니다.");
-      },
-      onError: () => typeToast("error"),
-    }
-  );
+  const { mutate: handleAbsent } = useStudyParticipationMutation(dayjs(date), "delete", {
+    onSuccess() {
+      queryClient.invalidateQueries([STUDY_VOTE, date, location]);
+      if (myPrevVotePoint) {
+        getPoint({
+          message: "스터디 투표 취소",
+          value: -myPrevVotePoint,
+        });
+      }
+      toast("success", "취소되었습니다.");
+    },
+    onError: () => typeToast("error"),
+  });
 
   const { text: mainText, funcType: mainFuncType } = getMainButtonStatus(
     voteCnt >= MAX_USER_PER_PLACE,
     studyDateStatus,
     votingType,
     isAttend,
-    studyStatus
+    studyStatus,
   );
 
   const handleSubNav = (type: SubNavBtn) => {
@@ -168,11 +157,7 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
           </Button>
         </Layout>
       </Slide>
-      <StudyNavModal
-        type={modalType}
-        setType={setModalType}
-        modalOptions={modalOptions}
-      />
+      <StudyNavModal type={modalType} setType={setModalType} modalOptions={modalOptions} />
     </>
   );
 }
@@ -182,16 +167,11 @@ const getVotingType = (myStudy: IParticipation, placeId: string) => {
 };
 
 const getMyPrevVotePoint = (pointLogs: IPointLog[], date: string) => {
-  return pointLogs?.find(
-    (item) => item.message === "스터디 투표" && item.meta.sub === date
-  )?.meta.value;
+  return pointLogs?.find((item) => item.message === "스터디 투표" && item.meta.sub === date)?.meta
+    .value;
 };
 
-const checkMyAttend = (
-  studyDateStatus: StudyDateStatus,
-  myStudy: IParticipation,
-  uid: string
-) => {
+const checkMyAttend = (studyDateStatus: StudyDateStatus, myStudy: IParticipation, uid: string) => {
   return !!(
     studyDateStatus !== "not passed" &&
     myStudy?.attendences.find((who) => who.user.uid === uid)?.arrived
@@ -201,7 +181,7 @@ const checkMyAttend = (
 const checkSubNavExists = (
   studyDateStatus: StudyDateStatus,
   votingType: "same" | "other" | null,
-  isAttend: boolean
+  isAttend: boolean,
 ): boolean => {
   if (isAttend) return false;
   switch (studyDateStatus) {
@@ -222,7 +202,7 @@ const getMainButtonStatus = (
   studyDateStatus: StudyDateStatus,
   votingType: "same" | "other" | null,
   isAttend: boolean,
-  studyStatus: StudyStatus
+  studyStatus: StudyStatus,
 ): {
   text: string;
   funcType?: MainBtnType;
@@ -236,12 +216,9 @@ const getMainButtonStatus = (
       if (isMax) return { text: "인원 마감" };
       return { text: "스터디 투표", funcType: "vote" };
     case "today":
-      if (studyStatus === "dismissed")
-        return { text: "FREE 오픈 신청", funcType: "freeOpen" };
-      if (votingType === "same")
-        return { text: "출석 체크", funcType: "attendCheck" };
-      if (votingType === "other")
-        return { text: "다른 스터디에 참여중입니다." };
+      if (studyStatus === "dismissed") return { text: "FREE 오픈 신청", funcType: "freeOpen" };
+      if (votingType === "same") return { text: "출석 체크", funcType: "attendCheck" };
+      if (votingType === "other") return { text: "다른 스터디에 참여중입니다." };
       if (isMax) return { text: "인원 마감" };
       return { text: "스터디 투표", funcType: "vote" };
   }

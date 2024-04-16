@@ -75,22 +75,17 @@ function StudyAbsentModal({ setIsModal }: IModal) {
 
   return (
     <>
-      <ModalLayout
-        title="당일 불참"
-        footerOptions={footerOptions}
-        setIsModal={setIsModal}
-      >
+      <ModalLayout title="당일 불참" footerOptions={footerOptions} setIsModal={setIsModal}>
         <Body>
           <ModalSubtitle>
             {dayjs() < startTime ? (
               <P>
-                스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이 부여됩니다.
-                참여 시간을 변경해 보는 것은 어떨까요?{" "}
+                스터디 시작 시간이 지났기 때문에 벌금 <b>500원</b>이 부여됩니다. 참여 시간을 변경해
+                보는 것은 어떨까요?{" "}
               </P>
             ) : (
               <P>
-                당일 불참으로 벌금{" "}
-                <b>{-POINT_SYSTEM_DEPOSIT.STUDY_ABSENT_BEFORE.value}원</b>이
+                당일 불참으로 벌금 <b>{-POINT_SYSTEM_DEPOSIT.STUDY_ABSENT_BEFORE.value}원</b>이
                 부과됩니다. 참여 시간을 변경해 보는 건 어떨까요?
               </P>
             )}

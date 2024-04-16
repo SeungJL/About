@@ -8,10 +8,7 @@ import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
 import SummaryTable from "../../components/organisms/tables/SummaryTable";
-import {
-  usePointSystemLogQuery,
-  usePointSystemQuery,
-} from "../../hooks/user/queries";
+import { usePointSystemLogQuery, usePointSystemQuery } from "../../hooks/user/queries";
 
 function PointLog() {
   const { data: point } = usePointSystemQuery("point");
@@ -37,17 +34,9 @@ function PointLog() {
               <FontAwesomeIcon icon={faArrowRight} />
               <span>{point} 점</span>
             </MyPoint>
-            <Box
-              border="var(--border)"
-              rounded="md"
-              minHeight="calc(100vh - 176px)"
-            >
+            <Box border="var(--border)" rounded="md" minHeight="calc(100vh - 176px)">
               {pointLog && (
-                <SummaryTable
-                  headerInfos={headerInfos}
-                  tableInfosArr={tableInfosArr}
-                  size="lg"
-                />
+                <SummaryTable headerInfos={headerInfos} tableInfosArr={tableInfosArr} size="lg" />
               )}
             </Box>
           </Layout>

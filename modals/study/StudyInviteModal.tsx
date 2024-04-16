@@ -28,11 +28,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   const location = place.locationDetail;
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.Kakao &&
-      !window.Kakao.isInitialized()
-    ) {
+    if (typeof window !== "undefined" && window.Kakao && !window.Kakao.isInitialized()) {
       window.Kakao.init(kakaoAppKey);
     }
     setIsRenderingCheck(true);
@@ -100,14 +96,9 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   };
 
   return (
-    <ModalLayout
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-      title="친구 초대"
-    >
+    <ModalLayout footerOptions={footerOptions} setIsModal={setIsModal} title="친구 초대">
       <ModalSubtitle>
-        친구 초대를 통해 참여하면 초대한 인원과 참여한 인원 모두 2 point를
-        받아요!
+        친구 초대를 통해 참여하면 초대한 인원과 참여한 인원 모두 2 point를 받아요!
       </ModalSubtitle>
     </ModalLayout>
   );

@@ -40,9 +40,7 @@ function UserProfile() {
             <Box display="inline-block" w="60px">
               내 가입일:
             </Box>
-            <b>
-              {dayjsToFormat(dayjs(userInfo?.registerDate), "YY년 M월 D일")}
-            </b>
+            <b>{dayjsToFormat(dayjs(userInfo?.registerDate), "YY년 M월 D일")}</b>
           </ListItem>
         </UnorderedList>
       </Detail>

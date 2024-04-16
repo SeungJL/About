@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import ImageTileSlider, {
-  IImageTile,
-} from "../../components/organisms/sliders/ImageTileSlider";
+import ImageTileSlider, { IImageTile } from "../../components/organisms/sliders/ImageTileSlider";
 import { IGroup } from "../../types/models/groupTypes/group";
 import { getRandomImage } from "../../utils/imageUtils";
 
@@ -20,12 +18,7 @@ function GroupMine({ myGroups }: IGroupMine) {
   return (
     <Layout>
       {myGroups?.length ? (
-        <ImageTileSlider
-          imageTileArr={imageTileArr}
-          slidesPerView={2.2}
-          size="md"
-          aspect={2}
-        />
+        <ImageTileSlider imageTileArr={imageTileArr} slidesPerView={2.2} size="md" aspect={2} />
       ) : (
         <BlockLayout>가입중인 소모임이 없습니다.</BlockLayout>
       )}

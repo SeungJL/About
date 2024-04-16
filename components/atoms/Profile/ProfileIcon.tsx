@@ -5,11 +5,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { DEFAULT_IMAGE_URL } from "../../../assets/images/imageUrl";
-import {
-  ABOUT_ICON,
-  AVATAR_COLOR,
-  AVATAR_ICON,
-} from "../../../constants/settingValue/avatar";
+import { ABOUT_ICON, AVATAR_COLOR, AVATAR_ICON } from "../../../constants/settingValue/avatar";
 import { ICON_SIZE } from "../../../constants/styles";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../../recoils/transferRecoils";
@@ -42,7 +38,7 @@ function ProfileIcon({ user, size, isMember, isImagePriority }: IProfileIcon) {
       avatarBg !== null &&
       avatarType >= 0 &&
       avatarBg >= 0) ||
-      user === "guest"
+      user === "guest",
   );
 
   const iconSize = ICON_SIZE[size];

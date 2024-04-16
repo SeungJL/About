@@ -7,10 +7,7 @@ interface IIconTileRowLayout {
   tileDataArr: IIconLinkTile[];
   size?: Size;
 }
-export default function IconTileRowLayout({
-  tileDataArr,
-  size,
-}: IIconTileRowLayout) {
+export default function IconTileRowLayout({ tileDataArr, size }: IIconTileRowLayout) {
   return (
     <Layout>
       {tileDataArr.map((tile, idx) => (

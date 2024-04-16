@@ -13,5 +13,5 @@ export const usePlazaQuery = (options?: QueryOptions<IUserRequest[]>) =>
       const res = await axios.get<IUserRequest[]>(`${SERVER_URI}/plaza`);
       return res.data;
     },
-    options
+    options,
   );

@@ -22,7 +22,6 @@ const StyledOverlay = styled.div<{ zIndex: number; darken: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) =>
-    props.darken ? "rgba(0,0,0,0.7)" : "rgba(0, 0, 0, 0.5)"};
+  background-color: ${(props) => (props.darken ? "rgba(0,0,0,0.7)" : "rgba(0, 0, 0, 0.5)")};
 `;
 export default ScreenOverlay;

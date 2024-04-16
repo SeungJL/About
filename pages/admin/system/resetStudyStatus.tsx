@@ -26,7 +26,7 @@ function ResetStudyStatus() {
     mutate(
       dayjs()
         .month(date.month - 1)
-        .date(date.date)
+        .date(date.date),
     );
   };
 
@@ -39,7 +39,7 @@ function ResetStudyStatus() {
             dayjs()
               .month(date.month - 1)
               .date(date.date),
-            "M월 D일"
+            "M월 D일",
           )}
         </span>
         <Month>
@@ -50,13 +50,11 @@ function ResetStudyStatus() {
           ))}
         </Month>
         <Date>
-          {[currentDate - 1, currentDate, currentDate + 1, currentDate + 2].map(
-            (item) => (
-              <Button key={item} onClick={() => onClickBtn("date", item)}>
-                {item}
-              </Button>
-            )
-          )}
+          {[currentDate - 1, currentDate, currentDate + 1, currentDate + 2].map((item) => (
+            <Button key={item} onClick={() => onClickBtn("date", item)}>
+              {item}
+            </Button>
+          ))}
         </Date>
         <Button onClick={onClickReset}>초기화</Button>
       </Container>

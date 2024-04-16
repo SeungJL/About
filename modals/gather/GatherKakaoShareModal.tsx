@@ -17,12 +17,7 @@ import { ModalLayout } from "../Modals";
 
 interface IGatherKakaoShareModal extends IModal, IGatherHeader {}
 
-function GatherKakaoShareModal({
-  title,
-  date,
-  locationMain,
-  setIsModal,
-}: IGatherKakaoShareModal) {
+function GatherKakaoShareModal({ title, date, locationMain, setIsModal }: IGatherKakaoShareModal) {
   const router = useRouter();
   const [selectedItem, setSelectedItem] = useState<number>();
   const [adminImageUrl, setAdminImageUrl] = useState<string>();
@@ -37,17 +32,8 @@ function GatherKakaoShareModal({
       <ModalSubtitle>단톡방에 공유 할 이미지를 선택해 주세요!</ModalSubtitle>
       <Container>
         {GATHER_SHARE_IMAGES.map((item, idx) => (
-          <Item
-            key={idx}
-            onClick={() => onClickItem(idx)}
-            isSelected={idx === selectedItem}
-          >
-            <Image
-              src={item}
-              fill={true}
-              sizes="150px"
-              alt="gatherShareImage"
-            />
+          <Item key={idx} onClick={() => onClickItem(idx)} isSelected={idx === selectedItem}>
+            <Image src={item} fill={true} sizes="150px" alt="gatherShareImage" />
           </Item>
         ))}
       </Container>
@@ -62,9 +48,7 @@ function GatherKakaoShareModal({
           isBig={true}
           img={
             adminImageUrl ||
-            (selectedItem !== null
-              ? GATHER_SHARE_IMAGES[selectedItem]
-              : GATHER_SHARE_IMAGES[1])
+            (selectedItem !== null ? GATHER_SHARE_IMAGES[selectedItem] : GATHER_SHARE_IMAGES[1])
           }
         />
       </ModalFooter>
@@ -83,8 +67,7 @@ const Container = styled.div`
 
 const Item = styled.div<{ isSelected: boolean }>`
   position: relative;
-  border: ${(props) =>
-    props.isSelected ? "4px solid var(--color-mint)" : null};
+  border: ${(props) => (props.isSelected ? "4px solid var(--color-mint)" : null)};
 
   border-radius: var(--rounded-lg);
   overflow: hidden;

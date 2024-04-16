@@ -66,12 +66,7 @@ function LocationSearch({ location, setLocation }: ISearchLocation) {
           />
         </Wrapper>
         <SearchWrapper>
-          <Button
-            h="28px"
-            size="sm"
-            onClick={handleSearch}
-            colorScheme={SearchColor}
-          >
+          <Button h="28px" size="sm" onClick={handleSearch} colorScheme={SearchColor}>
             검색
           </Button>
         </SearchWrapper>

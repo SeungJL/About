@@ -95,10 +95,8 @@ const MotionDiv = styled(motion.div)`
   justify-content: center;
   /* idx 값을 기반으로 조건부 스타일 적용 */
   flex: ${({ idx }) => (idx !== 3 ? "1" : "initial")};
-  width: ${({ idx }) =>
-    idx === 3 ? "96px" : "auto"}; /* w-24에 해당하는 너비 */
-  margin: ${({ idx }) =>
-    idx === 3 ? "8px 2px" : "0"}; /* mx-0.5에 해당하는 마진 */
+  width: ${({ idx }) => (idx === 3 ? "96px" : "auto")}; /* w-24에 해당하는 너비 */
+  margin: ${({ idx }) => (idx === 3 ? "8px 2px" : "0")}; /* mx-0.5에 해당하는 마진 */
 `;
 const AbsoluteDiv = styled.div`
   position: absolute;

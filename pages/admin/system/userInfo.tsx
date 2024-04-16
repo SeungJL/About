@@ -58,11 +58,7 @@ function AdminUserInfo() {
         <Section>
           <SectionHeader>멤버</SectionHeader>
           <Search>
-            <SearchInput
-              placeholder="유저 검색"
-              value={value}
-              onChange={onChange}
-            />
+            <SearchInput placeholder="유저 검색" value={value} onChange={onChange} />
             <button onClick={onClickBtn}>검색</button>
           </Search>
           {members.map((user, idx) => (
@@ -170,10 +166,7 @@ function UserSection({ user }: { user: IUser }) {
   return (
     <SectionItem>
       <Item>{user.name}</Item>
-      <Select
-        defaultValue={user.role}
-        onChange={(e) => onRoleChanged(e.target.value, user)}
-      >
+      <Select defaultValue={user.role} onChange={(e) => onRoleChanged(e.target.value, user)}>
         <option value="member">M</option>
         <option value="previliged">P</option>
       </Select>

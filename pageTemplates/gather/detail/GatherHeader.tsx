@@ -50,11 +50,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
             </IconWrapper>
           )}
           <IconWrapper>
-            <FontAwesomeIcon
-              icon={faShareNodes}
-              size="lg"
-              onClick={() => setIsModal(true)}
-            />
+            <FontAwesomeIcon icon={faShareNodes} size="lg" onClick={() => setIsModal(true)} />
           </IconWrapper>
         </Flex>
       </Header>

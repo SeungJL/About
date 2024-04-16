@@ -29,9 +29,7 @@ export default function HomeWinRecordSection() {
     <>
       <SectionBar
         title="이벤트 당첨 현황"
-        rightComponent={
-          <HighlightedTextButton text="더보기" onClick={handleNavigate} />
-        }
+        rightComponent={<HighlightedTextButton text="더보기" onClick={handleNavigate} />}
       />
       <Layout>
         <SummaryTable

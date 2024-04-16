@@ -38,10 +38,7 @@ function GatherExpireModal({ setIsModal }: IModal) {
           onClickBottom={() => setModal("cancel")}
         />
       </ModalLayout>
-      <GatherExpireModalExpireDialog
-        setIsComplete={setIsComplete}
-        modal={modal}
-      />
+      <GatherExpireModalExpireDialog setIsComplete={setIsComplete} modal={modal} />
       <GatherExpireModalCancelDialog
         setIsComplete={setIsComplete}
         modal={modal}

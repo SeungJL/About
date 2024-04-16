@@ -17,23 +17,21 @@ interface IPopoverIcon {
 }
 
 export function PopOverIcon({ title, text }: IPopoverIcon) {
-  return <Popover>
-    <PopoverTrigger>
-      <IconWrapper>
-        <FontAwesomeIcon icon={faQuestionCircle} color="var(--gray-3)" />
-      </IconWrapper>
-    </PopoverTrigger>
-    <PopoverContent
-      ml="var(--gap-2)"
-      fontSize="12px"
-      _focus={{ outline: "none" }}
-    >
-      <PopoverArrow />
-      <PopoverCloseButton />
-      <PopoverHeader fontWeight="600">{title}</PopoverHeader>
-      <PopoverBody>{text}</PopoverBody>
-    </PopoverContent>
-  </Popover>
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <IconWrapper>
+          <FontAwesomeIcon icon={faQuestionCircle} color="var(--gray-3)" />
+        </IconWrapper>
+      </PopoverTrigger>
+      <PopoverContent ml="var(--gap-2)" fontSize="12px" _focus={{ outline: "none" }}>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader fontWeight="600">{title}</PopoverHeader>
+        <PopoverBody>{text}</PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 const IconWrapper = styled.div`

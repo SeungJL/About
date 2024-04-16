@@ -21,14 +21,9 @@ function AlphabetPopUp({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout
-      title="알파벳 컬렉션"
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-    >
+    <ModalLayout title="알파벳 컬렉션" footerOptions={footerOptions} setIsModal={setIsModal}>
       <ModalSubtitle>
-        스터디 출석 또는 친구와의 교환을 통해 알파벳을 수집해봐요! 다양한 상품을
-        드립니다!
+        스터디 출석 또는 친구와의 교환을 통해 알파벳을 수집해봐요! 다양한 상품을 드립니다!
       </ModalSubtitle>
       <AlphabetContainer>
         {alphabets.map((item) => (

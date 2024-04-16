@@ -52,7 +52,7 @@ export default function BottomNav() {
           switch (category) {
             case "홈":
               return `/?location=${locationEn}&date=${getStudyStandardDate(
-                hasStudyToday === "true"
+                hasStudyToday === "true",
               )}`;
             case "모임":
               return `/?location=${locationEn}`;
@@ -79,14 +79,7 @@ export default function BottomNav() {
   );
 }
 
-function NavButton({
-  text,
-  url,
-  activeIcon,
-  defaultIcon,
-  active,
-  idx,
-}: INavButton) {
+function NavButton({ text, url, activeIcon, defaultIcon, active, idx }: INavButton) {
   const setSlideDirection = useSetRecoilState(slideDirectionState);
 
   const handleMove = () => {

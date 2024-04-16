@@ -28,8 +28,7 @@ export default function Selector({
 
   const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const targetValue = e.currentTarget.value;
-    if (isLocationType(targetValue))
-      setParentValue(targetValue as ActiveLocation);
+    if (isLocationType(targetValue)) setParentValue(targetValue as ActiveLocation);
     else (setParentValue as DispatchType<string>)(targetValue);
   };
 

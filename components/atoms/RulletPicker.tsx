@@ -77,11 +77,7 @@ export default function RulletPicker({
           style={{ y }}
         >
           {rulletItemArr.map((item, idx) => (
-            <Item
-              key={idx}
-              onClick={() => onClick(idx)}
-              isActive={index === idx}
-            >
+            <Item key={idx} onClick={() => onClick(idx)} isActive={index === idx}>
               {item}
             </Item>
           ))}
@@ -126,8 +122,7 @@ const Item = styled.div`
   font-weight: 600; /* font-semibold */
   font-size: 16px; /* text-base */
   height: ${ITEM_HEIGHT}px;
-  color: ${({ isActive }) =>
-    isActive ? "#FFFFFF" : "var(--gray-2)"}; /* Conditional color */
+  color: ${({ isActive }) => (isActive ? "#FFFFFF" : "var(--gray-2)")}; /* Conditional color */
 `;
 
 const Highlight = styled.div`

@@ -5,11 +5,7 @@ interface IShadowBlockButton {
   url?: string;
   func?: () => void;
 }
-export default function ShadowBlockButton({
-  text,
-  url,
-  func,
-}: IShadowBlockButton) {
+export default function ShadowBlockButton({ text, url, func }: IShadowBlockButton) {
   return (
     <>
       {url ? (
@@ -24,7 +20,7 @@ export default function ShadowBlockButton({
 }
 
 function ButtonComponent({ text }: { text: string }) {
-  return <Button>{text}</Button>
+  return <Button>{text}</Button>;
 }
 
 const Button = styled.button`

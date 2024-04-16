@@ -14,7 +14,7 @@ type GatherWritingParam<T> = T extends "post"
 /** gather info */
 export const useGatherWritingMutation = <T extends "post" | "patch" | "delete">(
   method: T,
-  options?: MutationOptions<GatherWritingParam<T>>
+  options?: MutationOptions<GatherWritingParam<T>>,
 ) =>
   useMutation<void, AxiosError, GatherWritingParam<T>>(
     (param) =>
@@ -23,7 +23,7 @@ export const useGatherWritingMutation = <T extends "post" | "patch" | "delete">(
         url: "gather",
         body: param,
       }),
-    options
+    options,
   );
 
 type GatherParticipationParam<T> = T extends "post"
@@ -39,7 +39,7 @@ interface IGatherParticipationRequest {
 export const useGatherParticipationMutation = <T extends "post" | "delete">(
   method: T,
   gatherId: number,
-  options?: MutationOptions<GatherParticipationParam<T>>
+  options?: MutationOptions<GatherParticipationParam<T>>,
 ) =>
   useMutation<void, AxiosError, GatherParticipationParam<T>>(
     (param) =>
@@ -48,7 +48,7 @@ export const useGatherParticipationMutation = <T extends "post" | "delete">(
         url: "gather/participate",
         body: { gatherId, ...param },
       }),
-    options
+    options,
   );
 
 type GatherCommentParam<T> = T extends "post"
@@ -73,7 +73,7 @@ interface IGatherCommentRequest {
 export const useGatherCommentMutation = <T extends "post" | "patch" | "delete">(
   method: T,
   gatherId: number,
-  options?: MutationOptions<GatherCommentParam<T>>
+  options?: MutationOptions<GatherCommentParam<T>>,
 ) =>
   useMutation<void, AxiosError, GatherCommentParam<T>>(
     (param) =>
@@ -86,7 +86,7 @@ export const useGatherCommentMutation = <T extends "post" | "patch" | "delete">(
           commentId: param?.commentId,
         },
       }),
-    options
+    options,
   );
 
 type Status = "pending" | "open" | "close" | "end";
@@ -96,10 +96,7 @@ interface IGatherStatusRequest {
   status: Status;
 }
 
-export const useGatherStatusMutation = (
-  gatherId: number,
-  options?: MutationOptions<Status>
-) =>
+export const useGatherStatusMutation = (gatherId: number, options?: MutationOptions<Status>) =>
   useMutation<void, AxiosError, Status>(
     (status) =>
       requestServer<IGatherStatusRequest>({
@@ -110,5 +107,5 @@ export const useGatherStatusMutation = (
           status,
         },
       }),
-    options
+    options,
   );

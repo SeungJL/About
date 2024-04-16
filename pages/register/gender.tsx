@@ -12,9 +12,7 @@ import { setLocalStorageObj } from "../../utils/storageUtils";
 
 function Gender() {
   const searchParams = useSearchParams();
-  const info: IUserRegisterFormWriting = JSON.parse(
-    localStorage.getItem(REGISTER_INFO)
-  );
+  const info: IUserRegisterFormWriting = JSON.parse(localStorage.getItem(REGISTER_INFO));
 
   const isProfileEdit = !!searchParams.get("edit");
 
@@ -32,10 +30,7 @@ function Gender() {
 
   return (
     <>
-      <ProgressHeader
-        value={30}
-        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-      />
+      <ProgressHeader value={30} title={!isProfileEdit ? "회원가입" : "프로필 수정"} />
 
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -43,16 +38,10 @@ function Gender() {
           <span></span>
         </RegisterOverview>
         <ButtonNav>
-          <Button
-            $isSelected={gender === "남성"}
-            onClick={() => setGender("남성")}
-          >
+          <Button $isSelected={gender === "남성"} onClick={() => setGender("남성")}>
             남성
           </Button>
-          <Button
-            $isSelected={gender === "여성"}
-            onClick={() => setGender("여성")}
-          >
+          <Button $isSelected={gender === "여성"} onClick={() => setGender("여성")}>
             여성
           </Button>
         </ButtonNav>
@@ -75,8 +64,7 @@ const Button = styled.button<{ $isSelected: boolean }>`
   height: 48px;
   font-size: 14px;
   font-weight: ${(props) => props.$isSelected && "600"};
-  border: ${(props) =>
-    props.$isSelected ? "var(--border-thick)" : "var(--border)"};
+  border: ${(props) => (props.$isSelected ? "var(--border-thick)" : "var(--border)")};
 `;
 
 export default Gender;

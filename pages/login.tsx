@@ -26,10 +26,7 @@ import { IFooterOptions, ModalLayout } from "../modals/Modals";
 import { IconKakao } from "../public/icons/Icons";
 
 const Login: NextPage<{
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  >;
+  providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>;
 }> = ({ providers }) => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -135,20 +132,13 @@ const Login: NextPage<{
             <div />
           </Button>
           <Message>활동 및 가입신청은 카카오 로그인을 이용해주세요!</Message>
-          <Link
-            mt="4px"
-            href="https://open.kakao.com/o/sjDgVzmf"
-            isExternal
-            fontSize="12px"
-          >
+          <Link mt="4px" href="https://open.kakao.com/o/sjDgVzmf" isExternal fontSize="12px">
             로그인이 안되시나요?
           </Link>
         </MainWrapper>
         <ForceLogoutDialog />
       </Layout>
-      {isModal && (
-        <GuestLoginModal setIsModal={setIsModal} customSignin={customSignin} />
-      )}
+      {isModal && <GuestLoginModal setIsModal={setIsModal} customSignin={customSignin} />}
       {isWaitingModal && (
         <ModalLayout
           title="가입 대기"

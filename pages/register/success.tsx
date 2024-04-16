@@ -9,11 +9,7 @@ function ApplySuccess() {
   return (
     <Layout>
       <Content2>
-        <FontAwesomeIcon
-          icon={faCircleCheck}
-          size="5x"
-          color="var(--color-mint)"
-        />
+        <FontAwesomeIcon icon={faCircleCheck} size="5x" color="var(--color-mint)" />
 
         <Content>
           <span>신청이 완료됐어요!</span>

@@ -14,18 +14,11 @@ import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
 import { USER_ROLE } from "../../../constants/settingValue/role";
 import { useAdminPointMutation } from "../../../hooks/admin/mutation";
 import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
-import {
-  useCompleteToast,
-  useErrorToast,
-  useFailToast,
-} from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast, useFailToast } from "../../../hooks/custom/CustomToast";
 import { useStudyAttendRecordQuery } from "../../../hooks/study/queries";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import {
-  IInteractionLikeStorage,
-  IInteractionSendLike,
-} from "../../../types/globals/interaction";
+import { IInteractionLikeStorage, IInteractionSendLike } from "../../../types/globals/interaction";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
@@ -45,15 +38,12 @@ function ProfileInfo({ user }: IProfileInfo) {
   const [isHeartLoading, setIsHeartLoading] = useState(true);
 
   const status = USER_ROLE[user?.role];
-  const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(
-    localStorage.getItem(LIKE_HEART)
-  );
+  const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(localStorage.getItem(LIKE_HEART));
 
   const isHeart =
     storedLikeArr &&
     storedLikeArr.find(
-      (who) =>
-        dayjs(who?.date) > dayjs().subtract(3, "day") && who?.uid === user?.uid
+      (who) => dayjs(who?.date) > dayjs().subtract(3, "day") && who?.uid === user?.uid,
     );
 
   const resetQueryData = useResetQueryData();
@@ -74,7 +64,7 @@ function ProfileInfo({ user }: IProfileInfo) {
       data.forEach((study) => {
         study.arrivedInfoList.forEach((arrivedInfoList) => {
           const bothAttend = arrivedInfoList.arrivedInfo.filter(
-            (item) => item.uid === user.uid || item.uid === session.user.uid
+            (item) => item.uid === user.uid || item.uid === session.user.uid,
           );
           if (bothAttend.length >= 2) {
             setIsConditionOk(true);
@@ -109,7 +99,7 @@ function ProfileInfo({ user }: IProfileInfo) {
     ) {
       failToast(
         "free",
-        "최근 같은 스터디에 참여한 멤버 또는 친구로 등록된 인원, 생일인 인원에게만 보낼 수 있어요!"
+        "최근 같은 스터디에 참여한 멤버 또는 친구로 등록된 인원, 생일인 인원에게만 보낼 수 있어요!",
       );
       return;
     }
@@ -120,7 +110,7 @@ function ProfileInfo({ user }: IProfileInfo) {
       JSON.stringify([
         storedLikeArr && [...storedLikeArr],
         { uid: user?.uid, date: dayjsToStr(dayjs()) },
-      ])
+      ]),
     );
     const data: IInteractionSendLike = {
       to: user?.uid,
@@ -133,12 +123,7 @@ function ProfileInfo({ user }: IProfileInfo) {
     <>
       <Layout>
         <Profile>
-          <Avatar
-            uid={user.uid}
-            image={user.profileImage}
-            avatar={user.avatar}
-            size="xl"
-          />
+          <Avatar uid={user.uid} image={user.profileImage} avatar={user.avatar} size="xl" />
           <ProfileName>
             <div>
               <span>{user?.name || session?.user.name}</span>
@@ -150,11 +135,7 @@ function ProfileInfo({ user }: IProfileInfo) {
             <>
               {isHeart ? (
                 <HeartWrapper onClick={onClickHeart}>
-                  <FontAwesomeIcon
-                    icon={faSolidHeart}
-                    size="xl"
-                    color="var(--color-red)"
-                  />
+                  <FontAwesomeIcon icon={faSolidHeart} size="xl" color="var(--color-red)" />
                 </HeartWrapper>
               ) : (
                 <HeartWrapper onClick={onClickHeart}>

@@ -49,12 +49,7 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
                 <InfoItem>
                   <span>그룹장</span>
                   <span>
-                    {
-                      item?.find(
-                        (who) =>
-                          who.role === "manager" || who.role === "previliged"
-                      )?.name
-                    }
+                    {item?.find((who) => who.role === "manager" || who.role === "previliged")?.name}
                   </span>
                 </InfoItem>
                 <InfoItem>
@@ -75,7 +70,7 @@ function MemberOverview({ groups, onClickSection }: IMemberOverview) {
                     <ProfileContainer key={user.uid} zIndex={idx2}>
                       temp
                     </ProfileContainer>
-                  ) : null
+                  ) : null,
                 )}
               </GroupMembers>
             </GroupLayout>

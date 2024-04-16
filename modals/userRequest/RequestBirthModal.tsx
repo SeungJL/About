@@ -44,14 +44,9 @@ function RequestBirthModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout
-      footerOptions={footerOptions}
-      title="생일 공개 설정"
-      setIsModal={setIsModal}
-    >
+    <ModalLayout footerOptions={footerOptions} title="생일 공개 설정" setIsModal={setIsModal}>
       <ModalSubtitle>
-        기본 설정으로 동아리원 생일에는 축하를 위해 멤버게시판에 프로필이
-        표시됩니다.
+        기본 설정으로 동아리원 생일에는 축하를 위해 멤버게시판에 프로필이 표시됩니다.
       </ModalSubtitle>
     </ModalLayout>
   );

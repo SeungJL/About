@@ -28,16 +28,10 @@ function StudyNavModal({ type, setType, modalOptions }: IStudyNavModal) {
   return (
     <Layout>
       {type === "vote" && <StudyVoteDrawer setIsModal={closeModal} />}
-      {type === "cancelVote" && (
-        <AlertModal setIsModal={closeModal} options={modalOptions} />
-      )}
-      {type === "changeTime" && (
-        <StudyChangeTimeModal setIsModal={closeModal} />
-      )}
+      {type === "cancelVote" && <AlertModal setIsModal={closeModal} options={modalOptions} />}
+      {type === "changeTime" && <StudyChangeTimeModal setIsModal={closeModal} />}
       {type === "freeOpen" && <StudyFreeOpenModal setIsModal={closeModal} />}
-      {type === "attendCheck" && (
-        <StudyAttendCheckModal setIsModal={closeModal} />
-      )}
+      {type === "attendCheck" && <StudyAttendCheckModal setIsModal={closeModal} />}
 
       {type === "absent" && <StudyAbsentModal setIsModal={closeModal} />}
       {/* {type === "lightAbsent" && (

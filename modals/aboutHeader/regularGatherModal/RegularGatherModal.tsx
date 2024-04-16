@@ -6,11 +6,7 @@ import styled from "styled-components";
 
 import { RABBIT_RUN } from "../../../constants/keys/localStorage";
 import { useUserRequestQuery } from "../../../hooks/admin/quries";
-import {
-  useCompleteToast,
-  useErrorToast,
-  useFailToast,
-} from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast, useFailToast } from "../../../hooks/custom/CustomToast";
 import { useUserInfoQuery } from "../../../hooks/user/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 import { IModal } from "../../../types/components/modalTypes";
@@ -21,10 +17,7 @@ interface IRegularGatherModal extends IModal {
   setIsRabbitRun: DispatchBoolean;
 }
 
-function RegularGatherModal({
-  setIsModal,
-  setIsRabbitRun,
-}: IRegularGatherModal) {
+function RegularGatherModal({ setIsModal, setIsRabbitRun }: IRegularGatherModal) {
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
   const failToast = useFailToast();

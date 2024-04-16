@@ -29,26 +29,14 @@ import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { sharedGroupWritingState } from "../../../recoils/sharedDataAtoms";
 import { IGatherMemberCnt } from "../../../types/models/gatherTypes/gather";
 import { IGroupWriting } from "../../../types/models/groupTypes/group";
-import {
-  Location,
-  LocationFilterType,
-} from "../../../types/services/locationTypes";
+import { Location, LocationFilterType } from "../../../types/services/locationTypes";
 
-type ButtonType =
-  | "gender"
-  | "age"
-  | "pre"
-  | "location"
-  | "isFree"
-  | "fee"
-  | "challenge";
+type ButtonType = "gender" | "age" | "pre" | "location" | "isFree" | "fee" | "challenge";
 
 export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 
 function WritingCondition() {
-  const [groupWriting, setGroupWriting] = useRecoilState(
-    sharedGroupWritingState
-  );
+  const [groupWriting, setGroupWriting] = useRecoilState(sharedGroupWritingState);
 
   const { data: userInfo } = useUserInfoQuery();
 
@@ -57,9 +45,7 @@ function WritingCondition() {
     age: groupWriting?.age ? true : false,
     isFree: groupWriting?.isFree !== undefined ? groupWriting?.isFree : true,
     location:
-      groupWriting?.location !== undefined
-        ? groupWriting?.location === userInfo?.location
-        : true,
+      groupWriting?.location !== undefined ? groupWriting?.location === userInfo?.location : true,
     challenge: groupWriting?.challenge ? true : false,
     fee:
       groupWriting?.fee !== undefined
@@ -69,10 +55,7 @@ function WritingCondition() {
 
   const [memberCnt, setMemberCnt] = useState<IGatherMemberCnt>({
     min: groupWriting?.memberCnt?.min || 4,
-    max:
-      groupWriting?.memberCnt?.max === undefined
-        ? 8
-        : groupWriting?.memberCnt?.max,
+    max: groupWriting?.memberCnt?.max === undefined ? 8 : groupWriting?.memberCnt?.max,
   });
 
   const [age, setAge] = useState(groupWriting?.age || [19, 28]);
@@ -80,14 +63,12 @@ function WritingCondition() {
   const [challenge, setChallenge] = useState("");
 
   const [fee, setFee] = useState(groupWriting?.fee || "1000");
-  const [feeText, setFeeText] = useState(
-    groupWriting?.feeText || "기본 참여비"
-  );
+  const [feeText, setFeeText] = useState(groupWriting?.feeText || "기본 참여비");
 
   const [question, setQuestion] = useState(groupWriting?.questionText || "");
-  const [location, setLocation] = useState<
-    Location | CombinedLocation | LocationFilterType
-  >(groupWriting?.location || userInfo?.location);
+  const [location, setLocation] = useState<Location | CombinedLocation | LocationFilterType>(
+    groupWriting?.location || userInfo?.location,
+  );
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const [isQuestionModal, setIsQuestionModal] = useState(false);
@@ -166,10 +147,7 @@ function WritingCondition() {
               <Name>
                 <FontAwesomeIcon icon={faVenusMars} />
                 <span>성별 고려</span>
-                <PopOverIcon
-                  title="성별 고려"
-                  text="성별 비율을 최대 2대1까지 제한합니다."
-                />
+                <PopOverIcon title="성별 고려" text="성별 비율을 최대 2대1까지 제한합니다." />
               </Name>
               <Switch
                 mr="var(--gap-1)"
@@ -190,17 +168,12 @@ function WritingCondition() {
                 onChange={(e) => toggleSwitch(e, "age")}
               />
             </Item>
-            {condition.age && (
-              <GatherWritingConditionAgeRange age={age} setAge={setAge} />
-            )}
+            {condition.age && <GatherWritingConditionAgeRange age={age} setAge={setAge} />}
             <Item>
               <Name>
                 <FontAwesomeIcon icon={faLocationCrosshairs} />
                 <span>지역 필터</span>
-                <PopOverIcon
-                  title="지역 필터"
-                  text="기본으로는 본인이 속한 지역으로 한정합니다."
-                />
+                <PopOverIcon title="지역 필터" text="기본으로는 본인이 속한 지역으로 한정합니다." />
               </Name>
               <Switch
                 mr="var(--gap-1)"
@@ -209,17 +182,12 @@ function WritingCondition() {
                 onChange={(e) => toggleSwitch(e, "location")}
               />
             </Item>
-            {!condition.location && (
-              <GatherWritingConditionLocation setLocation={setLocation} />
-            )}
+            {!condition.location && <GatherWritingConditionLocation setLocation={setLocation} />}
             <Item>
               <Name>
                 <FontAwesomeIcon icon={faPersonToDoor} />
                 <span>자유 가입</span>
-                <PopOverIcon
-                  title="자유 가입"
-                  text="조건에 맞는다면 자유롭게 가입이 가능합니다."
-                />
+                <PopOverIcon title="자유 가입" text="조건에 맞는다면 자유롭게 가입이 가능합니다." />
               </Name>
               <Switch
                 mr="var(--gap-1)"
@@ -232,10 +200,7 @@ function WritingCondition() {
               <Name>
                 <FontAwesomeIcon icon={faBellOn} />
                 <span>챌린지</span>
-                <PopOverIcon
-                  title="챌린지"
-                  text="달성 챌린지를 진행하는 경우만 체크해주세요."
-                />
+                <PopOverIcon title="챌린지" text="달성 챌린지를 진행하는 경우만 체크해주세요." />
               </Name>
               <Switch
                 mr="var(--gap-1)"
@@ -271,11 +236,7 @@ function WritingCondition() {
               <Fee>
                 <div>
                   <span>참여비: </span>
-                  <input
-                    value={fee}
-                    onChange={(e) => setFee(e.target.value)}
-                    placeholder="2000"
-                  />
+                  <input value={fee} onChange={(e) => setFee(e.target.value)} placeholder="2000" />
                 </div>
 
                 <div>

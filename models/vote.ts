@@ -1,11 +1,7 @@
 /* eslint-disable */
 import mongoose, { Model, model, Schema } from "mongoose";
 
-import {
-  IAttendance,
-  IParticipation,
-  IStudy,
-} from "../types/models/studyTypes/studyDetails";
+import { IAttendance, IParticipation, IStudy } from "../types/models/studyTypes/studyDetails";
 import { IAbsence } from "../types/models/studyTypes/studyInterActions";
 import { IDayjsStartToEnd } from "../types/utils/timeAndDate";
 
@@ -20,7 +16,7 @@ const ParticipantTimeSchema: Schema<IDayjsStartToEnd> = new Schema(
       required: false,
     },
   },
-  { _id: false }
+  { _id: false },
 );
 
 const AttendenceSchema: Schema<IAttendance> = new Schema(
@@ -39,7 +35,7 @@ const AttendenceSchema: Schema<IAttendance> = new Schema(
     },
     memo: String,
   },
-  { _id: false, timestamps: true, strict: false }
+  { _id: false, timestamps: true, strict: false },
 );
 
 const AbsenceSchema: Schema<IAbsence> = new Schema(
@@ -54,7 +50,7 @@ const AbsenceSchema: Schema<IAbsence> = new Schema(
     },
     message: Schema.Types.String,
   },
-  { _id: false, timestamps: true }
+  { _id: false, timestamps: true },
 );
 
 const ParticipationSchema: Schema<IParticipation> = new Schema(
@@ -74,7 +70,7 @@ const ParticipationSchema: Schema<IParticipation> = new Schema(
       default: "pending",
     },
   },
-  { _id: false }
+  { _id: false },
 );
 
 const VoteSchema: Schema<IStudy> = new Schema({
@@ -83,5 +79,4 @@ const VoteSchema: Schema<IStudy> = new Schema({
 });
 
 export const Vote =
-  (mongoose.models.Vote as Model<IStudy, {}, {}, {}>) ||
-  model<IStudy>("Vote", VoteSchema);
+  (mongoose.models.Vote as Model<IStudy, {}, {}, {}>) || model<IStudy>("Vote", VoteSchema);

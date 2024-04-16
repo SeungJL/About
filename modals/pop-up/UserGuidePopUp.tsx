@@ -31,11 +31,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
     >
       <Item>
         <Category>
-          <FontAwesomeIcon
-            icon={faThumbTack}
-            color="var(--color-red)"
-            size="sm"
-          />
+          <FontAwesomeIcon icon={faThumbTack} color="var(--color-red)" size="sm" />
           &nbsp;
           <span>스터디</span>
         </Category>
@@ -56,11 +52,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
       </Item>
       <Item>
         <Category>
-          <FontAwesomeIcon
-            icon={faThumbTack}
-            color="var(--color-red)"
-            size="sm"
-          />
+          <FontAwesomeIcon icon={faThumbTack} color="var(--color-red)" size="sm" />
           &nbsp;
           <span>참여 규칙</span>
         </Category>
@@ -71,11 +63,7 @@ function UserGuidePopUp({ setIsModal }: IModal) {
       </Item>{" "}
       <Item>
         <Category>
-          <FontAwesomeIcon
-            icon={faThumbTack}
-            color="var(--color-red)"
-            size="sm"
-          />
+          <FontAwesomeIcon icon={faThumbTack} color="var(--color-red)" size="sm" />
           &nbsp;
           <span>서비스 이용</span>
         </Category>

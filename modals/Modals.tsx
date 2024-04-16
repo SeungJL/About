@@ -79,11 +79,7 @@ export function ModalLayout({
       >
         {!headerOptions ? (
           <>
-            <ChakraModalHeader
-              p="var(--gap-4)"
-              fontSize="18px"
-              borderBottom="var(--border)"
-            >
+            <ChakraModalHeader p="var(--gap-4)" fontSize="18px" borderBottom="var(--border)">
               {title}
             </ChakraModalHeader>
             <ModalCloseButton size="lg" />
@@ -108,14 +104,8 @@ export function ModalLayout({
           </>
         )}
         <ChakraModalBody
-          pt={
-            paddingOptions?.body?.top ? `${paddingOptions.body.top}px` : "16px"
-          }
-          pb={
-            paddingOptions?.body?.bottom
-              ? `${paddingOptions.body.bottom}px`
-              : "4px"
-          }
+          pt={paddingOptions?.body?.top ? `${paddingOptions.body.top}px` : "16px"}
+          pb={paddingOptions?.body?.bottom ? `${paddingOptions.body.bottom}px` : "4px"}
           px="20px"
         >
           {children}
@@ -142,9 +132,7 @@ export function ModalLayout({
                 <Button
                   onClick={func}
                   variant="ghost"
-                  color={
-                    main?.isRedTheme ? "var(--color-red)" : "var(--color-mint)"
-                  }
+                  color={main?.isRedTheme ? "var(--color-red)" : "var(--color-mint)"}
                 >
                   {text}
                 </Button>
@@ -158,11 +146,7 @@ export function ModalLayout({
               />
             ) : (
               <>
-                <Button
-                  onClick={subFunc}
-                  variant="ghost"
-                  color="var(--color-mint)"
-                >
+                <Button onClick={subFunc} variant="ghost" color="var(--color-mint)">
                   {subText}
                 </Button>
                 <Button onClick={func} variant="ghost">
@@ -210,11 +194,7 @@ interface IModalHeader {
   isLine?: boolean;
 }
 
-export function ModalHeader({
-  text,
-  isCloseBtn = true,
-  isLine = true,
-}: IModalHeader) {
+export function ModalHeader({ text, isCloseBtn = true, isLine = true }: IModalHeader) {
   return (
     <>
       <ChakraModalHeader
@@ -228,9 +208,7 @@ export function ModalHeader({
       >
         {text}
       </ChakraModalHeader>
-      {isCloseBtn && (
-        <ModalCloseButton size="lg" pb="2px" _focus={{ outline: "none" }} />
-      )}
+      {isCloseBtn && <ModalCloseButton size="lg" pb="2px" _focus={{ outline: "none" }} />}
     </>
   );
 }
@@ -330,13 +308,7 @@ export function ModalFooterOne({
         w={isFull && "100%"}
         bg={isOutline ? "white" : null}
         border={isOutline ? "1.5px solid var(--color-mint)" : null}
-        colorScheme={
-          isFull && !isRed && !isOutline
-            ? "mintTheme"
-            : isOutline
-              ? null
-              : "redTheme"
-        }
+        colorScheme={isFull && !isRed && !isOutline ? "mintTheme" : isOutline ? null : "redTheme"}
         isLoading={isLoading}
         onClick={onClick}
       >

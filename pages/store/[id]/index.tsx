@@ -45,16 +45,11 @@ function StoreItem() {
               setIsApplyModal={setIsApplyModal}
               setIsWinModal={setIsWinModal}
             />
-            <StoreDetailDetails
-              winnerCnt={giftInfo.winner}
-              max={giftInfo.max}
-            />
+            <StoreDetailDetails winnerCnt={giftInfo.winner} max={giftInfo.max} />
           </Layout>
         )}
       </Slide>
-      {isApplyModal && (
-        <StoreApplyGiftModal setIsModal={setIsApplyModal} giftInfo={giftInfo} />
-      )}
+      {isApplyModal && <StoreApplyGiftModal setIsModal={setIsApplyModal} giftInfo={giftInfo} />}
       {isWinModal && (
         <StoreGiftWinModal
           setIsModal={setIsWinModal}

@@ -18,10 +18,7 @@ import { POINT_SYSTEM_DEPOSIT } from "../../constants/settingValue/pointSystem";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useImageUploadMutation } from "../../hooks/image/mutations";
 import { useStudyAttendCheckMutation } from "../../hooks/study/mutations";
-import {
-  useAboutPointMutation,
-  usePointSystemMutation,
-} from "../../hooks/user/mutations";
+import { useAboutPointMutation, usePointSystemMutation } from "../../hooks/user/mutations";
 import { useAlphabetMutation } from "../../hooks/user/sub/collection/mutations";
 import { getMyStudyVoteInfo } from "../../libs/study/getMyStudy";
 import { getRandomAlphabet } from "../../libs/userEventLibs/collection";
@@ -45,8 +42,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
   const typeToast = useTypeToast();
   const searchParams = useSearchParams();
 
-  const { date: dateParam2, id } =
-    useParams<{ date: string; id: string }>() || {};
+  const { date: dateParam2, id } = useParams<{ date: string; id: string }>() || {};
   const dateParam1 = searchParams.get("date");
   const locationParam1 = searchParams.get("location");
 
@@ -73,33 +69,27 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
   const { mutate: getAlphabet } = useAlphabetMutation("get");
   const { mutate: getDeposit } = usePointSystemMutation("deposit");
 
-  const { mutate: handleArrived } = useStudyAttendCheckMutation(
-    now().startOf("day"),
-    {
-      onSuccess() {
-        queryClient.invalidateQueries([STUDY_VOTE, date, location]);
-        const alphabet = getRandomAlphabet(20);
-        if (alphabet) {
-          getAlphabet({ alphabet });
-          setTransferAlphabet(alphabet);
-        }
-        const pointObj = POINT_SYSTEM_PLUS.STUDY_ATTEND_CHECK;
-        getAboutPoint(pointObj);
-        const studyVoteInfo = getMyStudyVoteInfo(myStudy, session?.user.uid);
+  const { mutate: handleArrived } = useStudyAttendCheckMutation(now().startOf("day"), {
+    onSuccess() {
+      queryClient.invalidateQueries([STUDY_VOTE, date, location]);
+      const alphabet = getRandomAlphabet(20);
+      if (alphabet) {
+        getAlphabet({ alphabet });
+        setTransferAlphabet(alphabet);
+      }
+      const pointObj = POINT_SYSTEM_PLUS.STUDY_ATTEND_CHECK;
+      getAboutPoint(pointObj);
+      const studyVoteInfo = getMyStudyVoteInfo(myStudy, session?.user.uid);
 
-        const isLate =
-          !isFree && dayjs().isAfter(dayjs(studyVoteInfo.start).add(1, "hour"));
-        if (isLate) getDeposit(POINT_SYSTEM_DEPOSIT.STUDY_ATTEND_LATE);
-        toast(
-          "success",
-          `출석 완료! ${pointObj.value} 포인트가 적립되었습니다. ${
-            isLate ? "하지만 지각..." : ""
-          }`
-        );
-      },
-      onError: () => typeToast("error"),
-    }
-  );
+      const isLate = !isFree && dayjs().isAfter(dayjs(studyVoteInfo.start).add(1, "hour"));
+      if (isLate) getDeposit(POINT_SYSTEM_DEPOSIT.STUDY_ATTEND_LATE);
+      toast(
+        "success",
+        `출석 완료! ${pointObj.value} 포인트가 적립되었습니다. ${isLate ? "하지만 지각..." : ""}`,
+      );
+    },
+    onError: () => typeToast("error"),
+  });
 
   const handleAttendCheck = () => {
     setIsChecking(true);

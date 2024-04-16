@@ -8,17 +8,11 @@ import ButtonCheckNav from "../ButtonCheckNav";
 
 interface IAdminLocationSelector {
   initialData: IUserRegisterForm[] | IUserRequest[];
-  setRequestData: React.Dispatch<
-    SetStateAction<IUserRegisterForm[] | IUserRequest[]>
-  >;
+  setRequestData: React.Dispatch<SetStateAction<IUserRegisterForm[] | IUserRequest[]>>;
   type: string;
 }
 
-function AdminLocationSelector({
-  initialData,
-  setRequestData,
-  type,
-}: IAdminLocationSelector) {
+function AdminLocationSelector({ initialData, setRequestData, type }: IAdminLocationSelector) {
   const [category, setCategory] = useState<string>("수원");
 
   useEffect(() => {
@@ -26,17 +20,11 @@ function AdminLocationSelector({
     if (type === "register")
       setRequestData(
         (initialData as IUserRegisterForm[])?.filter((who) =>
-          category !== "기타"
-            ? who.location === category
-            : !LOCATION_ALL.includes(who.location)
-        )
+          category !== "기타" ? who.location === category : !LOCATION_ALL.includes(who.location),
+        ),
       );
     if (type === "request") {
-      setRequestData(
-        (initialData as IUserRequest[])?.filter(
-          (who) => who.location === category
-        )
-      );
+      setRequestData((initialData as IUserRequest[])?.filter((who) => who.location === category));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, initialData, type]);
@@ -49,7 +37,5 @@ function AdminLocationSelector({
     />
   );
 }
-
-
 
 export default AdminLocationSelector;

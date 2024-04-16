@@ -23,9 +23,7 @@ function CheckAttendWinner() {
                 <Wrapper>
                   <ItemHeader>
                     <span>{item.writer || "익명"}</span>
-                    <span>
-                      {dayjs(item.updatedAt).format("M월 D일 H시 m분")}
-                    </span>
+                    <span>{dayjs(item.updatedAt).format("M월 D일 H시 m분")}</span>
                   </ItemHeader>
                   <Content>{item.content}</Content>
                 </Wrapper>

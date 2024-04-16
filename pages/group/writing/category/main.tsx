@@ -19,13 +19,9 @@ function WritingStudyCategoryMain() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [groupWriting, setgroupWriting] = useRecoilState(
-    sharedGroupWritingState
-  );
+  const [groupWriting, setgroupWriting] = useRecoilState(sharedGroupWritingState);
 
-  const [category, setCategory] = useState<string>(
-    groupWriting?.category?.main
-  );
+  const [category, setCategory] = useState<string>(groupWriting?.category?.main);
 
   const onClickNext = () => {
     if (!category) {
@@ -53,17 +49,11 @@ function WritingStudyCategoryMain() {
         <ItemContainer>
           {GROUP_STUDY_CATEGORY_ARR.map((type, idx) =>
             type !== "전체" ? (
-              <Item
-                key={idx}
-                isSelected={type === category}
-                onClick={() => setCategory(type)}
-              >
-                <IconWrapper>
-                  {GROUP_STUDY_CATEGORY_ARR_ICONS[type]}
-                </IconWrapper>
+              <Item key={idx} isSelected={type === category} onClick={() => setCategory(type)}>
+                <IconWrapper>{GROUP_STUDY_CATEGORY_ARR_ICONS[type]}</IconWrapper>
                 <Info>{type}</Info>
               </Item>
-            ) : null
+            ) : null,
           )}
         </ItemContainer>
       </RegisterLayout>
@@ -87,8 +77,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   background-color: white;
   border-radius: var(--rounded-lg);
   box-shadow: var(--shadow);
-  border: ${(props) =>
-    props.isSelected ? "2px solid var(--color-mint)" : "var(--border)"};
+  border: ${(props) => (props.isSelected ? "2px solid var(--color-mint)" : "var(--border)")};
 `;
 
 const IconWrapper = styled.div`

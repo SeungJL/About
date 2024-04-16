@@ -2,10 +2,7 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 
 import { POINT_SYSTEM_DEPOSIT } from "../../constants/settingValue/pointSystem";
-import {
-  useCompleteToast,
-  useErrorToast,
-} from "../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../hooks/custom/CustomToast";
 import { useStudyAbsentMutation } from "../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { PLACE_TO_NAME } from "../../storage/study";
@@ -40,11 +37,7 @@ function StudyLightAbsentModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout
-      footerOptions={footerOptions}
-      title="개인 스터디 불참"
-      setIsModal={setIsModal}
-    >
+    <ModalLayout footerOptions={footerOptions} title="개인 스터디 불참" setIsModal={setIsModal}>
       불참하시겠어요? <br />
       {isPrivate && "-100원의 벌금이 발생합니다."}
     </ModalLayout>

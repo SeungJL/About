@@ -29,12 +29,9 @@ export default function Avatar({
   shadowAvatar,
   isLink = true,
 }: IAvatar) {
-  const hasAvatar =
-    avatar !== undefined && avatar?.type !== null && avatar?.bg !== null;
+  const hasAvatar = avatar !== undefined && avatar?.type !== null && avatar?.bg !== null;
 
-  const [imageUrl, setImageUrl] = useState(
-    !hasAvatar ? image : AVATAR_IMAGE_ARR[avatar.type]
-  );
+  const [imageUrl, setImageUrl] = useState(!hasAvatar ? image : AVATAR_IMAGE_ARR[avatar.type]);
 
   useEffect(() => {
     setImageUrl(!hasAvatar ? image : AVATAR_IMAGE_ARR[avatar.type]);
@@ -79,13 +76,7 @@ export default function Avatar({
                 onError={onError}
               />
             ) : (
-              <Flex
-                fontSize="12px"
-                h="100%"
-                justify="center"
-                alignItems="center"
-                color="white"
-              >
+              <Flex fontSize="12px" h="100%" justify="center" alignItems="center" color="white">
                 +{shadowAvatar}
               </Flex>
             )}

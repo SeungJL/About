@@ -84,5 +84,4 @@ export const UserSchema: Schema<IUser> = new Schema({
 });
 
 export const User =
-  (mongoose.models.User as Model<IUser, {}, {}, {}>) ||
-  model<IUser>("User", UserSchema);
+  (mongoose.models.User as Model<IUser, {}, {}, {}>) || model<IUser>("User", UserSchema);

@@ -21,9 +21,7 @@ function WritingDate() {
   const failToast = useFailToast();
   const router = useRouter();
 
-  const [gatherWriting, setGatherWriting] = useRecoilState(
-    sharedGatherWritingState
-  );
+  const [gatherWriting, setGatherWriting] = useRecoilState(sharedGatherWritingState);
 
   const [date, setDate] = useState<Date>();
   const [gatherList, setGatherList] = useState<IGatherListItem[]>();
@@ -56,11 +54,7 @@ function WritingDate() {
         <RegisterOverview>
           <span>날짜와 주제를 선택해 주세요.</span>
         </RegisterOverview>
-        <GatherWritingDateDate
-          date={date}
-          setDate={setDate}
-          gatherWriting={gatherWriting}
-        />
+        <GatherWritingDateDate date={date} setDate={setDate} gatherWriting={gatherWriting} />
         <GatherWritingDateSubject
           gatherWriting={gatherWriting}
           setGatherList={setGatherList}

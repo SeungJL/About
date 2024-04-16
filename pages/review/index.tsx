@@ -12,9 +12,7 @@ import KakaoShareBtn from "../../components/atoms/Icons/KakaoShareBtn";
 import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
-import ButtonGroups, {
-  IButtonOpions,
-} from "../../components/molecules/groups/ButtonGroups";
+import ButtonGroups, { IButtonOpions } from "../../components/molecules/groups/ButtonGroups";
 import ImageSlider from "../../components/organisms/imageSlider/ImageSlider";
 import { ACTIVE_LOCATIONS } from "../../constants/locationConstants";
 import { WEB_URL } from "../../constants/system";
@@ -25,10 +23,7 @@ import ReviewGatherSummary from "../../pageTemplates/review/ReviewGatherSummary"
 import ReviewItemHeader from "../../pageTemplates/review/ReviewItemHeader";
 import ReviewStatus from "../../pageTemplates/review/ReviewStatus";
 import { IReviewData, REVIEW_DATA } from "../../storage/Review";
-import {
-  IGatherLocation,
-  IGatherType,
-} from "../../types/models/gatherTypes/gather";
+import { IGatherLocation, IGatherType } from "../../types/models/gatherTypes/gather";
 import {
   ActiveLocation,
   ActiveLocationAll,
@@ -137,7 +132,7 @@ function Review() {
     if (category === "전체") setReviewData(initialData);
     else {
       const filtered = initialData.filter(
-        (item) => item.place === category || item.place === "전체"
+        (item) => item.place === category || item.place === "전체",
       );
       setReviewData(filtered);
     }
@@ -162,20 +157,15 @@ function Review() {
     setVisibleCnt((old) => old + 8);
   };
 
-  const buttonArr: IButtonOpions[] = ["전체", ...ACTIVE_LOCATIONS].map(
-    (location) => ({
-      text: location,
-      func: () =>
-        location === "전체"
-          ? router.replace("/review")
-          : router.replace(
-              `/review?location=${convertLocationLangTo(
-                location as ActiveLocation,
-                "en"
-              )}`
-            ),
-    })
-  );
+  const buttonArr: IButtonOpions[] = ["전체", ...ACTIVE_LOCATIONS].map((location) => ({
+    text: location,
+    func: () =>
+      location === "전체"
+        ? router.replace("/review")
+        : router.replace(
+            `/review?location=${convertLocationLangTo(location as ActiveLocation, "en")}`,
+          ),
+  }));
 
   return (
     <>
@@ -195,10 +185,7 @@ function Review() {
               <Box p="12px 16px">
                 <ButtonGroups
                   buttonDataArr={buttonArr}
-                  currentValue={
-                    convertLocationLangTo(location as LocationEn, "kr") ||
-                    "전체"
-                  }
+                  currentValue={convertLocationLangTo(location as LocationEn, "kr") || "전체"}
                 />
               </Box>
 
@@ -212,11 +199,7 @@ function Review() {
                     <ImageWrapper>
                       <ImageSlider imageContainer={item.images} type="review" />
                     </ImageWrapper>
-                    {item.summary ? (
-                      <ReviewGatherSummary summary={item.summary} />
-                    ) : (
-                      <Spacing />
-                    )}
+                    {item.summary ? <ReviewGatherSummary summary={item.summary} /> : <Spacing />}
                     {item?.text && <ReviewContent text={item.text} />}
                     <ReviewStatus />
                   </Item>

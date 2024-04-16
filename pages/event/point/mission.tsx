@@ -13,10 +13,7 @@ export default function Mission() {
       <Header title="동아리 활동" />
       <Slide>
         {POINT_GET_EVENT_LIST.map((item, idx) => (
-          <ButtonCard
-            key={idx}
-            props={{ ...item, func: () => setIsModal(true) }}
-          />
+          <ButtonCard key={idx} props={{ ...item, func: () => setIsModal(true) }} />
         ))}
       </Slide>
       {isModal && <AlertNotCompletedModal setIsModal={setIsModal} />}

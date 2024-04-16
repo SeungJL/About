@@ -13,16 +13,9 @@ interface IButtonCard {
   props: IButtonCardProps;
 }
 
-export default function ButtonCard({
-  props: { title, subTitle, buttonText, func },
-}: IButtonCard) {
+export default function ButtonCard({ props: { title, subTitle, buttonText, func } }: IButtonCard) {
   return (
-    <Flex
-      onClick={func}
-      p="12px 20px"
-      justifyContent="space-between"
-      align="center"
-    >
+    <Flex onClick={func} p="12px 20px" justifyContent="space-between" align="center">
       <NoticeIcon type="main" />
       <Box ml="12px" flex={1}>
         <Box fontWeight={600} fontSize="14px" color="var(--gray-2)">

@@ -8,16 +8,10 @@ import { useQueryClient } from "react-query";
 import ImageTileGridLayout, {
   IImageTileData,
 } from "../../components/molecules/layouts/ImageTitleGridLayout";
-import {
-  STUDY_PREFERENCE,
-  STUDY_PREFERENCE_LOCAL,
-} from "../../constants/keys/queryKeys";
+import { STUDY_PREFERENCE, STUDY_PREFERENCE_LOCAL } from "../../constants/keys/queryKeys";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useStudyPreferenceMutation } from "../../hooks/study/mutations";
-import {
-  useStudyPlacesQuery,
-  useStudyPreferenceQuery,
-} from "../../hooks/study/queries";
+import { useStudyPlacesQuery, useStudyPreferenceQuery } from "../../hooks/study/queries";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { IStudyVotePlaces } from "../../types/models/studyTypes/studyInterActions";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
@@ -94,13 +88,13 @@ function StudyPresetModal() {
     const savedPlaces: IStudyVotePlaces = {
       place: presetPlaces.place,
       subPlace: presetPlaces.subPlace.filter((place) =>
-        studyPlaces.map((par) => par._id).includes(place)
+        studyPlaces.map((par) => par._id).includes(place),
       ),
     };
 
     localStorage.setItem(
       STUDY_PREFERENCE_LOCAL,
-      JSON.stringify({ prefer: savedPlaces, date: dayjsToStr(dayjs()) })
+      JSON.stringify({ prefer: savedPlaces, date: dayjsToStr(dayjs()) }),
     );
     await setStudyPreference(savedPlaces);
     await getPoint({ value: 20, message: "스터디 장소 설정" });
@@ -117,8 +111,7 @@ function StudyPresetModal() {
     imageUrl: place.image,
     text: place.branch,
     func: () => {
-      if (!presetPlaces?.place)
-        setPresetPlaces({ place: place._id, subPlace: [] });
+      if (!presetPlaces?.place) setPresetPlaces({ place: place._id, subPlace: [] });
       else {
         if (place._id === presetPlaces.place) {
           setPresetPlaces({ place: null, subPlace: [] });
@@ -152,13 +145,7 @@ function StudyPresetModal() {
       >
         <Box
           h={
-            size === "xxxl"
-              ? "360px"
-              : size === "xxl"
-                ? "310px"
-                : size === "xl"
-                  ? "200px"
-                  : "200px"
+            size === "xxxl" ? "360px" : size === "xxl" ? "310px" : size === "xl" ? "200px" : "200px"
           }
           overflowY="auto"
           sx={{
@@ -180,9 +167,7 @@ function StudyPresetModal() {
         </Box>
       </ModalLayout>
 
-      {isConfirmModal && (
-        <ConfirmModal2 setIsModal={setIsConfirmModal} content={content} />
-      )}
+      {isConfirmModal && <ConfirmModal2 setIsModal={setIsConfirmModal} content={content} />}
     </>
   );
 }

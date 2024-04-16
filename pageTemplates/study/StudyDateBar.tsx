@@ -17,9 +17,7 @@ function StudyDateBar({ isPrivateStudy }: IStudyDateBar) {
     <>
       <StudyDateBarContainer>
         <DateText>
-          {isPrivateStudy
-            ? "개인 스터디"
-            : dayjsToFormat(dayjs(date), "M월 D일 참여 멤버")}
+          {isPrivateStudy ? "개인 스터디" : dayjsToFormat(dayjs(date), "M월 D일 참여 멤버")}
         </DateText>
         {!isPrivateStudy && (
           <Button
@@ -29,7 +27,6 @@ function StudyDateBar({ isPrivateStudy }: IStudyDateBar) {
             rightIcon={<FontAwesomeIcon icon={faPlus} size="xs" />}
             padding="0 var(--gap-2)"
             borderColor="var(--gray-5)"
-          
           >
             친구초대
           </Button>

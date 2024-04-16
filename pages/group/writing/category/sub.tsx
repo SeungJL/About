@@ -19,9 +19,7 @@ function WritingStudyCategorySub() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [GroupWriting, setGroupWriting] = useRecoilState(
-    sharedGroupWritingState
-  );
+  const [GroupWriting, setGroupWriting] = useRecoilState(sharedGroupWritingState);
 
   const mainCategory = GroupWriting?.category?.main;
 
@@ -57,14 +55,8 @@ function WritingStudyCategorySub() {
         </RegisterOverview>
         <ItemContainer>
           {GROUP_STUDY_SUB_CATEGORY[mainCategory].map((type, idx) => (
-            <Item
-              key={idx}
-              isSelected={type === category}
-              onClick={() => setCategory(type)}
-            >
-              <IconWrapper>
-                {GROUP_STUDY_CATEGORY_ARR_ICONS[mainCategory]}
-              </IconWrapper>
+            <Item key={idx} isSelected={type === category} onClick={() => setCategory(type)}>
+              <IconWrapper>{GROUP_STUDY_CATEGORY_ARR_ICONS[mainCategory]}</IconWrapper>
               <Info>{type}</Info>
             </Item>
           ))}
@@ -89,8 +81,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   margin-bottom: var(--gap-2);
   height: 60px;
   border-radius: var(--rounded-lg);
-  border: ${(props) =>
-    props.isSelected ? "2px solid var(--color-mint)" : "var(--border)"};
+  border: ${(props) => (props.isSelected ? "2px solid var(--color-mint)" : "var(--border)")};
 `;
 
 const IconWrapper = styled.div`

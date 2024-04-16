@@ -53,10 +53,7 @@ function GroupParticipation({ data }: IGroupParticipation) {
         {data?.participants.map(
           (who) =>
             who && (
-              <MemberItem
-                key={who?.user?.uid}
-                onClick={() => onClickProfile(who?.user)}
-              >
+              <MemberItem key={who?.user?.uid} onClick={() => onClickProfile(who?.user)}>
                 <ProfileWrapper>
                   <Avatar
                     image={who.user.profileImage}
@@ -66,10 +63,7 @@ function GroupParticipation({ data }: IGroupParticipation) {
                   />
                   {who?.role === "admin" && (
                     <Crown>
-                      <FontAwesomeIcon
-                        icon={faCrown}
-                        color="var(--color-orange)"
-                      />
+                      <FontAwesomeIcon icon={faCrown} color="var(--color-orange)" />
                     </Crown>
                   )}
                 </ProfileWrapper>
@@ -77,21 +71,14 @@ function GroupParticipation({ data }: IGroupParticipation) {
                   <span>{who?.user?.name}</span>
                   <div>{who?.user?.comment}</div>
                 </UserOverview>
-                <ParticipateTime isFirst={true}>
-                  {GROUP_STUDY_ROLE[who.role]}
-                </ParticipateTime>
+                <ParticipateTime isFirst={true}>{GROUP_STUDY_ROLE[who.role]}</ParticipateTime>
               </MemberItem>
-            )
+            ),
         )}
         {array?.map((_, idx) => (
           <MemberItem key={idx}>
             <ProfileWrapper onClick={onClickOutMember}>
-              <Avatar
-                image=""
-                avatar={{ type: 0, bg: 0 }}
-                size="md"
-                isLink={false}
-              />
+              <Avatar image="" avatar={{ type: 0, bg: 0 }} size="md" isLink={false} />
             </ProfileWrapper>
             <UserOverview>
               <span>외부 참여자</span>
@@ -175,8 +162,7 @@ const ParticipateTime = styled.div<{ isFirst: boolean }>`
   font-size: 16px;
   margin-left: auto;
   margin-right: var(--gap-2);
-  color: ${(props) =>
-    props.isFirst ? "var(--color-mint)" : "var(--color-orange)"};
+  color: ${(props) => (props.isFirst ? "var(--color-mint)" : "var(--color-orange)")};
   > span:last-child {
     margin-left: 2px;
   }

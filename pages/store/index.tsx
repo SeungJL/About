@@ -37,9 +37,7 @@ function Event() {
   const [isShowActive, setIsShowActive] = useState(isPrevBoolean);
   const [isModal, setIsModal] = useState(false);
 
-  const setTransferStoreGiftData = useSetRecoilState(
-    transferStoreGiftDataState
-  );
+  const setTransferStoreGiftData = useSetRecoilState(transferStoreGiftDataState);
 
   const { data: storeGiftEntries } = useStoreGiftEntryQuery({
     onError: errorToast,
@@ -124,10 +122,7 @@ function Event() {
                     <Trophy>
                       {new Array(item.winner).fill(0).map((_, idx) => (
                         <div key={idx}>
-                          <FontAwesomeIcon
-                            icon={faTrophy}
-                            color="var(--color-mint)"
-                          />
+                          <FontAwesomeIcon icon={faTrophy} color="var(--color-mint)" />
                         </div>
                       ))}
                     </Trophy>
@@ -142,17 +137,13 @@ function Event() {
                       style={{ borderRadius: "var(--rounded)" }}
                     />
 
-                    {(!isShowActive || item.max <= item.totalCnt) && (
-                      <Circle>추첨 완료</Circle>
-                    )}
+                    {(!isShowActive || item.max <= item.totalCnt) && <Circle>추첨 완료</Circle>}
                   </ImageWrapper>
                   <Info>
                     <Name>{item.name}</Name>
                     <Point>{item.point} point</Point>
                   </Info>
-                  {(!isShowActive || item.max <= item.totalCnt) && (
-                    <CompletedRapple />
-                  )}
+                  {(!isShowActive || item.max <= item.totalCnt) && <CompletedRapple />}
                 </Item>
               ))}
             </Container>

@@ -8,11 +8,7 @@ interface IStoreDetailOverview {
   isActive: boolean;
 }
 
-function StoreDetailOverview({
-  info,
-  totalApplyCnt,
-  isActive,
-}: IStoreDetailOverview) {
+function StoreDetailOverview({ info, totalApplyCnt, isActive }: IStoreDetailOverview) {
   return (
     <Layout>
       <Overview>

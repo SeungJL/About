@@ -1,7 +1,4 @@
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/pro-solid-svg-icons";
+import { faChevronLeft, faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import styled from "styled-components";
@@ -17,20 +14,18 @@ export const PICKER_DATE_AND_TIME = {
   showTimeSelect: true,
 };
 
-export function PickerDateAndTimeHeader({
-  date,
-  decreaseMonth,
-  increaseMonth,
-}) {
-  return <CalendarCustomHeader>
-    <button onClick={decreaseMonth}>
-      <FontAwesomeIcon icon={faChevronLeft} />
-    </button>
-    <span>{dayjsToFormat(dayjs(date), "M월 D일")}</span>
-    <button onClick={increaseMonth}>
-      <FontAwesomeIcon icon={faChevronRight} />
-    </button>
-  </CalendarCustomHeader>
+export function PickerDateAndTimeHeader({ date, decreaseMonth, increaseMonth }) {
+  return (
+    <CalendarCustomHeader>
+      <button onClick={decreaseMonth}>
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
+      <span>{dayjsToFormat(dayjs(date), "M월 D일")}</span>
+      <button onClick={increaseMonth}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </button>
+    </CalendarCustomHeader>
+  );
 }
 const CalendarCustomHeader = styled.div`
   margin: 10px;

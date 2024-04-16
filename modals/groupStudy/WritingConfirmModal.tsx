@@ -6,10 +6,7 @@ import styled from "styled-components";
 import SuccessScreen from "../../components/layouts/SuccessScreen";
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
-import {
-  useCompleteToast,
-  useErrorToast,
-} from "../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../hooks/custom/CustomToast";
 import { useGroupWritingMutation } from "../../hooks/groupStudy/mutations";
 import { transferGroupDataState } from "../../recoils/transferRecoils";
 import { ModalSubtitle } from "../../styles/layout/modal";
@@ -23,11 +20,7 @@ interface IGroupConfirmModal extends IModal {
   setGroupWriting: DispatchType<IGroupWriting>;
 }
 
-function GroupConfirmModal({
-  setIsModal,
-  setGroupWriting,
-  groupWriting,
-}: IGroupConfirmModal) {
+function GroupConfirmModal({ setIsModal, setGroupWriting, groupWriting }: IGroupConfirmModal) {
   const router = useRouter();
   const errorToast = useErrorToast();
   const completeToast = useCompleteToast();

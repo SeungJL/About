@@ -31,20 +31,14 @@ function GatherDetailInfo({
       {isSubLocation && <LocationSub>{location.sub}</LocationSub>}
       <Item>
         <ItemText>날짜</ItemText>
-        <span>
-          {date === "미정"
-            ? date
-            : dayjsToFormat(dayjs(date), "M.D(ddd) 오후 h:mm")}
-        </span>
+        <span>{date === "미정" ? date : dayjsToFormat(dayjs(date), "M.D(ddd) 오후 h:mm")}</span>
       </Item>
       <Item>
         <ItemText>나이</ItemText>
         <span>
           {age[0]} ~ {age[1]}세
         </span>
-        {genderCondition && (
-          <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />
-        )}
+        {genderCondition && <FontAwesomeIcon icon={faVenusMars} color="#9E7CFF" />}
       </Item>
       <Item>
         <ItemText>오픈</ItemText>

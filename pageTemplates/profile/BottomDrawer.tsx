@@ -19,13 +19,7 @@ interface IBottomDrawer {
   onSubmit?: () => void;
 }
 
-function BottomDrawer({
-  type,
-  isModal,
-  setIsModal,
-  setDeclareModal,
-  onSubmit,
-}: IBottomDrawer) {
+function BottomDrawer({ type, isModal, setIsModal, setDeclareModal, onSubmit }: IBottomDrawer) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {

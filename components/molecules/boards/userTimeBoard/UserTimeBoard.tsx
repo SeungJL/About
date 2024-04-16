@@ -19,10 +19,7 @@ interface ITimeBoard {
   participants: ITimeBoardParticipant[];
 }
 
-export default function UserTimeBoard({
-  participants,
-  headerText,
-}: ITimeBoard) {
+export default function UserTimeBoard({ participants, headerText }: ITimeBoard) {
   return (
     <UserTimeBoardContainer>
       <BoardHeaderText headerText={headerText} />

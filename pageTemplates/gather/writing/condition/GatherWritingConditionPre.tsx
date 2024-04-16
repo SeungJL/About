@@ -11,20 +11,11 @@ interface IGatherWritingConditionPre {
   password: string;
 }
 
-function GatherWritingConditionPre({
-  preCnt,
-  setPreCnt,
-  password,
-}: IGatherWritingConditionPre) {
+function GatherWritingConditionPre({ preCnt, setPreCnt, password }: IGatherWritingConditionPre) {
   return (
     <Layout>
       <PreMember>
-        <CountNum
-          value={preCnt}
-          setValue={setPreCnt}
-          unit="명"
-          isSmall={true}
-        />
+        <CountNum value={preCnt} setValue={setPreCnt} unit="명" isSmall={true} />
       </PreMember>
       <div>
         <span>암호키</span>

@@ -2,10 +2,7 @@
 import styled from "styled-components";
 
 import { useAdminDepositMutation } from "../../hooks/admin/mutation";
-import {
-  useCompleteToast,
-  useErrorToast,
-} from "../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../hooks/custom/CustomToast";
 import { IModal } from "../../types/components/modalTypes";
 
 interface ICheckAbsentModal extends IModal {
@@ -19,10 +16,7 @@ function CheckAbsentModal({ uid, fee, setIsModal }: ICheckAbsentModal) {
 
   const { mutate } = useAdminDepositMutation(uid, {
     onSuccess() {
-      completeToast(
-        "free",
-        "성공적으로 처리되었습니다. 중복해서 처리하지 않도록 주의해주세요!"
-      );
+      completeToast("free", "성공적으로 처리되었습니다. 중복해서 처리하지 않도록 주의해주세요!");
       setIsModal(false);
     },
     onError: errorToast,

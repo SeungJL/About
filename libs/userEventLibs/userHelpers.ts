@@ -16,10 +16,7 @@ export const myScoreRank = (scoreArr: IScore[], myScore: number) => {
   else return Math.ceil(rate / 10) * 10;
 };
 
-export const sortUserRanking = (
-  users: IVoteRate[],
-  uid: string
-): IUserRankings => {
+export const sortUserRanking = (users: IVoteRate[], uid: string): IUserRankings => {
   let myValue = null;
   const compareRanking = (a: IVoteRate, b: IVoteRate) => {
     if (!myValue && (a.uid === uid || b.uid === uid)) {
@@ -49,10 +46,7 @@ export const sortUserRanking = (
   };
 };
 
-export const sortUserScoreRanking = (
-  users: IUser[],
-  myScore: number
-): IUserRankings => {
+export const sortUserScoreRanking = (users: IUser[], myScore: number): IUserRankings => {
   const compareRanking = (a: IUser, b: IUser) => {
     if (a.score > b.score) return -1;
     else if (a.score < b.score) return 1;

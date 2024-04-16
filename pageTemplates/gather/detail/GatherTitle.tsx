@@ -10,8 +10,7 @@ interface IGatherTitle {
 }
 
 function GatherTitle({ status, title }: IGatherTitle) {
-  const color =
-    status === "pending" ? "mintTheme" : status === "open" ? "redTheme" : null;
+  const color = status === "pending" ? "mintTheme" : status === "open" ? "redTheme" : null;
 
   return (
     <Layout status={status}>

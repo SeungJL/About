@@ -12,10 +12,7 @@ export default function HomeLocationBar() {
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
 
-  const locationKr = convertLocationLangTo(
-    searchParams.get("location") as ActiveLocation,
-    "kr"
-  );
+  const locationKr = convertLocationLangTo(searchParams.get("location") as ActiveLocation, "kr");
   const [location, setLocation] = useState<ActiveLocation>(locationKr);
 
   useEffect(() => {
@@ -34,11 +31,7 @@ export default function HomeLocationBar() {
     <SectionBar
       title="카공 스터디"
       rightComponent={
-        <Selector
-          defaultValue={location}
-          options={ACTIVE_LOCATIONS}
-          setValue={setLocation}
-        />
+        <Selector defaultValue={location} options={ACTIVE_LOCATIONS} setValue={setLocation} />
       }
     />
   );

@@ -8,15 +8,13 @@ export const usePromotionQuery = (
   options?: Omit<
     UseQueryOptions<IPromotionApply[], AxiosError, IPromotionApply[]>,
     "queryKey" | "queryFn"
-  >
+  >,
 ) =>
   useQuery<IPromotionApply[], AxiosError, IPromotionApply[]>(
     "promotion",
     async () => {
-      const res = await axios.get<IPromotionApply[]>(
-        `${SERVER_URI}/user/promotion`
-      );
+      const res = await axios.get<IPromotionApply[]>(`${SERVER_URI}/user/promotion`);
       return res.data;
     },
-    options
+    options,
   );

@@ -14,10 +14,7 @@ import { setGatherDataToCardCol } from "../home/HomeGatherSection";
 export default function GatherMain() {
   const searchParams = useSearchParams();
 
-  const location = convertLocationLangTo(
-    searchParams.get("location") as LocationEn,
-    "kr"
-  );
+  const location = convertLocationLangTo(searchParams.get("location") as LocationEn, "kr");
   const [cardDataArr, setCardDataArr] = useState<IPostThumbnailCard[]>();
 
   const { data: gathers } = useGatherQuery();
@@ -27,12 +24,9 @@ export default function GatherMain() {
     setCardDataArr(
       setGatherDataToCardCol(
         location
-          ? gathers.filter(
-              (gather) =>
-                gather.place === "전체" || gather.place.includes(location)
-            )
-          : gathers
-      )
+          ? gathers.filter((gather) => gather.place === "전체" || gather.place.includes(location))
+          : gathers,
+      ),
     );
   }, [gathers, location]);
 

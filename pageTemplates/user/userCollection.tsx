@@ -46,9 +46,7 @@ export default function UserCollection() {
           <span>컬렉션 수집 보상</span>
         </AlphabetQNABtnContents>
       </AlphabetQNABtn>
-      {isAlphabetModal && (
-        <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />
-      )}
+      {isAlphabetModal && <UserCollectionAlphabetModal setIsModal={setIsAlphabetModal} />}
     </>
   );
 }

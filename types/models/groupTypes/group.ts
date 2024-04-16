@@ -4,7 +4,7 @@ import { ITimeStamps } from "../../utils/timeAndDate";
 import { GatherStatus, IGatherComment } from "../gatherTypes/gather";
 import { IUser, IUserSummary } from "../userTypes/userInfoTypes";
 
-export type GroupCategory = typeof GROUP_STUDY_CATEGORY_ARR[number];
+export type GroupCategory = (typeof GROUP_STUDY_CATEGORY_ARR)[number];
 
 export interface IGroup extends IGroupWriting {
   createdAt: string;

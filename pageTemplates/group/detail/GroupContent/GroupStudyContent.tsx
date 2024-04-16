@@ -1,9 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import TabNav, {
-  ITabNavOptions,
-} from "../../../../components/molecules/navs/TabNav";
+import TabNav, { ITabNavOptions } from "../../../../components/molecules/navs/TabNav";
 import { IGroup } from "../../../../types/models/groupTypes/group";
 import ContentAttend from "./ContentAttendance";
 import ContentChat from "./ContentChat";

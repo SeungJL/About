@@ -13,11 +13,7 @@ import {
 } from "../../hooks/groupStudy/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
 import { useUserInfoQuery } from "../../hooks/user/queries";
-import {
-  IFooterOptions,
-  ModalFooterTwo,
-  ModalLayout,
-} from "../../modals/Modals";
+import { IFooterOptions, ModalFooterTwo, ModalLayout } from "../../modals/Modals";
 import { ModalSubtitle } from "../../styles/layout/modal";
 import { IModal } from "../../types/components/modalTypes";
 
@@ -29,14 +25,7 @@ interface IParticipateModal extends IModal {
   answer: string;
 }
 
-function ParticipateModal({
-  isFree,
-  fee,
-  id,
-  feeText,
-  setIsModal,
-  answer,
-}: IParticipateModal) {
+function ParticipateModal({ isFree, fee, id, feeText, setIsModal, answer }: IParticipateModal) {
   const router = useRouter();
   const failToast = useFailToast();
   const completeToast = useCompleteToast();
@@ -88,10 +77,7 @@ function ParticipateModal({
         return;
       }
       if (userInfo?.deposit - 1000 < feeValue) {
-        failToast(
-          "free",
-          "보증금을 사용한 뒤에도 1000원 이상 보유해야 합니다."
-        );
+        failToast("free", "보증금을 사용한 뒤에도 1000원 이상 보유해야 합니다.");
         return;
       }
     }
@@ -116,11 +102,7 @@ function ParticipateModal({
   };
 
   return (
-    <ModalLayout
-      setIsModal={setIsModal}
-      title="가입 신청"
-      footerOptions={footerOptions}
-    >
+    <ModalLayout setIsModal={setIsModal} title="가입 신청" footerOptions={footerOptions}>
       <ModalSubtitle>
         {fee
           ? `소모임 가입을 위해서는 가입비 ${fee}원이 필요합니다. 사용처는 "${feeText}" 입니다.`

@@ -19,9 +19,7 @@ function WritingGatherContent() {
   const router = useRouter();
   const failToast = useFailToast();
 
-  const [gatherWriting, setGatherWriting] = useRecoilState(
-    sharedGatherWritingState
-  );
+  const [gatherWriting, setGatherWriting] = useRecoilState(sharedGatherWritingState);
 
   //초기 input 세팅
   const [title, setTitle] = useState(gatherWriting?.title || "");
@@ -52,11 +50,7 @@ function WritingGatherContent() {
           <span>내용을 입력해 주세요.</span>
         </RegisterOverview>
         <Container>
-          <Input
-            placeholder="제목"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <Input placeholder="제목" value={title} onChange={(e) => setTitle(e.target.value)} />
           <Box h="20px" />
           <Textarea
             placeholder="소개글을 입력해 주세요"

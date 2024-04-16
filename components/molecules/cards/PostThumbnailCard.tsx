@@ -61,11 +61,7 @@ export function PostThumbnailCard({
       <ContentContainer>
         <TitleHeader>
           <Title>{title}</Title>
-          <OutlineBadge
-            size="sm"
-            text={badge.text}
-            colorScheme={badge.colorScheme}
-          />
+          <OutlineBadge size="sm" text={badge.text} colorScheme={badge.colorScheme} />
         </TitleHeader>
         <Subtitle>{subtitle}</Subtitle>
         <StatusContainer>
@@ -77,12 +73,7 @@ export function PostThumbnailCard({
             <div className="userIconContainer">
               <UserIcon />
               <span>
-                <Box
-                  as="span"
-                  color={
-                    maxCnt && participants.length > maxCnt && "var(--color-red)"
-                  }
-                >
+                <Box as="span" color={maxCnt && participants.length > maxCnt && "var(--color-red)"}>
                   {participants.length}
                 </Box>
                 /{maxCnt || <FontAwesomeIcon icon={faInfinity} />}

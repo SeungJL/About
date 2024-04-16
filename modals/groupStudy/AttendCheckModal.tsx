@@ -50,9 +50,7 @@ function AttendCheckModal({
 
   const onClickBtn = (day: string | "all") => {
     if (day === "all") {
-      setMyAttend((old) =>
-        old.length === 7 ? [] : ["월", "화", "수", "목", "금", "토", "일"]
-      );
+      setMyAttend((old) => (old.length === 7 ? [] : ["월", "화", "수", "목", "금", "토", "일"]));
       setMySubAttend([]);
       return;
     }

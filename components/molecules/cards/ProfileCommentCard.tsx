@@ -10,19 +10,10 @@ export interface IProfileCommentCard {
   rightComponent?: React.ReactNode;
 }
 
-export default function ProfileCommentCard({
-  user,
-  comment,
-  rightComponent,
-}: IProfileCommentCard) {
+export default function ProfileCommentCard({ user, comment, rightComponent }: IProfileCommentCard) {
   return (
     <CardContainer>
-      <Avatar
-        image={user.profileImage}
-        size="md"
-        avatar={user.avatar}
-        uid={user.uid}
-      />
+      <Avatar image={user.profileImage} size="md" avatar={user.avatar} uid={user.uid} />
       <UserInfoContainer>
         <UserNameBadgeContainer>
           <span>{user.name}</span>

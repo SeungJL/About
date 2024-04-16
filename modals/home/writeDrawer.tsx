@@ -9,11 +9,7 @@ import {
   Flex,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  faBooks,
-  faCampfire,
-  faCloudBolt,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faBooks, faCampfire, faCloudBolt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -38,11 +34,7 @@ export default function WriteDrawer() {
   const onClose = () => {
     closeDrawer();
     newSearchParams.delete("write");
-    router.replace(
-      pathname + newSearchParams.toString()
-        ? `?${newSearchParams.toString()}`
-        : ""
-    );
+    router.replace(pathname + newSearchParams.toString() ? `?${newSearchParams.toString()}` : "");
   };
 
   return (
@@ -50,13 +42,7 @@ export default function WriteDrawer() {
       <DrawerOverlay />
       <DrawerContent bg="transparent">
         <DrawerBody display="flex" justifyContent="center" alignItems="center">
-          <Flex
-            direction="column"
-            h="100dvh"
-            justify="center"
-            align="center"
-            onClick={onClose}
-          >
+          <Flex direction="column" h="100dvh" justify="center" align="center" onClick={onClose}>
             <SocialButton
               url="/gather/writing/category"
               title="모임"

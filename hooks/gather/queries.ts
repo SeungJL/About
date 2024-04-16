@@ -14,12 +14,10 @@ export const useGatherQuery = (options?: QueryOptions<IGather[]>) =>
       const res = await axios.get<IGather[]>(`${SERVER_URI}/gather`);
       return res.data;
     },
-    options
+    options,
   );
 
-export const useGatherAllSummaryQuery = (
-  options?: QueryOptions<IGatherSummary[]>
-) =>
+export const useGatherAllSummaryQuery = (options?: QueryOptions<IGatherSummary[]>) =>
   useQuery<IGatherSummary[], AxiosError, IGatherSummary[]>(
     [GATHER_CONTENT, "summary"],
     async () => {
@@ -34,5 +32,5 @@ export const useGatherAllSummaryQuery = (
       }));
       return data;
     },
-    options
+    options,
   );

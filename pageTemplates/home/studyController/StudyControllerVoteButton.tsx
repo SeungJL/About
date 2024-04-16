@@ -7,10 +7,7 @@ import ShadowCircleButton, {
   IShadowCircleProps,
 } from "../../../components/atoms/buttons/ShadowCircleButton";
 import { useTypeToast } from "../../../hooks/custom/CustomToast";
-import {
-  myStudyState,
-  studyDateStatusState,
-} from "../../../recoils/studyRecoils";
+import { myStudyState, studyDateStatusState } from "../../../recoils/studyRecoils";
 import { DispatchType } from "../../../types/hooks/reactTypes";
 import { IParticipation } from "../../../types/models/studyTypes/studyDetails";
 import { StudyDateStatus } from "../../../types/models/studyTypes/studyInterActions";
@@ -39,9 +36,7 @@ interface IStudyControllerVoteButton {
   setModalType: DispatchType<VoteType>;
 }
 
-function StudyControllerVoteButton({
-  setModalType,
-}: IStudyControllerVoteButton) {
+function StudyControllerVoteButton({ setModalType }: IStudyControllerVoteButton) {
   const typeToast = useTypeToast();
   const router = useRouter();
   const { data: session } = useSession();
@@ -52,11 +47,7 @@ function StudyControllerVoteButton({
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
 
-  const buttonProps = getStudyVoteButtonProps(
-    studyDateStatus,
-    myStudy,
-    session?.user.uid
-  );
+  const buttonProps = getStudyVoteButtonProps(studyDateStatus, myStudy, session?.user.uid);
 
   const handleModalOpen = () => {
     if (isGuest) {
@@ -74,10 +65,7 @@ function StudyControllerVoteButton({
   return (
     <>
       <ButtonWrapper className="main_vote_btn">
-        <ShadowCircleButton
-          buttonProps={buttonProps}
-          onClick={handleModalOpen}
-        />
+        <ShadowCircleButton buttonProps={buttonProps} onClick={handleModalOpen} />
       </ButtonWrapper>
     </>
   );
@@ -90,11 +78,9 @@ interface IReturn extends IShadowCircleProps {
 export const getStudyVoteButtonProps = (
   studyDateStatus: StudyDateStatus,
   myStudy: IParticipation | null,
-  myUid?: string
+  myUid?: string,
 ): IReturn => {
-  const isAttend = myStudy?.attendences.find(
-    (who) => who.user.uid === myUid
-  )?.arrived;
+  const isAttend = myStudy?.attendences.find((who) => who.user.uid === myUid)?.arrived;
 
   switch (studyDateStatus) {
     case "not passed":

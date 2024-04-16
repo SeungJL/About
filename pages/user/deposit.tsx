@@ -8,10 +8,7 @@ import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
 import SummaryTable from "../../components/organisms/tables/SummaryTable";
-import {
-  usePointSystemLogQuery,
-  usePointSystemQuery,
-} from "../../hooks/user/queries";
+import { usePointSystemLogQuery, usePointSystemQuery } from "../../hooks/user/queries";
 
 export default function DepositLog() {
   const { data: point } = usePointSystemQuery("deposit");
@@ -39,11 +36,7 @@ export default function DepositLog() {
             </MyPoint>
             <Box border="var(--border)" rounded="md">
               {pointLog && (
-                <SummaryTable
-                  headerInfos={headerInfos}
-                  tableInfosArr={tableInfosArr}
-                  size="lg"
-                />
+                <SummaryTable headerInfos={headerInfos} tableInfosArr={tableInfosArr} size="lg" />
               )}
             </Box>
           </Layout>

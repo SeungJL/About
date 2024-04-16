@@ -5,11 +5,7 @@ import { useQueryClient } from "react-query";
 
 import TimeSelector from "../../components/molecules/picker/TimeSelector";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
-import {
-  useCompleteToast,
-  useErrorToast,
-  useFailToast,
-} from "../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast, useFailToast } from "../../hooks/custom/CustomToast";
 import {
   useStudyOpenFreeMutation,
   useStudyParticipationMutation,
@@ -46,17 +42,13 @@ function StudyFreeOpenModal({ setIsModal }: IStudyFreeOpenModal) {
     },
     onError: errorToast,
   });
-  const { mutate: patchAttend } = useStudyParticipationMutation(
-    dayjs(date),
-    "post",
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([STUDY_VOTE, date, location]);
-        setIsModal(false);
-      },
-      onError: errorToast,
-    }
-  );
+  const { mutate: patchAttend } = useStudyParticipationMutation(dayjs(date), "post", {
+    onSuccess: () => {
+      queryClient.invalidateQueries([STUDY_VOTE, date, location]);
+      setIsModal(false);
+    },
+    onError: errorToast,
+  });
 
   const onSubmit = async () => {
     const start = dayjs(date).hour(time.start.hours).minute(time.start.minutes);
@@ -85,11 +77,7 @@ function StudyFreeOpenModal({ setIsModal }: IStudyFreeOpenModal) {
   };
 
   return (
-    <ModalLayout
-      title="스터디 FREE 오픈"
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-    >
+    <ModalLayout title="스터디 FREE 오픈" footerOptions={footerOptions} setIsModal={setIsModal}>
       <TimeSelector
         setTimes={({ start, end }: ITimeStartToEnd) => {
           if (start) setTime({ end: time.end, start });

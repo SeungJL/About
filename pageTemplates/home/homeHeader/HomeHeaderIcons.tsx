@@ -1,9 +1,4 @@
-import {
-  faBadgeCheck,
-  faBell,
-  faCircleP,
-  faCircleUser,
-} from "@fortawesome/pro-light-svg-icons";
+import { faBadgeCheck, faBell, faCircleP, faCircleUser } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -41,8 +36,7 @@ function HomeHeaderIcons({ setIconType }: IHomeHeaderIcons) {
     }
   }, []);
 
-  const isAttendCheck =
-    localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
+  const isAttendCheck = localStorage.getItem(DAILY_CHECK_POP_UP) === dayjsToStr(dayjs());
 
   return (
     <Layout className="about_header">
@@ -78,10 +72,7 @@ function HomeHeaderIcons({ setIconType }: IHomeHeaderIcons) {
         {isNoticeAlert && <Alert />}
       </NoticeWrapper>
       <IconWrapper>
-        <FontAwesomeIcon
-          icon={faCircleUser}
-          onClick={() => setIconType("user")}
-        />
+        <FontAwesomeIcon icon={faCircleUser} onClick={() => setIconType("user")} />
       </IconWrapper>
     </Layout>
   );

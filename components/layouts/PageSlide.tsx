@@ -10,12 +10,10 @@ interface IPageLayout {
 }
 
 function Slide({ children, isFixed, posZero }: IPageLayout) {
-  const [slideDirection, setSlideDirection] =
-    useRecoilState(slideDirectionState);
+  const [slideDirection, setSlideDirection] = useRecoilState(slideDirectionState);
 
   useEffect(() => {
     return () => {
-    
       setSlideDirection("right");
     };
   }, []);

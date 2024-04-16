@@ -131,12 +131,7 @@ function Adminstudy() {
           </AddForm>
         </SpaceAddRequest>
         {data?.map((place, idx) => (
-          <Form
-            key={idx}
-            id={`place${idx}`}
-            data-idx={idx}
-            onSubmit={handleSubmit(onValid)}
-          >
+          <Form key={idx} id={`place${idx}`} data-idx={idx} onSubmit={handleSubmit(onValid)}>
             <div>
               <ImageContainer>
                 {/* <studyLogo place={place} isBig={false} /> */}
@@ -144,34 +139,16 @@ function Adminstudy() {
               </ImageContainer>
               <SpaceInfo>
                 <Status>
-                  <Branch
-                    defaultValue={place?.branch}
-                    {...register(`branch[${idx}]`)}
-                  />
+                  <Branch defaultValue={place?.branch} {...register(`branch[${idx}]`)} />
 
-                  <input
-                    defaultValue={place?.latitude}
-                    {...register(`latitude[${idx}]`)}
-                  />
+                  <input defaultValue={place?.latitude} {...register(`latitude[${idx}]`)} />
 
-                  <input
-                    defaultValue={place?.longitude}
-                    {...register(`longitude[${idx}]`)}
-                  />
+                  <input defaultValue={place?.longitude} {...register(`longitude[${idx}]`)} />
                 </Status>
                 <Status>
-                  <Info
-                    defaultValue={place?.brand}
-                    {...register(`brand[${idx}]`)}
-                  />
-                  <input
-                    defaultValue={place?.location}
-                    {...register(`location[${idx}]`)}
-                  />
-                  <input
-                    defaultValue={place?.status}
-                    {...register(`status[${idx}]`)}
-                  />
+                  <Info defaultValue={place?.brand} {...register(`brand[${idx}]`)} />
+                  <input defaultValue={place?.location} {...register(`location[${idx}]`)} />
+                  <input defaultValue={place?.status} {...register(`status[${idx}]`)} />
                 </Status>
               </SpaceInfo>
             </div>

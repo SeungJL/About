@@ -3,9 +3,7 @@ import { useState } from "react";
 
 import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
 import HighlightedTextButton from "../../components/atoms/buttons/HighlightedTextButton";
-import Accordion, {
-  IAccordionContent,
-} from "../../components/molecules/Accordion";
+import Accordion, { IAccordionContent } from "../../components/molecules/Accordion";
 import SectionBar from "../../components/molecules/bars/SectionBar";
 
 export default function EventMission() {
@@ -34,12 +32,7 @@ export default function EventMission() {
       <SectionBar
         title="진행 이벤트"
         size="md"
-        rightComponent={
-          <HighlightedTextButton
-            text="더보기"
-            onClick={() => setIsModal(true)}
-          />
-        }
+        rightComponent={<HighlightedTextButton text="더보기" onClick={() => setIsModal(true)} />}
       />
       <Box p="16px" border="var(--border)">
         <Accordion contentArr={accordionOptions} />

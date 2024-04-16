@@ -41,10 +41,7 @@ function PromotionDetail() {
       </Layout>
       {isMyModal && <PromotionMyCoolTimeModal setIsModal={setIsMyModal} />}
       {isAllModal && (
-        <PromotionAllCoolTimeModal
-          setIsModal={setIsAllModal}
-          promotionData={promotionData}
-        />
+        <PromotionAllCoolTimeModal setIsModal={setIsAllModal} promotionData={promotionData} />
       )}
     </>
   );

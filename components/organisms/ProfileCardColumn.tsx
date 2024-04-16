@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import ProfileCommentCard, {
-  IProfileCommentCard,
-} from "../molecules/cards/ProfileCommentCard";
+import ProfileCommentCard, { IProfileCommentCard } from "../molecules/cards/ProfileCommentCard";
 interface IProfileCardColumn {
   userCardArr: IProfileCommentCard[];
 }

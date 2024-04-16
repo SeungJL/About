@@ -11,11 +11,7 @@ interface IImageZoommodal extends IModal {
   imageUrl: string;
 }
 
-export default function ImageZoomModal({
-  toUid,
-  imageUrl,
-  setIsModal,
-}: IImageZoommodal) {
+export default function ImageZoomModal({ toUid, imageUrl, setIsModal }: IImageZoommodal) {
   const [isHeart, setIsHeart] = useState(true);
 
   return (
@@ -34,13 +30,7 @@ export default function ImageZoomModal({
         onClick={() => setIsModal(null)}
       >
         <Box position="relative" width="320px" maxHeight="400px">
-          <Image
-            src={imageUrl}
-            width={320}
-            height={400}
-            alt="studyPrivateImage"
-            priority={true}
-          />
+          <Image src={imageUrl} width={320} height={400} alt="studyPrivateImage" priority={true} />
           {isHeart && (
             <Button
               position="absolute"

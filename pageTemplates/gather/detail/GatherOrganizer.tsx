@@ -15,12 +15,7 @@ interface IGatherOrganizer {
   category: string;
 }
 
-function GatherOrganizer({
-  createdAt,
-  organizer,
-  isAdminOpen,
-  category,
-}: IGatherOrganizer) {
+function GatherOrganizer({ createdAt, organizer, isAdminOpen, category }: IGatherOrganizer) {
   const writingDate = getDateDiff(dayjs(createdAt));
   const isABOUT = organizer.uid === ABOUT_UID || isAdminOpen;
   return (

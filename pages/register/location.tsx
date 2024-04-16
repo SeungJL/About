@@ -5,11 +5,7 @@ import styled from "styled-components";
 import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
-import {
-  LOCATION_ALL,
-  LOCATION_NOT_OPEN,
-  LOCATION_RECRUITING,
-} from "../../constants/location";
+import { LOCATION_ALL, LOCATION_NOT_OPEN, LOCATION_RECRUITING } from "../../constants/location";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 import LocationBlockProfileEdit from "../../pageTemplates/register/location/LocationBlockProfileEdit";
 import LocationMember from "../../pageTemplates/register/location/LocationMember";
@@ -25,9 +21,7 @@ function RegisterLocation() {
 
   const isProfileEdit = !!searchParams.get("edit");
 
-  const info: IUserRegisterFormWriting = JSON.parse(
-    localStorage.getItem(REGISTER_INFO)
-  );
+  const info: IUserRegisterFormWriting = JSON.parse(localStorage.getItem(REGISTER_INFO));
 
   const [errorMessage, setErrorMessage] = useState("");
   const [location, setLocation] = useState<Location>(info?.location);
@@ -42,17 +36,8 @@ function RegisterLocation() {
 
   useEffect(() => {
     if (userInfo) {
-      const {
-        location,
-        name,
-        mbti,
-        birth,
-        gender,
-        interests,
-        majors,
-        comment,
-        telephone,
-      } = userInfo;
+      const { location, name, mbti, birth, gender, interests, majors, comment, telephone } =
+        userInfo;
       setLocalStorageObj(REGISTER_INFO, {
         location,
         name,
@@ -82,10 +67,7 @@ function RegisterLocation() {
 
   return (
     <>
-      <ProgressHeader
-        title={!isProfileEdit ? "회원가입" : "프로필 수정"}
-        value={10}
-      />
+      <ProgressHeader title={!isProfileEdit ? "회원가입" : "프로필 수정"} value={10} />
 
       <RegisterLayout errorMessage={errorMessage}>
         <RegisterOverview>
@@ -107,12 +89,9 @@ function RegisterLocation() {
               {!isProfileEdit ? (
                 <>
                   <LocationTitle location={place} />
-                  {!LOCATION_NOT_OPEN.includes(place) && (
-                    <LocationMember location={place} />
-                  )}
+                  {!LOCATION_NOT_OPEN.includes(place) && <LocationMember location={place} />}
                   {LOCATION_RECRUITING.includes(place) &&
-                    (idx === LOCATION_ALL.length - 1 ||
-                      idx === LOCATION_ALL.length - 2) && (
+                    (idx === LOCATION_ALL.length - 1 || idx === LOCATION_ALL.length - 2) && (
                       <Message>예약 인원 40명이 되면 열려요!</Message>
                     )}
                 </>
@@ -143,8 +122,7 @@ const Button = styled.button<{ $picked: string }>`
   position: relative;
   height: 68px;
   border-radius: var(--rounded-lg);
-  border: ${(props) =>
-    props.$picked === "true" ? "var(--border-thick)" : "var(--border)"};
+  border: ${(props) => (props.$picked === "true" ? "var(--border-thick)" : "var(--border)")};
 `;
 
 const Message = styled.div`

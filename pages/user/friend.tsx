@@ -6,10 +6,7 @@ import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
 import Slide from "../../components/layouts/PageSlide";
 import ProfileCommentCard from "../../components/molecules/cards/ProfileCommentCard";
-import {
-  useUidsToUsersInfoQuery,
-  useUserInfoQuery,
-} from "../../hooks/user/queries";
+import { useUidsToUsersInfoQuery, useUserInfoQuery } from "../../hooks/user/queries";
 import { prevPageUrlState } from "../../recoils/navigationRecoils";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
 import { IUserSummary } from "../../types/models/userTypes/userInfoTypes";

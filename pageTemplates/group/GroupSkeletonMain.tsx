@@ -14,29 +14,31 @@ function GroupSkeletonMain() {
 }
 
 function ItemBlock() {
-  return <ItemBlockLayout>
-    <Header>
-      <div>
-        <Skeleton>temp</Skeleton>
-      </div>
-      <Badge>
-        <Skeleton>temp</Skeleton>
-      </Badge>
-    </Header>
-    <Title>
-      <Skeleton>temp</Skeleton>
-    </Title>
-    <Info>
-      {[1, 2, 3, 4].map((item) => (
-        <InfoItem key={item}>
+  return (
+    <ItemBlockLayout>
+      <Header>
+        <div>
           <Skeleton>temp</Skeleton>
-        </InfoItem>
-      ))}
-    </Info>
-    <Content>
-      <Skeleton>temp</Skeleton>
-    </Content>
-  </ItemBlockLayout>
+        </div>
+        <Badge>
+          <Skeleton>temp</Skeleton>
+        </Badge>
+      </Header>
+      <Title>
+        <Skeleton>temp</Skeleton>
+      </Title>
+      <Info>
+        {[1, 2, 3, 4].map((item) => (
+          <InfoItem key={item}>
+            <Skeleton>temp</Skeleton>
+          </InfoItem>
+        ))}
+      </Info>
+      <Content>
+        <Skeleton>temp</Skeleton>
+      </Content>
+    </ItemBlockLayout>
+  );
 }
 
 const Layout = styled.div`

@@ -32,7 +32,7 @@ function Home() {
         locationParam,
         dateParam,
         session.user.location,
-        hasStudyToday === "true"
+        hasStudyToday === "true",
       );
       router.replace(initialUrl);
     }

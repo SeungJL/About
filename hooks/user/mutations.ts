@@ -13,9 +13,7 @@ import {
 } from "../../types/models/userTypes/userInfoTypes";
 import { IPointSystem } from "../../types/services/pointSystem";
 
-export const useUserRegisterMutation = (
-  options?: MutationOptions<IUserRegisterFormWriting>
-) =>
+export const useUserRegisterMutation = (options?: MutationOptions<IUserRegisterFormWriting>) =>
   useMutation<void, AxiosError, IUserRegisterFormWriting>(
     (param) =>
       requestServer<IUserRegisterFormWriting>({
@@ -23,12 +21,12 @@ export const useUserRegisterMutation = (
         url: `register`,
         body: param,
       }),
-    options
+    options,
   );
 
 export const useUserRegisterControlMutation = <T extends "post" | "delete">(
   method: T,
-  options?: MutationOptions<string>
+  options?: MutationOptions<string>,
 ) =>
   useMutation<void, AxiosError, string>(
     (param) =>
@@ -37,7 +35,7 @@ export const useUserRegisterControlMutation = <T extends "post" | "delete">(
         url: `register/approval`,
         body: { uid: param },
       }),
-    options
+    options,
   );
 
 export const useUserInfoMutation = (options?: MutationOptions<IUser>) =>
@@ -48,24 +46,24 @@ export const useUserInfoMutation = (options?: MutationOptions<IUser>) =>
         url: `user/profile`,
         body: param,
       }),
-    options
+    options,
   );
 
 type UserInfoFieldParam<T> = T extends "avatar"
   ? IAvatar
   : T extends "role"
-  ? { role: UserRole }
-  : T extends "rest"
-  ? { info: IApplyRest }
-  : T extends "belong"
-  ? { uid: string; belong: string }
-  : { comment: string };
+    ? { role: UserRole }
+    : T extends "rest"
+      ? { info: IApplyRest }
+      : T extends "belong"
+        ? { uid: string; belong: string }
+        : { comment: string };
 
 export const useUserInfoFieldMutation = <
-  T extends "avatar" | "comment" | "role" | "rest" | "belong"
+  T extends "avatar" | "comment" | "role" | "rest" | "belong",
 >(
   field: T,
-  options?: MutationOptions<UserInfoFieldParam<T>>
+  options?: MutationOptions<UserInfoFieldParam<T>>,
 ) =>
   useMutation<void, AxiosError, UserInfoFieldParam<T>>(
     (param) =>
@@ -74,12 +72,12 @@ export const useUserInfoFieldMutation = <
         url: `user/${field}`,
         body: param,
       }),
-    options
+    options,
   );
 
 export const usePointSystemMutation = (
   field: "point" | "score" | "deposit",
-  options?: MutationOptions<IPointSystem>
+  options?: MutationOptions<IPointSystem>,
 ) =>
   useMutation<void, AxiosError, IPointSystem>((param) => {
     const body = {
@@ -94,29 +92,22 @@ export const usePointSystemMutation = (
     });
   }, options);
 
-export const useAboutPointMutation = (
-  options?: MutationOptions<IPointSystem>
-) =>
-  useMutation<void, AxiosError, IPointSystem>(
-    async ({ value, message, sub }) => {
-      await Promise.all([
-        axios.patch(`${SERVER_URI}/user/point`, { point: value, message, sub }),
-        axios.patch(`${SERVER_URI}/user/score`, { score: value, message, sub }),
-      ]);
-    },
-    options
-  );
+export const useAboutPointMutation = (options?: MutationOptions<IPointSystem>) =>
+  useMutation<void, AxiosError, IPointSystem>(async ({ value, message, sub }) => {
+    await Promise.all([
+      axios.patch(`${SERVER_URI}/user/point`, { point: value, message, sub }),
+      axios.patch(`${SERVER_URI}/user/score`, { score: value, message, sub }),
+    ]);
+  }, options);
 
-export const useUserUpdateProfileImageMutation = (
-  options?: MutationOptions<void>
-) =>
+export const useUserUpdateProfileImageMutation = (options?: MutationOptions<void>) =>
   useMutation<void, AxiosError, void>(async () => {
     await axios.patch("/api/user/profile");
   }, options);
 
 export const useUserFriendMutation = (
   method: "patch" | "delete",
-  options?: MutationOptions<string>
+  options?: MutationOptions<string>,
 ) =>
   useMutation<void, AxiosError, string>(
     (param) =>
@@ -125,5 +116,5 @@ export const useUserFriendMutation = (
         url: `user/friend`,
         body: { toUid: param },
       }),
-    options
+    options,
   );

@@ -13,13 +13,7 @@ interface ITimeRullet {
   isEndTime?: boolean;
 }
 
-function TimeRullet({
-  startTimeArr,
-  timeArr,
-  startTime,
-  isEndTime,
-  setTime,
-}: ITimeRullet) {
+function TimeRullet({ startTimeArr, timeArr, startTime, isEndTime, setTime }: ITimeRullet) {
   const router = useRouter();
   const voteDate = dayjs(router.query.date as string);
 
@@ -32,9 +26,7 @@ function TimeRullet({
       let findIdx = startTimeArr.findIndex(
         (item) =>
           item.hour === startTime.hour() &&
-          (item.minutes === "00"
-            ? startTime.minute() === 0
-            : startTime.minute() === 30)
+          (item.minutes === "00" ? startTime.minute() === 0 : startTime.minute() === 30),
       );
 
       if (findIdx > 16) findIdx = 16;
@@ -53,9 +45,7 @@ function TimeRullet({
     }
 
     const selectTime = timeArr[index];
-    setTime(
-      voteDate?.hour(Number(selectTime.hour)).minute(Number(selectTime.minutes))
-    );
+    setTime(voteDate?.hour(Number(selectTime.hour)).minute(Number(selectTime.minutes)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
@@ -74,8 +64,8 @@ function TimeRullet({
       (moveValue > 0
         ? Math.ceil(moveValue)
         : moveValue < -500
-        ? Math.floor(moveValue)
-        : Math.round(moveValue)) + 3;
+          ? Math.floor(moveValue)
+          : Math.round(moveValue)) + 3;
 
     if (move < endTimeStartLimit) {
       y.set(-(endTimeStartLimit - 2) * ITEM_HEIGHT + 30);
@@ -106,13 +96,10 @@ function TimeRullet({
               </BlockIcon>
             </ChoiceBlock>
           ) : (
-            <ChoiceBlock
-              key={idx}
-              isDisabled={isEndTime && idx < endTimeStartLimit}
-            >
+            <ChoiceBlock key={idx} isDisabled={isEndTime && idx < endTimeStartLimit}>
               {item.hour} : {item.minutes}
             </ChoiceBlock>
-          )
+          ),
         )}
       </TimeLayout>{" "}
     </Layout>

@@ -3,10 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 
-import {
-  useCompleteToast,
-  useErrorToast,
-} from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 import { EventBadge } from "../../../types/models/userTypes/userInfoTypes";
 import { IFooterOptions, ModalLayout } from "../../Modals";
@@ -51,29 +48,18 @@ function RequestChagneProfileImageModalBadge({ setIsModal }) {
   };
 
   return (
-    <ModalLayout
-      footerOptions={footerOptions}
-      title="배지 변경 신청"
-      setIsModal={setIsModal}
-    >
+    <ModalLayout footerOptions={footerOptions} title="배지 변경 신청" setIsModal={setIsModal}>
       <Message>
-        이벤트 배지는 출석체크의 랜덤 보상에서 <b>1% 확률</b>로 흭득할 수
-        있습니다. 배지를 선택 후 신청을 완료하시면 관리자가{" "}
-        <b>보유 여부를 확인 후</b> 변경해드립니다.
+        이벤트 배지는 출석체크의 랜덤 보상에서 <b>1% 확률</b>로 흭득할 수 있습니다. 배지를 선택 후
+        신청을 완료하시면 관리자가 <b>보유 여부를 확인 후</b> 변경해드립니다.
       </Message>
       <Container>
-        <Item
-          isSelected={selectBadge === "딸기스무디"}
-          onClick={() => onClick("딸기스무디")}
-        >
+        <Item isSelected={selectBadge === "딸기스무디"} onClick={() => onClick("딸기스무디")}>
           <Badge fontSize={12} colorScheme="badgePink">
             딸기스무디
           </Badge>
         </Item>
-        <Item
-          isSelected={selectBadge === "라벤더"}
-          onClick={() => onClick("라벤더")}
-        >
+        <Item isSelected={selectBadge === "라벤더"} onClick={() => onClick("라벤더")}>
           <Badge fontSize={12} colorScheme="facebook">
             라벤더
           </Badge>
@@ -108,8 +94,7 @@ const Item = styled.div<{ isSelected: boolean }>`
   flex: 0.45;
   padding: var(--gap-5) 0;
 
-  border: ${(props) =>
-    props.isSelected ? "var(--border-mint)" : "var(--border)"};
+  border: ${(props) => (props.isSelected ? "var(--border-mint)" : "var(--border)")};
   border-radius: var(--rounded-lg);
 `;
 

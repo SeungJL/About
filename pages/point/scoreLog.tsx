@@ -5,10 +5,7 @@ import styled from "styled-components";
 
 import { MainLoading } from "../../components/atoms/loaders/MainLoading";
 import Header from "../../components/layouts/Header";
-import {
-  usePointSystemLogQuery,
-  usePointSystemQuery,
-} from "../../hooks/user/queries";
+import { usePointSystemLogQuery, usePointSystemQuery } from "../../hooks/user/queries";
 
 function ScoreLog() {
   const { data: score } = usePointSystemQuery("score");

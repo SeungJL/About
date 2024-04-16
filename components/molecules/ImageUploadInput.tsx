@@ -12,9 +12,7 @@ interface IImageUploadInput {
   setImageUrl: DispatchType<any>;
 }
 
-export default function ImageUploadInput({
-  setImageUrl: changeImage,
-}: IImageUploadInput) {
+export default function ImageUploadInput({ setImageUrl: changeImage }: IImageUploadInput) {
   const [imageUrl, setImageUrl] = useState(null);
 
   const handleImageChange = async (e) => {
@@ -78,21 +76,12 @@ export default function ImageUploadInput({
       <Container onClick={handleBtnClick}>
         {!imageUrl ? (
           <>
-            <FontAwesomeIcon
-              icon={faCameraViewfinder}
-              size="4x"
-              color="var(--gray-4)"
-            />
+            <FontAwesomeIcon icon={faCameraViewfinder} size="4x" color="var(--gray-4)" />
             <CameraText>사진 올리기</CameraText>
           </>
         ) : (
           <ImageContainer>
-            <Image
-              src={imageUrl}
-              alt="Image Preview"
-              width={140}
-              height={140}
-            />
+            <Image src={imageUrl} alt="Image Preview" width={140} height={140} />
           </ImageContainer>
         )}
       </Container>

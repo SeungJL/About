@@ -12,15 +12,9 @@ import {
   CardColumnLayoutSkeleton,
 } from "../../components/organisms/CardColumnLayout";
 import { useGatherQuery } from "../../hooks/gather/queries";
-import {
-  prevPageUrlState,
-  slideDirectionState,
-} from "../../recoils/navigationRecoils";
+import { prevPageUrlState, slideDirectionState } from "../../recoils/navigationRecoils";
 import { ITextAndColorSchemes } from "../../types/components/propTypes";
-import {
-  GatherStatus,
-  IGather,
-} from "../../types/models/gatherTypes/gatherTypes";
+import { GatherStatus, IGather } from "../../types/models/gatherTypes/gatherTypes";
 import { getRandomImage } from "../../utils/imageUtils";
 
 export default function HomeGatherSection() {
@@ -74,16 +68,12 @@ export default function HomeGatherSection() {
 
 export const setGatherDataToCardCol = (
   gathers: IGather[],
-  func?: () => void
+  func?: () => void,
 ): IPostThumbnailCard[] => {
   const cardCol: IPostThumbnailCard[] = gathers.map((gather, idx) => ({
     title: gather.title,
     subtitle:
-      gather.place +
-      " · " +
-      gather.type.title +
-      " · " +
-      dayjs(gather.date).format("M월 D일(ddd)"),
+      gather.place + " · " + gather.type.title + " · " + dayjs(gather.date).format("M월 D일(ddd)"),
     participants: [gather.user, ...gather.participants.map((par) => par.user)],
     url: `/gather/${gather.id}`,
     func,

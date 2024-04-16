@@ -12,14 +12,14 @@ function RecordCalendarSkeleton({ month }: IRecordCalendarSkeleton) {
     {
       length: dayjs().month(month).date(1).day(),
     },
-    (_, i) => i + 1
+    (_, i) => i + 1,
   );
 
   const totalDate = Array.from(
     {
       length: dayjs().month(month).daysInMonth(),
     },
-    (_, i) => i + 1
+    (_, i) => i + 1,
   );
 
   return (

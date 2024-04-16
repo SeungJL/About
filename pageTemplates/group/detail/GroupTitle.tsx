@@ -31,19 +31,19 @@ function GroupTitle({
     status === "gathering"
       ? "mintTheme"
       : status === "open"
-      ? maxCnt === 0 || maxCnt > memberCnt
-        ? "mintTheme"
-        : "redTheme"
-      : "redTheme";
+        ? maxCnt === 0 || maxCnt > memberCnt
+          ? "mintTheme"
+          : "redTheme"
+        : "redTheme";
 
   const statusText =
     status === "gathering"
       ? "소그룹"
       : status === "open"
-      ? maxCnt === 0 || maxCnt > memberCnt
-        ? "모집중"
-        : "마감"
-      : "마감";
+        ? maxCnt === 0 || maxCnt > memberCnt
+          ? "모집중"
+          : "마감"
+        : "마감";
 
   const onClick = () => {
     router.push(`${router.asPath}/admin`);

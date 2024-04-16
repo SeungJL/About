@@ -56,8 +56,7 @@ function Index() {
 
   useEffect(() => {
     setCategory({
-      main:
-        categoryIdx !== null ? GROUP_STUDY_CATEGORY_ARR[categoryIdx] : "전체",
+      main: categoryIdx !== null ? GROUP_STUDY_CATEGORY_ARR[categoryIdx] : "전체",
       sub: null,
     });
 
@@ -100,8 +99,8 @@ function Index() {
               return;
             }
             return who.user.uid === session?.user.uid;
-          })
-        )
+          }),
+        ),
       );
     }
 
@@ -113,7 +112,7 @@ function Index() {
           : groups.filter(
               (item) =>
                 (item.category.main === category.main && !category.sub) ||
-                item.category.sub === category.sub
+                item.category.sub === category.sub,
             );
 
     const filtered2 =
@@ -128,30 +127,22 @@ function Index() {
     setGroupStudies(shuffleArray(filtered2));
   }, [category, groups, isGuest, status]);
 
-  const mainTabOptionsArr: ITabNavOptions[] = GROUP_STUDY_CATEGORY_ARR.map(
-    (category, idx) => ({
-      text: category,
-      func: () => {
-        newSearchParams.set("category", idx + "");
-        router.replace(`/group?${newSearchParams.toString()}`, {
-          scroll: false,
-        });
-        setCategory({
-          main: GROUP_STUDY_CATEGORY_ARR[idx],
-          sub: null,
-        });
-      },
-    })
-  );
+  const mainTabOptionsArr: ITabNavOptions[] = GROUP_STUDY_CATEGORY_ARR.map((category, idx) => ({
+    text: category,
+    func: () => {
+      newSearchParams.set("category", idx + "");
+      router.replace(`/group?${newSearchParams.toString()}`, {
+        scroll: false,
+      });
+      setCategory({
+        main: GROUP_STUDY_CATEGORY_ARR[idx],
+        sub: null,
+      });
+    },
+  }));
 
   function StatusSelector() {
-    return (
-      <Selector
-        defaultValue={status}
-        setValue={setStatus}
-        options={["모집중", "종료"]}
-      />
-    );
+    return <Selector defaultValue={status} setValue={setStatus} options={["모집중", "종료"]} />;
   }
 
   return (
@@ -163,25 +154,16 @@ function Index() {
       <Slide>
         <Layout>
           <SectionBar title="내 소모임" />
-          {!groupStudies ? (
-            <GroupSkeletonMine />
-          ) : (
-            <GroupMine myGroups={myGroups} />
-          )}
+          {!groupStudies ? <GroupSkeletonMine /> : <GroupMine myGroups={myGroups} />}
           <SectionBar title="전체 소모임" rightComponent={<StatusSelector />} />
           <NavWrapper>
-            <TabNav
-              selected={category.main}
-              tabOptionsArr={mainTabOptionsArr}
-            />
+            <TabNav selected={category.main} tabOptionsArr={mainTabOptionsArr} />
           </NavWrapper>
           <SubNavWrapper>
             <CheckBoxNav
               buttonList={GROUP_STUDY_SUB_CATEGORY[category.main]}
               selectedButton={category.sub}
-              setSelectedButton={(value: string) =>
-                setCategory((old) => ({ ...old, sub: value }))
-              }
+              setSelectedButton={(value: string) => setCategory((old) => ({ ...old, sub: value }))}
             />
           </SubNavWrapper>
           <>
@@ -200,12 +182,7 @@ function Index() {
       </Slide>
       {!isGuest && <WritingIcon url="/group/writing/category/main" />}
 
-      {isRuleModal && (
-        <RuleModal
-          content={GROUP_STUDY_RULE_CONTENT}
-          setIsModal={setIsRuleModal}
-        />
-      )}
+      {isRuleModal && <RuleModal content={GROUP_STUDY_RULE_CONTENT} setIsModal={setIsRuleModal} />}
     </>
   );
 }

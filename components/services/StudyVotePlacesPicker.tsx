@@ -23,7 +23,7 @@ function StudyVotePlacesPicker({ setVotePlaces }: IStudyVotePlacesPicker) {
   });
 
   const filteredStudy = studyVote?.filter(
-    (par) => par.place._id !== id && par.place.brand !== "자유 신청"
+    (par) => par.place._id !== id && par.place.brand !== "자유 신청",
   );
 
   const [subPlace, setSubPlace] = useState<IPlace[]>([]);

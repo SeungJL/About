@@ -27,7 +27,7 @@ export const useResetQueryData = () => {
 
       if (func) func();
     },
-    [queryClient]
+    [queryClient],
   );
 
   return refetchWithDelay;

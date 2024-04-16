@@ -26,10 +26,7 @@ import GatherWritingConditionPre from "../../../pageTemplates/gather/writing/con
 import RegisterLayout from "../../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../../pageTemplates/register/RegisterOverview";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
-import {
-  IGatherMemberCnt,
-  IGatherWriting,
-} from "../../../types/models/gatherTypes/gather";
+import { IGatherMemberCnt, IGatherWriting } from "../../../types/models/gatherTypes/gather";
 import { Location } from "../../../types/services/locationTypes";
 import { randomPassword } from "../../../utils/validationUtils";
 
@@ -38,9 +35,7 @@ type ButtonType = "gender" | "age" | "pre" | "location" | "manager";
 export type CombinedLocation = "전체" | "수원/안양" | "양천/강남";
 
 function WritingCondition() {
-  const [gatherContent, setGatherContent] = useRecoilState(
-    sharedGatherWritingState
-  );
+  const [gatherContent, setGatherContent] = useRecoilState(sharedGatherWritingState);
 
   const { data: userInfo } = useUserInfoQuery();
 
@@ -59,9 +54,7 @@ function WritingCondition() {
   const [preCnt, setPreCnt] = useState(gatherContent?.preCnt || 1);
   const [age, setAge] = useState(gatherContent?.age || [19, 28]);
   const [password, setPassword] = useState(gatherContent?.password);
-  const [location, setLocation] = useState<Location | CombinedLocation>(
-    userInfo?.location
-  );
+  const [location, setLocation] = useState<Location | CombinedLocation>(userInfo?.location);
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const isManager = ["manager", "previliged"].includes(userInfo?.role);
@@ -134,10 +127,7 @@ function WritingCondition() {
               <Name>
                 <FontAwesomeIcon icon={faVenusMars} />
                 <span>성별 고려</span>
-                <PopOverIcon
-                  title="성별 고려"
-                  text="성별 비율을 최대 2대1까지 제한합니다."
-                />
+                <PopOverIcon title="성별 고려" text="성별 비율을 최대 2대1까지 제한합니다." />
               </Name>
               <Switch
                 mr="var(--gap-1)"
@@ -158,17 +148,12 @@ function WritingCondition() {
                 onChange={(e) => toggleSwitch(e, "age")}
               />
             </Item>
-            {condition.age && (
-              <GatherWritingConditionAgeRange age={age} setAge={setAge} />
-            )}
+            {condition.age && <GatherWritingConditionAgeRange age={age} setAge={setAge} />}
             <Item>
               <Name>
                 <FontAwesomeIcon icon={faLocationCrosshairs} />
                 <span>지역 필터</span>
-                <PopOverIcon
-                  title="지역 필터"
-                  text="기본으로는 본인이 속한 지역으로 한정합니다."
-                />
+                <PopOverIcon title="지역 필터" text="기본으로는 본인이 속한 지역으로 한정합니다." />
               </Name>
               <Switch
                 mr="var(--gap-1)"
@@ -177,9 +162,7 @@ function WritingCondition() {
                 onChange={(e) => toggleSwitch(e, "location")}
               />
             </Item>
-            {!condition.location && (
-              <GatherWritingConditionLocation setLocation={setLocation} />
-            )}
+            {!condition.location && <GatherWritingConditionLocation setLocation={setLocation} />}
             <Item>
               <Name>
                 <FontAwesomeIcon icon={faUserSecret} />
@@ -226,10 +209,7 @@ function WritingCondition() {
         <BottomNav onClick={() => onClickNext()} text="완료" />
       </>
       {isConfirmModal && (
-        <GatherWritingConfirmModal
-          setIsModal={setIsConfirmModal}
-          gatherData={gatherContent}
-        />
+        <GatherWritingConfirmModal setIsModal={setIsConfirmModal} gatherData={gatherContent} />
       )}
     </>
   );

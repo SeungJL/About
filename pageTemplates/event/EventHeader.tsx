@@ -14,11 +14,7 @@ export default function EventHeader() {
       <Link href="/user/point">
         <Flex fontWeight={600}>
           <Box mr="6px">
-            <FontAwesomeIcon
-              icon={faCircleP}
-              color="var(--color-mint)"
-              size="lg"
-            />
+            <FontAwesomeIcon icon={faCircleP} color="var(--color-mint)" size="lg" />
           </Box>
           {userInfo?.point || 0} P
         </Flex>

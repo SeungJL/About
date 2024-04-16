@@ -4,10 +4,7 @@ import styled from "styled-components";
 
 import { prevPageUrlState } from "../../recoils/previousAtoms";
 import { transferUserSummaryState } from "../../recoils/transferRecoils";
-import {
-  IUser,
-  IUserSummary,
-} from "../../types/models/userTypes/userInfoTypes";
+import { IUser, IUserSummary } from "../../types/models/userTypes/userInfoTypes";
 import Avatar from "../atoms/Avatar";
 
 interface IUserItem {
@@ -27,12 +24,7 @@ export function UserItem({ user, children }: IUserItem) {
   };
   return (
     <MemberItem key={user.uid} onClick={() => onClickProfile(user)}>
-      <Avatar
-        image={user.profileImage}
-        avatar={user.avatar}
-        uid={user.uid}
-        size="sm"
-      />
+      <Avatar image={user.profileImage} avatar={user.avatar} uid={user.uid} size="sm" />
       <UserOverview>
         <span>{user?.name}</span>
         <div>{user.comment}</div>

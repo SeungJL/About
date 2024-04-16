@@ -1,7 +1,4 @@
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/pro-solid-svg-icons";
+import { faChevronLeft, faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
@@ -13,10 +10,7 @@ import styled from "styled-components";
 
 import ImageSlider from "../../../components/organisms/imageSlider/ImageSlider";
 import { COLOR_TABLE_LIGHT } from "../../../constants/colorConstants";
-import {
-  AVATAR_COST,
-  AVATAR_ICON,
-} from "../../../constants/settingValue/avatar";
+import { AVATAR_COST, AVATAR_ICON } from "../../../constants/settingValue/avatar";
 import { useFailToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemQuery } from "../../../hooks/user/queries";
 import { IModal } from "../../../types/components/modalTypes";
@@ -86,11 +80,7 @@ function RequestChangeProfileImageModalAvatar({
   };
 
   return (
-    <ModalLayout
-      title="아바타 프로필"
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-    >
+    <ModalLayout title="아바타 프로필" footerOptions={footerOptions} setIsModal={setIsModal}>
       <UpPart>
         <ArrowIcon isLeft={true} onClick={() => handleMove("prev")}>
           {iconIdx !== 0 && <FontAwesomeIcon icon={faChevronLeft} />}
@@ -105,20 +95,13 @@ function RequestChangeProfileImageModalAvatar({
             key={iconIdx}
           >
             <Icon bg={COLOR_TABLE_LIGHT[BG]}>
-              <Image
-                width={80}
-                height={80}
-                src={AVATAR_ICON[iconIdx]}
-                alt="avatar"
-              />
+              <Image width={80} height={80} src={AVATAR_ICON[iconIdx]} alt="avatar" />
             </Icon>
             <IconPoint>{AVATAR_COST[iconIdx]}점 달성</IconPoint>
           </IconWrapper>
         </AnimatePresence>
         <ArrowIcon isLeft={false} onClick={() => handleMove("next")}>
-          {iconIdx !== AVATAR_ICON.length - 1 && (
-            <FontAwesomeIcon icon={faChevronRight} />
-          )}
+          {iconIdx !== AVATAR_ICON.length - 1 && <FontAwesomeIcon icon={faChevronRight} />}
         </ArrowIcon>
       </UpPart>
       <DownPart>

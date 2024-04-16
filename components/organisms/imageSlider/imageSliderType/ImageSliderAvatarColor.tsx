@@ -10,10 +10,7 @@ interface IImageSliderAvatarColor {
   onClick: (idx: number) => void;
 }
 
-function ImageSliderAvatarColor({
-  imageContainer,
-  onClick,
-}: IImageSliderAvatarColor) {
+function ImageSliderAvatarColor({ imageContainer, onClick }: IImageSliderAvatarColor) {
   return (
     <Swiper
       navigation

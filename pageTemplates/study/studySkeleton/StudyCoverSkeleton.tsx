@@ -10,9 +10,7 @@ interface IStudyCoverSkeleton {
 function StudyCoverSkeleton({ coverImageUrl }: IStudyCoverSkeleton) {
   return (
     <Layout>
-      {coverImageUrl && (
-        <Image src={coverImageUrl} width={343} height={165} alt="study" />
-      )}
+      {coverImageUrl && <Image src={coverImageUrl} width={343} height={165} alt="study" />}
       <SpaceIcon>
         <Skeleton>temp</Skeleton>
       </SpaceIcon>

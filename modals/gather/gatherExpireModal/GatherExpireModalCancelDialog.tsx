@@ -12,14 +12,8 @@ import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import {
-  useCompleteToast,
-  useErrorToast,
-} from "../../../hooks/custom/CustomToast";
-import {
-  useGatherStatusMutation,
-  useGatherWritingMutation,
-} from "../../../hooks/gather/mutations";
+import { useCompleteToast, useErrorToast } from "../../../hooks/custom/CustomToast";
+import { useGatherStatusMutation, useGatherWritingMutation } from "../../../hooks/gather/mutations";
 import { DispatchBoolean } from "../../../types/hooks/reactTypes";
 import { GatherExpireModalDialogType } from "./GatherExpireModal";
 
@@ -72,11 +66,7 @@ function GatherExpireModalCancelDialog({
 
   return (
     <Layout>
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
         <AlertDialogOverlay>
           <AlertDialogContent m="auto var(--gap-4)">
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -93,11 +83,7 @@ function GatherExpireModalCancelDialog({
               <Button ref={cancelRef} onClick={onClose}>
                 취소
               </Button>
-              <Button
-                colorScheme="mintTheme"
-                onClick={onCancel}
-                ml="var(--gap-2)"
-              >
+              <Button colorScheme="mintTheme" onClick={onCancel} ml="var(--gap-2)">
                 모집취소
               </Button>
             </AlertDialogFooter>

@@ -12,5 +12,5 @@ export const useImageUploadMutation = (options?: MutationOptions<FormData>) =>
         url: `image/upload/vote`,
         body: param,
       }),
-    options
+    options,
   );

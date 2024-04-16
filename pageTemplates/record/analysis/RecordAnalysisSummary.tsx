@@ -43,14 +43,7 @@ function RecordAnalysisSummary({ setIsLoading }: IRecordAnalysisSummary) {
   }, [data, weeksDate]);
 
   return (
-    <Box
-      bgColor="white"
-      m="16px"
-      mb="8px"
-      rounded="lg"
-      p="8px 16px"
-      border="var(--border-mint)"
-    >
+    <Box bgColor="white" m="16px" mb="8px" rounded="lg" p="8px 16px" border="var(--border-mint)">
       {myAttend?.map((item, idx) => {
         const date = weeksDate[idx];
         return (

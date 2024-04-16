@@ -3,10 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs, { Dayjs } from "dayjs";
 import styled from "styled-components";
 
-import {
-  LOCATION_OPEN_DATE,
-  LOCATION_TABLE_COLOR,
-} from "../../constants/location";
+import { LOCATION_OPEN_DATE, LOCATION_TABLE_COLOR } from "../../constants/location";
 import { PLACE_TO_LOCATION } from "../../storage/study";
 import { IArrivedData } from "../../types/models/studyTypes/studyRecords";
 import { Location } from "../../types/services/locationTypes";
@@ -44,9 +41,7 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
           return (
             <DayItem key={idx}>
               {!openLocation ? (
-                <DayItemDate isToday={date === dayjs().date()}>
-                  {date}
-                </DayItemDate>
+                <DayItemDate isToday={date === dayjs().date()}>{date}</DayItemDate>
               ) : (
                 <LocationOpen location={openLocation}>{date}</LocationOpen>
               )}
@@ -71,15 +66,17 @@ function RecordCalendar({ filterData, navMonth }: IRecordCalendar) {
   );
 }
 function DayOfWeek() {
-  return <DayLine>
-    <span>일</span>
-    <span>월</span>
-    <span>화</span>
-    <span>수</span>
-    <span>목</span>
-    <span>금</span>
-    <span>토</span>
-  </DayLine>
+  return (
+    <DayLine>
+      <span>일</span>
+      <span>월</span>
+      <span>화</span>
+      <span>수</span>
+      <span>목</span>
+      <span>금</span>
+      <span>토</span>
+    </DayLine>
+  );
 }
 
 const Layout = styled.div``;

@@ -5,17 +5,14 @@ import { STORE_GIFT } from "../../../constants/keys/queryKeys";
 import { QueryOptions } from "../../../types/hooks/reactTypes";
 import { IStoreQuery } from "../../../types/models/store";
 
-export const useStoreGiftQuery = (
-  giftId: number,
-  options?: QueryOptions<IStoreQuery>
-) =>
+export const useStoreGiftQuery = (giftId: number, options?: QueryOptions<IStoreQuery>) =>
   useQuery<IStoreQuery, AxiosError, IStoreQuery>(
     ["storeGift", giftId],
     async () => {
       const res = await axios.get<IStoreQuery>(`/api/store/${giftId}`);
       return res.data;
     },
-    options
+    options,
   );
 
 export const useStoreGiftEntryQuery = (options?: QueryOptions<IStoreQuery>) =>
@@ -25,5 +22,5 @@ export const useStoreGiftEntryQuery = (options?: QueryOptions<IStoreQuery>) =>
       const res = await axios.get<IStoreQuery>(`/api/store`);
       return res.data;
     },
-    options
+    options,
   );

@@ -9,21 +9,18 @@ interface IHeader {
   children?: React.ReactNode;
 }
 
-export default function Header({
-  title,
-  isSlide = true,
-  url,
-  children,
-}: IHeader) {
+export default function Header({ title, isSlide = true, url, children }: IHeader) {
   function HeaderLayout() {
-  return <HeaderContainer>
-      <LeftSection>
-        <ArrowBackButton url={url} />
-        <Title>{title}</Title>
-      </LeftSection>
-      <div>{children}</div>
-    </HeaderContainer>
-}
+    return (
+      <HeaderContainer>
+        <LeftSection>
+          <ArrowBackButton url={url} />
+          <Title>{title}</Title>
+        </LeftSection>
+        <div>{children}</div>
+      </HeaderContainer>
+    );
+  }
 
   return (
     <>

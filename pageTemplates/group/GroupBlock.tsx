@@ -59,8 +59,7 @@ function GroupBlock({ group }: IGroupBlock) {
     const status = group.status;
     const min = group.memberCnt.min;
     const max = group.memberCnt.max;
-    const participantCnt =
-      group.participants.length + (group.id === 33 ? 3 : 0);
+    const participantCnt = group.participants.length + (group.id === 33 ? 3 : 0);
 
     if (status === "gathering") {
       return {

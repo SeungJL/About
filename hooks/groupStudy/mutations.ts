@@ -14,7 +14,7 @@ type GroupWritingParam<T> = T extends "post"
 /** group info */
 export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
   method: T,
-  options?: MutationOptions<GroupWritingParam<T>>
+  options?: MutationOptions<GroupWritingParam<T>>,
 ) =>
   useMutation<void, AxiosError, GroupWritingParam<T>>(
     (param) =>
@@ -23,7 +23,7 @@ export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
         url: "groupStudy",
         body: param,
       }),
-    options
+    options,
   );
 
 interface IGroupParticipationRequest {
@@ -33,7 +33,7 @@ interface IGroupParticipationRequest {
 export const useGroupParticipationMutation = <T extends "post" | "delete">(
   method: T,
   id: number,
-  options?: MutationOptions<void>
+  options?: MutationOptions<void>,
 ) =>
   useMutation<void, AxiosError, void>(
     () =>
@@ -42,7 +42,7 @@ export const useGroupParticipationMutation = <T extends "post" | "delete">(
         url: "groupStudy/participate",
         body: { id },
       }),
-    options
+    options,
   );
 
 interface IExileUserParam {
@@ -50,10 +50,7 @@ interface IExileUserParam {
   toUid: string;
 }
 
-export const useGroupExileUserMutation = (
-  id: number,
-  options?: MutationOptions<string>
-) =>
+export const useGroupExileUserMutation = (id: number, options?: MutationOptions<string>) =>
   useMutation<void, AxiosError, string>(
     (toUid) =>
       requestServer<IExileUserParam>({
@@ -61,7 +58,7 @@ export const useGroupExileUserMutation = (
         url: "groupStudy/participate/exile",
         body: { id, toUid },
       }),
-    options
+    options,
   );
 
 interface IUserGroupAttendRequest extends IAttendMutationParam {
@@ -76,7 +73,7 @@ interface IAttendMutationParam {
 
 export const useGroupAttendMutation = (
   id: number,
-  options?: MutationOptions<IAttendMutationParam>
+  options?: MutationOptions<IAttendMutationParam>,
 ) =>
   useMutation<void, AxiosError, IAttendMutationParam>(
     ({ weekRecord, type, weekRecordSub }) =>
@@ -85,7 +82,7 @@ export const useGroupAttendMutation = (
         url: "groupStudy/attendance",
         body: { id, weekRecord, type, weekRecordSub },
       }),
-    options
+    options,
   );
 
 type GroupCommentParam<T> = T extends "post"
@@ -111,7 +108,7 @@ interface IGroupCommentRequest {
 export const useGroupCommentMutation = <T extends "post" | "patch" | "delete">(
   method: T,
   GroupId: number,
-  options?: MutationOptions<GroupCommentParam<T>>
+  options?: MutationOptions<GroupCommentParam<T>>,
 ) =>
   useMutation<void, AxiosError, GroupCommentParam<T>>(
     (param) =>
@@ -124,7 +121,7 @@ export const useGroupCommentMutation = <T extends "post" | "patch" | "delete">(
           commentId: param?.commentId,
         },
       }),
-    options
+    options,
   );
 
 type Status = "pending" | "open" | "close" | "end";
@@ -134,10 +131,7 @@ interface IGroupStatusRequest {
   status: Status;
 }
 
-export const useGroupStatusMutation = (
-  GroupId: number,
-  options?: MutationOptions<Status>
-) =>
+export const useGroupStatusMutation = (GroupId: number, options?: MutationOptions<Status>) =>
   useMutation<void, AxiosError, Status>(
     (status) =>
       requestServer<IGroupStatusRequest>({
@@ -148,7 +142,7 @@ export const useGroupStatusMutation = (
           status,
         },
       }),
-    options
+    options,
   );
 
 interface IGroupWaitingParam {
@@ -158,7 +152,7 @@ interface IGroupWaitingParam {
 
 export const useGroupWaitingMutation = (
   id: number,
-  options?: MutationOptions<IGroupWaitingParam>
+  options?: MutationOptions<IGroupWaitingParam>,
 ) =>
   useMutation<void, AxiosError, IGroupWaitingParam>(
     ({ answer, pointType }) =>
@@ -175,7 +169,7 @@ export const useGroupWaitingMutation = (
           pointType,
         },
       }),
-    options
+    options,
   );
 
 interface IWaitingStatusParam {
@@ -189,7 +183,7 @@ interface IWaitingStatusRequest extends IWaitingStatusParam {
 
 export const useGroupWaitingStatusMutation = (
   id: number,
-  options?: MutationOptions<IWaitingStatusParam>
+  options?: MutationOptions<IWaitingStatusParam>,
 ) =>
   useMutation<void, AxiosError, IWaitingStatusParam>(
     ({ status, userId }) =>
@@ -202,13 +196,10 @@ export const useGroupWaitingStatusMutation = (
           userId,
         },
       }),
-    options
+    options,
   );
 
-export const useGroupAttendancePatchMutation = (
-  id: number,
-  options?: MutationOptions<void>
-) =>
+export const useGroupAttendancePatchMutation = (id: number, options?: MutationOptions<void>) =>
   useMutation<void, AxiosError, void>(
     () =>
       requestServer<{ id: number }>({
@@ -218,5 +209,5 @@ export const useGroupAttendancePatchMutation = (
           id,
         },
       }),
-    options
+    options,
   );

@@ -31,11 +31,7 @@ export const GATHER_TYPES = [
 export const GatherCategoryIcons = [
   <FontAwesomeIcon icon={faUserAstronaut} key="1" color={TABLE_COLORS[0]} />,
   <FontAwesomeIcon icon={faCoffee} key="2" color={TABLE_COLORS[1]} />,
-  <FontAwesomeIcon
-    icon={faChampagneGlasses}
-    key="drink"
-    color={TABLE_COLORS[2]}
-  />,
+  <FontAwesomeIcon icon={faChampagneGlasses} key="drink" color={TABLE_COLORS[2]} />,
   <FontAwesomeIcon icon={faPersonRunning} key="3" color={TABLE_COLORS[3]} />,
   <FontAwesomeIcon icon={faGamepad} key="7" color={TABLE_COLORS[8]} />,
   <FontAwesomeIcon icon={faShuttleSpace} key="4" color={TABLE_COLORS[4]} />,

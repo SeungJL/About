@@ -1,18 +1,9 @@
-import {
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerOverlay,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Drawer, DrawerBody, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
 import { useEffect } from "react";
 import styled from "styled-components";
 
 import TwoButtonNav from "../../../components/layouts/TwoButtonNav";
-import {
-  DispatchBoolean,
-  DispatchString,
-} from "../../../types/hooks/reactTypes";
+import { DispatchBoolean, DispatchString } from "../../../types/hooks/reactTypes";
 
 interface IQuestionBottomDrawer {
   isModal: boolean;
@@ -51,11 +42,7 @@ function QuestionBottomDrawer({
     <Drawer placement="bottom" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent borderTopRadius="var(--rounded-lg)">
-        <DrawerBody
-          display="flex"
-          flexDir="column"
-          p="var(--gap-4) var(--gap-4)"
-        >
+        <DrawerBody display="flex" flexDir="column" p="var(--gap-4) var(--gap-4)">
           <Title>가입 질문</Title>
           <Input
             value={question}

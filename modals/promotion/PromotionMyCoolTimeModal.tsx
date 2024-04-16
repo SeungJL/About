@@ -13,11 +13,7 @@ function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
   };
 
   return (
-    <ModalLayout
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-      title="지난 당첨 기록"
-    >
+    <ModalLayout footerOptions={footerOptions} setIsModal={setIsModal} title="지난 당첨 기록">
       <Flex direction="column" position="relative" overflowY="auto">
         <Container>
           {PROMOTION_WIN.map((item, idx) => (
@@ -39,8 +35,7 @@ function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
                 {item.winner.map((who, idx) => (
                   <WinnerItem key={idx}>
                     {who.name}
-                    <FontAwesomeIcon icon={faCircle} size="sm" />({who.location}
-                    )
+                    <FontAwesomeIcon icon={faCircle} size="sm" />({who.location})
                   </WinnerItem>
                 ))}
               </Winner>

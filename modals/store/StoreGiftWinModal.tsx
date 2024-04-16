@@ -9,11 +9,7 @@ interface IStoreGiftWinModal extends IModal {
   winCnt: number;
 }
 
-function StoreGiftWinModal({
-  setIsModal,
-  applicants,
-  winCnt,
-}: IStoreGiftWinModal) {
+function StoreGiftWinModal({ setIsModal, applicants, winCnt }: IStoreGiftWinModal) {
   const users = applicants.users.reduce((acc, curr) => {
     for (let i = 0; i < curr.cnt; i++) {
       acc.push(curr);
@@ -21,11 +17,7 @@ function StoreGiftWinModal({
     return acc;
   }, []);
 
-  const winners: number[] = selectRandomWinners(
-    applicants.max,
-    winCnt,
-    applicants.giftId
-  );
+  const winners: number[] = selectRandomWinners(applicants.max, winCnt, applicants.giftId);
 
   const footerOptions: IFooterOptions = {
     main: {
@@ -34,11 +26,7 @@ function StoreGiftWinModal({
   };
 
   return (
-    <ModalLayout
-      title="당첨자 발표"
-      footerOptions={footerOptions}
-      setIsModal={setIsModal}
-    >
+    <ModalLayout title="당첨자 발표" footerOptions={footerOptions} setIsModal={setIsModal}>
       <Message>당첨을 축하합니다!</Message>
       <Winner>
         {winners.map((num, idx) => (

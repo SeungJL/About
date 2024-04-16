@@ -100,16 +100,13 @@ function GroupComments({ comment }: IGroupComments) {
                   <Name>
                     <span>{item.user.name}</span>
                     <CommentDetail>
-                      {item.user.location} ·{" "}
-                      {getDateDiff(dayjs(item.updatedAt))}
+                      {item.user.location} · {getDateDiff(dayjs(item.updatedAt))}
                     </CommentDetail>
                   </Name>
                   <p>
                     {item.comment}
                     {item.user.uid === session?.user?.uid && (
-                      <IconWrapper
-                        onClick={() => onClickEdit(item._id, item.comment)}
-                      >
+                      <IconWrapper onClick={() => onClickEdit(item._id, item.comment)}>
                         <FontAwesomeIcon icon={faEllipsis} />
                       </IconWrapper>
                     )}

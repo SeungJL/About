@@ -36,11 +36,7 @@ function ProfilePage() {
     <>
       <Header title="" url={beforePage}>
         <Button pr="4px" variant="ghost">
-          <FontAwesomeIcon
-            icon={faEllipsisVertical}
-            size="lg"
-            onClick={() => setIsModal(true)}
-          />
+          <FontAwesomeIcon icon={faEllipsisVertical} size="lg" onClick={() => setIsModal(true)} />
         </Button>
       </Header>
       <Slide>
@@ -52,11 +48,7 @@ function ProfilePage() {
           </Layout>
         </Container>
       </Slide>
-      <BottomDrawer
-        isModal={isModal}
-        setIsModal={setIsModal}
-        setDeclareModal={setDeclareModal}
-      />
+      <BottomDrawer isModal={isModal} setIsModal={setIsModal} setDeclareModal={setDeclareModal} />
       <DeclareDrawer
         userData={(userData as IUser) || userInfo}
         declareModal={declareModal}

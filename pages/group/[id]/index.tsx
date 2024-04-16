@@ -48,10 +48,7 @@ function GroupDetail() {
     if (!group) return;
     const firstDate = group.attendance.firstDate;
     if (!firstDate) return;
-    if (
-      firstDate !==
-      dayjsToStr(dayjs().subtract(1, "day").startOf("week").add(1, "day"))
-    )
+    if (firstDate !== dayjsToStr(dayjs().subtract(1, "day").startOf("week").add(1, "day")))
       patchAttendance();
   }, [group?.attendance?.firstDate]);
 
@@ -82,7 +79,7 @@ function GroupDetail() {
       {!group && <MainLoading />}
       {group &&
       ![group.organizer, ...group.participants.map((who) => who.user)].some(
-        (who) => who.uid === session?.user.uid
+        (who) => who.uid === session?.user.uid,
       ) ? (
         <GroupBottomNav data={group} />
       ) : null}

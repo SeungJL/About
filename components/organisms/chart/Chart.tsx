@@ -78,13 +78,9 @@ function Chart({ type, user }: IChart) {
     };
   };
 
-  const { data: userAttendRateAll } = useUserAttendRateQueries(
-    monthArr,
-    false,
-    {
-      onError: errorToast,
-    }
-  );
+  const { data: userAttendRateAll } = useUserAttendRateQueries(monthArr, false, {
+    onError: errorToast,
+  });
 
   useEffect(() => {
     if (!userAttendRateAll) return;

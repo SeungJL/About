@@ -60,10 +60,7 @@ function HomeCategoryNav() {
         <Item className="about_navigation3">
           <CustomLink
             onClick={onClick}
-            href={`/member/${convertLocationLangTo(
-              location as LocationEn,
-              "kr"
-            )}`}
+            href={`/member/${convertLocationLangTo(location as LocationEn, "kr")}`}
           >
             <MemberIcon />{" "}
             {/* <IconWrapper>
@@ -88,9 +85,7 @@ function HomeCategoryNav() {
           <span>? ? ?</span>
         </Item>
       </Layout>
-      {isNotCompletedModal && (
-        <NotCompletedModal setIsModal={setIsNotCompletedModal} />
-      )}
+      {isNotCompletedModal && <NotCompletedModal setIsModal={setIsNotCompletedModal} />}
     </>
   );
 }

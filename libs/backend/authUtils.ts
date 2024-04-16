@@ -9,11 +9,7 @@ export const isStranger = (roleStr: string) => {
 };
 
 export const isMember = (roleStr: string) => {
-  return [
-    role.member.value,
-    role.previliged.value,
-    role.stranger.value,
-  ].includes(roleStr);
+  return [role.member.value, role.previliged.value, role.stranger.value].includes(roleStr);
 };
 
 export const isPreviliged = (roleStr: string) => {

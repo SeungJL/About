@@ -65,9 +65,7 @@ function UserOverviewComment() {
   } = {
     "--fa-secondary-color": "white",
     "--fa-secondary-opacity": 1,
-    border: isFocused
-      ? "1px solid var(--color-mint)"
-      : "1px solid var(--gray-6)",
+    border: isFocused ? "1px solid var(--color-mint)" : "1px solid var(--gray-6)",
     borderRadius: "50%",
   };
 

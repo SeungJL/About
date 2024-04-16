@@ -35,9 +35,7 @@ function MemberMyProfile() {
               </InfoItem>
               <InfoItem>
                 <span>전공</span>
-                <span>
-                  {userInfo?.majors?.length && userInfo?.majors[0].detail}
-                </span>
+                <span>{userInfo?.majors?.length && userInfo?.majors[0].detail}</span>
               </InfoItem>
               <InfoItem>
                 <span>MBTI</span>

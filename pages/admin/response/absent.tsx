@@ -59,11 +59,7 @@ function AdminAbsent() {
       )}
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
-          <CheckAbsentModal
-            uid={userFee.uid}
-            fee={userFee.fee}
-            setIsModal={setIsModal}
-          />
+          <CheckAbsentModal uid={userFee.uid} fee={userFee.fee} setIsModal={setIsModal} />
         </ModalPortal>
       )}
     </>
