@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 import {
@@ -14,7 +13,7 @@ import { setGatherDataToCardCol } from "../home/HomeGatherSection";
 
 export default function GatherMain() {
   const searchParams = useSearchParams();
-  const { data } = useSession();
+
   const location = convertLocationLangTo(
     searchParams.get("location") as LocationEn,
     "kr"

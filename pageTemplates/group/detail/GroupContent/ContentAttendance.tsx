@@ -20,7 +20,7 @@ function ContentAttend({ group }) {
   const [isModal, setIsModal] = useState(false);
   const failToast = useFailToast();
   const [isThisWeek, setIsThisWeek] = useState(true);
-  const isGuest = session?.user.name === "guest";
+
   const id = router.query.id;
   const uid = session?.user.uid;
 
@@ -285,8 +285,5 @@ const Item = styled.div`
 const Name = styled.div`
   flex: 1.5;
 `;
-const CheckGrid = styled.div``;
-
-interface IContentAttend {}
 
 export default ContentAttend;

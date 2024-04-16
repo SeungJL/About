@@ -1,8 +1,9 @@
+/* eslint-disable */
+
 import { ModalFooter } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -26,19 +27,9 @@ function GatherKakaoShareModal({
   const [selectedItem, setSelectedItem] = useState<number>();
   const [adminImageUrl, setAdminImageUrl] = useState<string>();
 
-  const { data: session } = useSession();
-
   const onClickItem = (idx) => {
     if (idx === selectedItem) setSelectedItem(null);
     else setSelectedItem(idx);
-  };
-
-  const onClickAdminBtn = () => {
-    if (adminImageUrl) setAdminImageUrl(null);
-    else
-      setAdminImageUrl(
-        "https://studyabout.s3.ap-northeast-2.amazonaws.com/%EB%AA%A8%EC%9E%84+%EA%B3%B5%EC%9C%A0+%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%A0%95%EA%B8%B0+%EC%8A%A4%ED%84%B0%EB%94%94.jpg"
-      );
   };
 
   return (
@@ -102,10 +93,6 @@ const Item = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const ShareBtnWrapper = styled.div`
-  margin-top: auto;
 `;
 
 export default GatherKakaoShareModal;

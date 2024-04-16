@@ -8,7 +8,9 @@ import { MutationOptions } from "../../types/hooks/reactTypes";
 import { IPointSystem } from "../../types/services/pointSystem";
 import { dayjsToStr } from "../../utils/dateTimeUtils";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useUpdateProfileMutation = (options?: MutationOptions<any>) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useMutation<void, AxiosError, any>(async (profile) => {
     await axios.post(`${SERVER_URI}/admin/user`, {
       profile,

@@ -61,21 +61,4 @@ const Item = styled.div`
   }
 `;
 
-const LocationSub = styled.div`
-  color: var(--gray-3);
-  font-size: 12px;
-  margin: 2px 0;
-  margin-left: 44px;
-`;
-
-const Secret = styled.div`
-  display: flex;
-  align-items: center;
-
-  > span:first-child {
-    margin-left: var(--gap-1);
-    margin-right: var(--gap-2);
-  }
-`;
-
 export default GroupDetailInfo;

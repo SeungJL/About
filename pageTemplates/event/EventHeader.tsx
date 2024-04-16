@@ -6,8 +6,7 @@ import Link from "next/link";
 import Header from "../../components/layouts/Header";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
-interface IEventHeader {}
-export default function EventHeader({}: IEventHeader) {
+export default function EventHeader() {
   const { data: userInfo } = useUserInfoQuery();
 
   return (

@@ -92,13 +92,13 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
         contentType === "none" || !contentType
           ? "게시완료"
           : contentType === "cool"
-          ? "확인"
-          : "다음에",
+            ? "확인"
+            : "다음에",
       func: !contentType
         ? onSubmit
         : contentType === "cool"
-        ? () => setIsModal(false)
-        : handleApply,
+          ? () => setIsModal(false)
+          : handleApply,
     },
 
     ...(!contentType
@@ -108,12 +108,12 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
           },
         }
       : contentType === "cool"
-      ? undefined
-      : {
-          sub: {
-            text: "다음에",
-          },
-        }),
+        ? undefined
+        : {
+            sub: {
+              text: "다음에",
+            },
+          }),
   };
 
   return (
@@ -161,8 +161,6 @@ function PromotionApplyModal({ setIsModal, uniName }: IPromotionApplyModal) {
   );
 }
 
-const Footer = styled.footer``;
-
 const Uni = styled.div`
   flex: 1;
   display: flex;
@@ -187,11 +185,6 @@ const CoolTime = styled.div`
   > span {
     margin-left: var(--gap-2);
   }
-`;
-
-const SubMessage = styled.span`
-  color: var(--gray-3);
-  font-size: 12px;
 `;
 
 export default PromotionApplyModal;

@@ -3,7 +3,6 @@ import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
 import { useUserInfoQuery } from "../../hooks/user/queries";
@@ -12,8 +11,6 @@ import { dayjsToFormat } from "../../utils/dateTimeUtils";
 import PointScoreBar from "../point/pointScore/PointScoreBar";
 
 function UserProfile() {
-  const { data: session } = useSession();
-
   // const { data: myArrivedCnt, isLoading } = useStudyArrivedCntQuery(
   //   userInfo?.uid as string
   // );

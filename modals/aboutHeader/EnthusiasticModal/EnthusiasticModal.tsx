@@ -12,7 +12,6 @@ import { useCounterQuery } from "../../../hooks/sub/counter/queries";
 import { useUserInfoFieldMutation } from "../../../hooks/user/mutations";
 import { ModalSubtitle } from "../../../styles/layout/modal";
 import { IModal } from "../../../types/components/modalTypes";
-import { IConfirmContent } from "../../common/ConfirmModal";
 import { IFooterOptions, ModalLayout } from "../../Modals";
 
 interface IEnthusiasticModal extends IModal {}
@@ -45,18 +44,6 @@ function EnthusiasticModal({ setIsModal }: IEnthusiasticModal) {
       setIsModal(false);
     },
   });
-
-  const confirmContent: IConfirmContent = {
-    title: "열공멤버에 지원하시겠어요?",
-    onClickRight: () => {
-      if (isExpired) {
-        failToast("free", "이미 마감되었습니다.");
-        setIsConfirmModal(false);
-        return;
-      }
-      mutate({ role: "enthusiastic" });
-    },
-  };
 
   const isExpired = LOCATION_WIN[location] <= memberCnt;
 

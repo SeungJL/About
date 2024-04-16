@@ -23,7 +23,6 @@ import { useEffect } from "react";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 
 export default function WriteDrawer() {
-  const { data: session } = useSession();
   const router = useRouter();
 
   const pathname = usePathname();
@@ -95,11 +94,11 @@ interface ISocialButton {
 }
 
 function SocialButton({ title, subTitle, icon, color, url }: ISocialButton) {
-  const router = useRouter();
   const toast = useToast();
   const typeToast = useTypeToast();
   const { data: session } = useSession();
   const isGuest = session?.user.name === "guest";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onClick = (e: any) => {
     e.stopPropagation();
     if (isGuest) {

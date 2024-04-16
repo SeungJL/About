@@ -53,10 +53,4 @@ const AlphabetContainer = styled.div`
   }
 `;
 
-const Content = styled.div`
-  font-size: 12px;
-  color: var(--gray-2);
-  font-weight: 600;
-`;
-
 export default AlphabetPopUp;

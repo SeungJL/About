@@ -11,9 +11,9 @@ function RegisterLayout({
   children: ReactNode;
   errorMessage?: string;
 }) {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
 
-  const onValid = (data) => {};
+  const onValid = () => {};
   return (
     <Slide>
       <Layout onSubmit={handleSubmit(onValid)}>

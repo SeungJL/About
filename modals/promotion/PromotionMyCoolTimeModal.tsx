@@ -5,12 +5,7 @@ import styled from "styled-components";
 
 import { PROMOTION_WIN } from "../../storage/winRecord";
 import { IModal } from "../../types/components/modalTypes";
-import { IPromotionApply } from "../../types/models/promotion";
 import { IFooterOptions, ModalLayout } from "../Modals";
-
-interface IPromotionMyCoolTimeModal extends IModal {
-  myApply: IPromotionApply;
-}
 
 function PromotionMyCoolTimeModal({ setIsModal }: IModal) {
   const footerOptions: IFooterOptions = {
@@ -112,15 +107,6 @@ const Gift = styled.div`
   > span:last-child {
     font-weight: 600;
   }
-`;
-
-const Info = styled.div``;
-
-const Uni = styled.span`
-  font-weight: 600;
-  color: var(--gray-2);
-  font-size: 14px;
-  flex: 0.4;
 `;
 
 export default PromotionMyCoolTimeModal;

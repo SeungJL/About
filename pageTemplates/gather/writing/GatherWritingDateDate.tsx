@@ -36,6 +36,7 @@ function GatherWritingDateDate({
   /* eslint-disable react/display-name */
   //props를 직접 전달하지 않아서 그런지 optional로 안하면 타입 오류가 남
   type CustomInputProps = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value?: any;
     onClick?: () => void;
   };

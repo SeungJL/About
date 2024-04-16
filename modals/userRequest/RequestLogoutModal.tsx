@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { signOut } from "next-auth/react";
 import { useEffect, useRef } from "react";
-import styled from "styled-components";
 
 import { IModal } from "../../types/components/modalTypes";
 
@@ -62,7 +61,5 @@ function RequestLogoutModal({ isModal, setIsModal }: IRequestLogoutModal) {
     </AlertDialog>
   );
 }
-
-const Layout = styled.div``;
 
 export default RequestLogoutModal;

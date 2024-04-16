@@ -38,7 +38,7 @@ export const getUserBadge = (score: number, uid: string): UserBadge => {
 
 export const getNextBadge = (currentBadge: UserBadge): UserBadge => {
   const idx = USER_SCORE_BADGE_ARR.indexOf(
-    currentBadge as typeof USER_SCORE_BADGE_ARR[number]
+    currentBadge as (typeof USER_SCORE_BADGE_ARR)[number]
   );
   if (idx === -1 || idx === USER_SCORE_BADGE_ARR.length - 1) {
     return null;
@@ -89,6 +89,7 @@ export const getRestInfo = (restData: string) => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const shuffleArray = (array: any[]) => {
   if (!array) return;
   return array.sort(() => Math.random() - 0.5);

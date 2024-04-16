@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";

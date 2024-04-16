@@ -20,8 +20,7 @@ import {
 } from "../../constants/storage/eventBadgeUser";
 import { useUserInfoQuery } from "../../hooks/user/queries";
 
-interface IEventBadge {}
-export default function EventBadge({}: IEventBadge) {
+export default function EventBadge() {
   const { data: userInfo } = useUserInfoQuery();
   const score = userInfo?.score;
   const [isModal, setIsModal] = useState(false);
@@ -48,10 +47,10 @@ export default function EventBadge({}: IEventBadge) {
         badge === "딸기스무디"
           ? EVENT_BADGE_딸기스무디.includes(userInfo?.uid)
           : badge === "라벤더"
-          ? EVENT_BADGE_라벤더.includes(userInfo?.uid)
-          : badge === "민트초코"
-          ? EVENT_BADGE_민트초코.includes(userInfo?.uid)
-          : false;
+            ? EVENT_BADGE_라벤더.includes(userInfo?.uid)
+            : badge === "민트초코"
+              ? EVENT_BADGE_민트초코.includes(userInfo?.uid)
+              : false;
 
       return {
         icon: !hasBadge ? (
@@ -69,8 +68,8 @@ export default function EventBadge({}: IEventBadge) {
     }
   );
 
-  const BlocksComponents = [...blockArr, ...eventArr].map((block) => (
-    <IconButtonColBlock props={block} />
+  const BlocksComponents = [...blockArr, ...eventArr].map((block, idx) => (
+    <IconButtonColBlock props={block} key={idx} />
   ));
 
   return (

@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import { IModal } from "../../types/components/modalTypes";
 import RuleModal, { IRuleModalContent } from "../RuleModal";
 
@@ -32,7 +30,5 @@ function PromotionRuleModal({ setIsModal }: IModal) {
   };
   return <RuleModal content={content} setIsModal={setIsModal} />;
 }
-
-const Layout = styled.div``;
 
 export default PromotionRuleModal;

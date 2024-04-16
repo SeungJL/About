@@ -22,10 +22,10 @@ import { usePointSystemQuery } from "../../../hooks/user/queries";
 import { IModal } from "../../../types/components/modalTypes";
 import { IAvatar } from "../../../types/models/userTypes/userInfoTypes";
 import { IFooterOptions, ModalLayout } from "../../Modals";
-
 interface IRequestChangeProfileImageModalAvatar extends IModal {
   setUserAvatar: UseMutateFunction<
     void,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     AxiosError<unknown, any>,
     IAvatar,
     unknown

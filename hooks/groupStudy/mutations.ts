@@ -8,8 +8,8 @@ import { IGroup, IGroupWriting } from "../../types/models/groupTypes/group";
 type GroupWritingParam<T> = T extends "post"
   ? { groupStudy: IGroupWriting }
   : T extends "patch"
-  ? { groupStudy: IGroup }
-  : { id: number };
+    ? { groupStudy: IGroup }
+    : { id: number };
 
 /** group info */
 export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
@@ -26,9 +26,7 @@ export const useGroupWritingMutation = <T extends "post" | "patch" | "delete">(
     options
   );
 
-type GroupParticipationParam<T> = T extends "post" ? "first" | "second" : void;
-
-interface IGroupParticipationRequest<T> {
+interface IGroupParticipationRequest {
   id: number;
 }
 
@@ -39,7 +37,7 @@ export const useGroupParticipationMutation = <T extends "post" | "delete">(
 ) =>
   useMutation<void, AxiosError, void>(
     () =>
-      requestServer<IGroupParticipationRequest<T>>({
+      requestServer<IGroupParticipationRequest>({
         method,
         url: "groupStudy/participate",
         body: { id },
@@ -96,16 +94,16 @@ type GroupCommentParam<T> = T extends "post"
       commentId?: string;
     }
   : T extends "patch"
-  ? {
-      comment: string;
-      commentId: string;
-    }
-  : {
-      comment?: never;
-      commentId: string;
-    };
+    ? {
+        comment: string;
+        commentId: string;
+      }
+    : {
+        comment?: never;
+        commentId: string;
+      };
 
-interface IGroupCommentRequest<T> {
+interface IGroupCommentRequest {
   id: number;
   comment?: string;
   commentId?: string;
@@ -117,7 +115,7 @@ export const useGroupCommentMutation = <T extends "post" | "patch" | "delete">(
 ) =>
   useMutation<void, AxiosError, GroupCommentParam<T>>(
     (param) =>
-      requestServer<IGroupCommentRequest<T>>({
+      requestServer<IGroupCommentRequest>({
         method,
         url: "groupStudy/comment",
         body: {

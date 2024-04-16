@@ -49,28 +49,28 @@ function HomeInitialSetting() {
   }, [isGuest, userInfo]);
 
   useEffect(() => {
-    const inappdeny_exec_vanillajs = (callback) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const inappdenyExecVanillajs = (callback: any) => {
       if (document.readyState !== "loading") callback();
       else document.addEventListener("DOMContentLoaded", callback);
     };
-    inappdeny_exec_vanillajs(() => {
+    inappdenyExecVanillajs(() => {
       const useragt = navigator.userAgent.toLowerCase();
-      const target_url = location.href;
+      const targetUrl = location.href;
       if (useragt.match(/kakaotalk/i)) {
         location.href =
-          "kakaotalk://web/openExternal?url=" + encodeURIComponent(target_url);
+          "kakaotalk://web/openExternal?url=" + encodeURIComponent(targetUrl);
       }
     });
   }, []);
 
-  const [{ run, steps }, setState] = useState<{
+  const [{ steps }, setState] = useState<{
     run: boolean;
     steps?: Step[];
   }>({
     run: false,
     steps: STEPS_CONTENTS,
   });
-  const a = 4;
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     if (data.step.target === ".about_navigation1") {
@@ -80,7 +80,7 @@ function HomeInitialSetting() {
       setRenderHomeHeaderState(true);
     }
 
-    const { status, type } = data;
+    const { status } = data;
     const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
     if (finishedStatuses.includes(status)) {

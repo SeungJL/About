@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
-import styled from "styled-components";
 
 function ForceLogoutDialog() {
   const router = useRouter();
@@ -52,7 +51,5 @@ function ForceLogoutDialog() {
     </AlertDialog>
   );
 }
-
-const Layout = styled.div``;
 
 export default ForceLogoutDialog;

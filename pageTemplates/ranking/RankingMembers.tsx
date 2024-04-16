@@ -100,8 +100,4 @@ const RankingMine = styled.div<{ isMine?: boolean }>`
   font-size: 14px;
 `;
 
-const InitialBadge = styled.div`
-  width: 59px;
-`;
-
 export default RankingMembers;

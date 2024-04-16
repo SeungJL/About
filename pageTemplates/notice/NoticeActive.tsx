@@ -37,7 +37,7 @@ function NoticeActive({ activeLogs }: INoticeActive) {
   const { mutate: registerFriend } = useUserFriendMutation("patch", {
     onError: errorToast,
   });
-  const { mutate: changeAlphabet, data } = useAlphabetMutation("change");
+  const { mutate: changeAlphabet } = useAlphabetMutation("change");
 
   const { mutate: interactionFriend } = useInteractionMutation(
     "friend",

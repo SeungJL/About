@@ -17,7 +17,6 @@ import BaseScript from "./BaseScript";
 import Seo from "./Seo";
 
 config.autoAddCss = false;
-const PUBLIC_ROUTES = ["/login", "/register", "/checkingServer"];
 
 interface ILayout {
   children: React.ReactNode;

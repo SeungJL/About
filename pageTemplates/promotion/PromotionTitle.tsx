@@ -26,22 +26,6 @@ const Layout = styled.div`
   text-align: center;
 `;
 
-const EveryTime = styled.div`
-  position: relative;
-  z-index: 2;
-  background-color: var(--gray-8);
-  border-radius: var(--rounded-lg);
-`;
-
-const Title = styled.div`
-  font-size: 40px;
-  font-weight: 800;
-  line-height: 1.3;
-  > span:first-child {
-    color: #c62917;
-  }
-`;
-
 const Detail = styled.div`
   margin-top: var(--gap-5);
   font-weight: 600;

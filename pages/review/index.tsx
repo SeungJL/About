@@ -218,7 +218,7 @@ function Review() {
                       <Spacing />
                     )}
                     {item?.text && <ReviewContent text={item.text} />}
-                    <ReviewStatus temp={writers["이승주"]} />
+                    <ReviewStatus />
                   </Item>
                 ))}
                 {visibleCnt < reviewData.length && (

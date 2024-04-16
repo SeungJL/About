@@ -22,12 +22,12 @@ function CheckRegisterModal({
   applicant,
   setIsRefetch,
 }: ICheckRegisterModal) {
-  if (!applicant) return null;
   const completeToast = useCompleteToast();
   const errorToast = useErrorToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const uid = applicant?.uid;
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { mutate: approve } = useUserRegisterControlMutation("post", {
     onSuccess() {
       completeToast("free", "가입이 승인되었습니다.");

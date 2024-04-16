@@ -1,10 +1,11 @@
+import "dayjs/locale/ko";
+
 import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
-import "dayjs/locale/ko";
-import localizedFormat from "dayjs/plugin/localizedFormat";
 import Header from "../../../components/layouts/Header";
 import Slide from "../../../components/layouts/PageSlide";
 import StoreApplyGiftModal from "../../../modals/store/StoreApplyGiftModal";

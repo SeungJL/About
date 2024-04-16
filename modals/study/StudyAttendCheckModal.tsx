@@ -1,7 +1,9 @@
+/* eslint-disable */
+
 import { Box, Textarea } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { useParams, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useParams, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 // import { RotatingLines } from "react-loader-spinner";
@@ -12,7 +14,7 @@ import Spinner from "../../components/atoms/Spinner";
 import ImageUploadInput from "../../components/molecules/ImageUploadInput";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { POINT_SYSTEM_PLUS } from "../../constants/serviceConstants/pointSystemConstants";
-import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
+import { POINT_SYSTEM_DEPOSIT } from "../../constants/settingValue/pointSystem";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useImageUploadMutation } from "../../hooks/image/mutations";
 import { useStudyAttendCheckMutation } from "../../hooks/study/mutations";
@@ -87,7 +89,7 @@ function StudyAttendCheckModal({ setIsModal }: IStudyAttendCheckModal) {
 
         const isLate =
           !isFree && dayjs().isAfter(dayjs(studyVoteInfo.start).add(1, "hour"));
-        if (isLate) getDeposit(POINT_SYSTEM_Deposit.STUDY_ATTEND_LATE);
+        if (isLate) getDeposit(POINT_SYSTEM_DEPOSIT.STUDY_ATTEND_LATE);
         toast(
           "success",
           `출석 완료! ${pointObj.value} 포인트가 적립되었습니다. ${

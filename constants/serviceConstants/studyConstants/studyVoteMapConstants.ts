@@ -1,6 +1,7 @@
 import { ActiveLocation } from "../../../types/services/locationTypes";
 
 export const VOTE_LOCATION_CENTER_DOT: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key in ActiveLocation]: any;
 } = {
   수원: new naver.maps.LatLng(37.278992, 127.025727),
@@ -11,6 +12,7 @@ export const VOTE_LOCATION_CENTER_DOT: {
   인천: new naver.maps.LatLng(37.58452, 127.041047),
 };
 export const VOTE_LOCATION_MAX_BOUND: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key in ActiveLocation]: any;
 } = {
   수원: new naver.maps.LatLngBounds(

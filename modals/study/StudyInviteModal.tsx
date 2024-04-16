@@ -20,7 +20,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
   const { data: session } = useSession();
 
   const router = useRouter();
-  const random_num = Math.floor(Math.random() * 3);
+  const randomNum = Math.floor(Math.random() * 3);
   const url = WEB_URL + router?.asPath + "/" + session?.user?.uid;
 
   const [isRenderingCheck, setIsRenderingCheck] = useState(false);
@@ -47,7 +47,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
         content: {
           title: "같이 스터디 할래?",
           description: place?.fullname,
-          imageUrl: SQUARE_RANDOM_IMAGE[random_num],
+          imageUrl: SQUARE_RANDOM_IMAGE[randomNum],
           link: {
             mobileWebUrl: url,
             webUrl: url,
@@ -68,7 +68,7 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
 
       window.Kakao.Link.createDefaultButton(options);
     }
-  }, [isRenderingCheck, location, place?.fullname, random_num, url]);
+  }, [isRenderingCheck, location, place?.fullname, randomNum, url]);
 
   const footerOptions: IFooterOptions = {
     children: (
@@ -112,18 +112,6 @@ function StudyInviteModal({ setIsModal, place }: IStudyInviteModal) {
     </ModalLayout>
   );
 }
-
-const Layout = styled.div`
-  width: 100%;
-  display: flex;
-  height: 46px;
-  > button:first-child {
-    margin-right: var(--gap-3);
-  }
-  > button {
-    flex: 1;
-  }
-`;
 
 const ButtonLayout = styled.div`
   width: 100%;

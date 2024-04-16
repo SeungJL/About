@@ -9,7 +9,6 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import Header from "../../../components/layouts/Header";
-import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { isGatherEditState } from "../../../recoils/checkAtoms";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
@@ -21,7 +20,6 @@ interface IGatherHeader {
 }
 
 function GatherHeader({ gatherData }: IGatherHeader) {
-  const failToast = useFailToast();
   const router = useRouter();
 
   const title = gatherData?.title;

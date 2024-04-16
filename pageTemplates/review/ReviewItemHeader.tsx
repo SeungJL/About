@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ProfileIcon from "../../components/atoms/Profile/ProfileIcon";
 
 interface IReviewItemHeader {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writer: any;
   date: string;
 }

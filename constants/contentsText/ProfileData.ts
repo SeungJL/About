@@ -18,7 +18,7 @@ export const MBTI = [
   "생략",
 ];
 
-export const majors_DATA = [
+export const MAJORS_DATA = [
   {
     department: "인문계열",
     details: ["국어/국문학", "영어/영문학", "기타 외국어/문학", "인문과학"],

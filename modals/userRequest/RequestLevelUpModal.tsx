@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import styled from "styled-components";
 
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useStudyArrivedCntQuery } from "../../hooks/study/queries";
@@ -59,7 +58,5 @@ function RequestLevelUpModal({ setIsModal }: IModal) {
     </ModalLayout>
   );
 }
-
-const Layout = styled.div``;
 
 export default RequestLevelUpModal;

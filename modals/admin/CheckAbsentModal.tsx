@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 
 import { useAdminDepositMutation } from "../../hooks/admin/mutation";

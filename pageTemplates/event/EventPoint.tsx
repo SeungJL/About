@@ -8,8 +8,7 @@ import { EVENT_BANNER_PROMOTION } from "../../assets/images/imageUrl";
 import ArrowTextButton from "../../components/atoms/buttons/ArrowTextButton";
 import SectionBar from "../../components/molecules/bars/SectionBar";
 
-interface IEventPoint {}
-export default function EventPoint({}: IEventPoint) {
+export default function EventPoint() {
   return (
     <>
       <SectionBar title="다양한 포인트 획득처" size="md" />

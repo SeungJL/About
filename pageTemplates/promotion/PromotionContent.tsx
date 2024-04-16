@@ -120,12 +120,6 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-const Message = styled.span`
-  margin-left: auto;
-  color: var(--gray-2);
-  font-size: 12px;
-`;
-
 const Pre = styled.pre`
   white-space: pre-wrap;
   font-size: 12px;

@@ -2,7 +2,6 @@ import { faStars } from "@fortawesome/pro-duotone-svg-icons";
 import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
@@ -13,7 +12,7 @@ import UserCollectionAlphabetModal from "../../modals/user/collection/UserCollec
 
 export default function UserCollection() {
   const { data: session } = useSession();
-  const router = useRouter();
+
   const isGuest = session?.user.name === "guest";
 
   const [isAlphabetModal, setIsAlphabetModal] = useState(false);
@@ -22,7 +21,6 @@ export default function UserCollection() {
     enabled: !isGuest,
   });
   const alphabetArr = alphabets?.collects;
-  const collectCnt = alphabets?.collectCnt;
 
   return (
     <>
@@ -66,36 +64,6 @@ const BlockItem = styled.div`
   > span:first-child {
     > b {
       color: var(--color-mint);
-    }
-  }
-`;
-
-const HrDiv = styled.div`
-  height: 8px;
-  background-color: var(--gray-7);
-`;
-
-const Container = styled.div`
-  margin: 0 var(--gap-4);
-  padding: var(--gap-4) 0;
-`;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 15px;
-  > div:first-child {
-    display: flex;
-    font-weight: 600;
-  }
-  > div:last-child {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    > button:first-child {
-      margin-right: var(--gap-1);
     }
   }
 `;

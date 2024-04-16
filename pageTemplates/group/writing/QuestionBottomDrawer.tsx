@@ -74,13 +74,6 @@ function QuestionBottomDrawer({
   );
 }
 
-const Container = styled.div`
-  border-radius: 20px;
-  overflow: hidden;
-`;
-
-const BottomNav = styled.nav``;
-
 const Title = styled.div`
   margin: var(--gap-4) 0;
   font-weight: 700;

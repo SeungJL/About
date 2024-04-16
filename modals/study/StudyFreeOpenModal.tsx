@@ -1,7 +1,5 @@
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 
@@ -18,18 +16,13 @@ import {
 } from "../../hooks/study/mutations";
 import { PLACE_TO_LOCATION } from "../../storage/study";
 import { IModal } from "../../types/components/modalTypes";
-import { IPlace } from "../../types/models/studyTypes/studyDetails";
 import { ITimeStartToEnd } from "../../types/utils/timeAndDate";
 import { IFooterOptions, ModalLayout } from "../Modals";
 
-interface IStudyFreeOpenModal extends IModal {
-  place?: IPlace;
-}
+interface IStudyFreeOpenModal extends IModal {}
 
-function StudyFreeOpenModal({ place, setIsModal }: IStudyFreeOpenModal) {
-  const { data: session } = useSession();
+function StudyFreeOpenModal({ setIsModal }: IStudyFreeOpenModal) {
   const { id, date } = useParams<{ id: string; date: string }>() || {};
-  const router = useRouter();
 
   const completeToast = useCompleteToast();
   const failToast = useFailToast();

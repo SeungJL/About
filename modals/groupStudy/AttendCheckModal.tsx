@@ -4,7 +4,6 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { GROUP_STUDY_ALL } from "../../constants/keys/queryKeys";
-import { GROUP_STUDY_ATTEND_SUB_LIST } from "../../constants/settingValue/groupStudy";
 import { useResetQueryData } from "../../hooks/custom/CustomHooks";
 import { useCompleteToast } from "../../hooks/custom/CustomToast";
 import { useGroupAttendMutation } from "../../hooks/groupStudy/mutations";
@@ -35,9 +34,7 @@ function AttendCheckModal({
 
   const resetQueryData = useResetQueryData();
 
-  const isSubRecord = GROUP_STUDY_ATTEND_SUB_LIST.includes(+id);
-
-  const { mutate, isLoading } = useGroupAttendMutation(id, {
+  const { mutate } = useGroupAttendMutation(id, {
     onSuccess() {
       completeToast("free", "저장되었습니다.");
       resetQueryData([GROUP_STUDY_ALL]);
@@ -95,8 +92,8 @@ function AttendCheckModal({
                 myAttend?.includes(day)
                   ? "mintTheme"
                   : mySubAttend?.includes(day)
-                  ? "yellowTheme"
-                  : "gray"
+                    ? "yellowTheme"
+                    : "gray"
               }
             >
               {dayjsToFormat(item, "ddd요일")}
@@ -151,8 +148,6 @@ const Color = styled.div<{ color: string }>`
   border-radius: 50%;
   margin-right: var(--gap-2);
 `;
-
-const Layout = styled.div``;
 
 const CheckContainer = styled.div`
   display: flex;

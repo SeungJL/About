@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useQueryClient } from "react-query";
 import styled from "styled-components";
 
 import {
@@ -27,7 +26,6 @@ function GatherCommentEditModal({
 }: IGatherCommentEditModal) {
   const router = useRouter();
   const gatherId = +router.query.id;
-  const queryClient = useQueryClient();
 
   const [isFirst, setIsFirst] = useState(true);
   const [value, setValue] = useState(commentText);

@@ -5,8 +5,8 @@ import Header from "../../components/layouts/Header";
 import IconButtonNav, {
   IIconButtonNavBtn,
 } from "../../components/molecules/navs/IconButtonNav";
-interface IUserHeader {}
-export default function UserHeader({}: IUserHeader) {
+
+export default function UserHeader() {
   const iconBtnArr: IIconButtonNavBtn[] = [
     {
       icon: <FontAwesomeIcon icon={faGear} size="lg" />,

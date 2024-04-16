@@ -1,16 +1,13 @@
 import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 import styled from "styled-components";
 
-import { useResetQueryData } from "../../../hooks/custom/CustomHooks";
 import {
   useCompleteToast,
   useErrorToast,
 } from "../../../hooks/custom/CustomToast";
 import { useGroupParticipationMutation } from "../../../hooks/groupStudy/mutations";
-import { GatherStatus } from "../../../types/models/gatherTypes/gather";
 import { IGroup } from "../../../types/models/groupTypes/group";
 
 interface IGroupBottomNav {
@@ -28,29 +25,10 @@ function GroupBottomNav({ data }: IGroupBottomNav) {
 
   const url = router.asPath;
   const myUid = session?.user.uid;
-  const myGroup = data.organizer.uid === myUid;
-  const isParticipant = data?.participants.some(
-    (who) => who && who.user.uid === myUid
-  );
+
   const isPending = data.waiting.find((who) => who.user.uid === myUid);
 
-  const [isExpirationModal, setIsExpirationModal] = useState(false);
-  const [isParticipationModal, setIsParticipationModal] = useState(false);
   const GroupId = +router.query.id;
-
-  const resetQueryData = useResetQueryData();
-
-  const { mutate: participate } = useGroupParticipationMutation(
-    "post",
-    GroupId,
-    {
-      onSuccess() {
-        completeToast("free", "신청되었습니다", true);
-        // resetQueryData([Group_CONTENT]);
-      },
-      onError: errorToast,
-    }
-  );
 
   const { mutate: cancel } = useGroupParticipationMutation("delete", GroupId, {
     onSuccess() {
@@ -63,19 +41,9 @@ function GroupBottomNav({ data }: IGroupBottomNav) {
   const onClick = (type: ButtonType) => {
     if (type === "cancel") cancel();
     if (type === "participate") router.push(`${url}/participate`);
-    if (type === "expire") setIsExpirationModal(true);
   };
 
-  interface IButtonSetting {
-    text: string;
-    handleFunction?: () => void;
-  }
-
-  const getButtonSettings = (
-    status: GatherStatus | "gathering"
-  ): IButtonSetting => {
-    switch (status) {
-    }
+  const getButtonSettings = () => {
     if (isPending)
       return {
         text: "가입 대기중",
@@ -86,7 +54,7 @@ function GroupBottomNav({ data }: IGroupBottomNav) {
     };
   };
 
-  const { text, handleFunction } = getButtonSettings(data?.status);
+  const { text, handleFunction } = getButtonSettings();
 
   return (
     <>
@@ -103,12 +71,6 @@ function GroupBottomNav({ data }: IGroupBottomNav) {
           {text}
         </Button>
       </Layout>
-      {/* {isParticipationModal && (
-        <GroupParticipateModal setIsModal={setIsParticipationModal} />
-      )}
-      {isExpirationModal && (
-        <GroupExpireModal setIsModal={setIsExpirationModal} />
-      )} */}
     </>
   );
 }

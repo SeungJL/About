@@ -12,7 +12,7 @@ interface IGroupMine {
 
 function GroupMine({ myGroups }: IGroupMine) {
   const imageTileArr: IImageTile[] = myGroups?.map((group) => ({
-    imageUrl: group.image || getRandomImage("gather"),
+    imageUrl: group.image || getRandomImage(),
     text: group.title,
     url: `/group/${group.id}`,
   }));
@@ -58,20 +58,4 @@ const BlockLayout = styled.div`
   color: var(--gray-3);
 `;
 
-const ImageContainer = styled.div`
-  position: relative;
-  height: 100%;
-  width: 100%;
-  border: var(--border);
-  border-radius: var(--rounded);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-`;
-
-const Name = styled.div`
-  font-weight: 600;
-  margin-top: var(--gap-2);
-`;
 export default GroupMine;

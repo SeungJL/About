@@ -65,6 +65,7 @@ interface IStudyStartTimeData {
 
 export const useStudyStartTimeQuery = (
   date: Dayjs,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options?: QueryOptions<any>
 ) =>
   useQuery(

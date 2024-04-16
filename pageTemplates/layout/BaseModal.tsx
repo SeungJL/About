@@ -25,7 +25,7 @@ export const LOGOUT_ALERT_OPTIONS: IAlertModalOptions = {
   text: "로그아웃",
 };
 
-function BaseModal({ isGuest, isError, setIsError }: IBaseModal) {
+function BaseModal({ isError, setIsError }: IBaseModal) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

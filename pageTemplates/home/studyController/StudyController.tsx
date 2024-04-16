@@ -7,8 +7,6 @@ import styled from "styled-components";
 import Slide from "../../../components/layouts/PageSlide";
 import BetweenTextSwitcher from "../../../components/molecules/navs/BetweenTextSwitcher";
 import StudyAttendCheckModal from "../../../modals/study/StudyAttendCheckModal";
-import { LocationEn } from "../../../types/services/locationTypes";
-import { convertLocationLangTo } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToFormat, dayjsToStr } from "../../../utils/dateTimeUtils";
 import StudyControllerDate from "./StudyControllerDates";
 import StudyControllerDays from "./StudyControllerDays";
@@ -29,10 +27,6 @@ function StudyController() {
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
   const date = searchParams.get("date");
-  const location = convertLocationLangTo(
-    searchParams.get("location") as LocationEn,
-    "kr"
-  );
 
   const [selectedDate, setSelectedDate] = useState<string>();
   const [modalType, setModalType] = useState<VoteType>(null);

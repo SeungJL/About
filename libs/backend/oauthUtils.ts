@@ -4,9 +4,8 @@ import { JWT } from "next-auth/jwt";
 
 import { Account } from "../../models/account";
 import { User } from "../../models/user";
-import dbConnect from "./dbConnect";
 
-interface kakaoProfileInfo {
+interface IKakaoProfileInfo {
   name: string;
   profileImage: string;
   thumbnailURL: string;
@@ -161,10 +160,6 @@ export const withdrawal = async (accessToken: string) => {
   }
 
   if (uid) {
-    await dbConnect();
-
-    const user = await User.findOne({ uid });
-
     await Account.deleteMany({ providerAccountId: uid });
     await User.updateMany(
       { uid },
@@ -194,7 +189,7 @@ const getKakaoProfile = async (accessToken: string) => {
       name: res.data.nickName as string,
       profileImage: (res.data.profileImageURL as string) || defaultUrl,
       thumbnailURL: (res.data.thumbnailURL as string) || defaultUrl,
-    } as kakaoProfileInfo;
+    } as IKakaoProfileInfo;
   } catch (err) {
     return null;
   }

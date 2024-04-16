@@ -27,7 +27,6 @@ import {
   IInteractionSendLike,
 } from "../../../types/globals/interaction";
 import { IUser } from "../../../types/models/userTypes/userInfoTypes";
-import { getUserBadge } from "../../../utils/convertUtils/convertDatas";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 interface IProfileInfo {
@@ -44,8 +43,6 @@ function ProfileInfo({ user }: IProfileInfo) {
 
   const [isConditionOk, setIsConditionOk] = useState(false);
   const [isHeartLoading, setIsHeartLoading] = useState(true);
-
-  const badge = getUserBadge(user?.score, user?.uid);
 
   const status = USER_ROLE[user?.role];
   const storedLikeArr: IInteractionLikeStorage[] = JSON.parse(
@@ -93,7 +90,7 @@ function ProfileInfo({ user }: IProfileInfo) {
       failToast("free", "게스트에게는 불가능합니다.");
       return;
     }
-
+    // eslint-disable-next-line prefer-const
     let interval;
     const checkCondition = () => {
       if (isHeartLoading) return;

@@ -134,16 +134,4 @@ const TimeContent = styled.div`
   }
 `;
 
-const TimeContentInput = styled.input`
-  flex: 1;
-  border: var(--border);
-  border-radius: var(--rounded-lg);
-  height: 36px;
-  padding: var(--gap-2);
-  font-size: 12px;
-  :focus {
-    outline: none;
-    border: var(--border-thick);
-  }
-`;
 export default GatherWritingDateSubject;

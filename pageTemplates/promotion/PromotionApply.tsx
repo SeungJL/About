@@ -20,7 +20,7 @@ function PromotionApply() {
   const [value, setValue] = useState("");
   const [filterData, setFilterData] = useState<IPromotionApply[]>([]);
   const [isModal, setIsModal] = useState(false);
-  const [uniName, setUniName] = useState<any>();
+  const [uniName, setUniName] = useState<string>();
 
   const { data: promotionArr } = usePromotionQuery();
 

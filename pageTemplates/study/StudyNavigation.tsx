@@ -40,7 +40,7 @@ interface IStudyNavigation {
 
 type MainBtnType = "vote" | "freeOpen" | "attendCheck";
 type SubNavBtn = "changeTime" | "absent" | "cancelVote";
-export type studyModalType = MainBtnType | SubNavBtn;
+export type StudyModalType = MainBtnType | SubNavBtn;
 
 function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
   const toast = useToast();
@@ -53,15 +53,13 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
   const location = PLACE_TO_LOCATION[id];
   const isGuest = session?.user.name === "guest";
 
-  const isPrivate = false;
-  const attendences = [];
   const uid = session?.user.uid;
 
   const studyDateStatus = useRecoilValue(studyDateStatusState);
   const myStudy = useRecoilValue(myStudyState);
   const votingType = getVotingType(myStudy, id);
 
-  const [modalType, setModalType] = useState<studyModalType>();
+  const [modalType, setModalType] = useState<StudyModalType>();
   const [modalOptions, setModalOptions] = useState<IAlertModalOptions>();
 
   const isAttend = checkMyAttend(studyDateStatus, myStudy, uid);
@@ -117,8 +115,7 @@ function StudyNavigation({ voteCnt, studyStatus }: IStudyNavigation) {
         });
       }
     }
-    if (type === "changeTime") {
-    }
+
     if (type === "absent" && studyDateStatus === "not passed") {
       toast("error", "스터디 확정 이후부터 사용이 가능합니다.");
       return;
@@ -212,9 +209,11 @@ const checkSubNavExists = (
       return false;
     case "not passed":
       if (votingType) return true;
-    case "today":
+      break;
+    case "today": {
       if (votingType === "same") return true;
       return false;
+    }
   }
 };
 
@@ -255,7 +254,9 @@ const Layout = styled.nav`
   padding: 16px;
   background-color: white;
   z-index: 50;
-  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 -1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 -1px 2px 0 rgba(0, 0, 0, 0.06);
   max-width: var(--max-width);
   margin: 0 auto;
 `;

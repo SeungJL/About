@@ -30,7 +30,7 @@ type GatherParticipationParam<T> = T extends "post"
   ? { phase: "first" | "second"; userId?: string }
   : void;
 
-interface IGatherParticipationRequest<T> {
+interface IGatherParticipationRequest {
   gatherId: number;
   phase?: "first" | "second";
   userId?: string;
@@ -43,7 +43,7 @@ export const useGatherParticipationMutation = <T extends "post" | "delete">(
 ) =>
   useMutation<void, AxiosError, GatherParticipationParam<T>>(
     (param) =>
-      requestServer<IGatherParticipationRequest<T>>({
+      requestServer<IGatherParticipationRequest>({
         method,
         url: "gather/participate",
         body: { gatherId, ...param },
@@ -65,7 +65,7 @@ type GatherCommentParam<T> = T extends "post"
         comment?: never;
         commentId: string;
       };
-interface IGatherCommentRequest<T> {
+interface IGatherCommentRequest {
   gatherId: number;
   comment?: string;
   commentId?: string;
@@ -77,7 +77,7 @@ export const useGatherCommentMutation = <T extends "post" | "patch" | "delete">(
 ) =>
   useMutation<void, AxiosError, GatherCommentParam<T>>(
     (param) =>
-      requestServer<IGatherCommentRequest<T>>({
+      requestServer<IGatherCommentRequest>({
         method,
         url: "gather/comment",
         body: {

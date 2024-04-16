@@ -56,19 +56,6 @@ function GroupContent({ group }: IGroupContent) {
   );
 }
 
-const ContentNav = styled.nav`
-  display: flex;
-  background-color: white;
-`;
-
-const ContentBtn = styled.button<{ isSelected: boolean }>`
-  flex: 1;
-  padding: var(--gap-2) 0;
-  font-weight: 600;
-  color: ${(props) => (props.isSelected ? "var(--gray-1)" : "var(--gray-3)")};
-  border-bottom: ${(props) => props.isSelected && "2px solid var(--gray-1)"};
-`;
-
 const Layout = styled.div`
   display: flex;
   flex-direction: column;

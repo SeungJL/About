@@ -8,7 +8,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useRef } from "react";
-import styled from "styled-components";
 
 interface IAlertDialog {
   isOpen: boolean;
@@ -47,7 +46,5 @@ function AlertDialog({ isOpen, onClose, onSubmit }: IAlertDialog) {
     </ChakraAlertDialog>
   );
 }
-
-const Layout = styled.div``;
 
 export default AlertDialog;

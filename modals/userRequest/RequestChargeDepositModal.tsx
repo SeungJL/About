@@ -28,7 +28,7 @@ function RequestChargeDepositModal({ setIsModal }: IModal) {
 
   const { data: deposit } = usePointSystemQuery("deposit");
   const { mutate: sendRequest } = useUserRequestMutation();
-  const { mutate: getDeposit, isLoading } = usePointSystemMutation("deposit", {
+  const { mutate: getDeposit } = usePointSystemMutation("deposit", {
     onSuccess() {
       completeToast("success");
       resetQueryData([USER_INFO], () => setIsModal(false));
@@ -137,7 +137,5 @@ const Message = styled.div`
   align-items: center;
   font-weight: 600;
 `;
-
-const Footer = styled.footer``;
 
 export default RequestChargeDepositModal;

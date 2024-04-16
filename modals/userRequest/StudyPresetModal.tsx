@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 
@@ -33,7 +33,7 @@ function StudyPresetModal() {
   const { data: session } = useSession();
   const toast = useToast();
   const typeToast = useTypeToast();
-  const [page, setPage] = useState(0);
+
   const [isConfirmModal, setIsConfirmModal] = useState(false);
 
   const [presetPlaces, setPresetPlaces] = useState<IStudyVotePlaces>({
@@ -59,10 +59,10 @@ function StudyPresetModal() {
     studyPlaces?.length > 12
       ? "xxxl"
       : studyPlaces?.length > 8
-      ? "xxl"
-      : studyPlaces?.length > 4
-      ? "xl"
-      : "md";
+        ? "xxl"
+        : studyPlaces?.length > 4
+          ? "xl"
+          : "md";
 
   useEffect(() => {
     if (!studyPreference) return;
@@ -82,14 +82,6 @@ function StudyPresetModal() {
   });
 
   const { mutate: getPoint } = usePointSystemMutation("point");
-
-  const selectFirst = () => {
-    if (!presetPlaces?.place) {
-      toast("error", "장소를 선택해 주세요!");
-      return;
-    }
-    setPage(1);
-  };
 
   const onClose = () => {
     newSearchParams.delete("preset");
@@ -163,10 +155,10 @@ function StudyPresetModal() {
             size === "xxxl"
               ? "360px"
               : size === "xxl"
-              ? "310px"
-              : size === "xl"
-              ? "200px"
-              : "200px"
+                ? "310px"
+                : size === "xl"
+                  ? "200px"
+                  : "200px"
           }
           overflowY="auto"
           sx={{

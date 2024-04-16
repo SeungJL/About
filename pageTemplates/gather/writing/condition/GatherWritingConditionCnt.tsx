@@ -67,13 +67,6 @@ function GatherWritingConditionCnt({
 
 const Layout = styled.div``;
 
-const CounterWrapper = styled.div<{ isMinus: boolean }>`
-  padding: 0 var(--gap-1);
-  margin-right: ${(props) => (props.isMinus ? "var(--gap-1)" : 0)};
-  margin-left: ${(props) => (!props.isMinus ? "var(--gap-1)" : 0)};
-  cursor: pointer;
-`;
-
 const MemberCnt = styled.div`
   display: flex;
   align-items: center;

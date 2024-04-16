@@ -64,7 +64,7 @@ function AdminRegister() {
           ))}
         </Main>
       </Layout>
-      {isModal && (
+      {isModal && applicant && (
         <CheckRegisterModal
           setIsModal={setIsModal}
           applicant={applicant}

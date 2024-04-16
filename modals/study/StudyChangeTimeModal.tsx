@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import RulletPickerTwo from "../../components/molecules/picker/RulletPickerTwo";
 import { STUDY_VOTE } from "../../constants/keys/queryKeys";
 import { STUDY_VOTE_HOUR_ARR } from "../../constants/serviceConstants/studyConstants/studyTimeConstant";
-import { POINT_SYSTEM_Deposit } from "../../constants/settingValue/pointSystem";
+import { POINT_SYSTEM_DEPOSIT } from "../../constants/settingValue/pointSystem";
 import { useToast, useTypeToast } from "../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../hooks/user/mutations";
@@ -75,7 +75,7 @@ function StudyChangeTimeModal({ setIsModal }: IStudyChangeTimeModal) {
   const prevFee = data?.find(
     (item) =>
       item?.meta?.sub === date &&
-      item.message === POINT_SYSTEM_Deposit.STUDY_TIME_CHANGE.message
+      item.message === POINT_SYSTEM_DEPOSIT.STUDY_TIME_CHANGE.message
   );
 
   const queryClient = useQueryClient();
@@ -90,7 +90,7 @@ function StudyChangeTimeModal({ setIsModal }: IStudyChangeTimeModal) {
         if (isFree) return;
         if (startTime && dayjs() > startTime && !prevFee) {
           getDeposit({
-            ...POINT_SYSTEM_Deposit.STUDY_TIME_CHANGE,
+            ...POINT_SYSTEM_DEPOSIT.STUDY_TIME_CHANGE,
             sub: date,
           });
         }

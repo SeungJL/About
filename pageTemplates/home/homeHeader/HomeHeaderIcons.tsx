@@ -20,11 +20,12 @@ import { AlertIcon } from "../../../styles/icons";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
 
 interface IHomeHeaderIcons {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setIconType: React.Dispatch<any>;
   isRabbitRun: boolean;
 }
 
-function HomeHeaderIcons({ setIconType, isRabbitRun }: IHomeHeaderIcons) {
+function HomeHeaderIcons({ setIconType }: IHomeHeaderIcons) {
   const [isNoticeAlert, setIsNoticeAlert] = useState(false);
 
   useNoticeActiveLogQuery({

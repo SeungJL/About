@@ -38,8 +38,8 @@ export const isHeartCheckLocalStorage = (toUid: string) => {
   if (isOverlap) return false;
   return true;
 };
-
-export const setLocalStorageObj = (key: string, obj: Object) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setLocalStorageObj = (key: string, obj: any) => {
   localStorage.setItem(key, JSON.stringify(obj));
 };
 export const getLocalStorageObj = (key: string) =>

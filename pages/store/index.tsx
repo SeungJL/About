@@ -15,9 +15,8 @@ import { useStoreGiftEntryQuery } from "../../hooks/sub/store/queries";
 import StoreRuleModal from "../../modals/store/StoreRuleModal";
 import { isPrevBooleanState } from "../../recoils/previousAtoms";
 import { transferStoreGiftDataState } from "../../recoils/transferRecoils";
-import { STORE_GIFT_ACTIVE, STORE_GIFT_inActive } from "../../storage/Store";
-import { IStoreApplicant , IStoreGift } from "../../types/models/store";
-
+import { STORE_GIFT_ACTIVE, STORE_GIFT_INACTIVE } from "../../storage/Store";
+import { IStoreApplicant, IStoreGift } from "../../types/models/store";
 
 export interface IGiftEntry extends IStoreGift {
   users: IStoreApplicant[];
@@ -59,7 +58,7 @@ function Event() {
         users: [],
         totalCnt: 0,
       })),
-      inactive: STORE_GIFT_inActive.slice()
+      inactive: STORE_GIFT_INACTIVE.slice()
         .reverse()
         .map((gift) => ({
           ...gift,

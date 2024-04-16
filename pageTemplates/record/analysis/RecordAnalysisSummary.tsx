@@ -30,7 +30,7 @@ function RecordAnalysisSummary({ setIsLoading }: IRecordAnalysisSummary) {
     if (weeksArr?.length === WEEKS_CNT) setWeeksDate(weeksArr);
   }, []);
 
-  const { data, isLoading } = useUserAttendRateQueries(weeksDate, true, {
+  const { data } = useUserAttendRateQueries(weeksDate, true, {
     enabled: weeksDate.length !== 0,
   });
 

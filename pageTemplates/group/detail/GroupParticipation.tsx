@@ -20,7 +20,6 @@ function GroupParticipation({ data }: IGroupParticipation) {
   const toast = useToast();
   const setBeforePage = useSetRecoilState(prevPageUrlState);
 
-  const organizer = data.organizer;
   const status = data.status;
   const participantsCnt = data.participants.length + (data.id === 33 ? 3 : 0);
 
@@ -171,9 +170,6 @@ const UserOverview = styled.div`
     color: var(--gray-2);
   }
 `;
-const Organizer = styled.div`
-  position: relative;
-`;
 
 const ParticipateTime = styled.div<{ isFirst: boolean }>`
   font-size: 16px;
@@ -186,28 +182,12 @@ const ParticipateTime = styled.div<{ isFirst: boolean }>`
   }
 `;
 
-const CrownWrapper = styled.div`
-  position: absolute;
-  right: -1px;
-  bottom: -1px;
-`;
 const Layout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   background-color: white;
   padding-bottom: var(--gap-4);
-`;
-
-const Empty = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  > span {
-    font-size: 18px;
-    color: var(--gray-4);
-  }
 `;
 
 export default GroupParticipation;

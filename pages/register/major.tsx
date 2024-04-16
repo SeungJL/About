@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import BottomNav from "../../components/layouts/BottomNav";
 import ProgressHeader from "../../components/molecules/headers/ProgressHeader";
-import { majors_DATA } from "../../constants/contentsText/ProfileData";
+import { MAJORS_DATA } from "../../constants/contentsText/ProfileData";
 import { REGISTER_INFO } from "../../constants/keys/localStorage";
 import RegisterLayout from "../../pageTemplates/register/RegisterLayout";
 import RegisterOverview from "../../pageTemplates/register/RegisterOverview";
@@ -74,7 +74,7 @@ function Major() {
           <span>다중 선택도 가능해요.</span>
         </RegisterOverview>
 
-        {majors_DATA?.map((item, idx) => (
+        {MAJORS_DATA?.map((item, idx) => (
           <Section key={idx}>
             <SectionTitle>{item.department}</SectionTitle>
             <SectionContent>

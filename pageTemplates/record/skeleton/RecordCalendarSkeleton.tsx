@@ -7,7 +7,7 @@ interface IRecordCalendarSkeleton {
   month: number;
 }
 
-function RecordCalendarSkeleton({ month }) {
+function RecordCalendarSkeleton({ month }: IRecordCalendarSkeleton) {
   const blankDate = Array.from(
     {
       length: dayjs().month(month).date(1).day(),
@@ -26,9 +26,7 @@ function RecordCalendarSkeleton({ month }) {
     <Layout>
       <DayOfWeek />
       <CallenderDays>
-        {blankDate?.map((item) => (
-          <DayItem key={item + "temp"}></DayItem>
-        ))}
+        {blankDate?.map((item) => <DayItem key={item + "temp"}></DayItem>)}
         {totalDate?.map((item) => {
           return (
             <DayItem key={item}>
@@ -44,15 +42,17 @@ function RecordCalendarSkeleton({ month }) {
   );
 }
 function DayOfWeek() {
-  return <DayLine>
-    <span>일</span>
-    <span>월</span>
-    <span>화</span>
-    <span>수</span>
-    <span>목</span>
-    <span>금</span>
-    <span>토</span>
-  </DayLine>
+  return (
+    <DayLine>
+      <span>일</span>
+      <span>월</span>
+      <span>화</span>
+      <span>수</span>
+      <span>목</span>
+      <span>금</span>
+      <span>토</span>
+    </DayLine>
+  );
 }
 const Layout = styled.div``;
 const DayLine = styled.div`

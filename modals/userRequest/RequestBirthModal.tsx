@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import styled from "styled-components";
 
 import { useCompleteToast, useFailToast } from "../../hooks/custom/CustomToast";
 import { useUserRequestMutation } from "../../hooks/user/sub/request/mutations";
@@ -57,7 +56,5 @@ function RequestBirthModal({ setIsModal }: IModal) {
     </ModalLayout>
   );
 }
-
-const Layout = styled.div``;
 
 export default RequestBirthModal;

@@ -51,7 +51,7 @@ function GroupComments({ comment }: IGroupComments) {
   const resetQueryData = useResetQueryData();
 
   const { mutate: writeComment } = useGroupCommentMutation("post", GroupId, {
-    onSuccess(data) {
+    onSuccess() {
       resetQueryData([GROUP_STUDY_ALL]);
     },
   });

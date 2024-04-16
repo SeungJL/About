@@ -3,12 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
 
-import { useUserInfoQuery } from "../../hooks/user/queries";
 import ModalPortal from "../../modals/ModalPortal";
 import NotCompletedModal from "../../modals/system/NotCompletedModal";
-const VOTER_SHOW_MAX = 7;
-function ReviewStatus({ temp }: { temp?: any }) {
-  const data = useUserInfoQuery();
+
+function ReviewStatus() {
   const [isModal, setIsModal] = useState(false);
 
   return (
@@ -22,7 +20,6 @@ function ReviewStatus({ temp }: { temp?: any }) {
           <FontAwesomeIcon icon={faMessage} size="xl" />
           <span>10</span>
         </Item>
-   
       </Layout>
       {isModal && (
         <ModalPortal setIsModal={setIsModal}>
@@ -48,19 +45,6 @@ const Item = styled.div`
     font-weight: 600;
     font-size: 15px;
   }
-`;
-const Profile = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ProfileContainer = styled.div<{ zIndex: number }>`
-  width: 23px;
-  display: flex;
-  align-items: center;
-  z-index: ${(props) => props.zIndex};
-  position: relative;
-  padding-top: 28px;
 `;
 
 export default ReviewStatus;

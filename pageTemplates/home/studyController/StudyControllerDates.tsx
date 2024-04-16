@@ -31,7 +31,7 @@ function StudyControllerDates({ selectedDate }: IStudyControllerDates) {
   const dateArr = getDateArr(selectedDateDayjs);
 
   useEffect(() => {
-    setVariants(variants_options);
+    setVariants(variantsOptions);
   }, []);
 
   const onClick = (date: number) => {
@@ -71,7 +71,7 @@ function StudyControllerDates({ selectedDate }: IStudyControllerDates) {
   );
 }
 
-const variants_options = {
+const variantsOptions = {
   initial: (idx: number) => ({
     opacity: 1,
     x: idx === 6 ? 40 : idx === 0 ? -40 : 0,

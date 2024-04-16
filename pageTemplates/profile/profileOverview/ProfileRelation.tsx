@@ -28,16 +28,12 @@ function ProfileRelation({ user }: IProfileRelation) {
   >();
   const [isMyFriend, setIsMyFriend] = useState(false);
 
-  const { mutate: requestFriend, data } = useInteractionMutation(
-    "friend",
-    "post",
-    {
-      onSuccess() {
-        completeToast("free", "친구 요청이 전송되었습니다.");
-        setModalType(null);
-      },
-    }
-  );
+  const { mutate: requestFriend } = useInteractionMutation("friend", "post", {
+    onSuccess() {
+      completeToast("free", "친구 요청이 전송되었습니다.");
+      setModalType(null);
+    },
+  });
 
   const { mutate: deleteFriend } = useUserFriendMutation("delete", {
     onSuccess() {

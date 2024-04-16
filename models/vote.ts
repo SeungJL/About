@@ -1,3 +1,4 @@
+/* eslint-disable */
 import mongoose, { Model, model, Schema } from "mongoose";
 
 import {

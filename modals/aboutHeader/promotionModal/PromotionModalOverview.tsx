@@ -23,22 +23,6 @@ const Layout = styled.div`
   flex-direction: column;
 `;
 
-const EveryTime = styled.div`
-  position: relative;
-  z-index: 2;
-  background-color: white;
-  border-radius: var(--rounded-lg);
-`;
-
-const Title = styled.div`
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.3;
-  > span:first-child {
-    color: #c62917;
-  }
-`;
-
 const Detail = styled.div`
   flex: 1;
   margin-top: var(--gap-5);

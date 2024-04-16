@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useState } from "react";

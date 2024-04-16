@@ -88,7 +88,7 @@ export const setGatherDataToCardCol = (
     url: `/gather/${gather.id}`,
     func,
     image: {
-      url: gather.image || getRandomImage("gather"),
+      url: gather.image || getRandomImage(),
       priority: idx < 4,
     },
     badge: getGatherBadge(gather.status),

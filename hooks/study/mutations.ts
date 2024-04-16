@@ -4,7 +4,8 @@ import { useMutation } from "react-query";
 
 import { requestServer } from "../../libs/methodHelpers";
 import { MutationOptions } from "../../types/hooks/reactTypes";
-import { IStudyVote ,
+import {
+  IStudyVote,
   IStudyVotePlaces,
   IStudyVoteTime,
 } from "../../types/models/studyTypes/studyInterActions";
@@ -13,11 +14,11 @@ import { dayjsToStr } from "../../utils/dateTimeUtils";
 type StudyParticipationParam<T> = T extends "post"
   ? IStudyVote
   : T extends "patch"
-  ? IStudyVoteTime
-  : void;
+    ? IStudyVoteTime
+    : void;
 
 export const useStudyParticipationMutation = <
-  T extends "post" | "patch" | "delete"
+  T extends "post" | "patch" | "delete",
 >(
   voteDate: Dayjs,
   method: T,
@@ -105,6 +106,7 @@ export const useStudyResultDecideMutation = (
   date: string,
   options?: MutationOptions<void>
 ) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useMutation<any, AxiosError, void>(
     () =>
       requestServer<void>({

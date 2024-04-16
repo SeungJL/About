@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import AlertNotCompletedModal from "../../components/AlertNotCompletedModal";
@@ -9,9 +8,7 @@ import Accordion, {
 } from "../../components/molecules/Accordion";
 import SectionBar from "../../components/molecules/bars/SectionBar";
 
-interface IEventMission {}
-export default function EventMission({}: IEventMission) {
-  const router = useRouter();
+export default function EventMission() {
   const [isModal, setIsModal] = useState(false);
 
   const accordionOptions: IAccordionContent[] = [

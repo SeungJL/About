@@ -76,8 +76,8 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
     type === "suggest"
       ? "건의하기"
       : type === "declare"
-      ? "불편사항 신고"
-      : "스터디 장소 추천";
+        ? "불편사항 신고"
+        : "스터디 장소 추천";
 
   const footerOptions: IFooterOptions = {
     main: {
@@ -165,8 +165,6 @@ function RequestSuggestModal({ type, setIsModal }: IRequestSuggestModal) {
   );
 }
 
-const StudyPlaceNotice = styled.div``;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -186,12 +184,6 @@ const Item = styled.div`
     min-width: 20%;
     font-weight: 600;
   }
-`;
-
-const TitleInput = styled.input`
-  padding: 0 var(--gap-1);
-  background-color: var(--input-bg);
-  border-radius: var(--rounded-lg);
 `;
 
 const Writer = styled.div`
@@ -217,16 +209,6 @@ const WriterBtn = styled.button<{ isSelected: boolean }>`
 
 const Content = styled.span`
   margin-bottom: auto;
-`;
-
-const ContentInput = styled.textarea`
-  margin-top: var(--gap-3);
-  border-radius: var(--rounded-lg);
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: var(--gap-1);
-  background-color: var(--input-bg);
 `;
 
 export default RequestSuggestModal;

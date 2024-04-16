@@ -58,8 +58,6 @@ const Layout = styled.div`
   }
 `;
 
-const Category = styled.div``;
-
 const Writer = styled.span``;
 
 const Info = styled.div`

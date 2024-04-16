@@ -19,13 +19,3 @@ export const isMember = (roleStr: string) => {
 export const isPreviliged = (roleStr: string) => {
   return roleStr === role.previliged.value;
 };
-
-const CryptoJS = require("crypto-js");
-const crypto = require("crypto");
-
-export const makeCryptoKey = () => {
-  const salt = crypto.randomBytes(16).toString("hex");
-  const password = "about";
-  const key = CryptoJS.PBKDF2(password, salt, { keySize: 128 / 32 });
-  return key.toString(CryptoJS.enc.Base64);
-};

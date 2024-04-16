@@ -73,15 +73,6 @@ function MemberRecommend({ members }: IMemberRecommend) {
   );
 }
 
-const Layout = styled.div``;
-
-const Title = styled.span`
-  font-weight: 600;
-  font-size: 16px;
-  display: inline-block;
-  margin-bottom: var(--gap-3);
-`;
-
 const Nav = styled.nav`
   padding: 16px;
   display: flex;

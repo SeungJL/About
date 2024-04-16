@@ -24,7 +24,6 @@ import { useToast, useTypeToast } from "../../../hooks/custom/CustomToast";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { useAlphabetMutation } from "../../../hooks/user/sub/collection/mutations";
 import { useDailyCheckMutation } from "../../../hooks/user/sub/dailyCheck/mutation";
-import { useDailyCheckQuery } from "../../../hooks/user/sub/dailyCheck/queries";
 import { useUserRequestMutation } from "../../../hooks/user/sub/request/mutations";
 import { getRandomAlphabet } from "../../../libs/userEventLibs/collection";
 import {
@@ -49,8 +48,6 @@ function DailyCheckModal({ setIsModal }: IModal) {
   const setDailyCheckWin = useSetRecoilState(transferDailyCheckWinState);
   const setShowDailyCheck = useSetRecoilState(transferShowDailyCheckState);
   const setAlphabet = useSetRecoilState(transferAlphabetState);
-
-  const { data: dailyCheckAll, isLoading } = useDailyCheckQuery();
 
   const { mutate: getAlphabet } = useAlphabetMutation("get");
   const { mutate: setDailyCheck } = useDailyCheckMutation({
@@ -144,54 +141,58 @@ function DailyCheckModal({ setIsModal }: IModal) {
 }
 
 function PresentListPopOver() {
-  return <Popover placement="top-start">
-    <PopoverTrigger>
-      <Button fontSize="11px" size="xs" colorScheme="yellowTheme">
-        선물 목록
-      </Button>
-    </PopoverTrigger>
-    <PopoverContent bg="var(--gray-8)">
-      <PopoverHeader fontWeight="semibold">
-        선물 목록 <SubTitle>(16 종류)</SubTitle>
-      </PopoverHeader>
-      <PopoverArrow />
-      <PopoverCloseButton />
-      <PopoverBody fontSize="12px">
-        {DAILY_CHECK_WIN_ITEM.map((item, idx) => (
-          <span key={idx}>
-            {item.item}
-            {idx !== DAILY_CHECK_WIN_ITEM.length - 1 && ", "}
-          </span>
-        ))}
-      </PopoverBody>
-    </PopoverContent>
-  </Popover>
+  return (
+    <Popover placement="top-start">
+      <PopoverTrigger>
+        <Button fontSize="11px" size="xs" colorScheme="yellowTheme">
+          선물 목록
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent bg="var(--gray-8)">
+        <PopoverHeader fontWeight="semibold">
+          선물 목록 <SubTitle>(16 종류)</SubTitle>
+        </PopoverHeader>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverBody fontSize="12px">
+          {DAILY_CHECK_WIN_ITEM.map((item, idx) => (
+            <span key={idx}>
+              {item.item}
+              {idx !== DAILY_CHECK_WIN_ITEM.length - 1 && ", "}
+            </span>
+          ))}
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 function PresentPercentPopOver() {
-  return <Popover placement="top-start">
-    <PopoverTrigger>
-      <Button size="xs" fontSize="11px" colorScheme="yellowTheme">
-        당첨 확률
-      </Button>
-    </PopoverTrigger>
-    <PopoverContent bg="var(--gray-8)">
-      <PopoverHeader fontWeight="semibold">
-        당첨 확률<SubTitle>(총 7.06%)</SubTitle>
-      </PopoverHeader>
-      <PopoverArrow />
-      <PopoverCloseButton />
-      <PopoverBody fontSize="12px">
-        {DAILY_CHECK_WIN_ITEM.map((item, idx) => (
-          <PercentItem key={idx}>
-            <span>{item.item}</span>
-            <span>({item.percent}%)</span>
-            {idx !== DAILY_CHECK_WIN_ITEM.length - 1 && ", "}
-          </PercentItem>
-        ))}
-      </PopoverBody>
-    </PopoverContent>
-  </Popover>
+  return (
+    <Popover placement="top-start">
+      <PopoverTrigger>
+        <Button size="xs" fontSize="11px" colorScheme="yellowTheme">
+          당첨 확률
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent bg="var(--gray-8)">
+        <PopoverHeader fontWeight="semibold">
+          당첨 확률<SubTitle>(총 7.06%)</SubTitle>
+        </PopoverHeader>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverBody fontSize="12px">
+          {DAILY_CHECK_WIN_ITEM.map((item, idx) => (
+            <PercentItem key={idx}>
+              <span>{item.item}</span>
+              <span>({item.percent}%)</span>
+              {idx !== DAILY_CHECK_WIN_ITEM.length - 1 && ", "}
+            </PercentItem>
+          ))}
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 const Container = styled.div`
