@@ -11,7 +11,7 @@ export const getParticipationRate = async (
   const attendForm = allUser.reduce((accumulator, user) => {
     return { ...accumulator, [user.uid.toString()]: 0 };
   }, {});
-  test;
+  //test
   const forParticipation = await Vote.collection
     .aggregate([
       {
