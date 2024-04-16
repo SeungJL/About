@@ -2,6 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useState } from "react";
+
 import Slide from "../../components/layouts/PageSlide";
 import AttendanceBadge from "../../components/molecules/badge/AttendanceBadge";
 import { IProfileCommentCard } from "../../components/molecules/cards/ProfileCommentCard";
@@ -15,10 +16,7 @@ interface IStudyParticipants {
   participants: IAttendance[];
   absences: IAbsence[];
 }
-export default function StudyParticipants({
-  participants,
-  absences,
-}: IStudyParticipants) {
+export default function StudyParticipants({ participants, absences }: IStudyParticipants) {
   const [hasImageProps, setHasImageProps] = useState<{
     image: string;
     toUid: string;
@@ -39,9 +37,7 @@ export default function StudyParticipants({
                 mr="12px"
                 rounded="md"
                 overflow="hidden"
-                onClick={() =>
-                  setHasImageProps({ image: par.imageUrl, toUid: par.user.uid })
-                }
+                onClick={() => setHasImageProps({ image: par.imageUrl, toUid: par.user.uid })}
                 w="50px"
                 h="50px"
               >
@@ -50,13 +46,11 @@ export default function StudyParticipants({
                   width={50}
                   height={50}
                   alt="studyAttend"
+                  priority={true}
                 />
               </Box>
             )}
-            <AttendanceBadge
-              type={rightComponentProps.type}
-              time={rightComponentProps.time}
-            />
+            <AttendanceBadge type={rightComponentProps.type} time={rightComponentProps.time} />
           </Flex>
         </>
       ) : null,
@@ -89,7 +83,7 @@ export default function StudyParticipants({
           </Flex>
         )}
       </Slide>
-      {hasImageProps && (
+      {hasImageProps?.image && hasImageProps?.toUid && (
         <ImageZoomModal
           imageUrl={hasImageProps.image}
           toUid={hasImageProps.toUid}
@@ -107,16 +101,11 @@ interface IReturnProps extends Omit<IProfileCommentCard, "rightComponent"> {
   };
 }
 
-const composeUserCardArr = (
-  participant: IAttendance,
-  absences: IAbsence[]
-): IReturnProps => {
+const composeUserCardArr = (participant: IAttendance, absences: IAbsence[]): IReturnProps => {
   const arrived = participant?.arrived
     ? dayjsToFormat(dayjs(participant.arrived).subtract(9, "hour"), "HH:mm")
     : null;
-  const absent = absences.find(
-    (absence) => absence.user.uid === participant.user.uid
-  );
+  const absent = absences.find((absence) => absence.user.uid === participant.user.uid);
 
   return {
     user: participant.user,

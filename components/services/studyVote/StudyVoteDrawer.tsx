@@ -1,20 +1,18 @@
-import dayjs from "dayjs";
 import "dayjs/locale/ko";
+
+import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
+
 import { STUDY_VOTE } from "../../../constants/keys/queryKeys";
 import { useToast } from "../../../hooks/custom/CustomToast";
 import { useStudyParticipationMutation } from "../../../hooks/study/mutations";
 import { usePointSystemMutation } from "../../../hooks/user/mutations";
 import { usePointSystemLogQuery } from "../../../hooks/user/queries";
 import StudyVoteSubModalPrivate from "../../../modals/study/studyVoteSubModal/StudyVoteSubModalPrivate";
-
-import {
-  myStudyState,
-  studyDateStatusState,
-} from "../../../recoils/studyRecoils";
+import { myStudyState, studyDateStatusState } from "../../../recoils/studyRecoils";
 import { PLACE_TO_LOCATION, PLACE_TO_NAME } from "../../../storage/study";
 import { IModal } from "../../../types/components/modalTypes";
 import {
@@ -23,9 +21,7 @@ import {
   IStudyVoteTime,
 } from "../../../types/models/studyTypes/studyInterActions";
 import { dayjsToStr } from "../../../utils/dateTimeUtils";
-import BottomDrawerLg, {
-  IBottomDrawerLgOptions,
-} from "../../organisms/drawer/BottomDrawerLg";
+import BottomDrawerLg, { IBottomDrawerLgOptions } from "../../organisms/drawer/BottomDrawerLg";
 import StudyVotePlacesPicker from "../StudyVotePlacesPicker";
 import StudyVoteTimeRulletDrawer from "./StudyVoteTimeRulletDrawer";
 dayjs.locale("ko");
@@ -65,21 +61,15 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
 
   //오늘 날짜 투표 포인트 받은거 찾기
   const myPrevVotePoint = pointLog?.find(
-    (item) =>
-      item.message === "스터디 투표" &&
-      item.meta.sub === dayjsToStr(dayjs(date))
+    (item) => item.message === "스터디 투표" && item.meta.sub === dayjsToStr(dayjs(date)),
   )?.meta.value;
 
   const { mutate: getPoint } = usePointSystemMutation("point");
-  const { mutate: patchAttend, isLoading } = useStudyParticipationMutation(
-    dayjs(date),
-    "post",
-    {
-      onSuccess() {
-        handleSuccess();
-      },
-    }
-  );
+  const { mutate: patchAttend, isLoading } = useStudyParticipationMutation(dayjs(date), "post", {
+    onSuccess() {
+      handleSuccess();
+    },
+  });
 
   const handleSuccess = async () => {
     queryClient.invalidateQueries([STUDY_VOTE, date, location]);
@@ -131,16 +121,9 @@ export default function StudyVoteDrawer({ setIsModal }: IStudyVoteDrawer) {
           setIsModal={setIsModal}
         />
       ) : (
-        <BottomDrawerLg
-          options={drawerOptions}
-          setIsModal={setIsModal}
-          isAnimation={false}
-        >
+        <BottomDrawerLg options={drawerOptions} setIsModal={setIsModal} isAnimation={false}>
           {!isPrivateStudy ? (
-            <StudyVotePlacesPicker
-              setVotePlaces={setVotePlaces}
-              onClick={onSubmit}
-            />
+            <StudyVotePlacesPicker setVotePlaces={setVotePlaces} />
           ) : (
             <StudyVoteSubModalPrivate setVoteInfo={setMyVote} />
           )}

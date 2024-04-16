@@ -11,8 +11,7 @@ interface IStudyCover {
 }
 
 function StudyCover({ brand, imageUrl, isPrivateStudy }: IStudyCover) {
-  const brandName =
-    brand === "행궁 81.2" ? "행궁" : isPrivateStudy ? "개인스터디" : brand;
+  const brandName = brand === "행궁 81.2" ? "행궁" : isPrivateStudy ? "개인스터디" : brand;
   const logo = STUDY_CAFE_LOGO[brandName];
 
   return (
@@ -36,6 +35,6 @@ const LogoWrapper = styled.div`
   right: 24px;
   bottom: -32px;
   box-shadow: var(--shadow);
-  z-index: 100;
+  z-index: 10;
 `;
 export default StudyCover;

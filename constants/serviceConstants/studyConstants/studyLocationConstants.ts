@@ -6,7 +6,10 @@ import {
   INC_송도,
   INC_송도DT,
   INC_인하대,
+  SUWAN_광교,
   SUWAN_워터쿨러,
+  YANG_목동점,
+  YANG_발산역,
 } from "../../../storage/study";
 import { ActiveLocation } from "../../../types/services/locationTypes";
 import {
@@ -30,6 +33,7 @@ import {
   DONG_장안동,
   DONG_혜화역,
   DONG_혜화역2,
+  DONG_회기역,
   GANGNAM_강남,
   GANGNAM_강남구청,
   GANGNAM_교대,
@@ -55,8 +59,10 @@ import {
   SUWAN_아주대,
   SUWAN_자유신청,
   SUWAN_행궁동,
+  YANG_당산역,
   YANG_몽글,
   YANG_스타벅스,
+  YANG_신월동,
   YANG_신풍역,
   YANG_위카페,
   YANG_이디야,
@@ -92,6 +98,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     SUWAN_광교중앙역,
     SUWAN_망포역,
     SUWAN_워터쿨러,
+    SUWAN_광교,
   ],
   양천: [
     YANG_이디야,
@@ -105,14 +112,12 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     YANG_카페꼼마,
     YANG_화곡역,
     YANG_자유신청,
+    YANG_신월동,
+    YANG_당산역,
+    YANG_목동점,
+    YANG_발산역,
   ],
-  안양: [
-    ANYANG_숨맑은집,
-    ANYANG_인뎃커피,
-    ANYANG_커피인더스트리,
-    ANYANG_파스쿠찌,
-    ANYANG_자유신청,
-  ],
+  안양: [ANYANG_숨맑은집, ANYANG_인뎃커피, ANYANG_커피인더스트리, ANYANG_파스쿠찌, ANYANG_자유신청],
   강남: [
     GANGNAM_강남,
     GANGNAM_강남구청,
@@ -142,6 +147,7 @@ export const LOCATION_TO_PLACE: LocationToPlace = {
     DONG_자유신청,
     DONG_화랑대역,
     DONG_중화역,
+    DONG_회기역,
   ],
   인천: [INC_구월동, INC_부평, INC_인하대, INC_송도, INC_송도DT],
 };

@@ -2,18 +2,17 @@ import { Flex } from "@chakra-ui/react";
 import { faPenCircle, faShareNodes } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import Header from "../../../components/layouts/Header";
-import { useFailToast } from "../../../hooks/custom/CustomToast";
 import GatherKakaoShareModal from "../../../modals/gather/GatherKakaoShareModal";
 import { isGatherEditState } from "../../../recoils/checkAtoms";
 import { prevPageUrlState } from "../../../recoils/previousAtoms";
 import { sharedGatherWritingState } from "../../../recoils/sharedDataAtoms";
-
 import { IGather } from "../../../types/models/gatherTypes/gatherTypes";
 
 interface IGatherHeader {
@@ -21,7 +20,6 @@ interface IGatherHeader {
 }
 
 function GatherHeader({ gatherData }: IGatherHeader) {
-  const failToast = useFailToast();
   const router = useRouter();
 
   const title = gatherData?.title;
@@ -52,11 +50,7 @@ function GatherHeader({ gatherData }: IGatherHeader) {
             </IconWrapper>
           )}
           <IconWrapper>
-            <FontAwesomeIcon
-              icon={faShareNodes}
-              size="lg"
-              onClick={() => setIsModal(true)}
-            />
+            <FontAwesomeIcon icon={faShareNodes} size="lg" onClick={() => setIsModal(true)} />
           </IconWrapper>
         </Flex>
       </Header>

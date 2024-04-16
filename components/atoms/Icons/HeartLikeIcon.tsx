@@ -4,19 +4,13 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { LIKE_HEART } from "../../../constants/keys/localStorage";
 import { POINT_SYSTEM_PLUS } from "../../../constants/settingValue/pointSystem";
-
 import { useAdminPointMutation } from "../../../hooks/admin/mutation";
-import {
-  useCompleteToast,
-  useErrorToast,
-} from "../../../hooks/custom/CustomToast";
+import { useCompleteToast, useErrorToast } from "../../../hooks/custom/CustomToast";
 import { useInteractionMutation } from "../../../hooks/user/sub/interaction/mutations";
-import {
-  isHeartCheckLocalStorage,
-  pushArrToLocalStorage,
-} from "../../../utils/storageUtils";
+import { isHeartCheckLocalStorage, pushArrToLocalStorage } from "../../../utils/storageUtils";
 
 interface IHeartLikeIcon {
   toUid: string;

@@ -1,16 +1,12 @@
 import { Box, Button } from "@chakra-ui/react";
-import {
-  fa1,
-  fa2,
-  faCrown,
-  faInfinity,
-} from "@fortawesome/pro-solid-svg-icons";
+import { fa1, fa2, faCrown, faInfinity } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 import Avatar from "../../../components/atoms/Avatar";
 import InviteUserModal from "../../../modals/InviteUserModal";
 import { prevPageUrlState } from "../../../recoils/navigationRecoils";
@@ -60,22 +56,14 @@ function GatherParticipation({ data }: IGatherParticipation) {
             )}
           </Box>
           {session?.user.uid === organizer.uid && (
-            <Button
-              size="sm"
-              ml="auto"
-              colorScheme="mintTheme"
-              onClick={() => setIsModal(true)}
-            >
+            <Button size="sm" ml="auto" colorScheme="mintTheme" onClick={() => setIsModal(true)}>
               인원초대
             </Button>
           )}
         </Header>
         <Members>
           {!isAdminOpen ? (
-            <MemberItem
-              key={organizer?.uid}
-              onClick={() => onClickProfile(organizer)}
-            >
+            <MemberItem key={organizer?.uid} onClick={() => onClickProfile(organizer)}>
               <Organizer>
                 <Avatar
                   image={organizer.profileImage}
@@ -100,10 +88,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
           {data?.participants.map(
             (who) =>
               who?.user && (
-                <MemberItem
-                  key={who?.user.uid}
-                  onClick={() => onClickProfile(who.user)}
-                >
+                <MemberItem key={who?.user.uid} onClick={() => onClickProfile(who.user)}>
                   <Avatar
                     image={who.user.profileImage}
                     avatar={who.user.avatar}
@@ -123,7 +108,7 @@ function GatherParticipation({ data }: IGatherParticipation) {
                     <span>차</span>
                   </ParticipateTime>
                 </MemberItem>
-              )
+              ),
           )}
         </Members>
       </Layout>
@@ -199,8 +184,7 @@ const ParticipateTime = styled.div<{ isFirst: boolean }>`
   font-size: 16px;
   margin-left: auto;
   margin-right: var(--gap-2);
-  color: ${(props) =>
-    props.isFirst ? "var(--color-mint)" : "var(--color-orange)"};
+  color: ${(props) => (props.isFirst ? "var(--color-mint)" : "var(--color-orange)")};
   > span:last-child {
     margin-left: 2px;
   }

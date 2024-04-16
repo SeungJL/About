@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+
 import { IGatherWriting } from "../types/models/gatherTypes/gather";
 import { IGroupWriting } from "../types/models/groupTypes/group";
 
